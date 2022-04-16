@@ -1,0 +1,261 @@
+main {
+    width: 1440px;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-image: url("../resources/bkRegisterO.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+}
+
+.header {
+    overflow: hidden;
+    background-color: #B64141;
+    padding: 0;
+}
+
+.header a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: "Zilla Slab";
+    font-weight: bold;
+}
+
+.header .link:hover {
+    color: black;
+    background-color: #F5F5F5;
+}
+
+.header a.active {
+    color: white;
+    -webkit-text-stroke: 2px #F4B795;
+    padding: 0;
+}
+.header a.active p {
+    font-family:"Zen Dots";
+    font-size: 25px;
+    margin: 0;
+    padding: 10px 10px 0px 10px;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn:hover {
+    color: black;
+    background-color: #F5F5F5;
+}
+
+.dropdown .dropbtn {
+    cursor: pointer;
+    font-size: 17px;
+    border: none;
+    outline: none;
+    color: #f2f2f2;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family:"Zilla Slab";
+    font-weight: bold;
+    margin: 0;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #B64141;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    color: black;
+    background-color: #F5F5F5;
+}
+
+.show {
+    display: block;
+}
+
+
+.header_small a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: "Zilla Slab";
+    font-weight: bold;
+}
+.header_small .link:hover {
+    color: black;
+    background-color: #F5F5F5;
+}
+.header_small a.active{
+    color: white;
+    -webkit-text-stroke: 2px #F4B795;
+    padding: 0;
+}
+
+.header_small a.active p{
+    font-family: "Zen Dots";
+    font-size: 25px;
+    margin: 0;
+    padding: 10px 10px 0px 10px;
+}
+.header_small
+{
+    overflow: hidden;
+    background-color: #B64141;
+    padding: 0;
+}
+
+#main-div {
+
+    width: 45%;
+    margin: 10% 25% 2% 25%;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+}
+
+#title {
+    text-align: center;
+    margin-top: 6%;
+    font-family: "Text Me One";
+    font-weight: lighter;
+}
+
+#register-form {
+    display: flex;
+    flex-direction: column;
+}
+#register-form ::placeholder {
+    font-family: "Zilla Slab";
+    color: black;
+    opacity: 35%;
+}
+
+#register-form .half-width {
+    width: 45%;
+    align-self: center;
+}
+#register-form .full-width {
+    width:70%;
+    display: block;
+    align-self: center;
+    margin-top: 4%;
+}
+#register-form .full-width input {
+    height: 30px;
+    border-radius: 8px;
+}
+#register-form input {
+    border: 1px solid gray;
+    border-radius: 8px;
+    height: 30px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.45);
+}
+
+#register-form .bottom-text {
+    font-family: "Zilla Slab";
+    width:30%;
+}
+
+#register-form .bottom-text a {
+    color: #B64141;
+    font-weight: bold;
+    text-shadow: 0px 0px 2px gray;
+    text-decoration: none;
+}
+
+#register-form .submitbtn{
+    background-color: #B64141;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 30px;
+    font-family: "Zilla Slab";
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    padding: 2% 4% 2% 4%;
+}
+
+#buton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 5%;
+}
+@media screen and (max-width: 600px) {
+    div.header {
+        display: none;
+    }
+    div.header_small{
+        display:block;
+    }
+    #main-div{
+        flex-flow:column;
+    }
+    #register-form{
+        flex-flow: column wrap;
+    }
+    #register-form .half-width {
+        width:95%;
+        display: block;
+        position:center;
+        padding-right:4%;
+        margin-top: 4%;
+    }
+    #register-form .half-width input {
+        height: 30px;
+        border-radius: 8px;
+    }
+   #register{
+       align-self: flex-end;
+       float:left;
+   }
+    #buton
+    {
+        padding-bottom: 10%;
+
+    }
+}
+@media screen and (min-width: 601px) {
+    div.header {
+        display: block;
+    }
+    div.header_small{
+        display:none;
+    }
+    #register{
+        float:right;
+    }
+}

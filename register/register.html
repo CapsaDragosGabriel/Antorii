@@ -52,14 +52,17 @@
 </div>
 <div id="main-div">
     <h1 id="title">Creaza-ti un cont!</h1>
+    <div itemscope itemtype="https://schema.org/Person">
     <form id="register-form" action="../startUser/startUser.html">
-        <div class="full-width">
-            <input class="half-width" type="text" id="nume" name="nume" pattern="[A-Z]+[a-z]" placeholder="nume" required>
-            <input class="half-width" type="text" id="prenume" name="prenume" pattern="[A-Z]+[a-z]" placeholder="prenume" style="float: right" required>
+        <div  class="full-width">
+            <input class="half-width" itemprop="familyName" type="text" id="nume" name="nume" pattern="[A-Z]+[a-z]" placeholder="nume" required>
+            <input class="half-width" itemprop="givenName" type="text" id="prenume" name="prenume" pattern="[A-Z]+[a-z]" placeholder="prenume" style="float: right" required>
         </div>
-        <input class="full-width" type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+
+        <input class="full-width" itemprop="email" type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                title="Trebuie sa fie de forma 'characters@characters.domain'" placeholder="example@gmail.com" required>
-        <input class="full-width" type="tel" id="tel" name="tel" placeholder="0700000000" required>
+
+            <input class="full-width" itemprop="telephone" type="tel" id="tel" name="tel" placeholder="0700000000" required>
         <input class="full-width" type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                title="Trebuie sa contina cel putin un numar, litera mare si o litera mica si cel putin 8 caractere" placeholder="password" required>
         <div class="full-width">
@@ -77,6 +80,7 @@
             <button class="submitbtn" type="submit" value="inregistrare">Inregistreaza-te</button>
         </label>
     </form>
+    </div>
 </div>
 </body>
 </html>

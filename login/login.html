@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ro">
 
 <head>
@@ -8,7 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Text+Me+One">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
-    <link href="login.css" rel="stylesheet">
+    <link href="login.css" type="text/css" rel="stylesheet">
 
     <script src="../script/scriptFile.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,10 +58,13 @@
 </div>
 <br><br><br><br><br><br><br><br>
 
-<form action="../startUser/startUser.html">
+<!-- <form action="../startUser/startUser.html" method="post">-->
+
+    <form method="POST" action="../startUser/startUser.html">
     <h1 class="titlu">Intra in cont!</h1><br>
     <input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
            title="Trebuie sa fie de forma 'characters@characters.domain'" placeholder="example@gmail.com" required><br><br>
+
     <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
            title="Trebuie sa contina cel putin un numar, litera mare si o litera mica si cel putin 8 caractere" placeholder="************" required><br><br>
     <div class="full-width">
@@ -72,6 +76,7 @@
     </div>
     <button class="buttonaut" type="submit">Autentifica-ma</button>
 </form>
+
 
 </body>
 </html>

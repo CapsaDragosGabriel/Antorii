@@ -16,6 +16,15 @@ main {
 html {
   height: 100%;
 }
+
+body {
+  background-image: url("../resources/bkRegisterO.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+}
+
 .header {
   overflow: hidden;
   background-color: $background-color_1;
@@ -122,14 +131,6 @@ html {
 }
 .show {
   display: block;
-}
-body {
-  margin: 0;
-  background-color: $background-color_4;
-  background-image: url('https://i.imgur.com/LI3zuWe.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 .buttonaut {
   background-color: $background-color_1;

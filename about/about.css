@@ -204,7 +204,7 @@ body {
     margin-left: 5%;
 }
 
-.haibtn a{
+.haibtn {
     text-decoration: none;
     color: white;
     font-family: "Zilla Slab";

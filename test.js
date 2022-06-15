@@ -6,8 +6,8 @@ const fs = require('fs');
 var path = require('path');
 
 http.createServer(function (request, response) {
-    console.log('request starting...');
-    console.log(request.url);
+    //console.log('request starting...');
+    //console.log(request.url);
     var filePath = '.' + request.url;
     if (filePath == './')
         filePath = '../Antorii/mainHome/mainHome.html';

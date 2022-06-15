@@ -7,7 +7,7 @@ html {
 }
 
 body {
-    background-image: url("../resources/bkRegisterO.png");
+    background-image: url("../resources/bkRideS.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -18,8 +18,8 @@ body {
     overflow: hidden;
     background-color: #B64141;
     padding: 0;
-    position: fixed;
     top: 0;
+    position: fixed;
     width: 100%;
 }
 
@@ -138,91 +138,137 @@ body {
     padding: 0;
 }
 
-#main-div {
-
-    width: 45%;
-    margin: 10% 25% 2% 25%;
+.details {
+    height: 100%;
+    width: 250px;
+    z-index: 1;
+    top: 48px;
+    left: 0;
     background-color: #F5F5F5;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    overflow-x: hidden;
+    position: fixed;
 }
 
-#title {
-    text-align: center;
-    margin-top: 6%;
-    font-family: "Text Me One";
-    font-weight: lighter;
-}
-
-#register-form {
-    display: flex;
-    flex-direction: column;
-}
-
-#register-form ::placeholder {
-    font-family: "Zilla Slab";
-    color: black;
-    opacity: 35%;
-}
-
-#register-form .half-width {
-    width: 45%;
-    align-self: center;
-}
-
-#register-form .full-width {
-    width: 70%;
+.details a {
+    padding: 20px 8px 20px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
     display: block;
-    align-self: center;
-    margin-top: 4%;
-}
-
-#register-form .full-width input {
-    height: 30px;
-    border-radius: 8px;
-}
-
-#register-form input {
-    border: 1px solid gray;
-    border-radius: 8px;
-    height: 30px;
-    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.45);
-}
-
-#register-form .bottom-text {
+    font-weight: bold;
     font-family: "Zilla Slab";
-    width: 30%;
 }
 
-#register-form .bottom-text a {
+.details .user-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 20px 40px 20px 0;
+}
+
+.details .user-div p {
+    margin: 5px 0 0 20px;
+    color: #818181;
+    font-weight: bold;
+    font-family: "Zilla Slab";
+}
+
+.details .user-div a:hover {
     color: #B64141;
-    font-weight: bold;
-    text-shadow: 0px 0px 2px gray;
-    text-decoration: none;
 }
 
-#register-form .submitbtn {
+.details .options a:hover {
     background-color: #B64141;
-    border: none;
     color: white;
-    text-align: center;
-    text-decoration: none;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 30px;
+}
+
+.big-div p {
+    margin-left: 350px;
+    margin-bottom: 0;
+    margin-top: 50px;
     font-family: "Zilla Slab";
     font-weight: bold;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-    padding: 2% 4% 2% 4%;
+    font-size: 64px;
+    color: black;
+    text-align: left;
+    text-shadow: 1px 1px 3px #B64141;
+    filter: drop-shadow(0px 7px 1px #ADADAD);
 }
 
-#buton {
-    width: 100%;
+.main-div {
+    background-color: #F5F5F5;
+    height: 600px;
+    width: 600px;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
-    padding-top: 5%;
+    margin-left: 480px;
+    margin-top: 100px;
+}
+
+.main-div #ridesharing-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.overlay {
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #F5F5F5;
+    overflow-y: hidden;
+    transition: 0.5s;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    font-weight: bold;
+    font-family: "Zilla Slab";
+}
+
+.overlay a:hover, .overlay a:focus {
+    background-color: #B64141;
+    color: white;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+.menu-small {
+    background-color: #B64141;
+    display: flex;
+    justify-content: center;
+}
+
+.menu-small #profile {
+    cursor: pointer;
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: "Zilla Slab";
+    font-weight: bold;
 }
 
 @media screen and (max-width: 600px) {
@@ -233,38 +279,35 @@ body {
     div.header_small {
         display: flex;
         flex-direction: row;
+        width: 100%;
     }
 
-    #main-div {
-        flex-flow: column;
+    .details {
+        display: none;
     }
 
-    #register-form {
-        flex-flow: column wrap;
+    .overlay {
+        overflow-y: auto;
     }
 
-    #register-form .half-width {
-        width: 95%;
-        display: block;
-        position: center;
-        padding-right: 4%;
-        margin-top: 4%;
+    .overlay a {
+        font-size: 20px
     }
 
-    #register-form .half-width input {
-        height: 30px;
-        border-radius: 8px;
+    .overlay .closebtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
     }
 
-    #register {
-        align-self: flex-end;
-        float: left;
+    .big-div {
+        display: none;
     }
 
-    #buton {
-        padding-bottom: 10%;
-
+    .main-div {
+        display: none;
     }
+
 }
 
 @media screen and (min-width: 601px) {
@@ -276,7 +319,7 @@ body {
         display: none;
     }
 
-    #register {
-        float: right;
+    .menu-small {
+        display: none;
     }
 }

@@ -41,8 +41,9 @@ body {
   -webkit-text-stroke: 2px #F4B795;
   padding: 0;
 }
+
 .header a.active p {
-  font-family:"Zen Dots";
+  font-family: "Zen Dots";
   font-size: 25px;
   margin: 0;
   padding: 10px 10px 0px 10px;
@@ -66,7 +67,7 @@ body {
   color: #f2f2f2;
   padding: 14px 16px;
   background-color: inherit;
-  font-family:"Zilla Slab";
+  font-family: "Zilla Slab";
   font-weight: bold;
   margin: 0;
 }
@@ -109,24 +110,26 @@ body {
   font-family: "Zilla Slab";
   font-weight: bold;
 }
+
 .header_small .link:hover {
   color: black;
   background-color: #F5F5F5;
 }
-.header_small a.active{
+
+.header_small a.active {
   color: white;
   -webkit-text-stroke: 2px #F4B795;
   padding: 0;
 }
 
-.header_small a.active p{
+.header_small a.active p {
   font-family: "Zen Dots";
   font-size: 25px;
   margin: 0;
   padding: 10px 10px 0px 10px;
 }
-.header_small
-{
+
+.header_small {
   overflow: hidden;
   background-color: #B64141;
   padding: 0;
@@ -154,6 +157,7 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 #register-form ::placeholder {
   font-family: "Zilla Slab";
   color: black;
@@ -164,16 +168,19 @@ body {
   width: 45%;
   align-self: center;
 }
+
 #register-form .full-width {
-  width:70%;
+  width: 70%;
   display: block;
   align-self: center;
   margin-top: 4%;
 }
+
 #register-form .full-width input {
   height: 30px;
   border-radius: 8px;
 }
+
 #register-form input {
   border: 1px solid gray;
   border-radius: 8px;
@@ -183,7 +190,7 @@ body {
 
 #register-form .bottom-text {
   font-family: "Zilla Slab";
-  width:30%;
+  width: 30%;
 }
 
 #register-form .bottom-text a {
@@ -193,7 +200,7 @@ body {
   text-decoration: none;
 }
 
-#register-form .submitbtn{
+#register-form .submitbtn {
   background-color: #B64141;
   border: none;
   color: white;
@@ -214,48 +221,49 @@ body {
   justify-content: center;
   padding-top: 5%;
 }
+
 @media screen and (max-width: 600px) {
   div.header {
     display: none;
   }
-  div.header_small{
-    display:block;
+  div.header_small {
+    display: block;
   }
-  #main-div{
-    flex-flow:column;
+  #main-div {
+    flex-flow: column;
   }
-  #register-form{
+  #register-form {
     flex-flow: column wrap;
   }
   #register-form .half-width {
-    width:95%;
+    width: 95%;
     display: block;
-    position:center;
-    padding-right:4%;
+    position: center;
+    padding-right: 4%;
     margin-top: 4%;
   }
   #register-form .half-width input {
     height: 30px;
     border-radius: 8px;
   }
-  #register{
+  #register {
     align-self: flex-end;
-    float:left;
+    float: left;
   }
-  #buton
-  {
+  #buton {
     padding-bottom: 10%;
 
   }
 }
+
 @media screen and (min-width: 601px) {
   div.header {
     display: block;
   }
-  div.header_small{
-    display:none;
+  div.header_small {
+    display: none;
   }
-  #register{
-    float:right;
+  #register {
+    float: right;
   }
 }

@@ -1,6 +1,8 @@
 const Product = require('../models/productModel')
 
 const { getPostData } = require('../utils')
+const path = require("path");
+const fs = require("fs");
 
 // @desc    Gets All Products
 // @route   GET /api/products
@@ -14,7 +16,46 @@ async function getProducts(req, res) {
         console.log(error)
     }
 }
+async function getPage(request,response){
+    var filePath = '.' + request.url;
+    if (filePath == './')
+        filePath = '../Antorii/mainHome/mainHome.html';
 
+    var extname = path.extname(filePath);
+    var contentType = 'text/html';
+    switch (extname) {
+        case '.js':
+            contentType = 'text/javascript';
+            break;
+        case '.css':
+            contentType = 'text/css';
+            break;
+        case '.png':
+            contentType = 'image/png';
+            break;
+        case '.jpg':
+            contentType = 'image/jpg';
+            break;
+    }
+
+    fs.readFile(filePath, function (error, content) {
+        if (error) {
+            if (error.code == 'ENOENT') {
+                fs.readFile('./404.html', function (error, content) {
+                    response.writeHead(200, {'Content-Type': contentType});
+                    response.end(content, 'utf-8');
+                });
+            } else {
+                response.writeHead(500);
+                response.end('Sorry, check with the site admin for error: ' + error.code + ' ..\n');
+                response.end();
+            }
+        } else {
+            response.writeHead(200, {'Content-Type': contentType});
+            response.end(content, 'utf-8');
+        }
+    });
+}
 // @desc    Gets Single Product
 // @route   GET /api/product/:id
 async function getProduct(req, res, id) {
@@ -110,6 +151,7 @@ async function deleteProduct(req, res, id) {
 
 module.exports = {
     getProducts,
+    getPage,
     getProduct,
     createProduct,
     updateProduct,

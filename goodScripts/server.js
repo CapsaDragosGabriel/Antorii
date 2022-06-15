@@ -1,10 +1,18 @@
 const http = require('http')
-const { getProducts, getProduct, createProduct, updateProduct, deleteProduct } = require('./controllers/productController')
+const { getProducts, getProduct, createProduct, updateProduct, deleteProduct, getPage} = require('./controllers/productController')
 
 const server = http.createServer((req, res) => {
     if(req.url === '/api/products' && req.method === 'GET') {
-        getProducts(req, res)
-    } else if(req.url.match(/\/api\/products\/\w+/) && req.method === 'GET') {
+        //getProducts(req, res)
+        getPage(req,res).then();
+        console.log("fuck");
+    }else
+    if(req.url === '/' && req.method === 'GET') {
+        //getProducts(req, res)
+        getPage(req,res).then();
+        console.log("fuck");
+    }
+    else if(req.url.match(/\/api\/products\/\w+/) && req.method === 'GET') {
         const id = req.url.split('/')[3]
         getProduct(req, res, id)
     } else if(req.url === '/api/products' && req.method === 'POST') {

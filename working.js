@@ -46,7 +46,6 @@ http.createServer(function (request, response) {
             response.end(content, 'utf-8');
         }
     });
-    onload()
 }).listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });

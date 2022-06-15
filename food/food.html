@@ -2,7 +2,7 @@
 <html lang="ro">
 <head >
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="ridesharing.css">
+    <link rel="stylesheet" href="food.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Imbue">
@@ -52,7 +52,22 @@
     <a class="link" href="../register/register.html">Inregistrare</a>
 </div>
 
+<div class="box">
+    <form method="POST" action="../startUser/startUser.html">
+        <h1 class="titlu">Detalii comanda</h1><br>
+        <label for="restaurant">Alege restaurantul:</label>
+        <select name="restaurant" id="restaurant">
+            <div id="restaurantOptions"></div>
+            <!-- aici ar trebui luata lista de restaurante din baza de date si facut ptr fiecare optiunea-->
+        </select><br>
+            <!-- luat din baza de date tipurile de mancare de la restaurantul respectiv-->
+        <input class="checkbox" type="checkbox" id="food1" name="food1" value="food1">
+        <label for="food1"> food1</label><br>
 
+
+        <button class="buttonaut" type="submit">Plaseaza comanda</button>
+    </form>
+</div>
 
 <footer class="footer">
     <p>&copy; 2022 Antorii</p>
@@ -61,6 +76,7 @@
         Romania
     </p>
 </footer>
+<script type="module" src="insertRestaurants.js"></script>
 
 </body>
 </html>

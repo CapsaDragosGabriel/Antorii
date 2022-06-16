@@ -6,8 +6,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Imbue">
-    <script src="../script/scriptFile.js"></script>
-    <script type="module" src="insertRestaurants.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -25,9 +24,7 @@
             <a href="../login/login.html" ><p itemprop="makesOffer">Inchirieri</p></a>
         </div>
     </div>
-    <a class="link" href="../about/about.html">Despre</a>
-    <a class="link" href="../login/login.html">Autentificare</a>
-    <a class="link" href="../register/register.html">Inregistrare</a>
+    <a class="link" onclick="logout()">Deconectare</a>
 </div>
 <div itemscope  class="header_small" itemtype="https://schema.org/Organization">
 
@@ -43,13 +40,13 @@
             <a href="../login/login.html">Inchirieri</a>
 
         </div>
+        <a class="link" onclick="logout()">Deconectare</a>
 
     </div>
-    <a class="link" href="../login/login.html">Autentificare</a>
-    <a class="link" href="../register/register.html">Inregistrare</a>
 </div>
 
 <div id="box">
+    <h1>Alege restaurantul</h1>
     <!--<form method="POST" action="../startUser/startUser.html">
         <h1 class="titlu">Detalii comanda</h1><br>
         <label for="restaurant">Alege restaurantul:</label>
@@ -74,6 +71,7 @@
     </p>
 </footer>
 <script type="module" src="insertRestaurants.js"></script>
-
+<script src="../script/servicesBtn.js"></script>
+<script  src="../startUser/startUser.js"></script>
 </body>
 </html>

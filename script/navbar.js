@@ -20,4 +20,4 @@ function loggedHeader(isLogged) {
         headerDiv.appendChild(a2);
     }
 }
-loggedHeader(true);
+//loggedHeader(true);

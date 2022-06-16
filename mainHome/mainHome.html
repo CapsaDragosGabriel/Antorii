@@ -9,6 +9,14 @@
     <script src="../script/servicesBtn.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="../script/servicesBtn.js"></script>
+    <script>
+        if (localStorage.getItem('token')!=null)
+        {
+            //check cu baza de date
+            //if all good
+            window.location.href="http://127.0.0.1:8000/startUser/startUser.html";
+        }
+    </script>
     <title>SerP</title>
 </head>
 <body>

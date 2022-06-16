@@ -75,9 +75,7 @@ const server = http.createServer((req, res) => {
             req.on('end', () => {
                 data = JSON.parse(data);
                 console.log('data chunk finished ' + data.email)
-
-
-                const result = {
+                 const result = {
                     email: data.email,
                     parola: data.password,
                     token: makeid(16)

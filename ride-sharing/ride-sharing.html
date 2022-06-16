@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="ride-sharing.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="../script/servicesBtn.js"></script>
+    <script src="../goodScripts/utils.js"></script>
     <script >
         if (localStorage.getItem('token')){}
             //check token with db
@@ -30,7 +31,7 @@
             <a href="../login/login.html"><p itemprop="makesOffer">Inchirieri</p></a>
         </div>
     </div>
-    <a class="link" href="../mainHome/mainHome.html">Deconectare</a>
+    <a class="link" href="../mainHome/mainHome.html" onclick="logout()">Deconectare</a>
 </div>
 <div class="header_small" itemscope itemtype="https://schema.org/Organization">
     <a class="active" href="../startUser/startUser.html" itemprop="legalName"><p>SerP</p></a>

@@ -5,11 +5,22 @@ const {
     createProduct,
     updateProduct,
     deleteProduct,
-    getPage
+    getPage, getLoggedPage
 } = require('./controllers/productController')
 const fs = require('fs');
 const url = require('url');
 const qs = require('querystring');
+
+function makeid(length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() *
+            charactersLength));
+    }
+    return result;
+}
 
 const parseCookies = (cookie = '') =>
     cookie
@@ -22,107 +33,137 @@ const parseCookies = (cookie = '') =>
         }, {});
 
 const server = http.createServer((req, res) => {
-    /* const cookies = parseCookies(req.headers.cookie);
-     if(req.url.startsWith('/login')) {
-         const { query } = url.parse(req.url);
-         const { name } = qs.parse(query);
-         const expires = new Date();
-         expires.setMinutes(expires.getMinutes() + 1);
-         res.writeHead(302, {
-             Location: '/',
-             'Set-Cookie': `name=${encodeURIComponent(name)};Expires=${expires.toGMTString()};HttpOnly; Path=/`,
-         });
-         res.end();
-     } else if (cookies.name) {
-         res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8'});
-         fs.readFile('../mainHome/mainHome.html', (error,data) => {
-
-             res.end(data);
-         });
-         //res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8'});
-         res.end(`Welcome ${cookies.name}`)
-     } else {
-         fs.readFile('../server4.html', (error,data) => {
-
-             res.end(data);
-         });
-     }
- */
-    console.log('TEST server called')
     const cookies = parseCookies(req.headers.cookie);
-    if (req.url.startsWith('/api')) {
+    /*
+    if(req.url.startsWith('/login')) {
+       /* const { query } = url.parse(req.url);
+        const { name } = qs.parse(query);
+        const expires = new Date();
+        expires.setMinutes(expires.getMinutes() + 1);
+        res.writeHead(302, {
+            Location: '/',
+            'Set-Cookie': `name=${encodeURIComponent(name)};Expires=${expires.toGMTString()};HttpOnly; Path=/`,
+        });
+        res.end();
+    } else
+        */
+    console.log('TEST server called')
+    if (cookies.name) {
+        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
+        fs.readFile('../mainHome/mainHome.html', (error, data) => {
+
+            res.end(data);
+        });
+        //res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8'});
+        res.end(`Welcome ${cookies.name}`)
+    }
+    else
+
+    //console.log('TEST server called')
+    // const cookies = parseCookies(req.headers.cookie);
+    if (req.url.startsWith('/api/login')) {
         console.log('API called');
-        let data = '';
-        req.on('data', chunk => {
-            data += chunk;
-            console.log('data chunk added ' + data)
-        })
-        req.on('end', () => {
-             data = JSON.parse(data);
-             console.log('data chunk finished ' + data.email)
-            // getPage(req, res).then();
-            console.log('BODY: ' + data);
-            const result = {
-                test: data.email
-            };
-            res.writeHead(200, {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json'
-            });
-            res.end(JSON.stringify(result), 'utf-8');
-        })
-    } else {
-        getPage(req, res).then();
-        if (req.url.startsWith('/login')) {
-            /*const {query} = url.parse(req.url);
-            const {name} = qs.parse(query);
-            const expires = new Date();
-            expires.setMinutes(expires.getMinutes() + 1);
-            res.writeHead(302, {
-                Location: '/',
-                'Set-Cookie': `name=${encodeURIComponent(name)};Expires=${expires.toGMTString()};HttpOnly; Path=/`,
-            });
-            res.end();*/
-            console.log('help me pls');
+        //if ( localStorage.getItem('token')!=null)
+        if (false)
+        {
+            console.log(localStorage.getItem('token'));
+            window.location.href = "http://127.0.0.1:8000/startUser/startUser.html"}
+        else {
+            let data = '';
+            req.on('data', chunk => {
+                data += chunk;
+                console.log('data chunk added ' + data)
+            })
+            //aici lucrez cu email-ul si parola primite
+            req.on('end', () => {
+                data = JSON.parse(data);
+                console.log('data chunk finished ' + data.email)
+
+
+                const result = {
+                    email: data.email,
+                    parola: data.password,
+                    token: makeid(16)
+                };
+
+
+                const {query} = url.parse(req.url);
+                const {name} = qs.parse(query);
+                const expires = new Date();
+                expires.setMinutes(expires.getMinutes() + 1);
+                console.log(JSON.stringify(result));
+                res.setHeader('Set-Cookie', `name=test;Expires=${expires.toGMTString()};HttpOnly;Path=/`)
+                res.writeHead(302, {
+                    'Access-Control-Allow-Origin': '*',
+                    'mode': 'no-cors',
+                    'Content-Type': 'application/json',
+                    // 'Location': '/mainHome/mainHome.html',
+                });
+
+                res.end(JSON.stringify(result), 'utf-8');
+                // res.end(JSON.stringify({}), 'utf-8');
+                //  return;
+                /*
+                            res.writeHead(200, {
+                                'Access-Control-Allow-Origin': '*',
+                                'Content-Type': 'application/json'
+                            });
+                            //aici se adauga verificarea datelor
+                            if (data.email == 'dragos.capsa@info.uaic.ro') {
+                                //aici se adauga ce se face daca exista match
+                                console.log(JSON.stringify(result));
+
+                                // getPage(req, res).then();
+                            }
+                            res.end(JSON.stringify(result), 'utf-8');*/
+            })}
+        }
+    else
+        if (req.url.startsWith('/api/register')) {
+
+            console.log('API called');
+            let data = '';
+            req.on('data', chunk => {
+                data += chunk;
+                console.log('data chunk added ' + data)
+            })
+            //aici lucrez cu email-ul si parola primite
+            req.on('end', () => {
+                data = JSON.parse(data);
+                console.log('data chunk finished ' + data.email)
+
+                const result = {
+                    email: data.email,
+                    prenume: data.prenume,
+                    nume: data.nume,
+                    telefon: data.telefon,
+                    judet: data.judet,
+                    oras: data.oras,
+                    adresa: data.adresa,
+                    password: data.password
+                };
+                res.writeHead(201, {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json'
+                });
+                //aici se adauga verificarea datelor
+                //aici se adauga introducerea datelor in baza de date
+
+                getPage(req, res).then();
+                res.end(JSON.stringify(result), 'utf-8');
+            })
+
         } else if (cookies.name) {
-          // getPage(req, res).then();
-            //res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8'});
-            //res.end(`Welcome ${cookies.name}`)
+
         } else {
-           //getPage(req,res).then();
+
+            getPage(req, res).then();
             console.log("help");
         }
 
-      //  console.log('page called');
-    }
+        //  console.log('page called');
 
 
-    /*
-        console.log(`url here: ${req.url}`)
-        if(req.url === '/api/products' && req.method === 'GET') {
-            //getProducts(req, res)
-            getPage(req,res).then();
-        }else
-        if(req.url === '/' && req.method === 'GET') {
-            //getProducts(req, res)
-            getPage(req,res).then();
-            console.log("fuck");
-        }
-        else if(req.url.match(/\/api\/products\/\w+/) && req.method === 'GET') {
-            const id = req.url.split('/')[3]
-            getProduct(req, res, id)
-        } else if(req.url === '/api/products' && req.method === 'POST') {
-            createProduct(req, res)
-        } else if(req.url.match(/\/api\/products\/\w+/) && req.method === 'PUT') {
-            const id = req.url.split('/')[3]
-            updateProduct(req, res, id)
-        } else if(req.url.match(/\/api\/products\/\w+/) && req.method === 'DELETE') {
-            const id = req.url.split('/')[3]
-            deleteProduct(req, res, id)
-        } else {
-            res.writeHead(404, { 'Content-Type': 'application/json' })
-            res.end(JSON.stringify({ message: 'Route Not Found' }))
-        }*/
 })
 
 const PORT = process.env.PORT || 8000
@@ -130,3 +171,30 @@ const PORT = process.env.PORT || 8000
 server.listen(PORT, () => console.log(`Server running at http://127.0.0.1:${PORT}`))
 
 module.exports = server;
+
+/*
+       console.log(`url here: ${req.url}`)
+       if(req.url === '/api/products' && req.method === 'GET') {
+           //getProducts(req, res)
+           getPage(req,res).then();
+       }else
+       if(req.url === '/' && req.method === 'GET') {
+           //getProducts(req, res)
+           getPage(req,res).then();
+           console.log("fuck");
+       }
+       else if(req.url.match(/\/api\/products\/\w+/) && req.method === 'GET') {
+           const id = req.url.split('/')[3]
+           getProduct(req, res, id)
+       } else if(req.url === '/api/products' && req.method === 'POST') {
+           createProduct(req, res)
+       } else if(req.url.match(/\/api\/products\/\w+/) && req.method === 'PUT') {
+           const id = req.url.split('/')[3]
+           updateProduct(req, res, id)
+       } else if(req.url.match(/\/api\/products\/\w+/) && req.method === 'DELETE') {
+           const id = req.url.split('/')[3]
+           deleteProduct(req, res, id)
+       } else {
+           res.writeHead(404, { 'Content-Type': 'application/json' })
+           res.end(JSON.stringify({ message: 'Route Not Found' }))
+       }*/

@@ -13,6 +13,7 @@ async function login()
         email: email.value,
         password: pw.value
     }
+    let loggedIn = true;
 
     const response = await fetch('http://localhost:8000/api/login', {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -26,9 +27,17 @@ async function login()
         .catch(e => {
             console.log('error');
             console.log(e);
+            loggedIn = false;
         });
 
-    // const resultData = await response.json();
+    // const resultData = awa1it response.json();
+    if(loggedIn) {
+        window.location.href='http://127.0.0.1:8000/startUser/startUser.html';
+    }
     console.log(response)
+    localStorage.setItem('token', response.token);
+    window.onbeforeunload=function(){
+        localStorage.removeItem('token');
+    }
 
 }

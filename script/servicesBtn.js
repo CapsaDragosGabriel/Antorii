@@ -10,6 +10,7 @@ function myFunctionSmall() {
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function (e) {
+    if(!document.getElementById("details")) return;
     document.getElementById("details").style.left = "-300px";
     if (!e.target.matches('.dropbtn')) {
         var myDropdown = document.getElementById("myDropdown");
@@ -33,6 +34,7 @@ function closeNav() {
 var prevScrollpos = window.pageYOffset;
 window.onscroll = function () {
     var currentScrollPos = window.pageYOffset;
+    if(!document.getElementById("smth")) return;
     if (prevScrollpos > currentScrollPos) {
         document.getElementById("smth").style.top = "0";
     } else {

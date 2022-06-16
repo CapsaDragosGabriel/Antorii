@@ -16,6 +16,49 @@ async function getProducts(req, res) {
         console.log(error)
     }
 }
+async function getLoggedPage(request,response)
+{
+    var filePath = '.' + request.url;
+        filePath = '../startUser/startUser.html';
+console.log("capybara")
+    var extname = path.extname(filePath);
+    var contentType = 'text/html';
+    switch (extname) {
+        case '.js':
+            contentType = 'text/javascript';
+            break;
+        case '.css':
+            contentType = 'text/css';
+            break;
+        case '.png':
+            contentType = 'image/png';
+            break;
+        case '.jpg':
+            contentType = 'image/jpg';
+            break;
+    }
+
+    fs.readFile(filePath, function (error, content) {
+        if (error) {
+            console.log('test error ' + error)
+            if (error.code == 'ENOENT') {
+                fs.readFile('./404.html', function (error, content) {
+                    response.writeHead(200, {'Content-Type': contentType});
+                    response.end(content, 'utf-8');
+                });
+            } else {
+                response.writeHead(500);
+                response.end('Sorry, check with the site admin for error: ' + error.code + ' ..\n');
+                response.end();
+            }
+        } else {
+            console.log('test good')
+            response.writeHead(200, {'Content-Type': contentType});
+            response.end(content, 'utf-8');
+        }
+    });
+
+}
 async function getPage(request,response){
     var filePath = '.' + request.url;
     if (filePath == './')
@@ -159,6 +202,7 @@ async function deleteProduct(req, res, id) {
 module.exports = {
     getProducts,
     getPage,
+    getLoggedPage,
     getProduct,
     createProduct,
     updateProduct,

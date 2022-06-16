@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
     <link rel="stylesheet" href="register.css">
     <script src="../script/servicesBtn.js"></script>
+    <script src="register.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Inregistrare</title>
 </head>
@@ -52,12 +53,15 @@
 <div id="main-div">
     <h1 id="title">Creaza-ti un cont!</h1>
     <div itemscope itemtype="https://schema.org/Person">
-        <form id="register-form" action="../startUser/startUser.html">
+        <form id="register-form" action="../register/register.html"  onsubmit="{
+        register()
+        return false;
+}">
             <div class="full-width">
-                <input class="half-width" itemprop="familyName" type="text" id="nume" name="nume" pattern="[A-Z]+[a-z]"
+                <input class="half-width" itemprop="familyName" type="text" id="nume" name="nume" pattern="[A-Z][a-z]+"
                        placeholder="nume" required>
                 <input class="half-width" itemprop="givenName" type="text" id="prenume" name="prenume"
-                       pattern="[A-Z]+[a-z]" placeholder="prenume" style="float: right" required>
+                       pattern="[A-Z][a-z]+" placeholder="prenume" style="float: right" required>
             </div>
 
             <input class="full-width" itemprop="email" type="email" id="email" name="email"
@@ -72,14 +76,14 @@
                    title="Trebuie sa contina cel putin un numar, litera mare si o litera mica si cel putin 8 caractere"
                    placeholder="password" required>
             <div class="full-width">
-                <input class="half-width" type="text" id="judet" name="judet" pattern="[A-Z]+[a-z]" placeholder="judet"
+                <input class="half-width" type="text" id="judet" name="judet" pattern="[A-Z][a-z]+" placeholder="judet"
                        required>
-                <input class="half-width" type="text" id="oras" name="oras" pattern="[A-Z]+[a-z]" placeholder="oras"
+                <input class="half-width" type="text" id="oras" name="oras" pattern="[A-Z][a-z]+" placeholder="oras"
                        style="float: right" required>
             </div>
-
+    <!-- pattern="[A-Z]+[a-z]+/+[0-9]+/+[A-Za-z0-9]+/+[A-Za-z0-9]" placeholder="strada/numar/bloc/apartament"-->
             <input class="full-width" itemprop="homeLocation" type="text" id="adresa" name="adresa"
-                   pattern="[A-Z]+[a-z]+/+[0-9]+/+[A-Za-z0-9]+/+[A-Za-z0-9]" placeholder="strada/numar/bloc/apartament"
+
                    required>
 
             <div class="full-width">

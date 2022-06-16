@@ -24,7 +24,7 @@ async function getPage(request,response){
         filePath = `../${filePath}`;
     }
 
-    console.log('url: ' + request.url)
+//    console.log('url: ' + request.url)
 
     var extname = path.extname(filePath);
     var contentType = 'text/html';

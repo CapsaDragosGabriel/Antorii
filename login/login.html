@@ -12,6 +12,7 @@
     <link href="login.css" type="text/css" rel="stylesheet">
 
     <script src="../script/servicesBtn.js"></script>
+    <script src="login.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Autentificare</title>
 </head>
@@ -60,7 +61,11 @@
 
 <!-- <form action="../startUser/startUser.html" method="post">-->
 
-    <form method="POST" action="../startUser/startUser.html">
+    <form method="POST" action="../login/login.html" onsubmit="{
+        login()
+        return false;
+}"
+          }>
     <h1 class="titlu">Intra in cont!</h1><br>
     <input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
            title="Trebuie sa fie de forma 'characters@characters.domain'" placeholder="example@gmail.com" required><br><br>

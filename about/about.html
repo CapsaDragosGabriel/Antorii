@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ro">
-<head >
+<head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="about.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
@@ -11,27 +11,24 @@
     <title>Despre</title>
 </head>
 <body>
-
-<div class="header" itemscope itemtype="https://schema.org/Organization">
-    <a class="active" href="../mainHome/mainHome.html" ><p itemprop="legalName">SerP</p></a>
+<div id="navbar" class="header" itemscope itemtype="https://schema.org/Organization">
+    <a class="active" href="../mainHome/mainHome.html"><p itemprop="legalName">SerP</p></a>
     <div class="dropdown">
         <button class="dropbtn" onclick="myFunction()">Servicii
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content" id="myDropdown">
-            <a href="../login/login.html" ><p itemprop="makesOffer">Ride-sharing</p></a>
+            <a href="../login/login.html"><p itemprop="makesOffer">Ride-sharing</p></a>
             <a href="../login/login.html"><p itemprop="makesOffer">Food delivery</p></a>
             <a href="../login/login.html"><p itemprop="makesOffer">Curier</p></a>
-            <a href="../login/login.html" ><p itemprop="makesOffer">Inchirieri</p></a>
+            <a href="../login/login.html"><p itemprop="makesOffer">Inchirieri</p></a>
         </div>
     </div>
     <a class="link" href="../team/team.html">Hai in echipa!</a>
     <a class="link" href="../about/about.html">Despre</a>
-    <a class="link" href="../login/login.html">Autentificare</a>
-    <a class="link" href="../register/register.html">Inregistrare</a>
 </div>
-<div itemscope  class="header_small" itemtype="https://schema.org/Organization">
-
+<script src="../script/navbar.js"></script>
+<div itemscope class="header_small" itemtype="https://schema.org/Organization">
     <a class="active" href="../mainHome/mainHome.html" itemprop="legalName"><p>SerP</p></a>
     <div class="dropdown">
         <button class="dropbtn" onclick="myFunctionSmall()">&#9776;
@@ -44,31 +41,27 @@
             <a href="../login/login.html">Inchirieri</a>
             <a class="link" href="../team/team.html">Hai in echipa!</a>
             <a class="link" href="../about/about.html">Despre</a>
-
         </div>
-
     </div>
     <a class="link" href="../login/login.html">Autentificare</a>
     <a class="link" href="../register/register.html">Inregistrare</a>
 </div>
-
 <div itemscope class="about-us" itemtype="https://schema.org/Organization">
     <p id="text1" itemprop="slogan">Ajutam oamenii usurandu-le munca</p>
-    <p id="text2">Suntem o companie de tehnologie care pune in legatura lumea fizica si cea digitala pentru a face ca orice tu vrei sa fie posibil prin simpla apasare a unui buton. </p>
+    <p id="text2">Suntem o companie de tehnologie care pune in legatura lumea fizica si cea digitala pentru a face ca
+        orice tu vrei sa fie posibil prin simpla apasare a unui buton. </p>
     <img id="img-team" src="../resources/about.png" alt="team">
 </div>
-
 <div class="promo">
     <div class="promo-container">
         <p id="promo-text">Inoveaza alaturi de noi</p>
 
         <a href="../team/team.html">
-            <button class="haibtn" >Alatura-te echipei noastre</button>
+            <button class="haibtn">Alatura-te echipei noastre</button>
         </a>
     </div>
-  <img id="img" src="../resources/team.png" alt="team-png">
+    <img id="img" src="../resources/team.png" alt="team-png">
 </div>
-
 <footer class="footer">
     <p>
         <img src="../resources/mail.png" alt="mail">
@@ -80,6 +73,5 @@
         Romania
     </p>
 </footer>
-
 </body>
 </html>

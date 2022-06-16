@@ -197,6 +197,32 @@ body {
     font-size: 20px;
 }
 
+#color-container {
+    background-color: #B64141;
+}
+
+#text1 {
+    font-family: "Zilla Slab";
+    color: white;
+    font-weight: bold;
+    font-size: 50px;
+    padding: 5% 0 1% 0;
+    margin: 0;
+    text-align: center;
+}
+
+#text2 {
+    text-align: center;
+    padding-bottom: 5%;
+}
+
+#text2 a {
+    font-family: "Zilla Slab";
+    color: white;
+    font-weight: normal;
+    font-size: 20px;
+}
+
 .footer p img {
     height: 50%;
 }

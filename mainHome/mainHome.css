@@ -17,24 +17,26 @@ body {
     font-family: "Zilla Slab";
     font-weight: bold;
 }
+
 .header_small .link:hover {
     color: black;
     background-color: #F5F5F5;
 }
-.header_small a.active{
+
+.header_small a.active {
     color: white;
     -webkit-text-stroke: 2px #F4B795;
     padding: 0;
 }
 
-.header_small a.active p{
+.header_small a.active p {
     font-family: "Zen Dots";
     font-size: 25px;
     margin: 0;
     padding: 10px 10px 0px 10px;
 }
-.header_small
-{
+
+.header_small {
     overflow: hidden;
     background-color: #B64141;
     padding: 0;
@@ -166,11 +168,11 @@ body {
     padding: 9% 0 9% 0;
 }
 
-    .service img {
-        max-width: 100%;
-        height: 100%;
-        border-radius: 50%;
-    }
+.service img {
+    max-width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
 
 .service {
     padding: 3% 2% 10% 2%;
@@ -227,52 +229,65 @@ body {
 .footer p img {
     height: 50%;
 }
+
 @media screen and (max-width: 600px) {
     div.header {
         display: none;
     }
-    div.header_small{
-        display:block;
+
+    div.header_small {
+        display: block;
     }
-    div.main-div{
-        flex-flow:column wrap;
+
+    div.main-div {
+        flex-flow: column wrap;
     }
-    div.promo{
-        flex-flow:column;
-        width:100%;
+
+    div.promo {
+        flex-flow: column;
+        width: 100%;
     }
-    div.promo-container{
-        width:100%;
+
+    div.promo-container {
+        width: 100%;
     }
-    #img{
-        width:100%;
+
+    #img {
+        width: 100%;
     }
-    #services-container
-    {
-        align-items:center;
-        flex-flow:column;
+
+    #services-container {
+        align-items: center;
+        flex-flow: column;
     }
-    div.service{
-        flex-flow:row;
+
+    div.service {
+        flex-flow: row;
     }
-    #promo-text{
-        font-size:40px;
+
+    #promo-text {
+        font-size: 40px;
     }
-    div.service img{
+
+    div.service img {
 
     }
-    #text1{
-        font-size:30px;
+
+    #text1 {
+        font-size: 30px;
     }
-    #text2{
-        font-size:15px;
+
+    #text2 {
+        font-size: 15px;
     }
 }
+
 @media screen and (min-width: 601px) {
     div.header {
         display: block;
     }
-    div.header_small{
-        display:none;
+
+    div.header_small {
+        display: none;
     }
 }

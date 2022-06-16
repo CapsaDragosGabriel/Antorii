@@ -18,6 +18,9 @@ body {
     overflow: hidden;
     background-color: #B64141;
     padding: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 .header_small a {
@@ -130,6 +133,7 @@ body {
 
 .show {
     display: block;
+    position: fixed;
 }
 
 .buttonaut {

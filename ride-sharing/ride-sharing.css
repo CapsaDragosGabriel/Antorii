@@ -100,6 +100,7 @@ body {
 
 .show {
     display: block;
+    position: fixed;
 }
 
 
@@ -138,7 +139,7 @@ body {
     padding: 0;
 }
 
-.details {
+#details {
     height: 100%;
     width: 250px;
     z-index: 1;
@@ -149,7 +150,7 @@ body {
     position: fixed;
 }
 
-.details a {
+#details a {
     padding: 20px 8px 20px 16px;
     text-decoration: none;
     font-size: 20px;
@@ -159,30 +160,30 @@ body {
     font-family: "Zilla Slab";
 }
 
-.details .user-div {
+#details .user-div {
     display: flex;
     flex-direction: row;
     justify-content: center;
     margin: 20px 40px 20px 0;
 }
 
-.details .user-div p {
+#details .user-div p {
     margin: 5px 0 0 20px;
     color: #818181;
     font-weight: bold;
     font-family: "Zilla Slab";
 }
 
-.details .user-div a:hover {
+#details .user-div a:hover {
     color: #B64141;
 }
 
-.details .options a:hover {
+#details .options a:hover {
     background-color: #B64141;
     color: white;
 }
 
-.big-div p {
+#smth {
     margin-left: 350px;
     margin-bottom: 0;
     margin-top: 50px;
@@ -193,9 +194,12 @@ body {
     text-align: left;
     text-shadow: 1px 1px 3px #B64141;
     filter: drop-shadow(0px 7px 1px #ADADAD);
+    position: fixed;
+    top: 0;
+    transition: top 0.3ms;
 }
 
-.main-div {
+#main-div {
     background-color: #F5F5F5;
     height: 600px;
     width: 600px;
@@ -206,10 +210,62 @@ body {
     margin-top: 100px;
 }
 
-.main-div #ridesharing-form {
+#main-div #ridesharing-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+#ridesharing-form .full-width {
+    width: 100%;
+    height: 10%;
+    display: block;
+    align-self: center;
+    margin-top: 10%;
+}
+
+#ridesharing-form ::placeholder {
+    font-family: "Zilla Slab";
+    color: black;
+    opacity: 35%;
+    font-size: 35px;
+}
+
+#ridesharing-form input {
+    border: 1px solid gray;
+    border-radius: 8px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.45);
+}
+
+#ridesharing-form .submitbtn {
+    background-color: #B64141;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 25px;
+    cursor: pointer;
+    border-radius: 30px;
+    font-family: "Zilla Slab";
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    padding: 2% 10% 2% 10%;
+}
+
+#buton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 10%;
+}
+
+#main-div #title {
+    text-align: center;
+    font-family: "Zilla Slab";
+    font-weight: bold;
+    margin-bottom: 50px;
+    margin-top: 0;
+    font-size: 45px;
 }
 
 .overlay {
@@ -279,10 +335,9 @@ body {
     div.header_small {
         display: flex;
         flex-direction: row;
-        width: 100%;
     }
 
-    .details {
+    #details {
         display: none;
     }
 
@@ -300,11 +355,11 @@ body {
         right: 35px;
     }
 
-    .big-div {
+    #smth {
         display: none;
     }
 
-    .main-div {
+    #main-div {
         display: none;
     }
 

@@ -1,6 +1,8 @@
-
 [{
-  "name": "McDonalds"
+  "name": "McDonalds",
+  "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers"
 },
-  {"name": "KFC"}
+  {"name": "KFC",
+    "link": "https://www.google.com/search?client=opera-gx&q=node+js+what+is+a+promise&sourceid=opera&ie=UTF-8&oe=UTF-8"
+  }
 ]

@@ -10,7 +10,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Text+Me+One">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
     <link href="login.css" type="text/css" rel="stylesheet">
-
+<script>
+    if (localStorage.getItem('token'))
+    {
+        //if all good
+        window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
+        //if not invalidezi tokenu:
+        // localStorage.removeItem('token');
+    }
+</script>
     <script src="../script/servicesBtn.js"></script>
     <script src="login.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -79,6 +87,7 @@
             <a href="../register/register.html">Inregistreaza-te!</a>
         </label>
     </div>
+        <div id="wrong"></div>
     <button class="buttonaut" type="submit">Autentifica-ma</button>
 </form>
 

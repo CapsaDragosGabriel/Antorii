@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="ride-sharing.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="../script/servicesBtn.js"></script>
+    <script >
+        if (localStorage.getItem('token')){}
+            //check token with db
+        else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ride-sharing</title>
 </head>
@@ -25,8 +30,6 @@
             <a href="../login/login.html"><p itemprop="makesOffer">Inchirieri</p></a>
         </div>
     </div>
-    <a class="link" href="../team/team.html">Hai in echipa!</a>
-    <a class="link" href="../about/about.html">Despre</a>
     <a class="link" href="../mainHome/mainHome.html">Deconectare</a>
 </div>
 <div class="header_small" itemscope itemtype="https://schema.org/Organization">
@@ -40,8 +43,6 @@
             <a href="#">Food delivery</a>
             <a href="#">Curier</a>
             <a href="#">Inchirieri</a>
-            <a class="link" href="../team/team.html">Hai in echipa!</a>
-            <a class="link" href="../about/about.html">Despre</a>
         </div>
     </div>
     <a class="link" href="../mainHome/mainHome.html">Deconectare</a>

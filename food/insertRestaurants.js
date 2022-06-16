@@ -14,7 +14,8 @@ function getRestaurants() {
                 let obj = jsondata[i];
                // let nume=obj.name;
                 x.innerHTML = x.innerHTML + `` +
-                    `<a onclick="display='${obj.name}'; console.log(${display}); changeDisplay()"><img src=${obj.photo}> </a>`
+                    `<a onclick="display='${obj.name}'; console.log(${display}); changeDisplay()">${obj.name}<br>
+<img src=${obj.photo}> </a><br>`
                 /* var anchor=document.createElement("a");
                  var text=document.createTextNode(obj.name);
                  var img=document.createElement("img");

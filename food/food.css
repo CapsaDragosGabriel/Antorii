@@ -202,9 +202,13 @@ input {
     background-blend-mode: soft-light;
     opacity: 0.9;
     margin:10% 25% 10% 25%;
-    flex-flow:column;
+    flex-direction: row;
     align-content: center;
     text-align:center;
+}
+#box button
+{
+    display: inline-block;
 }
 #box img
 {

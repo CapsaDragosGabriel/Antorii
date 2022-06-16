@@ -37,7 +37,7 @@ function adjustQTminus(name)
     var x= document.getElementById(`${id}`);
 if (quantities[name]>=1)
     quantities[name]=quantities[name]-1;
-    x.innerHTML=`<p id='id'>${quantities[name]}</p> `
+    x.innerHTML=`<p style="text-align:right; display: inline-block;" id='id'>${quantities[name]}</p> `
 }
 let quantities=[];
 let items=[];
@@ -49,8 +49,7 @@ function getMenu()
         })
         .then(jsondata => {
             var x = document.getElementById("box");
-            x.setAttribute("style","text-align:left; padding: 3.5%;" +
-                "flex-direction:row;")
+            x.setAttribute("style","text-align:left; padding: 3.5%;" )
             for (let i = 0; i < jsondata.length; i++) {
                 let obj = jsondata[i];
                 quantities[i]=0;
@@ -60,11 +59,13 @@ function getMenu()
                 x.innerHTML = x.innerHTML + `` +
                     `<h1>${obj.name}</h1>
 <p>${obj.description}</p>
-<button onclick=' adjustQTplus(${i}) 
+<div style="flex-direction: row;text-align: right">
+<button style="text-align:right;" onclick=' adjustQTplus(${i}) 
 console.log(quantities[${i}]); ' >+</button>
-<p id='${obj.name}'>${quantities[i]}</p>
-<button onclick=' adjustQTminus(${i}) 
-console.log(quantities[${i}]); ' >-</button>`;
+<p style="text-align:right; display: inline-block;" id='${obj.name}'>${quantities[i]}</p>
+<button style="text-align:right;"  onclick=' adjustQTminus(${i}) 
+console.log(quantities[${i}]); ' >-</button></div>`;
+
 }
         })
 }

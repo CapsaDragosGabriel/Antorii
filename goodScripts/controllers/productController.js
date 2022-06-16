@@ -19,7 +19,12 @@ async function getProducts(req, res) {
 async function getPage(request,response){
     var filePath = '.' + request.url;
     if (filePath == './')
-        filePath = '../Antorii/mainHome/mainHome.html';
+        filePath = '../mainHome/mainHome.html';
+    else {
+        filePath = `../${filePath}`;
+    }
+
+    console.log('url: ' + request.url)
 
     var extname = path.extname(filePath);
     var contentType = 'text/html';
@@ -40,6 +45,7 @@ async function getPage(request,response){
 
     fs.readFile(filePath, function (error, content) {
         if (error) {
+            console.log('test error ' + error)
             if (error.code == 'ENOENT') {
                 fs.readFile('./404.html', function (error, content) {
                     response.writeHead(200, {'Content-Type': contentType});
@@ -51,6 +57,7 @@ async function getPage(request,response){
                 response.end();
             }
         } else {
+            console.log('test good')
             response.writeHead(200, {'Content-Type': contentType});
             response.end(content, 'utf-8');
         }

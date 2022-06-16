@@ -195,7 +195,7 @@ input {
 }
 #box{
     background: whitesmoke;
-    border:4px solid black;
+    border:1px solid black;
     border-radius: 5px;
     padding-top: 2%;
     padding-bottom: 5%;
@@ -209,7 +209,9 @@ input {
 #box img
 {
     opacity: initial;
-    border: black 5px solid ;
+    border: black 2px solid ;
+    width:400px;
+    height:170px ;
     border-radius:10px;
 }
 #box a {

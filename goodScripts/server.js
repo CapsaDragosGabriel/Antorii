@@ -1,4 +1,7 @@
-const http = require('http')
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+const http = require('http');
+
+const nodemailer= require('nodemailer');
 const {
     getProducts,
     getProduct,
@@ -120,8 +123,37 @@ const server = http.createServer((req, res) => {
                             res.end(JSON.stringify(result), 'utf-8');*/
             })}
 
-    else
-        if (req.url.startsWith('/api/register')) {
+    else  if (req.url.startsWith('/api/ride-sharing')) {
+
+        console.log('API RIDE');
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+            console.log('data chunk finished ' + data.email)
+
+            const result = {
+               from: data.from,
+                to:data.to,
+                token: data.token
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+            //aici se adauga verificarea datelor
+            //aici se adauga introducerea datelor in baza de date
+            console.log(result);
+            //getPage(req, res).then();
+            res.end(JSON.stringify(result), 'utf-8');
+        })
+
+    }
+      else  if (req.url.startsWith('/api/register')) {
 
             console.log('API called');
             let data = '';
@@ -150,7 +182,29 @@ const server = http.createServer((req, res) => {
                 });
                 //aici se adauga verificarea datelor
                 //aici se adauga introducerea datelor in baza de date
-
+                var transporter= nodemailer.createTransport({
+                service:'gmail',
+                    auth:{
+                    user: 'capsadragos@gmail.com',
+                        pass:'14012001GABITA'
+                    }
+                })
+                var mailOptions={
+                    from: 'capsadragos@gmail.com',
+                    to: result.email,
+                    subject:'Welcome mate!',
+                    text:`Here's your info: ${result.password}`
+                }
+                transporter.sendMail(mailOptions,function(error,info)
+                {
+                  if (error){
+                      console.log(error);
+                      console.log('N-AM PUTUT TRIMITE MAIL-UL')
+                  }
+                  else {
+                      console.log('Email sent '+ info.response);
+                  }
+                })
                 //getPage(req, res).then();
                 res.end(JSON.stringify(result), 'utf-8');
             })
@@ -195,7 +249,6 @@ const server = http.createServer((req, res) => {
         } else {
 
             getPage(req, res).then();
-            console.log("help");
         }
 
         //  console.log('page called');

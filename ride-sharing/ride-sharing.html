@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="ride-sharing.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="../script/servicesBtn.js"></script>
+    <script src="ride-sharing.js"></script>
     <script src="../goodScripts/utils.js"></script>
     <script >
         if (localStorage.getItem('token')){}
@@ -26,7 +27,7 @@
         </button>
         <div class="dropdown-content" id="myDropdown">
             <a href="../ride-sharing/ride-sharing.html"><p itemprop="makesOffer">Ride-sharing</p></a>
-            <a href="../login/login.html"><p itemprop="makesOffer">Food delivery</p></a>
+            <a href="../food/food.html"><p itemprop="makesOffer">Food delivery</p></a>
             <a href="../login/login.html"><p itemprop="makesOffer">Curier</p></a>
             <a href="../login/login.html"><p itemprop="makesOffer">Inchirieri</p></a>
         </div>
@@ -92,15 +93,16 @@
     <span id="profile" onclick="openNav()">&#9776;Profil</span>
 </div>
 
+
 <div id="smth">Incotro?</div>
 <div id="main-div">
     <form id="ridesharing-form">
         <h1 id="title">Selecteaza destinatia</h1>
-        <input class="full-width" itemprop="fromAdress" type="text" name="from" placeholder="adresa de plecare"
+        <input class="full-width" itemprop="fromAdress" type="text" id="from" name="from" placeholder="adresa de plecare"
                required>
-        <input class="full-width" itemprop="toAdress" type="text" name="to" placeholder="destinatia finala" required>
+        <input class="full-width" itemprop="toAdress" type="text" id="to" name="to" placeholder="destinatia finala" required>
         <label id="buton">
-            <button class="submitbtn" type="submit" value="search">Cauta sofer</button>
+            <button class="submitbtn" type="submit" value="search" onclick="comanda()">Cauta sofer</button>
         </label>
     </form>
 </div>

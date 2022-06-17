@@ -59,6 +59,7 @@ async function comanda()
         quantities: quantities,
         items:items,
         prices:prices,
+        service:"food",
         token:localStorage.getItem('token')
     }
     let sent = true;

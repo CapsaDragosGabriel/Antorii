@@ -19,6 +19,12 @@ var changeDisplay=function()
         x.innerHTML=`
         <a href="food.html">Inainte era mai bine</a>`;
     }
+    else if (display=='KFC')
+    {
+        var x=document.getElementById("box");
+        x.innerHTML=`
+        <a href="food.html">Inainte era mai bine</a>`;
+    }
     else if (display=='comanda'){
         var x=document.getElementById("box");
         x.innerHTML=`
@@ -30,10 +36,56 @@ var changeDisplay=function()
     }
     if(display!='comanda')
     getMenu();
-    else rezumatComanda();
+    else {
+        var x=document.getElementById("adresaLivrare");
+        x.innerHTML=`
+        <form method="post" action="food.html" onsubmit="{
+        comanda();
+        return false;}"
+        >
+        <input style="width:250px;"  required id="inputAddress" name="inputAddress" placeholder="Adresa de livrare">
+        <button class="buttonaut" type="submit">Trimite comanda</button>
+      </form>   `
+        rezumatComanda();
+    }
+}
+async function comanda()
+{
+    var adresa= document.getElementById('inputAddress');
 
+    //console.log(adresa.value);
+    const data = {
+        adresa: adresa.value,
+        quantities: quantities,
+        items:items,
+        prices:prices,
+        token:localStorage.getItem('token')
+    }
+    let sent = true;
 
+    const response = await fetch('http://localhost:8000/api/food', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        // mode: 'no-cors', // no-cors, *cors, same-origin
+        // headers: {
+        //     'Content-Type': 'application/json'
+        //     // 'Content-Type': 'application/x-www-form-urlencoded',
+        // },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    }).then(r => r.json())
+        .catch(e => {
+            console.log('error');
+            console.log(e);
+            sent = false;
+        });
 
+    // const resultData = awa1it response.json();
+    if(sent) {
+        window.location.href='http://127.0.0.1:8000/startUser/startUser.html';
+    }
+    console.log(response)
+    window.onbeforeunload=function(){
+        localStorage.removeItem('token');
+    }
 
 }
 function rezumatComanda(){

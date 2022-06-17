@@ -155,7 +155,42 @@ const server = http.createServer((req, res) => {
                 res.end(JSON.stringify(result), 'utf-8');
             })
 
-        } else if (cookies.name) {
+        }
+        else if (req.url.startsWith('/api/food'))
+        {
+            console.log('API FOOD');
+            let data = '';
+            req.on('data', chunk => {
+                data += chunk;
+                console.log('data chunk added ' + data)
+            })
+            //aici lucrez cu comanda primita
+            req.on('end', () => {
+                data = JSON.parse(data);
+                const result = {
+                    token: data.token,
+                    quantities: data.quantities,
+                    items: data.items,
+                    adresa: data.adresa,
+                    prices: data.prices
+                };
+
+
+                res.writeHead(201, {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json'
+                });
+                console.log(JSON.stringify(result));
+                //verific daca tokenul este in baza de date
+                //daca da pun comanda in baza de date
+
+                //getPage(req, res).then();
+                 res.end(JSON.stringify(result), 'utf-8');
+       // res.end("ok");
+       })
+
+}
+        else if (cookies.name) {
 
         } else {
 

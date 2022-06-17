@@ -9,6 +9,11 @@
     <script src="changeDisplay.js"></script>
     <script type="module" src="insertRestaurants.js"></script>
     <script src="../script/servicesBtn.js"></script>
+    <script >
+        if (localStorage.getItem('token')){}
+        //check token with db
+        else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
+    </script>
     <script  src="../startUser/startUser.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>

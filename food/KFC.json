@@ -1,0 +1,15 @@
+[{
+  "name": "Hot One",
+  "description": "Picant de-ti sar capacele",
+  "price": "17"
+},
+  {"name": "Family bucket",
+    "description": "Chiar daca-l mananci singur",
+    "price": "50"
+  },
+  {
+    "name": "Aripioare",
+    "description": "Zboara,puiule,zboara",
+    "price": "14"
+  }
+]

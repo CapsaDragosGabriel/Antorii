@@ -57,10 +57,7 @@ function doesUserExist(email, pass) {
         con.query(sql, function (err, result) {
             if (err) throw err;
 
-            if(result.length === 1)
-            console.log("da");
-            else
-                console.log("nu")
+            return result.length === 1;
         });
 }
 

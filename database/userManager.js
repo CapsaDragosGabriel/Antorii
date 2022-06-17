@@ -1,5 +1,4 @@
 var mysql = require('mysql');
-const {json} = require("express");
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -52,7 +51,7 @@ function insertUser(firstName, lastName, phone, email, pass, city, county, local
         });
 }
 
-function doesUserExist(email, pass) {
+function checkLogin(email, pass) {
         var sql = "select * from users where email = \'" + email + "\' and pass = \'" + pass + "\'";
         con.query(sql, function (err, result) {
             if (err) throw err;
@@ -62,6 +61,18 @@ function doesUserExist(email, pass) {
             else
                 console.log("nu")
         });
+}
+
+function checkUserExistence(email) {
+    var sql = "select * from users where email = \'" + email + "\'";
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+
+        if(result.length === 1)
+            console.log("da");
+        else
+            console.log("nu")
+    });
 }
 
 function updateTokenByEmail(email,token){
@@ -79,8 +90,11 @@ function removeTokenByEmail(email){
 }
 // insertUser("NUme","prenume","98451312","capsadragos@gmail.com","Parola123","Bacau","Buhusi",
 //     "banca boss","consumer");
-doesUserExist("capsadragos@gmail.com","Parola123");
+// insertUser("Andrei","Nechita","98451312","andrei@gmail.com","Parola123","Roman","Neamt",
+//     "banca boss","consumer");
+// checkLogin("capsadragos@gmail.com","Parola123");
+// checkUserExistence("capsadragos@gmail.com")
 getUserByEmail("capsadragos@gmail.com");
-doesUserExist("alexxxx.nechita@gmail.com", "1234");
-updateTokenByEmail("alexxxx.nechita@gmail.com", "alt_token_random")
-removeTokenByEmail("alex.nechita@gmail.com")
+// checkLogin("alexxxx.nechita@gmail.com", "1234");
+// updateTokenByEmail("alexxxx.nechita@gmail.com", "alt_token_random")
+// removeTokenByEmail("alex.nechita@gmail.com")

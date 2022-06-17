@@ -1,5 +1,4 @@
 var mysql = require('mysql');
-const {json} = require("express");
 
 var con = mysql.createConnection({
     host: "localhost",

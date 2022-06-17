@@ -10,16 +10,13 @@ var con = mysql.createConnection({
 con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
-    var sql = "CREATE TABLE ride_shares (\n" +
+    var sql = "CREATE TABLE ordered_items (\n" +
         "    id int NOT NULL AUTO_INCREMENT,\n" +
-        "    consumerID int NOT NULL,\n" +
-        "    providerID int,\n" +
-        "    start varchar(100) NOT NULL,\n" +
-        "    finish varchar(100) NOT NULL,\n" +
-        "    status varchar(100) NOT NULL,\n" +
-        "    estimated int NOT NULL,\n" +
-        "    FOREIGN KEY (consumerID) REFERENCES users (id),\n" +
-        "    FOREIGN KEY (providerID) REFERENCES users (id),\n" +
+        "    orderID int NOT NULL,\n" +
+        "    itemID int NOT NULL,\n" +
+        "    quantity int NOT NULL,\n" +
+        "    FOREIGN KEY (orderID) REFERENCES orders (id),\n" +
+        "    FOREIGN KEY (itemID) REFERENCES items (id),\n" +
         "    PRIMARY KEY (id)\n" +
         ");";
     con.query(sql, function (err, result) {

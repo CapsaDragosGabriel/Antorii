@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+const Console = require("console");
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -7,6 +8,36 @@ var con = mysql.createConnection({
     database: "web"
 });
 
+function checkLogin(email, pass) {
+    var sql = "select * from users where email = \'" + email + "\' and pass = \'" + pass + "\'";
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+
+        if(result.length === 1)
+            console.log("da");
+        else
+            console.log("nu")
+    });
+}
+
+async function checkUserExistence(email) {
+    return new Promise((resolve,reject)=>{
+        var sql = "select * from users where email = \'" + email + "\'";
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+
+            if(result.length === 1)
+            {console.log("S-A INTRAT BINE");
+                resolve(1);
+                    ;}
+
+            resolve(0);
+        });
+    });
+
+
+
+}
 
 function getUserByEmail(email){
     var sql = "select * from users where email = \'" + email + "\'";
@@ -51,15 +82,6 @@ function insertUser(firstName, lastName, phone, email, pass, city, county, local
         });
 }
 
-function doesUserExist(email, pass) {
-        var sql = "select * from users where email = \'" + email + "\' and pass = \'" + pass + "\'";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-
-            return result.length === 1;
-        });
-}
-
 function updateTokenByEmail(email,token){
         var sql = "update users set token = \'" + token + "\' where email = \'" + email + "\'";
         con.query(sql, function (err, result) {
@@ -73,19 +95,26 @@ function removeTokenByEmail(email){
         if (err) throw err;
     });
 }
+
+checkUserExistence("capsadragsos@gmail.com").then(result=>{
+        console.log(result);
+}
+)
+
 // insertUser("NUme","prenume","98451312","capsadragos@gmail.com","Parola123","Bacau","Buhusi",
 //     "banca boss","consumer");
-doesUserExist("capsadragos@gmail.com","Parola123");
+//doesUserExist("capsadragos@gmail.com","Parola123");
 getUserByEmail("capsadragos@gmail.com");
-doesUserExist("alexxxx.nechita@gmail.com", "1234");
+//doesUserExist("alexxxx.nechita@gmail.com", "1234");
 updateTokenByEmail("alexxxx.nechita@gmail.com", "alt_token_random")
 removeTokenByEmail("alex.nechita@gmail.com")
-
-
+let lolw="595";
 module.exports={
+    lolw,
     removeTokenByEmail,
     getUserByEmail,
-    doesUserExist,
+    checkUserExistence,
+    checkLogin,
     updateTokenByEmail,
     insertUser,
 }

@@ -1,6 +1,6 @@
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
-var userDB = import("../database/userManager.js");
+var userDB = require("../database/userManager.js");
 const http = require('http');
 
 const nodemailer= require('nodemailer');
@@ -177,49 +177,45 @@ const server = http.createServer((req, res) => {
                     adresa: data.adresa,
                     password: data.password
                 };
-                if (userDB.doesUserExist(data.email))
+                console.log('VERIFIC DACA EXISTA ADRESA PLM: '+ userDB.checkUserExistence("capsadragos@gmail.com"));
+                if (userDB.checkUserExistence(data.email.value))
                 {
                     console.log("EXISTA DEJA ACEST USER IN BAZA DE DATE");
-                    res.writeHead(200, {
-                        'Access-Control-Allow-Origin': '*',
-                        'Content-Type': 'application/json'
-                    });
-                    res.end("user already exists");
                 }
                 else{
-                    res.writeHead(201, {
-                        'Access-Control-Allow-Origin': '*',
-                        'Content-Type': 'application/json'
-                    });
-                    //aici se adauga verificarea datelor
-                    //aici se adauga introducerea datelor in baza de date
-                    var transporter= nodemailer.createTransport({
-                        service:'yahoo',
-                        auth:{
-                            user: 'capsadragos@yahoo.com',
-                            pass:'uexfqagcautdpqxn'
-                        }
-                    })
-                    var mailOptions={
-                        from: 'capsadragos@yahoo.com',
-                        to: result.email,
-                        subject:'Welcome mate!',
-                        text:`Here's your password, in case you forget it: ${result.password}`
-                    }
-                    transporter.sendMail(mailOptions,function(error,info)
-                    {
-                        if (error){
-                            console.log(error);
-                            console.log('N-AM PUTUT TRIMITE MAIL-UL')
-                        }
-                        else {
-                            console.log('Email sent '+ info.response);
-                        }
-                    })
-                    //getPage(req, res).then();
-                    res.end(JSON.stringify(result), 'utf-8');
-                }
 
+                }
+                res.writeHead(201, {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json'
+                });
+                //aici se adauga verificarea datelor
+                //aici se adauga introducerea datelor in baza de date
+                var transporter= nodemailer.createTransport({
+                service:'yahoo',
+                    auth:{
+                    user: 'capsadragos@yahoo.com',
+                        pass:'uexfqagcautdpqxn'
+                    }
+                })
+                var mailOptions={
+                    from: 'capsadragos@yahoo.com',
+                    to: result.email,
+                    subject:'Welcome mate!',
+                    text:`Here's your password, in case you forget it: ${result.password}`
+                }
+                transporter.sendMail(mailOptions,function(error,info)
+                {
+                  if (error){
+                      console.log(error);
+                      console.log('N-AM PUTUT TRIMITE MAIL-UL')
+                  }
+                  else {
+                      console.log('Email sent '+ info.response);
+                  }
+                })
+                //getPage(req, res).then();
+                res.end(JSON.stringify(result), 'utf-8');
             })
 
         }

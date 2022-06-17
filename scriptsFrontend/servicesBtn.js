@@ -2,6 +2,7 @@
    toggle between hiding and showing the dropdown content */
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
+    document.getElementById("details").style.left = "-300px";
 }
 
 function myFunctionSmall() {
@@ -11,7 +12,6 @@ function myFunctionSmall() {
 // Close the dropdown if the user clicks outside of it
 window.onclick = function (e) {
     if(!document.getElementById("details")) return;
-    document.getElementById("details").style.left = "-300px";
     if (!e.target.matches('.dropbtn')) {
         var myDropdown = document.getElementById("myDropdown");
         if (myDropdown.classList.contains('show')) {
@@ -41,5 +41,11 @@ window.onscroll = function () {
         document.getElementById("smth").style.top = "-140px";
     }
     prevScrollpos = currentScrollPos;
+}
+
+//for driverPage
+function showCommands() {
+    document.getElementById('commandsList').style.display = "block";
+    document.getElementById('defaultTitle').remove();
 }
 

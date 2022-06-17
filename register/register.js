@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // log.textContent = log.textContent + `DOMContentLoaded\n`;
 });
-
+var existing=0;
 async function register()
 {
     var email= document.getElementById('email');
@@ -35,7 +35,8 @@ async function register()
         //     // 'Content-Type': 'application/x-www-form-urlencoded',
         // },
         body: JSON.stringify(data) // body data type must match "Content-Type" header
-    }).then(r => r.json())
+    }).then(r => { r.json()}
+    )
         .catch(e => {
             console.log('error');
             console.log(e);

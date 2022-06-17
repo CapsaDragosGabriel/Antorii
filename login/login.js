@@ -3,7 +3,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
    // log.textContent = log.textContent + `DOMContentLoaded\n`;
 });
-
+function wrongPassword(){
+    var wrong=document.getElementById('wrong');
+    wrong.innerHTML=`<p style="color:darkred; text-align: center" >Ai introdus o parola gresita <br>sau<br> contul este deja conectat</p>`;
+}
 async function login()
 {
     var email= document.getElementById('email');
@@ -25,19 +28,16 @@ async function login()
         body: JSON.stringify(data) // body data type must match "Content-Type" header
     }).then(r => r.json())
         .catch(e => {
-            console.log('error');
-            console.log(e);
+        //    console.log('error');
+        //    console.log(e);
             loggedIn = false;
+wrongPassword();
         });
-
     // const resultData = awa1it response.json();
     if(loggedIn) {
+        localStorage.setItem('token', response.token);
         window.location.href='http://127.0.0.1:8000/startUser/startUser.html';
     }
-    console.log(response)
-    localStorage.setItem('token', response.token);
-    window.onbeforeunload=function(){
-        localStorage.removeItem('token');
-    }
+    // console.log(response)
 
 }

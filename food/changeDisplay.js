@@ -12,6 +12,33 @@ function resetOrder()
         quantities[i]=0;
     }
 }
+let username="";
+
+async function getUsername()
+{
+    const data = {
+        token:localStorage.getItem('token')
+    }
+    let sent = true;
+
+    const response = await fetch('http://localhost:8000/api/username', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'no-cors', // no-cors, *cors, same-origin
+        // headers: {
+            "Content-Type": 'application/json',
+        //     // 'Content-Type': 'application/x-www-form-urlencoded',
+        // },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    }).then(r => r.json())
+        .catch(e => {
+            console.log('error');
+            console.log(e);
+          // console.log(response.email);
+            sent = false;
+        });
+    console.log(response.email);
+    // username= JSON.stringify(response.body);
+}
 var changeDisplay=function()
 {
 

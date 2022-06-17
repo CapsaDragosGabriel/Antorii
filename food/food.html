@@ -14,6 +14,9 @@
         //check token with db
         else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
     </script>
+    <script>
+        getUsername();
+    </script>
     <script  src="../startUser/startUser.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -33,6 +36,29 @@
         </div>
     </div>
     <a class="link" onclick="logout()">Deconectare</a>
+</div>
+<div id="details" itemscope itemtype="https://schema.org/Organization">
+    <div class="user-div" style="flex-flow:row">
+        <img class="img" src="../resources/user.png" alt="user" style="width:50px; height:50px;">
+        <p id="username" >
+            Username
+          <a href="#user" style="padding: 0;"> Detalii profil</a>
+        </p>
+    </div>
+    <div class="options">
+        <a href="#services" class="istoric">
+            <img class="img" src="../resources/istoric.png" alt="user" style="width:20px; height:20px;">
+            Istoric curse
+        </a>
+        <a href="#clients" class="promo">
+            <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">
+            Promotii
+        </a>
+        <a href="#contact" class="status">
+            <img class="img" src="../resources/truck.png" alt="user" style="width:20px; height:20px;">
+            Status comanda
+        </a>
+    </div>
 </div>
 <div itemscope  class="header_small" itemtype="https://schema.org/Organization">
 

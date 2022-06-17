@@ -206,9 +206,50 @@ input {
     align-content: center;
     text-align:center;
 }
-#details{
-
+#details {
+    height: 100%;
+    width: 250px;
+    z-index: 1;
+    top: 48px;
+    left: 0;
+    background-color: #F5F5F5;
+    overflow-x: hidden;
+    position: fixed;
 }
+
+#details a {
+    padding: 20px 8px 20px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    font-weight: bold;
+    font-family: "Zilla Slab";
+}
+
+#details .user-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 20px 40px 20px 0;
+}
+
+#details .user-div p {
+    margin: 5px 0 0 20px;
+    color: #818181;
+    font-weight: bold;
+    font-family: "Zilla Slab";
+}
+
+#details .user-div a:hover {
+    color: #B64141;
+}
+
+#details .options a:hover {
+    background-color: #B64141;
+    color: white;
+}
+
 #box button
 {
     display: inline-block;

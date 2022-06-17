@@ -87,7 +87,6 @@ const server = http.createServer((req, res) => {
                     console.log(JSON.stringify(r));
                     if (r!=null)
                     {
-                        console.log("FUCK ME");
                         res.writeHead(302, {
                             'Access-Control-Allow-Origin': '*',
                             'mode': 'no-cors',
@@ -129,6 +128,42 @@ const server = http.createServer((req, res) => {
                 })
 
         }
+    else if (req.url.startsWith('/api/username')){
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+            console.log('data chunk finished ' + data.token)
+            const result = {
+                token: data.token
+            }
+            userDB.getEmailByToken(result.token).then(r=>{
+                // console.log(r);
+                console.log("NUMELE MEU ESTE" +r);
+                let toSend={
+                    email:r
+                }
+                console.log(JSON.stringify(toSend));
+                res.writeHead(200, {
+                    'Access-Control-Allow-Origin': '*',
+                    'mode': 'no-cors',
+                    'Content-Type': 'application/json',
+                    // 'Location': '/mainHome/mainHome.html',
+                });
+
+                res.end(JSON.stringify(toSend), 'utf-8');})
+                  //  console.log(res=>res.json());
+            // console.log(toSend)
+                // console.log(res.body);
+                //res.write()
+            })
+            // res.end();
+        }
+
     else if (req.url.startsWith('/api/logout')){
         let data = '';
         req.on('data', chunk => {
@@ -143,7 +178,7 @@ const server = http.createServer((req, res) => {
                 token: data.token
             }
             userDB.getEmailByToken(result.token).then(r=>{
-                userDB.removeTokenByEmail(r);
+                userDB.removeTokenByEmail( r);
             })
           res.end();
         })

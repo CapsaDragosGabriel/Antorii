@@ -4,6 +4,7 @@ function createPriceDiv()
     x.innerHTML=x.innerHTML+`<div id="totalPrice"></div>
 <button onclick="display='comanda'; changeDisplay(); console.log(display) " >Plaseaza comanda</button>`;
 }
+let numeRestaurant="";
 function resetOrder()
 {
     for (let i =0 ;i<prices.length;i++)
@@ -15,12 +16,14 @@ var changeDisplay=function()
 {
 
     if (display=='McDonalds'){
+        numeRestaurant=display;
         var x=document.getElementById("box");
         x.innerHTML=`
         <a href="food.html">Inainte era mai bine</a>`;
     }
     else if (display=='KFC')
     {
+        numeRestaurant=display;
         var x=document.getElementById("box");
         x.innerHTML=`
         <a href="food.html">Inainte era mai bine</a>`;
@@ -58,6 +61,7 @@ async function comanda()
         adresa: adresa.value,
         quantities: quantities,
         items:items,
+        numeRestaurant:numeRestaurant,
         prices:prices,
         service:"food",
         token:localStorage.getItem('token')

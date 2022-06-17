@@ -52,8 +52,8 @@ CREATE TABLE ride_shares (
     finish varchar(100) NOT NULL,
     status varchar(100) NOT NULL,
     estimated int NOT NULL,
-    FOREIGN KEY (consumerID) REFERENCES consumers (id),
-    FOREIGN KEY (providerID) REFERENCES providers (id),
+    FOREIGN KEY (consumerID) REFERENCES users (id),
+    FOREIGN KEY (providerID) REFERENCES users (id),
     PRIMARY KEY (id)
 );
 
@@ -62,6 +62,7 @@ CREATE TABLE ride_shares (
 CREATE TABLE restaurants (
     id int NOT NULL AUTO_INCREMENT,
     name varchar(50) NOT NULL UNIQUE,
+    photo MEDIUMTEXT NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -71,7 +72,8 @@ CREATE TABLE items (
     id int NOT NULL AUTO_INCREMENT,
     restaurantID int NOT NULL,
     name varchar(50) NOT NULL UNIQUE,
-    ingredients varchar(300) NOT NULL,
+    description varchar(300) NOT NULL,
+    price  decimal(5,2) ,
     FOREIGN KEY (restaurantID) REFERENCES restaurants (id),
     PRIMARY KEY (id)
 );
@@ -85,12 +87,6 @@ CREATE TABLE orders (
     FOREIGN KEY (restaurantID) REFERENCES restaurants (id),
     PRIMARY KEY (id)
 );
-
-
-ordered_items:
-	orderID
-	itemID
-	quantity
 
 CREATE TABLE ordered_items (
     id int NOT NULL AUTO_INCREMENT,

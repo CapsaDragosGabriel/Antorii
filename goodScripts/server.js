@@ -1,4 +1,3 @@
-import e from "express";
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 var userDB = import("../database/userManager.js");
@@ -178,10 +177,10 @@ const server = http.createServer((req, res) => {
                     adresa: data.adresa,
                     password: data.password
                 };
-                if (userDB.doesUserExist(data.email,data.password))
+                if (userDB.doesUserExist(data.email))
                 {
                     console.log("EXISTA DEJA ACEST USER IN BAZA DE DATE");
-                    res.writeHead(201, {
+                    res.writeHead(200, {
                         'Access-Control-Allow-Origin': '*',
                         'Content-Type': 'application/json'
                     });

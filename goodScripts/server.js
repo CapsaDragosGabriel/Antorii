@@ -1,4 +1,5 @@
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+var promise = import("../database/userManager.js");
 const http = require('http');
 
 const nodemailer= require('nodemailer');
@@ -224,6 +225,7 @@ const server = http.createServer((req, res) => {
                 const result = {
                     token: data.token,
                     quantities: data.quantities,
+                    numeRestaurant: data.numeRestaurant,
                     items: data.items,
                     adresa: data.adresa,
                     prices: data.prices

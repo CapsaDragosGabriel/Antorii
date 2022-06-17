@@ -84,3 +84,12 @@ getUserByEmail("capsadragos@gmail.com");
 doesUserExist("alexxxx.nechita@gmail.com", "1234");
 updateTokenByEmail("alexxxx.nechita@gmail.com", "alt_token_random")
 removeTokenByEmail("alex.nechita@gmail.com")
+
+
+module.exports={
+    removeTokenByEmail,
+    getUserByEmail,
+    doesUserExist,
+    updateTokenByEmail,
+    insertUser,
+}

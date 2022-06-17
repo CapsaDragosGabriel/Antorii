@@ -64,11 +64,8 @@ const server = http.createServer((req, res) => {
     if (req.url.startsWith('/api/login')) {
         console.log('API called');
         //if ( localStorage.getItem('token')!=null)
-        if (false)
-        {
-            console.log(localStorage.getItem('token'));
-            window.location.href = "http://127.0.0.1:8000/startUser/startUser.html"}
-        else {
+
+
             let data = '';
             req.on('data', chunk => {
                 data += chunk;
@@ -78,20 +75,25 @@ const server = http.createServer((req, res) => {
             req.on('end', () => {
                 data = JSON.parse(data);
                 console.log('data chunk finished ' + data.email)
-
-
-                const result = {
+                 const result = {
                     email: data.email,
                     parola: data.password,
                     token: makeid(16)
                 };
+                //daca nu e in baza de date:
+                if (result.email != 'capsadragos@gmail.com')
+                {console.log("NU AVEM MATCH")
+                    res.end();
 
+                }
+                else{
 
                 const {query} = url.parse(req.url);
                 const {name} = qs.parse(query);
                 const expires = new Date();
                 expires.setMinutes(expires.getMinutes() + 1);
                 console.log(JSON.stringify(result));
+
                 res.setHeader('Set-Cookie', `name=test;Expires=${expires.toGMTString()};HttpOnly;Path=/`)
                 res.writeHead(302, {
                     'Access-Control-Allow-Origin': '*',
@@ -100,7 +102,7 @@ const server = http.createServer((req, res) => {
                     // 'Location': '/mainHome/mainHome.html',
                 });
 
-                res.end(JSON.stringify(result), 'utf-8');
+                res.end(JSON.stringify(result), 'utf-8');}
                 // res.end(JSON.stringify({}), 'utf-8');
                 //  return;
                 /*
@@ -117,7 +119,7 @@ const server = http.createServer((req, res) => {
                             }
                             res.end(JSON.stringify(result), 'utf-8');*/
             })}
-        }
+
     else
         if (req.url.startsWith('/api/register')) {
 
@@ -149,11 +151,46 @@ const server = http.createServer((req, res) => {
                 //aici se adauga verificarea datelor
                 //aici se adauga introducerea datelor in baza de date
 
-                getPage(req, res).then();
+                //getPage(req, res).then();
                 res.end(JSON.stringify(result), 'utf-8');
             })
 
-        } else if (cookies.name) {
+        }
+        else if (req.url.startsWith('/api/food'))
+        {
+            console.log('API FOOD');
+            let data = '';
+            req.on('data', chunk => {
+                data += chunk;
+                console.log('data chunk added ' + data)
+            })
+            //aici lucrez cu comanda primita
+            req.on('end', () => {
+                data = JSON.parse(data);
+                const result = {
+                    token: data.token,
+                    quantities: data.quantities,
+                    items: data.items,
+                    adresa: data.adresa,
+                    prices: data.prices
+                };
+
+
+                res.writeHead(201, {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json'
+                });
+                console.log(JSON.stringify(result));
+                //verific daca tokenul este in baza de date
+                //daca da pun comanda in baza de date
+
+                //getPage(req, res).then();
+                 res.end(JSON.stringify(result), 'utf-8');
+       // res.end("ok");
+       })
+
+}
+        else if (cookies.name) {
 
         } else {
 

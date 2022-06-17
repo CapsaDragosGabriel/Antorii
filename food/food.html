@@ -6,7 +6,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Imbue">
-    <script src="../script/scriptFile.js"></script>
+    <script src="changeDisplay.js"></script>
+    <script type="module" src="insertRestaurants.js"></script>
+    <script src="../script/servicesBtn.js"></script>
+    <script >
+        if (localStorage.getItem('token')){}
+        //check token with db
+        else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
+    </script>
+    <script  src="../startUser/startUser.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -24,9 +32,7 @@
             <a href="../login/login.html" ><p itemprop="makesOffer">Inchirieri</p></a>
         </div>
     </div>
-    <a class="link" href="../about/about.html">Despre</a>
-    <a class="link" href="../login/login.html">Autentificare</a>
-    <a class="link" href="../register/register.html">Inregistrare</a>
+    <a class="link" onclick="logout()">Deconectare</a>
 </div>
 <div itemscope  class="header_small" itemtype="https://schema.org/Organization">
 
@@ -42,27 +48,27 @@
             <a href="../login/login.html">Inchirieri</a>
 
         </div>
+        <a class="link" onclick="logout()">Deconectare</a>
 
     </div>
-    <a class="link" href="../login/login.html">Autentificare</a>
-    <a class="link" href="../register/register.html">Inregistrare</a>
 </div>
 
-<div class="box">
-    <form method="POST" action="../startUser/startUser.html">
+<div id="box" >
+    <h1>Alege restaurantul</h1>
+    <!--<form method="POST" action="../startUser/startUser.html">
         <h1 class="titlu">Detalii comanda</h1><br>
         <label for="restaurant">Alege restaurantul:</label>
         <select name="restaurant" id="restaurant">
-            <div id="restaurantOptions"></div>
+            <div id="restaurantOptions"></div>-->
             <!-- aici ar trebui luata lista de restaurante din baza de date si facut ptr fiecare optiunea-->
-        </select><br>
-            <!-- luat din baza de date tipurile de mancare de la restaurantul respectiv-->
+    <!-- </select><br>
+         luat din baza de date tipurile de mancare de la restaurantul respectiv
         <input class="checkbox" type="checkbox" id="food1" name="food1" value="food1">
         <label for="food1"> food1</label><br>
 
 
         <button class="buttonaut" type="submit">Plaseaza comanda</button>
-    </form>
+    </form>-->
 </div>
 
 <footer class="footer">
@@ -72,7 +78,6 @@
         Romania
     </p>
 </footer>
-<script type="module" src="insertRestaurants.js"></script>
 
 </body>
 </html>

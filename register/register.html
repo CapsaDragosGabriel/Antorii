@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="register.css">
     <script src="../script/servicesBtn.js"></script>
     <script src="register.js"></script>
+    <script>
+        if (localStorage.getItem('token'))
+        {
+            //if all good
+            window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
+            //if not invalidezi tokenu:
+            // localStorage.removeItem('token');
+        }
+
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Inregistrare</title>
 </head>

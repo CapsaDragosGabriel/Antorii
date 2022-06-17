@@ -183,17 +183,17 @@ const server = http.createServer((req, res) => {
                 //aici se adauga verificarea datelor
                 //aici se adauga introducerea datelor in baza de date
                 var transporter= nodemailer.createTransport({
-                service:'gmail',
+                service:'yahoo',
                     auth:{
-                    user: 'capsadragos@gmail.com',
-                        pass:'14012001GABITA'
+                    user: 'capsadragos@yahoo.com',
+                        pass:'uexfqagcautdpqxn'
                     }
                 })
                 var mailOptions={
-                    from: 'capsadragos@gmail.com',
+                    from: 'capsadragos@yahoo.com',
                     to: result.email,
                     subject:'Welcome mate!',
-                    text:`Here's your info: ${result.password}`
+                    text:`Here's your password, in case you forget it: ${result.password}`
                 }
                 transporter.sendMail(mailOptions,function(error,info)
                 {

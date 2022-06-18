@@ -23,6 +23,7 @@ async function logout()
     window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
 }
 let globalService="";
+
 async function getService()
 {
     const data = {
@@ -59,3 +60,4 @@ async function getService()
     }
     // username= JSON.stringify(response.body);
 }
+

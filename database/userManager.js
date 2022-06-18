@@ -111,6 +111,18 @@ async function getTokenByEmail(email){
     })
 
 }
+async function getIDByEmail(email) {
+    return new Promise((resolve, reject) => {
+        var sql = "select id from users where email = \'" + email + "\'";
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            if (result.length == 1)
+                resolve(JSON.parse(JSON.stringify(result[0])).id);
+            else
+                resolve(null);
+        });
+    })
+}
 async function getEmailByToken(token){
     return new Promise((resolve, reject)=>{
         var sql = "select email from users where token = \'" + token + "\'";
@@ -171,4 +183,5 @@ module.exports={
     updateTokenByEmail,
     getEmailByToken,
     insertUser,
+    getIDByEmail
 }

@@ -107,7 +107,7 @@ const server = http.createServer((req, res) => {
                                     'Content-Type': 'application/json',
                                     // 'Location': '/mainHome/mainHome.html',
                                 });
-                                res.end('{"asdasds":"cartof"}');
+                                res.end();
 
                             }
                             else{
@@ -242,6 +242,78 @@ const server = http.createServer((req, res) => {
                     //aici se adauga verificarea datelor
                     //aici se adauga introducerea datelor in baza de date
                     userDB.insertUser(result.prenume,result.nume,result.telefon,result.email,result.password,result.oras,result.judet,result.adresa,"consumer");
+
+
+                    var transporter= nodemailer.createTransport({
+                        service:'yahoo',
+                        auth:{
+                            user: 'capsadragos@yahoo.com',
+                            pass:'uexfqagcautdpqxn'
+                        }
+                    })
+                    var mailOptions={
+                        from: 'capsadragos@yahoo.com',
+                        to: result.email,
+                        subject:'Welcome mate!',
+                        text:`Here's your password, in case you forget it: ${result.password}`
+                    }
+                    transporter.sendMail(mailOptions,function(error,info)
+                    {
+                        if (error){
+                            console.log(error);
+                            console.log('N-AM PUTUT TRIMITE MAIL-UL')
+                        }
+                        else {
+                            console.log('Email sent '+ info.response);
+                        }
+                    })
+                    //getPage(req, res).then();
+                    res.end(JSON.stringify(result), 'utf-8');}
+            });
+
+
+
+        })
+
+    }
+    else  if (req.url.startsWith('/api/team')) {
+
+        console.log('API TEAM');
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+            console.log('data chunk finished ' + data.email)
+
+            const result = {
+                email: data.email,
+                prenume: data.prenume,
+                nume: data.nume,
+                telefon: data.telefon,
+                oras: data.oras,
+                service: data.service,
+                password: data.password
+            };
+            let sendEmail=false;
+            userDB.checkUserExistence(data.email).then(r=>{
+                if (r=="da"){
+                    console.log("EXISTA DEJA ACEST USER IN BAZA DE DATE");
+
+                }
+                else{
+                    // console.log(result+"\n\n\n\n\n\n\n");
+                    res.writeHead(201, {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json'
+                    });
+
+                    //aici se adauga verificarea datelor
+                    //aici se adauga introducerea datelor in baza de date
+                  //  userDB.insertUser(result.prenume,result.nume,result.telefon,result.email,result.password,result.oras,"","",result.service);
 
 
                     var transporter= nodemailer.createTransport({

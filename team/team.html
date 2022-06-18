@@ -57,7 +57,7 @@
 </div>
 <div id="main-div">
     <h1 id="title">Inscrie-te!</h1>
-    <form id="register-form">
+    <form id="register-form" onsubmit="{registerTeam(); return false;} " action="../team/team.html">
         <div class="full-width">
             <input class="half-width" type="text" id="nume" name="nume" pattern="[A-Z][a-z]+" placeholder="nume"
                    required>

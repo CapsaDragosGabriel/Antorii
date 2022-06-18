@@ -1,7 +1,10 @@
 function createPriceDiv() {
     var x = document.getElementById("box");
     x.innerHTML = x.innerHTML + `<div id="totalPrice"></div>
-<button id="sendCommand" onclick="display='comanda'; changeDisplay(); console.log(display) " >Plaseaza comanda</button>`;
+<button id="sendCommand" onclick="let ok=0;
+    for (let i=0;i<quantities.length;i++)
+        if (quantities[i]!=0)display='comanda';
+    changeDisplay(); console.log(display) " >Plaseaza comanda</button>`;
 }
 
 let numeRestaurant = "";

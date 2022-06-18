@@ -1,6 +1,8 @@
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 var userDB = require("../database/userManager.js");
+var rideDB = require("../database/rideManager");
+
 const http = require('http');
 
 const nodemailer= require('nodemailer');
@@ -228,21 +230,6 @@ const server = http.createServer((req, res) => {
           res.end('{}');
         })
     }
-    // res.end(JSON.stringify({}), 'utf-8');
-                //  return;
-                /*
-                            res.writeHead(200, {
-                                'Access-Control-Allow-Origin': '*',
-                                'Content-Type': 'application/json'
-                            });
-                            //aici se adauga verificarea datelor
-                            if (data.email == 'dragos.capsa@info.uaic.ro') {
-                                //aici se adauga ce se face daca exista match
-                                console.log(JSON.stringify(result));
-
-                                // getPage(req, res).then();
-                            }
-                            res.end(JSON.stringify(result), 'utf-8');*/
     else  if (req.url.startsWith('/api/register')) {
 
         console.log('API called');
@@ -406,7 +393,7 @@ const server = http.createServer((req, res) => {
         //aici lucrez cu email-ul si parola primite
         req.on('end', () => {
             data = JSON.parse(data);
-            console.log('data chunk finished ' + data.email)
+            // console.log('data chunk finished ' + data.email)
 
             const result = {
                from: data.from,
@@ -418,6 +405,19 @@ const server = http.createServer((req, res) => {
                 'Content-Type': 'application/json'
             });
             //aici se adauga verificarea datelor
+            userDB.getEmailByToken(result.token).then(r=>
+            {
+               // console.log(JSON.stringify(r));
+                let email=JSON.parse(JSON.stringify(r));
+                console.log(email);
+                userDB.getIDByEmail(email).then(f=>{
+                    console.log(result.from)
+                    console.log(result.to);
+                    console.log(f);
+                    rideDB.insertRide(result.from,result.to,f);
+                })
+
+            })
             //aici se adauga introducerea datelor in baza de date
             console.log(result);
             //getPage(req, res).then();
@@ -504,3 +504,18 @@ module.exports = server;
            res.writeHead(404, { 'Content-Type': 'application/json' })
            res.end(JSON.stringify({ message: 'Route Not Found' }))
        }*/
+// res.end(JSON.stringify({}), 'utf-8');
+//  return;
+/*
+            res.writeHead(200, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+            //aici se adauga verificarea datelor
+            if (data.email == 'dragos.capsa@info.uaic.ro') {
+                //aici se adauga ce se face daca exista match
+                console.log(JSON.stringify(result));
+
+                // getPage(req, res).then();
+            }
+            res.end(JSON.stringify(result), 'utf-8');*/

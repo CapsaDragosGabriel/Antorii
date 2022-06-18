@@ -59,10 +59,15 @@ function showCommands() {
         document.getElementById('defaultTitle').remove();
 }
 
-//for history
+//for history ride
 function showCourses() {
     document.getElementById('main-div').remove();
     document.getElementById('smth').remove();
     document.getElementById('commandsList').style.display = "block";
 }
 
+//for history food
+function showFoods() {
+    document.getElementById('box').remove();
+    document.getElementById('commandsList').style.display = "block";
+}

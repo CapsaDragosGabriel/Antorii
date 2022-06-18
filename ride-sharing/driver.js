@@ -7,7 +7,7 @@ function refreshRides()
 async function getClaimedRides()
 {
     const data = {
-        providerToken: localStorage.getItem('token')
+        token: localStorage.getItem('token')
     }
     let sent = true;
 
@@ -43,7 +43,7 @@ async function updateRide(id,status){
     const data = {
         id:id,
         status:status,
-        providerToken: localStorage.getItem('token')
+        token: localStorage.getItem('token')
     }
     let sent = true;
 

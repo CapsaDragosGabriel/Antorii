@@ -533,24 +533,41 @@ console.log(JSON.stringify(rides[i].start));
 
             const result = {
                 id: data.id,
-                providerToken:data.providerToken,
+                token:data.token,
                 status: data.status
             };
             res.writeHead(201, {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json'
             });
-            console.log(data);
-            userDB.getIDByToken(result.providerToken).then(r=>{
-                    //  console.log(r);
-                    // console.log(r);
-                    rideDB.getClaimed(r).then(fn=>{
-                        console.log("CLAIMED RIDES ARE "+fn);
-                        res.end(JSON.stringify(fn));
-                    });
-                }
+            userDB.getServiceByToken(result.token).then(p=>{
+                console.log(p)
+                if (p=="ride-sharing"){
+                    console.log(data);
+                    userDB.getIDByToken(result.token).then(r=>{
+                            //  console.log(r);
+                            // console.log(r);
+                            rideDB.getClaimed(r).then(fn=>{
+                                console.log("CLAIMED RIDES ARE "+fn);
+                                res.end(JSON.stringify(fn));
+                            });
+                        }
 
-            )
+                    )
+                }
+                else{
+                    console.log(data)
+                    userDB.getIDByToken(result.token).then(r=>{
+                        console.log(r);
+                        rideDB.getOwn(r).then(fn=>{
+                            // console.log("your rides are losdloas"+fn);
+                            res.end(JSON.stringify(fn));
+                        })
+                    })
+
+                }
+            })
+
 
         })
     }

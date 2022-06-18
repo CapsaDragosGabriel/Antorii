@@ -15,7 +15,9 @@
         if (localStorage.getItem('token')) {
             getService().then(() => {
                 if (globalService == "consumer") {
-
+                    getOwnRides().then(r=>{
+                        console.log(r);
+                    })
                 } else {
                     //redirect pe pagina serviciului corespunzator
                       window.location.href="driverPage.html"

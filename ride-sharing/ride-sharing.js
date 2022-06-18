@@ -1,5 +1,41 @@
 let username="";
+let globalRides;
+async function getOwnRides()
+{
+    const data = {
+        token: localStorage.getItem('token')
+    }
+    let sent = true;
 
+    const response = await fetch('http://localhost:8000/api/claim/rides', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        // mode: 'no-cors', // no-cors, *cors, same-origin
+        // headers: {
+        //     'Content-Type': 'application/json'
+        //     // 'Content-Type': 'application/x-www-form-urlencoded',
+        // },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    }).then(r => r.json())
+        .catch(e => {
+            console.log('error');
+            console.log(e);
+            //wrongPassword()
+
+            sent = false
+        });
+    if (sent==true)
+    {
+        globalRides=response;
+        let length=globalRides.length;
+        if(response)
+            for (let i =0;i<response.length;i++)
+                globalRides[length+i]=response[i];
+        console.log("RASPUNSUL A FOST" + response)
+        console.log("GLOBAL RIDES DUPA  GET CLAIMED RIDES" +globalRides);
+
+        // console.log(globalRides);
+    }
+}
 async function getUsername()
 {
     const data = {

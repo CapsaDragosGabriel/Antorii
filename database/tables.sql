@@ -51,7 +51,7 @@ CREATE TABLE ride_shares (
     start varchar(100) NOT NULL,
     finish varchar(100) NOT NULL,
     status varchar(100) NOT NULL,
-    estimated int NOT NULL,
+    estimated varchar(5) NOT NULL,
     FOREIGN KEY (consumerID) REFERENCES users (id),
     FOREIGN KEY (providerID) REFERENCES users (id),
     PRIMARY KEY (id)
@@ -84,6 +84,7 @@ CREATE TABLE orders (
     restaurantID int NOT NULL,
     address varchar(100) NOT NULL,
     status varchar(100) NOT NULL,
+    estimated varchar(5) NOT NULL,
     FOREIGN KEY (restaurantID) REFERENCES restaurants (id),
     PRIMARY KEY (id)
 );

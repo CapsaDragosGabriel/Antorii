@@ -2,7 +2,6 @@ var mysql = require('mysql');
 var userManager = require("./userManager.js")
 var utils = require('../goodScripts/utils.js')
 
-// console.log(msg)
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -12,35 +11,100 @@ var con = mysql.createConnection({
 });
 
 
-function insertRideShare() {
+function insertRideShare(rideShare) {
 
-    const rideShare = {
-        consumerEmail: "capsadragos@gmail.com",
-        providerEmail: "andrei@gmail.com"
-    }
-    //de validat atributele din rideShare
 
-    var consumerID;
-    var providerID;
     userManager.getUserByEmail(rideShare.consumerEmail).then(r => {
-        consumerID = r.id
+        var consumerID = r.id
+        var randomNumberOfMinutes = utils.getRandomInt(25, 120)
+        var estimatedTime = new Date(new Date().getTime() + randomNumberOfMinutes * 60000);
+        estimatedTime = estimatedTime.toLocaleTimeString([], {hour12: false}).substring(0, 5)
 
+        var sql = "INSERT INTO `web`.`ride_shares`\n" +
+            "(\n" +
+            "`consumerID`,\n" +
+            "`start`,\n" +
+            "`finish`,\n" +
+            "`status`,\n" +
+            "`estimated`)\n" +
+            "VALUES\n" +
+            "(\'" + consumerID + "\', " +
+            "\'" + rideShare.start + "\', " +
+            "\'" + rideShare.finish + "\', " +
+            "\'unclaimed\',  " +
+            "\'" + estimatedTime + "\');"
 
-        userManager.getUserByEmail(rideShare.providerEmail).then(r => {
-            providerID = r.id
-
-
-            console.log("ConsumerID: " + consumerID)
-            console.log("ProviderID: " + providerID)
-            
-            var randomNumberOfMinutes = utils.getRandomInt(25,120)
-            var estimatedTime = new Date(new Date().getTime() + randomNumberOfMinutes*60000);
-            estimatedTime = estimatedTime.toLocaleTimeString([],{hour12: false}).substring(0,5)
-            console.log(estimatedTime)
-        })
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log("ride-share inserted");
+        });
     })
 
 }
 
 
-insertRideShare()
+
+function setProviderByEmail(emailConsumer,emailProvider){
+
+    userManager.getUserByEmail(emailProvider).then(r => {
+        var providerID = r.id;
+
+        userManager.getUserByEmail(emailConsumer).then(r => {
+            var consumerID = r.id;
+
+            sql = "UPDATE `web`.`ride_shares`\n" +
+                "SET\n" +
+                "`providerID` = " + providerID +
+                " WHERE `consumerID` = " + consumerID + ";"
+
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log("ride-share claimed");
+            });
+
+            setStatusByConsumerEmail(emailConsumer,'claimed')
+        })
+    })
+}
+
+function setStatusByConsumerEmail(email,status){
+    userManager.getUserByEmail(email).then(r => {
+        var consumerID = r.id;
+
+        sql = "UPDATE `web`.`ride_shares`\n" +
+            "SET\n" +
+            "`status` = \'" + status +
+            "\' WHERE `consumerID` = " + consumerID + ";"
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log("ride share status changed");
+        });
+    })
+}
+
+function deleteRideShareByConsumerEmail(email){
+    userManager.getUserByEmail(email).then(r => {
+        var consumerID = r.id;
+
+        sql = "DELETE FROM `web`.`ride_shares`\n" +
+            "WHERE consumerID = " + consumerID + ";"
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log("ride-share deleted");
+        });
+    })
+}
+
+const rideShare = {
+    consumerEmail: "andrei@gmail.com",
+    providerEmail: "capsadragos@gmail.com",
+    start: "de undeva",
+    finish: "altundeva"
+}
+
+
+// insertRideShare(rideShare)
+// setProviderByEmail("andrei@gmail.com","capsadragos@gmail.com")
+deleteRideShareByConsumerEmail("andrei@gmail.com")

@@ -19,7 +19,24 @@ async function getRide(consumerID)
     })
 
 }
-async 
+async function changeRideStatus(id,string){
+    var sql = "update ride_shares set status = \'" + string + "\' where id = \'" + id + "\'";
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+    });
+}
+async function getUnclaimed(){
+    return new Promise((resolve, reject)=>{
+        var sql = "select * from ride_shares where status = \'unclaimed\'";
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            if (result.length!=0)
+                resolve(JSON.parse(JSON.stringify(result)));
+            else
+                resolve(null);
+        });
+    })
+}
 function insertRide(from, to, consumerID) {
     var sql = "INSERT INTO `web`.`ride_shares`" +
         "(start,finish,consumerID,providerID,status,estimated)" +
@@ -48,12 +65,11 @@ function insertRide(from, to, consumerID) {
         console.log(result);
     });
 }
-getRide(4).then(r=>{
-    for(let i=0;i<r.length;i++)
-    console.log(r[i].status);
-})
+// changeRideStatus(3,"unclaimed");
 // insertRide("boom","chow",4);
 module.exports=
     {
+        getRide,
+        getUnclaimed,
         insertRide,
     }

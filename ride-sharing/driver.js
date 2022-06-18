@@ -1,17 +1,41 @@
-
+function refreshRides()
+{
+    var x=document.getElementById("commandsList");
+    x.innerHTML="";
+}
 function showRides(){
     var x=document.getElementById("commandsList");
-
+    console.log(JSON.stringify(globalRides[0]));
+    // console.log(newObj.start);
     for (let i=0;i<globalRides.length;i++)
-{
+{    var newObj=(globalRides[i]);
+
     var newCommand=document.createElement('div');
-    var currRide=JSON.parse(JSON.stringify(globalRides[i]));
-    console.log("PLECAM DE LA "+currRide.from);
-    // newCommand.innerHTML=`<h1>De la ${currRide.from} la ${currRide.to}.
-// </h1>`;
-//     newCommand.className="command";
-//     x.appendChild(newCommand);
-    // var newRide=document.createElement('div')
+    // console.log("PLECAM DE LA "+currRide);
+    newCommand.innerHTML=`<h1>De la ${newObj.start} la ${newObj.finish}.
+</h1>`;
+    newCommand.className="command";
+    newCommand.innerHTML=newCommand.innerHTML+
+        `<label>
+            <p>Status comanda: ${newObj.status}</p>
+           <!-- <select class="selectStatus" name="status">
+                <option value="none" selected disabled hidden>Status</option>
+                <option value="yes">Confirma</option>
+                <option value="no">Refuza</option>
+                <option value="done">Terminat</option>
+            </select>-->
+        </label>
+        <button class="buttonaut" onclick="{
+        console.log(${i})
+        globalRides[${i}].status='claimed'
+        console.log(globalRides[${i}]);
+        refreshRides()
+        showRides()
+        }"
+        }></button>        
+`;
+    x.appendChild(newCommand);
+    var newRide=document.createElement('div')
     // console.log("una bucata ride"+currRide);
 }
 }
@@ -44,7 +68,7 @@ async function getNewRides()
     showRides()
     for(let iterator=0;iterator<response.length;iterator++)
     {
-        console.log(response[iterator]);
+        // console.log(response[iterator]);
     }
     // const resultData = awa1it response.json();
     if (sent) {

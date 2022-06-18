@@ -1,4 +1,5 @@
 const mysql = require("mysql");
+const {getEmailByToken, getIDByEmail} = require("./userManager");
 var con = mysql.createConnection({
     host: "localhost",
     user: "student",
@@ -19,15 +20,32 @@ async function getRide(consumerID)
     })
 
 }
-async function changeRideStatus(id,string){
-    var sql = "update ride_shares set status = \'" + string + "\' where id = \'" + id + "\'";
-    con.query(sql, function (err, result) {
-        if (err) throw err;
-    });
+ function changeRideStatus(id,string,providerID){
+            var sql = "update ride_shares set status = \'" + string + "\' where id = \'" + id + "\'";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+            })
+     var sql = "update ride_shares set providerID = \'" + providerID + "\' where id = \'" + id + "\'";
+     con.query(sql, function (err, result) {
+         if (err) throw err;
+     })
+
 }
 async function getUnclaimed(){
     return new Promise((resolve, reject)=>{
         var sql = "select * from ride_shares where status = \'unclaimed\'";
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            if (result.length!=0)
+                resolve(JSON.parse(JSON.stringify(result)));
+            else
+                resolve(null);
+        });
+    })
+}
+async function getClaimed(id){
+    return new Promise((resolve, reject)=>{
+        var sql = "select * from ride_shares where providerID = \'"+id+"\'";
         con.query(sql, function (err, result) {
             if (err) throw err;
             if (result.length!=0)
@@ -65,11 +83,13 @@ function insertRide(from, to, consumerID) {
         console.log(result);
     });
 }
-// changeRideStatus(3,"unclaimed");
+// changeRideStatus(3,"claimed")
 // insertRide("boom","chow",4);
 module.exports=
     {
+        changeRideStatus,
         getRide,
+        getClaimed,
         getUnclaimed,
         insertRide,
     }

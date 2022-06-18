@@ -483,7 +483,79 @@ console.log(JSON.stringify(rides[i].start));
         })
 
     }
-        else if (req.url.startsWith('/api/food'))
+    else if (req.url.startsWith('/api/update/rides')){
+        console.log('API RIDEs');
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            console.log("PANA AICI AM AJUNS SI TOKENUL E:")
+
+            data = JSON.parse(data);
+            // console.log('data chunk finished ' + data.email)
+
+            const result = {
+                id: data.id,
+                providerToken:data.providerToken,
+                status: data.status
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+            console.log(data);
+           userDB.getIDByToken(result.providerToken).then(r=>{
+             //  console.log(r);
+              // console.log(r);
+              rideDB.changeRideStatus(result.id,result.status,r);
+               }
+
+           )
+            res.end('{}');
+        })
+    }
+    else if (req.url.startsWith('/api/claim/rides')){
+        console.log('API RIDEs');
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            console.log("PANA AICI AM AJUNS SI TOKENUL E:")
+
+            data = JSON.parse(data);
+            // console.log('data chunk finished ' + data.email)
+
+            const result = {
+                id: data.id,
+                providerToken:data.providerToken,
+                status: data.status
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+            console.log(data);
+            userDB.getIDByToken(result.providerToken).then(r=>{
+                    //  console.log(r);
+                    // console.log(r);
+                    rideDB.getClaimed(r).then(fn=>{
+                        console.log("CLAIMED RIDES ARE "+fn);
+                        res.end(JSON.stringify(fn));
+                    });
+                }
+
+            )
+
+        })
+    }
+
+    else if (req.url.startsWith('/api/food'))
         {
             console.log('API FOOD');
             let data = '';

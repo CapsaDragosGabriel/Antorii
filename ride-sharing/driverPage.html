@@ -24,10 +24,8 @@
             })
         }
         else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
+        getNewRides().then(()=>{getClaimedRides().then(()=>{refreshRides(); showRides()})})
 
-        getNewRides().then(r=>{
-           // console.log(r)
-        })
     </script>
     <script src="../goodScripts/utils.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">

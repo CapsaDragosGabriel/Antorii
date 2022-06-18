@@ -1,7 +1,8 @@
 function refreshRides()
 {
     var x=document.getElementById("commandsList");
-    x.innerHTML="";
+    x.innerHTML="<h2 id=\"title\">Comenzi care te asteapta</h2>";
+
 }
 function showRides(){
     var x=document.getElementById("commandsList");
@@ -27,12 +28,23 @@ function showRides(){
         </label>
         <button class="buttonaut" onclick="{
         console.log(${i})
+        if (globalRides[${i}].status=='unclaimed')
         globalRides[${i}].status='claimed'
         console.log(globalRides[${i}]);
         refreshRides()
         showRides()
+        updateRide()
         }"
-        }></button>        
+        }>Preluata</button>     
+        <button class="buttonaut" onclick="{
+        console.log(${i})
+        globalRides[${i}].status='done'
+        console.log(globalRides[${i}]);
+        refreshRides()
+        showRides()
+        updateRide()
+        }"
+        }>Terminat</button>     
 `;
     x.appendChild(newCommand);
     var newRide=document.createElement('div')

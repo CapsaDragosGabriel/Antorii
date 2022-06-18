@@ -5,6 +5,21 @@ var con = mysql.createConnection({
     password: "student",
     database: "web"
 });
+async function getRide(consumerID)
+{
+    return new Promise((resolve, reject)=>{
+        var sql = "select * from ride_shares where consumerID = \'" + consumerID + "\'";
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            if (result.length!=0)
+                resolve(JSON.parse(JSON.stringify(result)));
+            else
+                resolve(null);
+        });
+    })
+
+}
+async 
 function insertRide(from, to, consumerID) {
     var sql = "INSERT INTO `web`.`ride_shares`" +
         "(start,finish,consumerID,providerID,status,estimated)" +
@@ -33,7 +48,11 @@ function insertRide(from, to, consumerID) {
         console.log(result);
     });
 }
-// insertRide("ala","bala",4);
+getRide(4).then(r=>{
+    for(let i=0;i<r.length;i++)
+    console.log(r[i].status);
+})
+// insertRide("boom","chow",4);
 module.exports=
     {
         insertRide,

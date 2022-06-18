@@ -7,9 +7,8 @@ html {
 }
 
 body {
-    background-image: url("../resources/bkRegisterO.png");
+    background-image: url("../resources/bkFood.png");
     background-position: center;
-    background-repeat: no-repeat;
     background-size: cover;
     margin: 0;
 }
@@ -18,39 +17,9 @@ body {
     overflow: hidden;
     background-color: #B64141;
     padding: 0;
-}
-
-.header_small a {
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 13px;
-    font-family: "Zilla Slab";
-    font-weight: bold;
-}
-.header_small .link:hover {
-    color: black;
-    background-color: #F5F5F5;
-}
-.header_small a.active{
-    color: white;
-    -webkit-text-stroke: 2px #F4B795;
-    padding: 0;
-}
-
-.header_small a.active p{
-    font-family: "Zen Dots";
-    font-size: 25px;
-    margin: 0;
-    padding: 10px 10px 0px 10px;
-}
-.header_small
-{
-    overflow: hidden;
-    background-color: #B64141;
-    padding: 0;
+    top: 0;
+    position: fixed;
+    width: 100%;
 }
 
 .header a {
@@ -130,14 +99,51 @@ body {
 
 .show {
     display: block;
+    position: fixed;
 }
 
-.buttonaut {
+
+.header_small a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: "Zilla Slab";
+    font-weight: bold;
+}
+
+.header_small .link:hover {
+    color: black;
+    background-color: #F5F5F5;
+}
+
+.header_small a.active {
+    color: white;
+    -webkit-text-stroke: 2px #F4B795;
+    padding: 0;
+}
+
+.header_small a.active p {
+    font-family: "Zen Dots";
+    font-size: 25px;
+    margin: 0;
+    padding: 10px 10px 0px 10px;
+}
+
+.header_small {
+    overflow: hidden;
+    background-color: #B64141;
+    padding: 0;
+}
+
+.trimite {
     background-color: #B64141;
     border: none;
     color: white;
-    padding: 2% 4% 2% 4%;
-    margin-bottom: 5%;
+    width: fit-content;
+    margin: 0;
     text-align: center;
     text-decoration: none;
     font-size: 15px;
@@ -148,38 +154,12 @@ body {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
 }
 
-.full-width {
-    width:70%;
-    display: block;
-    justify-content: space-around;
-    padding-bottom: 20px;
-    font-family: "Zilla Slab";
-}
-
-.bottom-text a {
-    color: #B64141;
-    font-weight: bold;
-    text-shadow: 0px 0px 2px gray;
-    text-decoration: none;
-    margin: auto;
-}
-.bottom-text-register a {
-    color: #B64141;
-    font-weight: bold;
-    text-shadow: 0px 0px 2px gray;
-    text-decoration: none;
-    margin: auto;
-    float:right;
-}
 form {
-    width: 40%;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-    background-color: #F5F5F5;
-    margin: auto;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
     border-radius: 10px;
+    margin-top: 5%;
 }
 
 input {
@@ -193,24 +173,29 @@ input {
     border: 1px solid gray;
     padding: 0;
 }
-#box{
-    background: whitesmoke;
-    border:1px solid black;
-    border-radius: 5px;
+
+#box {
     padding-top: 2%;
     padding-bottom: 5%;
     background-blend-mode: soft-light;
-    opacity: 0.9;
-    margin:10% 25% 10% 25%;
-    flex-direction: row;
     align-content: center;
-    text-align:center;
+    text-align: center;
+    width: 45%;
+    margin: 10% 35% 2% 35%;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    font-family: "Zilla Slab";
+    font-weight: bold;
 }
+
 #details {
     height: 100%;
     width: 250px;
     z-index: 1;
-    top: 48px;
+    top: 49px;
     left: 0;
     background-color: #F5F5F5;
     overflow-x: hidden;
@@ -231,7 +216,7 @@ input {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: 20px 40px 20px 0;
+    margin: 20px 0;
 }
 
 #details .user-div p {
@@ -250,23 +235,105 @@ input {
     color: white;
 }
 
-#box button
-{
+#addProduct button {
+    width: fit-content;
     display: inline-block;
-}
-#box img
-{
-    opacity: initial;
-    border: black 2px solid ;
-    width:400px;
-    height:170px ;
-    border-radius:10px;
-}
-#box a {
+    background-color: #B64141;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 30px;
     font-family: "Zilla Slab";
-    font-weight:bold;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+}
 
-    color: black;
+#totalCost {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    width: fit-content;
+    padding: 1%;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+#pret {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    width: fit-content;
+    padding: 1%;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    font-weight: bold;
+    margin: 0;
+}
+
+#addProduct p {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#box #sendCommand {
+    display: inline-block;
+    background-color: #B64141;
+    width: fit-content;
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    align-content: center;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 30px;
+    font-family: "Zilla Slab";
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+}
+
+#box img {
+    opacity: initial;
+    width: 400px;
+    height: 170px;
+    border-radius: 10px;
+    background-blend-mode: soft-light;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+}
+
+#back {
+    display: inline-block;
+    background-color: #B64141;
+    width: fit-content;
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 30px;
+    font-family: "Zilla Slab";
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+}
+
+#delete {
+    display: inline-block;
+    background-color: #B64141;
+    width: fit-content;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 30px;
+    font-family: "Zilla Slab";
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
 }
 
 input::placeholder {
@@ -281,40 +348,57 @@ input::placeholder {
     text-align: center;
     font-weight: lighter;
 }
-.checkbox{
-width: 15px;
-height: 15px;
+
+.checkbox {
+    width: 15px;
+    height: 15px;
 }
+
 .footer {
     display: flex;
     justify-content: space-between;
     font-family: "Imbue";
-    margin: 3% 2% 0 2%;
+    margin: 10% 2% 0 2%;
     font-weight: normal;
     font-size: 20px;
 }
+
 @media screen and (max-width: 600px) {
     div.header {
         display: none;
     }
-    div.header_small{
-        display:block;
-    }
-    div.bottom-text-register{
-        float: left;
 
+    div.header_small {
+        display: block;
     }
-    #register{
-        float:left;
+
+    #details {
+        display: none;
+    }
+
+    .overlay {
+        overflow-y: auto;
+    }
+
+    .overlay a {
+        font-size: 20px
+    }
+
+    .overlay .closebtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
     }
 
 }
+
 @media screen and (min-width: 601px) {
     div.header {
         display: block;
     }
-    div.header_small{
-        display:none;
+
+    div.header_small {
+        display: none;
     }
 
 }

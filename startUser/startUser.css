@@ -253,12 +253,10 @@ body {
     }
     div.service{
         flex-flow:row;
+        margin: 0 0 20% 0;
     }
     #promo-text{
         font-size:40px;
-    }
-    div.service img{
-
     }
     #text1{
         font-size:30px;

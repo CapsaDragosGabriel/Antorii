@@ -235,6 +235,65 @@ input {
     color: white;
 }
 
+.overlay {
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #F5F5F5;
+    overflow-y: hidden;
+    transition: 0.5s;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    font-weight: bold;
+    font-family: "Zilla Slab";
+}
+
+.overlay a:hover, .overlay a:focus {
+    background-color: #B64141;
+    color: white;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+.menu-small {
+    background-color: #B64141;
+    display: flex;
+    justify-content: center;
+}
+
+.menu-small #profile {
+    cursor: pointer;
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: "Zilla Slab";
+    font-weight: bold;
+}
+
 #addProduct button {
     width: fit-content;
     display: inline-block;
@@ -357,13 +416,14 @@ input::placeholder {
 .footer {
     display: flex;
     justify-content: space-between;
+
     font-family: "Imbue";
     margin: 10% 2% 0 2%;
     font-weight: normal;
     font-size: 20px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
     div.header {
         display: none;
     }
@@ -391,9 +451,18 @@ input::placeholder {
         right: 35px;
     }
 
+    #box {
+        margin: 10% 2%;
+        width: auto;
+    }
+
+    #box img {
+        width: 300px;
+    }
+
 }
 
-@media screen and (min-width: 601px) {
+@media screen and (min-width: 901px) {
     div.header {
         display: block;
     }

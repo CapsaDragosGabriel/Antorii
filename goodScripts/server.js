@@ -425,6 +425,49 @@ const server = http.createServer((req, res) => {
         })
 
     }
+    else  if (req.url.startsWith('/api/rides')) {
+
+        console.log('API RIDEs');
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+            // console.log('data chunk finished ' + data.email)
+
+            const result = {
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+            //aici se adauga verificarea datelor
+            userDB.getEmailByToken(result.token).then(r=>
+            {
+                // console.log(JSON.stringify(r));
+                if(r) {
+                    // let email = JSON.parse(JSON.stringify(r));
+                    console.log(r.email);
+                    rideDB.getUnclaimed().then(f=>{
+                       for(let i=0;i<f.length;i++) {
+                           console.log(f.from);
+                           console.log(f.to);
+                       }
+                    })
+
+
+                }
+            })
+            //aici se adauga introducerea datelor in baza de date
+            console.log(result);
+            //getPage(req, res).then();
+
+        })
+
+    }
         else if (req.url.startsWith('/api/food'))
         {
             console.log('API FOOD');

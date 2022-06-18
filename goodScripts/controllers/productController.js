@@ -100,7 +100,7 @@ async function getPage(request,response){
                 response.end();
             }
         } else {
-            console.log('test good')
+            // console.log('test good')
             response.writeHead(200, {'Content-Type': contentType});
             response.end(content, 'utf-8');
         }

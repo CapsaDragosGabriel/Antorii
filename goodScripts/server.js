@@ -93,7 +93,7 @@ const server = http.createServer((req, res) => {
                             'Content-Type': 'application/json',
                             // 'Location': '/mainHome/mainHome.html',
                         });
-                        res.end();
+                        res.end('{}');
                     }
                     else
                     {
@@ -107,7 +107,7 @@ const server = http.createServer((req, res) => {
                                     'Content-Type': 'application/json',
                                     // 'Location': '/mainHome/mainHome.html',
                                 });
-                                res.end();
+                                res.end('{"asdasds":"cartof"}');
 
                             }
                             else{
@@ -141,9 +141,10 @@ const server = http.createServer((req, res) => {
             const result = {
                 token: data.token
             }
+
             userDB.getEmailByToken(result.token).then(r=>{
                 // console.log(r);
-                console.log("NUMELE MEU ESTE" +r);
+               // console.log("NUMELE MEU ESTE" +r);
                 let toSend={
                     email:r
                 }
@@ -154,8 +155,12 @@ const server = http.createServer((req, res) => {
                     'Content-Type': 'application/json',
                     // 'Location': '/mainHome/mainHome.html',
                 });
+                    console.log("NUMELE MEU ESTE" +JSON.stringify(toSend));
 
-                res.end(JSON.stringify(toSend), 'utf-8');})
+                    // res.write('{"aaaa":7}', 'utf-8');
+                    // res.end();
+                res.end(JSON.stringify(toSend), 'utf-8');
+                })
                   //  console.log(res=>res.json());
             // console.log(toSend)
                 // console.log(res.body);
@@ -180,7 +185,7 @@ const server = http.createServer((req, res) => {
             userDB.getEmailByToken(result.token).then(r=>{
                 userDB.removeTokenByEmail( r);
             })
-          res.end();
+          res.end('{}');
         })
     }
     // res.end(JSON.stringify({}), 'utf-8');
@@ -236,7 +241,7 @@ const server = http.createServer((req, res) => {
 
                     //aici se adauga verificarea datelor
                     //aici se adauga introducerea datelor in baza de date
-
+                    userDB.insertUser(result.prenume,result.nume,result.telefon,result.email,result.password,result.oras,result.judet,result.adresa,"consumer");
 
 
                     var transporter= nodemailer.createTransport({

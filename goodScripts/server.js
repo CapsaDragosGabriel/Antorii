@@ -435,34 +435,49 @@ const server = http.createServer((req, res) => {
         })
         //aici lucrez cu email-ul si parola primite
         req.on('end', () => {
-            data = JSON.parse(data);
+            console.log("PANA AICI AM AJUNS SI TOKENUL E:")
+
+           data = JSON.parse(data);
             // console.log('data chunk finished ' + data.email)
 
             const result = {
+                token:data.token
             };
             res.writeHead(201, {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json'
             });
             //aici se adauga verificarea datelor
+            console.log(result.token);
             userDB.getEmailByToken(result.token).then(r=>
             {
                 // console.log(JSON.stringify(r));
                 if(r) {
+                    console.log(JSON.stringify(r));
                     // let email = JSON.parse(JSON.stringify(r));
-                    console.log(r.email);
+                    // console.log(r.email);
                     rideDB.getUnclaimed().then(f=>{
-                       for(let i=0;i<f.length;i++) {
-                           console.log(f.from);
-                           console.log(f.to);
-                       }
+                       let rides=JSON.parse(JSON.stringify(f));
+                        //console.log(rides);
+                        let response=rides;
+
+                      /* for(let i=0;i<rides.length;i++) {
+                           response[i].start=JSON.stringify(rides[i].start);
+                           // response[i].start=rides[i].finish;
+                           // response[i].start=rides[i].status;
+console.log(JSON.stringify(rides[i].start));
+                           // console.log(rides[i].start);
+                           // console.log(rides[i].to.value);
+                       }*/
+                       console.log(response);
+                       res.end(JSON.stringify(response));
                     })
 
 
                 }
             })
             //aici se adauga introducerea datelor in baza de date
-            console.log(result);
+            //console.log(result);
             //getPage(req, res).then();
 
         })

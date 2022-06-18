@@ -8,6 +8,27 @@
     <link rel="stylesheet" href="driverPage.css">
     <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="../startUser/startUser.js"></script>
+    <script src="driver.js"></script>
+    <script >
+
+        if (localStorage.getItem('token')) {
+            getUsername();
+            changeUsername();
+            getService().then(() => {
+                if (globalService == "consumer") {
+                    window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
+                } else
+                if (globalService=="ride-sharing"){
+                    //  window.location.href="https://stackoverflow.com/questions/1827063/mysql-error-key-specification-without-a-key-length";
+                }
+            })
+        }
+        else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
+
+        getNewRides().then(r=>{
+           // console.log(r)
+        })
+    </script>
     <script src="../goodScripts/utils.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Comenzi</title>
@@ -46,8 +67,8 @@
 <div id="details" itemscope itemtype="https://schema.org/Organization">
     <div class="user-div">
         <img class="img" src="../resources/user.png" alt="user" style="width:50px; height:50px;">
-        <p>
-            Username
+        <p id="username">
+
             <a href="#user" style="padding: 0;"> detalii profil</a>
         </p>
     </div>
@@ -88,20 +109,7 @@
             </select>
         </label>
     </div>
-    <div class="command">
-        <div>
-            <h1>USER</h1>
-            <p>de la...pana la</p>
-        </div>
-        <label>
-            <select class="selectStatus" name="status">
-                <option value="none" selected disabled hidden>Status</option>
-                <option value="yes">Confirma</option>
-                <option value="no">Refuza</option>
-                <option value="done">Terminat</option>
-            </select>
-        </label>
-    </div>
+
 </div>
 
 </body>

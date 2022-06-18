@@ -9,10 +9,9 @@
     <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="register.js"></script>
     <script>
-        if (localStorage.getItem('token'))
-        {
+        if (localStorage.getItem('token')) {
             //if all goode
-            window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
+            window.location.href = "http://127.0.0.1:8000/startUser/startUser.html"
             //if not invalidezi tokenu:
             // localStorage.removeItem('token');
         }
@@ -23,16 +22,16 @@
 </head>
 <body>
 <div class="header" itemscope itemtype="https://schema.org/Organization">
-    <a class="active" href="../mainHome/mainHome.html" ><p itemprop="legalName">SerP</p></a>
+    <a class="active" href="../mainHome/mainHome.html"><p itemprop="legalName">SerP</p></a>
     <div class="dropdown">
         <button class="dropbtn" onclick="myFunction()">Servicii
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content" id="myDropdown">
-            <a href="../login/login.html" ><p itemprop="makesOffer">Ride-sharing</p></a>
+            <a href="../login/login.html"><p itemprop="makesOffer">Ride-sharing</p></a>
             <a href="../login/login.html"><p itemprop="makesOffer">Food delivery</p></a>
             <a href="../login/login.html"><p itemprop="makesOffer">Curier</p></a>
-            <a href="../login/login.html" ><p itemprop="makesOffer">Inchirieri</p></a>
+            <a href="../login/login.html"><p itemprop="makesOffer">Inchirieri</p></a>
         </div>
     </div>
     <a class="link" href="../team/team.html">Hai in echipa!</a>
@@ -63,7 +62,7 @@
 <div id="main-div">
     <h1 id="title">Creaza-ti un cont!</h1>
     <div itemscope itemtype="https://schema.org/Person">
-        <form id="register-form" action="../register/register.html"  onsubmit="{
+        <form id="register-form" action="../register/register.html" onsubmit="{
         register()
         return false;
 }">
@@ -91,11 +90,8 @@
                 <input class="half-width" type="text" id="oras" name="oras" placeholder="oras"
                        style="float: right" required>
             </div>
-    <!-- pattern="[A-Z]+[a-z]+/+[0-9]+/+[A-Za-z0-9]+/+[A-Za-z0-9]" placeholder="strada/numar/bloc/apartament"-->
             <input class="full-width" itemprop="homeLocation" type="text" id="adresa" name="adresa"
-
-                   required>
-
+                   placeholder="strada/numar/bloc/apartament" required>
             <div class="full-width">
                 <label class="bottom-text">Ai deja cont?</label><br>
                 <label class="bottom-text" id="register">

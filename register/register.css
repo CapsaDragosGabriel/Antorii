@@ -9,7 +9,6 @@ html {
 body {
     background-image: url("../resources/bkRegisterO.png");
     background-position: center;
-    background-repeat: no-repeat;
     background-size: cover;
     margin: 0;
 }

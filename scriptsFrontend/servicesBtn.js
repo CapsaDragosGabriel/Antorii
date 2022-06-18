@@ -25,6 +25,7 @@ function myFunction() {
         }
     }
 }
+
 function myFunctionSmall() {
     document.getElementById("myDropdownsmall").classList.toggle("show");
 }
@@ -54,7 +55,14 @@ window.onscroll = function () {
 //for driverPage
 function showCommands() {
     document.getElementById('commandsList').style.display = "block";
-    if(document.getElementById('defaultTitle'))
-    document.getElementById('defaultTitle').remove();
+    if (document.getElementById('defaultTitle'))
+        document.getElementById('defaultTitle').remove();
+}
+
+//for history
+function showCourses() {
+    document.getElementById('main-div').remove();
+    document.getElementById('smth').remove();
+    document.getElementById('commandsList').style.display = "block";
 }
 

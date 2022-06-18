@@ -124,6 +124,19 @@ async function getEmailByToken(token){
     })
 
 }
+async function getServiceByToken(token){
+    return new Promise((resolve, reject)=>{
+        var sql = "select service from users where token = \'" + token + "\'";
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            if (result.length==1)
+                resolve(JSON.parse(JSON.stringify(result[0])).service);
+            else
+                resolve(null);
+        });
+    })
+
+}
 
 
  //insertUser("NUme","prenume","98451312","capsadragos@gmail.com","Parola123","Bacau","Buhusi",
@@ -142,12 +155,16 @@ getTokenByEmail("capsadragos@gmail.com").then(r=>{
         console.log(r);
     })
 })
+getServiceByToken("n8vjKZHQXPeKk82E").then(r=>{
+    console.log(r);
+})
 
 let lolw="595";
 module.exports={
     lolw,
     removeTokenByEmail,
     getUserByEmail,
+    getServiceByToken,
     getTokenByEmail,
     checkUserExistence,
     checkLogin,

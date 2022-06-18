@@ -12,6 +12,7 @@
         //check token with db
         else {}
     </script>
+    <script src="team.js"></script>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Text+Me+One">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Zen+Dots">
@@ -35,8 +36,10 @@
     </div>
     <a class="link" href="../team/team.html">Hai in echipa!</a>
     <a class="link" href="../about/about.html">Despre</a>
+    <a class="link" href="../login/login.html">Autentificare</a>
+    <a class="link" href="../register/register.html">Inregistrare</a>
 </div>
-<script src="../script/navbar.js"></script>
+<script src="../scriptsFrontend/navbar.js"></script>
 <div class="header_small" itemscope itemtype="https://schema.org/Organization">
     <a class="active" href="../mainHome/mainHome.html" itemprop="legalName"><p>SerP</p></a>
     <div class="dropdown">
@@ -57,7 +60,7 @@
 </div>
 <div id="main-div">
     <h1 id="title">Inscrie-te!</h1>
-    <form id="register-form" onsubmit="{registerTeam(); return false;} " action="../team/team.html">
+    <form id="register-form"action="../team/team.html" onsubmit="{registerTeam(); return false;} " >
         <div class="full-width">
             <input class="half-width" type="text" id="nume" name="nume" pattern="[A-Z][a-z]+" placeholder="nume"
                    required>
@@ -73,13 +76,15 @@
                placeholder="password" required>
         <input class="full-width" type="text" id="oras" name="oras"  placeholder="oras"
                style="float: right" required>
-        <select class="select" name="services" id="services">
-            <option value="none" selected disabled hidden>Alege ce serviciu vrei sa prestezi</option>
+        <select class="select" name="services" id="services" required>
+          <!--  <option value="none" selected disabled hidden>Alege ce serviciu vrei sa prestezi</option>-->
             <option value="ride-sharing">Ride-sharing</option>
-            <option value="food-delivery">Food-delivery</option>
+            <option value="food">Food-delivery</option>
             <option value="rent">Rent</option>
             <option value="courier">Courier</option>
         </select>
+        <div id="already">
+        </div>
         <label id="buton">
             <button class="submitbtn" type="submit">Aplica</button>
         </label>

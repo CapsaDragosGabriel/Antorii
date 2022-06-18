@@ -168,7 +168,47 @@ const server = http.createServer((req, res) => {
             })
             // res.end();
         }
+    else if (req.url.startsWith('/api/service')){
+        console.log("API SERVICE")
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+            console.log('data chunk finished ' + data.token)
+            const result = {
+                token: data.token
+            }
 
+            userDB.getServiceByToken(result.token).then(r=>{
+                // console.log(r);
+                // console.log("NUMELE MEU ESTE" +r);
+                let toSend={
+                    service: r
+                }
+                console.log(JSON.stringify(toSend));
+                res.writeHead(200, {
+                    'Access-Control-Allow-Origin': '*',
+                    'mode': 'no-cors',
+                    'Content-Type': 'application/json',
+                    // 'Location': '/mainHome/mainHome.html',
+                });
+                console.log("serviciul MEU ESTE" +JSON.stringify(toSend));
+
+                // res.write('{"aaaa":7}', 'utf-8');
+                // res.end();
+                res.end(JSON.stringify(toSend), 'utf-8');
+            })
+            //  console.log(res=>res.json());
+            // console.log(toSend)
+            // console.log(res.body);
+            //res.write()
+        })
+        // res.end();
+    }
     else if (req.url.startsWith('/api/logout')){
         let data = '';
         req.on('data', chunk => {
@@ -230,7 +270,7 @@ const server = http.createServer((req, res) => {
             userDB.checkUserExistence(data.email).then(r=>{
                 if (r=="da"){
                     console.log("EXISTA DEJA ACEST USER IN BAZA DE DATE");
-
+                    res.end();
                 }
                 else{
                     // console.log(result+"\n\n\n\n\n\n\n");
@@ -295,14 +335,21 @@ const server = http.createServer((req, res) => {
                 nume: data.nume,
                 telefon: data.telefon,
                 oras: data.oras,
-                service: data.service,
-                password: data.password
+                password: data.password,
+                service: data.service
             };
             let sendEmail=false;
             userDB.checkUserExistence(data.email).then(r=>{
                 if (r=="da"){
                     console.log("EXISTA DEJA ACEST USER IN BAZA DE DATE");
-
+                    res.end();
+                    /*res.writeHead(
+                        400, {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json',
+                            mode:'no-cors'
+                    });*/
+                    // res.end();
                 }
                 else{
                     // console.log(result+"\n\n\n\n\n\n\n");
@@ -313,7 +360,7 @@ const server = http.createServer((req, res) => {
 
                     //aici se adauga verificarea datelor
                     //aici se adauga introducerea datelor in baza de date
-                  //  userDB.insertUser(result.prenume,result.nume,result.telefon,result.email,result.password,result.oras,"","",result.service);
+                    userDB.insertUser(result.prenume,result.nume,result.telefon,result.email,result.password,result.oras,result.judet,result.adresa,result.service);
 
 
                     var transporter= nodemailer.createTransport({
@@ -348,7 +395,6 @@ const server = http.createServer((req, res) => {
         })
 
     }
-
     else  if (req.url.startsWith('/api/ride-sharing')) {
 
         console.log('API RIDE');

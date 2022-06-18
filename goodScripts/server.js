@@ -552,6 +552,7 @@ console.log(JSON.stringify(rides[i].start));
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json'
             });
+
             userDB.getServiceByToken(result.token).then(p=>{
                 console.log(p)
                 if (p=="ride-sharing"){
@@ -583,21 +584,45 @@ console.log(JSON.stringify(rides[i].start));
 
         })
     }
-    else if (req.url.startsWith('/api/restaurants') && req.method=="GET")
+    else if (req.url.startsWith('/api/restaurants') )
     {
         console.log('API restaurants');
-        result= await
-            res.writeHead(200, {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json'
-            });
-            console.log(JSON.stringify(result));
-            //verific daca tokenul este in baza de date
-            //daca da pun comanda in baza de date
 
-            //getPage(req, res).then();
-            res.end(JSON.stringify(result), 'utf-8');
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            // data = JSON.parse(data);
+            // console.log('data chunk finished ' + data.token)
+          //  console.log(data);
+
+       restaurantDB.getAllRestaurants().then(r=> {
+           // r.json();
+           let restaurants = {};
+           for (let i = 0; i < r.length; i++) {
+               res.write(JSON.stringify(r[i]),'utf-8')
+           }
+           // console.log("DIN BAZA DE DATE AM LUAT SMECHERIA ASTA:" + JSON.stringify(restaurants))
+           res.writeHead(200, {
+               'Access-Control-Allow-Origin': '*',
+               // 'Content-Type': 'application/json'
+           });
+           // console.log(JSON.stringify(r));
+           //verific daca tokenul este in baza de date
+           //daca da pun comanda in baza de date
+           // res.write(JSON.stringify(restaurants),'utf-8');
+           // res.end("");
+           console.log(JSON.stringify(r));
+           res.end(JSON.stringify(r), 'utf-8');
+           //getPage(req, res).then();
+           // console.log(res)
+       })
+        })
     }
+
     else if (req.url.startsWith('/api/food'))
         {
             console.log('API FOOD');

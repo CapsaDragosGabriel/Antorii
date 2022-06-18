@@ -103,9 +103,9 @@ function insertRide(from, to, consumerID) {
         console.log(result);
     });
 }
-getOwn("3").then(r=>{
-    console.log(r);
-})
+// getOwn("3").then(r=>{
+//     console.log(r);
+// })
 // console.log("fuck");
 // changeRideStatus(3,"claimed")
 // insertRide("boom","chow",4);

@@ -10,14 +10,21 @@ function myFunction() {
         count = 0;
     } else {
         const myDropdown = document.getElementById("myDropdown");
-        if (myDropdown.classList.contains('show')) {
-            myDropdown.classList.remove('show');
+// Close the dropdown if the user clicks outside of it
+        window.onclick = function (e) {
+            if (!document.getElementById("details")) return;
+            if (!e.target.matches('.dropbtn')) {
+                var myDropdown = document.getElementById("myDropdown");
+                if (myDropdown)
+                    if (myDropdown.classList.contains('show')) {
+                        myDropdown.classList.remove('show');
+                    }
+                document.getElementById("details").style.display = "block";
+                count = 1;
+            }
         }
-        document.getElementById("details").style.display = "block";
-        count = 1;
     }
 }
-
 function myFunctionSmall() {
     document.getElementById("myDropdownsmall").classList.toggle("show");
 }
@@ -47,6 +54,7 @@ window.onscroll = function () {
 //for driverPage
 function showCommands() {
     document.getElementById('commandsList').style.display = "block";
+    if(document.getElementById('defaultTitle'))
     document.getElementById('defaultTitle').remove();
 }
 

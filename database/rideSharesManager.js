@@ -14,46 +14,87 @@ var con = mysql.createConnection({
 function insertRideShare(rideShare) {
 
 
-    var consumerID;
-    var providerID;
     userManager.getUserByEmail(rideShare.consumerEmail).then(r => {
-        consumerID = r.id
+        var consumerID = r.id
+        var randomNumberOfMinutes = utils.getRandomInt(25, 120)
+        var estimatedTime = new Date(new Date().getTime() + randomNumberOfMinutes * 60000);
+        estimatedTime = estimatedTime.toLocaleTimeString([], {hour12: false}).substring(0, 5)
+
+        var sql = "INSERT INTO `web`.`ride_shares`\n" +
+            "(\n" +
+            "`consumerID`,\n" +
+            "`start`,\n" +
+            "`finish`,\n" +
+            "`status`,\n" +
+            "`estimated`)\n" +
+            "VALUES\n" +
+            "(\'" + consumerID + "\', " +
+            "\'" + rideShare.start + "\', " +
+            "\'" + rideShare.finish + "\', " +
+            "\'unclaimed\',  " +
+            "\'" + estimatedTime + "\');"
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log("ride-share inserted");
+        });
+    })
+
+}
 
 
-        userManager.getUserByEmail(rideShare.providerEmail).then(r => {
-            providerID = r.id
 
+function setProviderByEmail(emailConsumer,emailProvider){
 
-            console.log("ConsumerID: " + consumerID)
-            console.log("ProviderID: " + providerID)
+    userManager.getUserByEmail(emailProvider).then(r => {
+        var providerID = r.id;
 
-            var randomNumberOfMinutes = utils.getRandomInt(25,120)
-            var estimatedTime = new Date(new Date().getTime() + randomNumberOfMinutes*60000);
-            estimatedTime = estimatedTime.toLocaleTimeString([],{hour12: false}).substring(0,5)
+        userManager.getUserByEmail(emailConsumer).then(r => {
+            var consumerID = r.id;
 
-            var sql = "INSERT INTO `web`.`ride_shares`\n" +
-                "(\n" +
-                "`consumerID`,\n" +
-                "`providerID`,\n" +
-                "`start`,\n" +
-                "`finish`,\n" +
-                "`status`,\n" +
-                "`estimated`)\n" +
-                "VALUES\n" +
-                "(\'" + consumerID + "\', " +
-                "\'" + providerID + "\', " +
-                "\'" + rideShare.start + "\', " +
-                "\'" + rideShare.finish + "\', " +
-                "\'unclaimed\',  " +
-                "\'" + estimatedTime + "\');"
+            sql = "UPDATE `web`.`ride_shares`\n" +
+                "SET\n" +
+                "`providerID` = " + providerID +
+                " WHERE `consumerID` = " + consumerID + ";"
 
             con.query(sql, function (err, result) {
                 if (err) throw err;
-                console.log("ride-share inserted");
+                console.log("ride-share claimed");
             });
+
+            setStatusByConsumerEmail(emailConsumer,'claimed')
         })
     })
+}
 
+function setStatusByConsumerEmail(email,status){
+    userManager.getUserByEmail(email).then(r => {
+        var consumerID = r.id;
+
+        sql = "UPDATE `web`.`ride_shares`\n" +
+            "SET\n" +
+            "`status` = \'" + status +
+            "\' WHERE `consumerID` = " + consumerID + ";"
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log("ride share status changed");
+        });
+    })
+}
+
+function deleteRideShareByConsumerEmail(email){
+    userManager.getUserByEmail(email).then(r => {
+        var consumerID = r.id;
+
+        sql = "DELETE FROM `web`.`ride_shares`\n" +
+            "WHERE consumerID = " + consumerID + ";"
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log("ride-share deleted");
+        });
+    })
 }
 
 const rideShare = {
@@ -63,4 +104,7 @@ const rideShare = {
     finish: "altundeva"
 }
 
-insertRideShare(rideShare)
+
+// insertRideShare(rideShare)
+// setProviderByEmail("andrei@gmail.com","capsadragos@gmail.com")
+deleteRideShareByConsumerEmail("andrei@gmail.com")

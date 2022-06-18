@@ -325,6 +325,19 @@ body {
     font-weight: bold;
 }
 
+.footer {
+    display: flex;
+    flex-direction: column;
+    font-family: "Imbue";
+    margin: 0 2% 0 2%;
+    font-weight: normal;
+    font-size: 20px;
+    float: right;
+}
+
+.footer p{
+    margin: 0;
+}
 @media screen and (max-width: 800px) {
     div.header {
         display: none;
@@ -360,7 +373,7 @@ body {
 
     #main-div {
         width: auto;
-        margin: 40% 0 0 0;
+        margin: 30% 0 0 0;
     }
 
     #main-div #ridesharing-form {

@@ -19,9 +19,9 @@ body {
     float: left;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding: 16px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 16px;
     font-family: "Zilla Slab";
     font-weight: bold;
 }
@@ -220,6 +220,14 @@ body {
     padding-top: 5%;
     padding-bottom: 5%;
 }
+.footer {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Imbue";
+    margin: 3% 2% 0 2%;
+    font-weight: normal;
+    font-size: 20px;
+}
 @media screen and (max-width: 600px) {
     div.header {
         display: none;
@@ -235,6 +243,12 @@ body {
         display: block;
         align-self: center;
         margin-top: 4%;
+    }
+    .footer {
+        font-size: 10px;
+    }
+    .footer img {
+        width: 15%;
     }
 
 }

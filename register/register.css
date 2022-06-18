@@ -102,37 +102,34 @@ body {
     position: fixed;
 }
 
-
 .header_small a {
     float: left;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding: 16px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 16px;
     font-family: "Zilla Slab";
     font-weight: bold;
 }
-
 .header_small .link:hover {
     color: black;
     background-color: #F5F5F5;
 }
-
-.header_small a.active {
+.header_small a.active{
     color: white;
     -webkit-text-stroke: 2px #F4B795;
     padding: 0;
 }
 
-.header_small a.active p {
+.header_small a.active p{
     font-family: "Zen Dots";
     font-size: 25px;
     margin: 0;
     padding: 10px 10px 0px 10px;
 }
-
-.header_small {
+.header_small
+{
     overflow: hidden;
     background-color: #B64141;
     padding: 0;
@@ -223,6 +220,14 @@ body {
     justify-content: center;
     padding-top: 5%;
 }
+.footer {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Imbue";
+    margin: 3% 2% 0 2%;
+    font-weight: normal;
+    font-size: 20px;
+}
 
 @media screen and (max-width: 600px) {
     div.header {
@@ -230,12 +235,13 @@ body {
     }
 
     div.header_small {
-        display: flex;
-        flex-direction: row;
+        display:block;
     }
 
     #main-div {
         flex-flow: column;
+        width: 80%;
+        margin: 20% 10%;
     }
 
     #register-form {
@@ -262,7 +268,13 @@ body {
 
     #buton {
         padding-bottom: 10%;
+    }
 
+    .footer {
+        font-size: 10px;
+    }
+    .footer img {
+        width: 15%;
     }
 }
 

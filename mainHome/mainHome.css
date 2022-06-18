@@ -11,9 +11,9 @@ body {
     float: left;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding: 16px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 16px;
     font-family: "Zilla Slab";
     font-weight: bold;
 }
@@ -263,14 +263,11 @@ body {
 
     div.service {
         flex-flow: row;
+        margin: 0 0 20% 0;
     }
 
     #promo-text {
         font-size: 40px;
-    }
-
-    div.service img {
-
     }
 
     #text1 {

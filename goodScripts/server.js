@@ -2,7 +2,7 @@
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 var userDB = require("../database/userManager.js");
 var rideDB = require("../database/rideManager");
-
+var restaurantDB=require("../database/restaurantManager");
 const http = require('http');
 
 const nodemailer= require('nodemailer');
@@ -583,7 +583,21 @@ console.log(JSON.stringify(rides[i].start));
 
         })
     }
+    else if (req.url.startsWith('/api/restaurants') && req.method=="GET")
+    {
+        console.log('API restaurants');
+        result= await
+            res.writeHead(200, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+            console.log(JSON.stringify(result));
+            //verific daca tokenul este in baza de date
+            //daca da pun comanda in baza de date
 
+            //getPage(req, res).then();
+            res.end(JSON.stringify(result), 'utf-8');
+    }
     else if (req.url.startsWith('/api/food'))
         {
             console.log('API FOOD');

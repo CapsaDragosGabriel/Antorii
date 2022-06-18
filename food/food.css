@@ -369,7 +369,8 @@ input::placeholder {
     }
 
     div.header_small {
-        display: block;
+        display: flex;
+        flex-direction: row;
     }
 
     #details {

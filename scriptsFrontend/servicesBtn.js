@@ -1,25 +1,25 @@
 /* When the user clicks on the button,
-   toggle between hiding and showing the dropdown content */
+   toggle between hiding and showing the dropdown content
+   Close the dropdown if the user clicks outside of it*/
+let count = 1;
+
 function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-    if( document.getElementById("details"))
-    document.getElementById("details").style.left = "-300px";
+    if (count === 1) {
+        document.getElementById("myDropdown").classList.toggle("show");
+        document.getElementById("details").style.display = "none";
+        count = 0;
+    } else {
+        const myDropdown = document.getElementById("myDropdown");
+        if (myDropdown.classList.contains('show')) {
+            myDropdown.classList.remove('show');
+        }
+        document.getElementById("details").style.display = "block";
+        count = 1;
+    }
 }
 
 function myFunctionSmall() {
     document.getElementById("myDropdownsmall").classList.toggle("show");
-}
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function (e) {
-    if(!document.getElementById("details")) return;
-    if (!e.target.matches('.dropbtn')) {
-        var myDropdown = document.getElementById("myDropdown");
-        if (myDropdown.classList.contains('show')) {
-            myDropdown.classList.remove('show');
-        }
-        document.getElementById("details").style.left = "0";
-    }
 }
 
 //menu for mobile
@@ -35,7 +35,7 @@ function closeNav() {
 var prevScrollpos = window.pageYOffset;
 window.onscroll = function () {
     var currentScrollPos = window.pageYOffset;
-    if(!document.getElementById("smth")) return;
+    if (!document.getElementById("smth")) return;
     if (prevScrollpos > currentScrollPos) {
         document.getElementById("smth").style.top = "0";
     } else {

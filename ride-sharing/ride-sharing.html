@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="ride-sharing.js"></script>
-    <script src="startUser/startUser.js"></script>
+    <script src="../startUser/startUser.js"></script>
     <script src="../goodScripts/utils.js"></script>
     <script >
         if (localStorage.getItem('token')) {
@@ -33,9 +33,7 @@
 <div class="header" itemscope itemtype="https://schema.org/Organization">
     <a class="active" href="../mainHome/mainHome.html"><p itemprop="legalName">SerP</p></a>
     <div class="dropdown">
-        <button class="dropbtn" onclick="myFunction()">Servicii
-            <i class="fa fa-caret-down"></i>
-        </button>
+        <button class="dropbtn" onclick="myFunction()">Servicii</button>
         <div class="dropdown-content" id="myDropdown">
             <a href="../ride-sharing/ride-sharing.html"><p itemprop="makesOffer">Ride-sharing</p></a>
             <a href="../food/food.html"><p itemprop="makesOffer">Food delivery</p></a>
@@ -43,7 +41,7 @@
             <a href="../login/login.html"><p itemprop="makesOffer">Inchirieri</p></a>
         </div>
     </div>
-    <a class="link" href="../mainHome/mainHome.html" onclick="logout()">Deconectare</a>
+    <a class="link" onclick="logout()">Deconectare</a>
 </div>
 <div class="header_small" itemscope itemtype="https://schema.org/Organization">
     <a class="active" href="../startUser/startUser.html" itemprop="legalName"><p>SerP</p></a>

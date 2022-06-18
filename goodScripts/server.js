@@ -407,8 +407,10 @@ const server = http.createServer((req, res) => {
             //aici se adauga verificarea datelor
             userDB.getEmailByToken(result.token).then(r=>
             {
-                console.log(r.email);
-                userDB.getIDByEmail(JSON.stringify(r)).then(f=>{
+               // console.log(JSON.stringify(r));
+                let email=JSON.parse(JSON.stringify(r));
+                console.log(email);
+                userDB.getIDByEmail(email).then(f=>{
                     console.log(result.from)
                     console.log(result.to);
                     console.log(f);

@@ -2,7 +2,6 @@ var mysql = require('mysql');
 var userManager = require("./userManager.js")
 var utils = require('../goodScripts/utils.js')
 
-// console.log(msg)
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -12,13 +11,8 @@ var con = mysql.createConnection({
 });
 
 
-function insertRideShare() {
+function insertRideShare(rideShare) {
 
-    const rideShare = {
-        consumerEmail: "capsadragos@gmail.com",
-        providerEmail: "andrei@gmail.com"
-    }
-    //de validat atributele din rideShare
 
     var consumerID;
     var providerID;
@@ -32,15 +26,41 @@ function insertRideShare() {
 
             console.log("ConsumerID: " + consumerID)
             console.log("ProviderID: " + providerID)
-            
+
             var randomNumberOfMinutes = utils.getRandomInt(25,120)
             var estimatedTime = new Date(new Date().getTime() + randomNumberOfMinutes*60000);
             estimatedTime = estimatedTime.toLocaleTimeString([],{hour12: false}).substring(0,5)
-            console.log(estimatedTime)
+
+            var sql = "INSERT INTO `web`.`ride_shares`\n" +
+                "(\n" +
+                "`consumerID`,\n" +
+                "`providerID`,\n" +
+                "`start`,\n" +
+                "`finish`,\n" +
+                "`status`,\n" +
+                "`estimated`)\n" +
+                "VALUES\n" +
+                "(\'" + consumerID + "\', " +
+                "\'" + providerID + "\', " +
+                "\'" + rideShare.start + "\', " +
+                "\'" + rideShare.finish + "\', " +
+                "\'unclaimed\',  " +
+                "\'" + estimatedTime + "\');"
+
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log("ride-share inserted");
+            });
         })
     })
 
 }
 
+const rideShare = {
+    consumerEmail: "andrei@gmail.com",
+    providerEmail: "capsadragos@gmail.com",
+    start: "de undeva",
+    finish: "altundeva"
+}
 
-insertRideShare()
+insertRideShare(rideShare)

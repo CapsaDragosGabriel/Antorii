@@ -138,64 +138,11 @@ body {
     padding: 0;
 }
 
-.trimite {
-    background-color: #B64141;
-    border: none;
-    color: white;
-    width: fit-content;
-    margin: 0;
-    text-align: center;
-    text-decoration: none;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 30px;
-    font-family: "Zilla Slab";
-    font-weight: bold;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-}
-
-form {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-radius: 10px;
-    margin-top: 5%;
-}
-
-input {
-    background: white;
-    border-radius: 10px;
-    height: 50px;
-    font-size: x-large;
-    width: 70%;
-    font-family: "Zilla Slab";
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-    border: 1px solid gray;
-    padding: 0;
-}
-
-#box {
-    padding-top: 2%;
-    padding-bottom: 5%;
-    background-blend-mode: soft-light;
-    align-content: center;
-    text-align: center;
-    width: 45%;
-    margin: 10% 35% 2% 35%;
-    background-color: #F5F5F5;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-    font-family: "Zilla Slab";
-    font-weight: bold;
-}
-
 #details {
     height: 100%;
     width: 250px;
     z-index: 1;
-    top: 49px;
+    top: 48px;
     left: 0;
     background-color: #F5F5F5;
     overflow-x: hidden;
@@ -216,7 +163,7 @@ input {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: 20px 0;
+    margin: 20px 40px 20px 0;
 }
 
 #details .user-div p {
@@ -235,132 +182,70 @@ input {
     color: white;
 }
 
-#addProduct button {
-    width: fit-content;
-    display: inline-block;
-    background-color: #B64141;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 30px;
+#defaultTitle {
+    margin-left: 350px;
+    margin-bottom: 0;
+    margin-top: 50px;
     font-family: "Zilla Slab";
     font-weight: bold;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    font-size: 64px;
+    color: black;
+    text-align: left;
+    text-shadow: 1px 1px 3px #B64141;
+    filter: drop-shadow(0px 7px 1px #ADADAD);
+    position: fixed;
+    top: 0;
+    transition: top 0.3ms;
 }
 
-#totalCost {
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-    width: fit-content;
-    padding: 1%;
+#commandsList {
+    display: none;
+    width: 45%;
+    height: 100%;
+    margin: 10% 25% 2% 37%;
     background-color: #F5F5F5;
     border-radius: 10px;
-    font-weight: bold;
-}
-
-#pret {
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-    width: fit-content;
-    padding: 1%;
-    background-color: #F5F5F5;
-    border-radius: 10px;
-    font-weight: bold;
-    margin: 0;
-}
-
-#addProduct p {
-    font-size: 15px;
-    font-weight: bold;
-}
-
-#box #sendCommand {
-    display: inline-block;
-    background-color: #B64141;
-    width: fit-content;
-    border: none;
-    color: white;
-    padding: 4px 8px;
-    align-content: center;
-    text-align: center;
-    text-decoration: none;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 30px;
-    font-family: "Zilla Slab";
-    font-weight: bold;
+    flex-direction: column;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
 }
 
-#box img {
-    opacity: initial;
-    width: 400px;
-    height: 170px;
-    border-radius: 10px;
-    background-blend-mode: soft-light;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-}
-
-#back {
-    display: inline-block;
-    background-color: #B64141;
-    width: fit-content;
-    border: none;
-    color: white;
-    padding: 4px 8px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 30px;
-    font-family: "Zilla Slab";
-    font-weight: bold;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-}
-
-#delete {
-    display: inline-block;
-    background-color: #B64141;
-    width: fit-content;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 30px;
-    font-family: "Zilla Slab";
-    font-weight: bold;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-}
-
-input::placeholder {
+.command {
     font-family: "Zilla Slab";
     color: black;
-    opacity: 35%;
+    font-weight: bold;
+    font-size: 10px;
+    margin: 2% 2% 0 2%;
+    opacity: 73%;
+    padding: 10px 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
 }
 
-.titlu {
+.selectStatus {
+    margin-top: 19px;
+    width: 100%;
+    display: block;
+    align-self: center;
+    border: 1px solid gray;
+    border-radius: 8px;
+    height: 35px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.45);
+    font-family: "Zilla Slab";
+}
+
+#title {
     font-family: "Text Me One";
-    font-size: 40px;
+    font-size: 30px;
     text-align: center;
     font-weight: lighter;
+    padding-top: 20px;
 }
 
-.checkbox {
-    width: 15px;
-    height: 15px;
-}
-
-.footer {
-    display: flex;
-    justify-content: space-between;
-    font-family: "Imbue";
-    margin: 10% 2% 0 2%;
-    font-weight: normal;
-    font-size: 20px;
+.selectStatus {
+    float: right;
 }
 
 @media screen and (max-width: 600px) {
@@ -369,7 +254,8 @@ input::placeholder {
     }
 
     div.header_small {
-        display: block;
+        display: flex;
+        flex-direction: row;
     }
 
     #details {
@@ -401,4 +287,7 @@ input::placeholder {
         display: none;
     }
 
+    .menu-small {
+        display: none;
+    }
 }

@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
     <link rel="stylesheet" href="register.css">
-    <script src="../script/servicesBtn.js"></script>
+    <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="register.js"></script>
     <script>
         if (localStorage.getItem('token'))
         {
-            //if all good
+            //if all goode
             window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
             //if not invalidezi tokenu:
             // localStorage.removeItem('token');
@@ -102,8 +102,9 @@
                     <a href="../login/login.html">Autentifica-ma!</a>
                 </label>
             </div>
+            <div id="already"></div>
             <label id="buton">
-                <button class="submitbtn" onclick="createUser()" type="submit" value="inregistrare">Inregistreaza-te</button>
+                <button class="submitbtn" type="submit" value="inregistrare">Inregistreaza-te</button>
             </label>
         </form>
     </div>

@@ -7,13 +7,16 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
     <link rel="stylesheet" href="ride-sharing.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="../script/servicesBtn.js"></script>
+    <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="ride-sharing.js"></script>
     <script src="../goodScripts/utils.js"></script>
     <script >
         if (localStorage.getItem('token')){}
             //check token with db
         else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
+    </script>
+    <script>
+        getUsername();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ride-sharing</title>
@@ -52,9 +55,9 @@
 <div id="details" itemscope itemtype="https://schema.org/Organization">
     <div class="user-div">
         <img class="img" src="../resources/user.png" alt="user" style="width:50px; height:50px;">
-        <p>
+        <p id="username" >
             Username
-            <a href="#user" style="padding: 0;"> detalii profil</a>
+            <a href="#user" style="padding: 0;"> Detalii profil</a>
         </p>
     </div>
     <div class="options">

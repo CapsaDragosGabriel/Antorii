@@ -1,6 +1,6 @@
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
-var userDB = import("../database/userManager.js");
+var userDB = require("../database/userManager.js");
 const http = require('http');
 
 const nodemailer= require('nodemailer');
@@ -15,6 +15,7 @@ const {
 const fs = require('fs');
 const url = require('url');
 const qs = require('querystring');
+const {con} = require("../database/demo_db_connection");
 
 function makeid(length) {
     var result = '';
@@ -52,7 +53,7 @@ const server = http.createServer((req, res) => {
         res.end();
     } else
         */
-    console.log('TEST server called')
+    //console.log('TEST server called')
     if (cookies.name) {
         res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
         fs.readFile('../mainHome/mainHome.html', (error, data) => {
@@ -63,12 +64,8 @@ const server = http.createServer((req, res) => {
         res.end(`Welcome ${cookies.name}`)
     }
     else
-    //console.log('TEST server called')
-    // const cookies = parseCookies(req.headers.cookie);
     if (req.url.startsWith('/api/login')) {
-        console.log('API called');
-        //if ( localStorage.getItem('token')!=null)
-
+        console.log('API LOGIN');
 
             let data = '';
             req.on('data', chunk => {
@@ -79,35 +76,159 @@ const server = http.createServer((req, res) => {
             req.on('end', () => {
                 data = JSON.parse(data);
                 console.log('data chunk finished ' + data.email)
-                 const result = {
+                const result = {
                     email: data.email,
                     parola: data.password,
                     token: makeid(16)
                 };
                 //daca nu e in baza de date:
-                if (result.email != 'capsadragos@gmail.com')
-                {console.log("NU AVEM MATCH")
-                    res.end();
+                userDB.getTokenByEmail(result.email).then(r=>{
+                    //console.log("\n\n\n\n\n\n ")
+                    console.log(JSON.stringify(r));
+                    if (r!=null)
+                    {
+                        res.writeHead(302, {
+                            'Access-Control-Allow-Origin': '*',
+                            'mode': 'no-cors',
+                            'Content-Type': 'application/json',
+                            // 'Location': '/mainHome/mainHome.html',
+                        });
+                        res.end('{}');
+                    }
+                    else
+                    {
+                        userDB.checkLogin(result.email,result.parola).then(r=>{
+                            if (r=="nu")
+                            {console.log("NU AVEM MATCH")
+                                // res.setHeader('Set-Cookie', `name=test;Expires=;HttpOnly;Path=/`)
+                                res.writeHead(302, {
+                                    'Access-Control-Allow-Origin': '*',
+                                    'mode': 'no-cors',
+                                    'Content-Type': 'application/json',
+                                    // 'Location': '/mainHome/mainHome.html',
+                                });
+                                res.end();
 
+                            }
+                            else{
+                                userDB.updateTokenByEmail(result.email,result.token);
+                                res.writeHead(302, {
+                                    'Access-Control-Allow-Origin': '*',
+                                    'mode': 'no-cors',
+                                    'Content-Type': 'application/json',
+                                    // 'Location': '/mainHome/mainHome.html',
+                                });
+
+                                res.end(JSON.stringify(result), 'utf-8');}
+                        })
+                    }
+                });
+
+
+                })
+
+        }
+    else if (req.url.startsWith('/api/username')){
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+            console.log('data chunk finished ' + data.token)
+            const result = {
+                token: data.token
+            }
+
+            userDB.getEmailByToken(result.token).then(r=>{
+                // console.log(r);
+               // console.log("NUMELE MEU ESTE" +r);
+                let toSend={
+                    email:r
                 }
-                else{
-
-                const {query} = url.parse(req.url);
-                const {name} = qs.parse(query);
-                const expires = new Date();
-                expires.setMinutes(expires.getMinutes() + 1);
-                console.log(JSON.stringify(result));
-
-                res.setHeader('Set-Cookie', `name=test;Expires=${expires.toGMTString()};HttpOnly;Path=/`)
-                res.writeHead(302, {
+                console.log(JSON.stringify(toSend));
+                res.writeHead(200, {
                     'Access-Control-Allow-Origin': '*',
                     'mode': 'no-cors',
                     'Content-Type': 'application/json',
                     // 'Location': '/mainHome/mainHome.html',
                 });
+                    console.log("NUMELE MEU ESTE" +JSON.stringify(toSend));
 
-                res.end(JSON.stringify(result), 'utf-8');}
-                // res.end(JSON.stringify({}), 'utf-8');
+                    // res.write('{"aaaa":7}', 'utf-8');
+                    // res.end();
+                res.end(JSON.stringify(toSend), 'utf-8');
+                })
+                  //  console.log(res=>res.json());
+            // console.log(toSend)
+                // console.log(res.body);
+                //res.write()
+            })
+            // res.end();
+        }
+    else if (req.url.startsWith('/api/service')){
+        console.log("API SERVICE")
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+            console.log('data chunk finished ' + data.token)
+            const result = {
+                token: data.token
+            }
+
+            userDB.getServiceByToken(result.token).then(r=>{
+                // console.log(r);
+                // console.log("NUMELE MEU ESTE" +r);
+                let toSend={
+                    service: r
+                }
+                console.log(JSON.stringify(toSend));
+                res.writeHead(200, {
+                    'Access-Control-Allow-Origin': '*',
+                    'mode': 'no-cors',
+                    'Content-Type': 'application/json',
+                    // 'Location': '/mainHome/mainHome.html',
+                });
+                console.log("serviciul MEU ESTE" +JSON.stringify(toSend));
+
+                // res.write('{"aaaa":7}', 'utf-8');
+                // res.end();
+                res.end(JSON.stringify(toSend), 'utf-8');
+            })
+            //  console.log(res=>res.json());
+            // console.log(toSend)
+            // console.log(res.body);
+            //res.write()
+        })
+        // res.end();
+    }
+    else if (req.url.startsWith('/api/logout')){
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+            console.log('data chunk finished ' + data.email)
+            const result = {
+                token: data.token
+            }
+            userDB.getEmailByToken(result.token).then(r=>{
+                userDB.removeTokenByEmail( r);
+            })
+          res.end('{}');
+        })
+    }
+    // res.end(JSON.stringify({}), 'utf-8');
                 //  return;
                 /*
                             res.writeHead(200, {
@@ -122,8 +243,158 @@ const server = http.createServer((req, res) => {
                                 // getPage(req, res).then();
                             }
                             res.end(JSON.stringify(result), 'utf-8');*/
-            })}
+    else  if (req.url.startsWith('/api/register')) {
 
+        console.log('API called');
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+            console.log('data chunk finished ' + data.email)
+
+            const result = {
+                email: data.email,
+                prenume: data.prenume,
+                nume: data.nume,
+                telefon: data.telefon,
+                judet: data.judet,
+                oras: data.oras,
+                adresa: data.adresa,
+                password: data.password
+            };
+            let sendEmail=false;
+            userDB.checkUserExistence(data.email).then(r=>{
+                if (r=="da"){
+                    console.log("EXISTA DEJA ACEST USER IN BAZA DE DATE");
+                    res.end();
+                }
+                else{
+                    // console.log(result+"\n\n\n\n\n\n\n");
+                    res.writeHead(201, {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json'
+                    });
+
+                    //aici se adauga verificarea datelor
+                    //aici se adauga introducerea datelor in baza de date
+                    userDB.insertUser(result.prenume,result.nume,result.telefon,result.email,result.password,result.oras,result.judet,result.adresa,"consumer");
+
+
+                    var transporter= nodemailer.createTransport({
+                        service:'yahoo',
+                        auth:{
+                            user: 'capsadragos@yahoo.com',
+                            pass:'uexfqagcautdpqxn'
+                        }
+                    })
+                    var mailOptions={
+                        from: 'capsadragos@yahoo.com',
+                        to: result.email,
+                        subject:'Welcome mate!',
+                        text:`Here's your password, in case you forget it: ${result.password}`
+                    }
+                    transporter.sendMail(mailOptions,function(error,info)
+                    {
+                        if (error){
+                            console.log(error);
+                            console.log('N-AM PUTUT TRIMITE MAIL-UL')
+                        }
+                        else {
+                            console.log('Email sent '+ info.response);
+                        }
+                    })
+                    //getPage(req, res).then();
+                    res.end(JSON.stringify(result), 'utf-8');}
+            });
+
+
+
+        })
+
+    }
+    else  if (req.url.startsWith('/api/team')) {
+
+        console.log('API TEAM');
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+            console.log('data chunk finished ' + data.email)
+
+            const result = {
+                email: data.email,
+                prenume: data.prenume,
+                nume: data.nume,
+                telefon: data.telefon,
+                oras: data.oras,
+                password: data.password,
+                service: data.service
+            };
+            let sendEmail=false;
+            userDB.checkUserExistence(data.email).then(r=>{
+                if (r=="da"){
+                    console.log("EXISTA DEJA ACEST USER IN BAZA DE DATE");
+                    res.end();
+                    /*res.writeHead(
+                        400, {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json',
+                            mode:'no-cors'
+                    });*/
+                    // res.end();
+                }
+                else{
+                    // console.log(result+"\n\n\n\n\n\n\n");
+                    res.writeHead(201, {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json'
+                    });
+
+                    //aici se adauga verificarea datelor
+                    //aici se adauga introducerea datelor in baza de date
+                    userDB.insertUser(result.prenume,result.nume,result.telefon,result.email,result.password,result.oras,result.judet,result.adresa,result.service);
+
+
+                    var transporter= nodemailer.createTransport({
+                        service:'yahoo',
+                        auth:{
+                            user: 'capsadragos@yahoo.com',
+                            pass:'uexfqagcautdpqxn'
+                        }
+                    })
+                    var mailOptions={
+                        from: 'capsadragos@yahoo.com',
+                        to: result.email,
+                        subject:'Welcome mate!',
+                        text:`Here's your password, in case you forget it: ${result.password}`
+                    }
+                    transporter.sendMail(mailOptions,function(error,info)
+                    {
+                        if (error){
+                            console.log(error);
+                            console.log('N-AM PUTUT TRIMITE MAIL-UL')
+                        }
+                        else {
+                            console.log('Email sent '+ info.response);
+                        }
+                    })
+                    //getPage(req, res).then();
+                    res.end(JSON.stringify(result), 'utf-8');}
+            });
+
+
+
+        })
+
+    }
     else  if (req.url.startsWith('/api/ride-sharing')) {
 
         console.log('API RIDE');
@@ -154,75 +425,6 @@ const server = http.createServer((req, res) => {
         })
 
     }
-      else  if (req.url.startsWith('/api/register')) {
-
-            console.log('API called');
-            let data = '';
-            req.on('data', chunk => {
-                data += chunk;
-                console.log('data chunk added ' + data)
-            })
-            //aici lucrez cu email-ul si parola primite
-            req.on('end', () => {
-                data = JSON.parse(data);
-                console.log('data chunk finished ' + data.email)
-
-                const result = {
-                    email: data.email,
-                    prenume: data.prenume,
-                    nume: data.nume,
-                    telefon: data.telefon,
-                    judet: data.judet,
-                    oras: data.oras,
-                    adresa: data.adresa,
-                    password: data.password
-                };
-                if (userDB.doesUserExist(data.email))
-                {
-                    console.log("EXISTA DEJA ACEST USER IN BAZA DE DATE");
-                    res.writeHead(200, {
-                        'Access-Control-Allow-Origin': '*',
-                        'Content-Type': 'application/json'
-                    });
-                    res.end("user already exists");
-                }
-                else{
-                    res.writeHead(201, {
-                        'Access-Control-Allow-Origin': '*',
-                        'Content-Type': 'application/json'
-                    });
-                    //aici se adauga verificarea datelor
-                    //aici se adauga introducerea datelor in baza de date
-                    var transporter= nodemailer.createTransport({
-                        service:'yahoo',
-                        auth:{
-                            user: 'capsadragos@yahoo.com',
-                            pass:'uexfqagcautdpqxn'
-                        }
-                    })
-                    var mailOptions={
-                        from: 'capsadragos@yahoo.com',
-                        to: result.email,
-                        subject:'Welcome mate!',
-                        text:`Here's your password, in case you forget it: ${result.password}`
-                    }
-                    transporter.sendMail(mailOptions,function(error,info)
-                    {
-                        if (error){
-                            console.log(error);
-                            console.log('N-AM PUTUT TRIMITE MAIL-UL')
-                        }
-                        else {
-                            console.log('Email sent '+ info.response);
-                        }
-                    })
-                    //getPage(req, res).then();
-                    res.end(JSON.stringify(result), 'utf-8');
-                }
-
-            })
-
-        }
         else if (req.url.startsWith('/api/food'))
         {
             console.log('API FOOD');

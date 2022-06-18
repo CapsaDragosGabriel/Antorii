@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Text+Me+One">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
+    <link rel="stylesheet" href="driverPage.css">
+    <script src="../scriptsFrontend/servicesBtn.js"></script>
+    <script src="../goodScripts/utils.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comenzi</title>
+</head>
+<body>
+<div class="header" itemscope itemtype="https://schema.org/Organization">
+    <a class="active"><p itemprop="legalName">SerP</p></a>
+    <!--    <div class="dropdown">-->
+    <!--        <button class="dropbtn" onclick="myFunction()">Servicii-->
+    <!--            <i class="fa fa-caret-down"></i>-->
+    <!--        </button>-->
+    <!--        <div class="dropdown-content" id="myDropdown">-->
+    <!--            <a href="../ride-sharing/ride-sharing.html"><p itemprop="makesOffer">Ride-sharing</p></a>-->
+    <!--            <a href="../food/food.html"><p itemprop="makesOffer">Food delivery</p></a>-->
+    <!--            <a href="../login/login.html"><p itemprop="makesOffer">Curier</p></a>-->
+    <!--            <a href="../login/login.html"><p itemprop="makesOffer">Inchirieri</p></a>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <a class="link" href="../login/login.html" onclick="logout()">Deconectare</a>
+</div>
+<div class="header_small" itemscope itemtype="https://schema.org/Organization">
+    <a class="active" itemprop="legalName"><p>SerP</p></a>
+    <!--    <div class="dropdown">-->
+    <!--        <button class="dropbtn" onclick="myFunctionSmall()">&#9776;-->
+    <!--            <i class="fa fa-caret-down"></i>-->
+    <!--        </button>-->
+    <!--        <div class="dropdown-content" id="myDropdownsmall">-->
+    <!--            <a href="../ride-sharing/ride-sharing.html">Ride-sharing</a>-->
+    <!--            <a href="#">Food delivery</a>-->
+    <!--            <a href="#">Curier</a>-->
+    <!--            <a href="#">Inchirieri</a>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <a class="link" href="../login/login.html">Deconectare</a>
+</div>
+<div id="details" itemscope itemtype="https://schema.org/Organization">
+    <div class="user-div">
+        <img class="img" src="../resources/user.png" alt="user" style="width:50px; height:50px;">
+        <p>
+            Username
+            <a href="#user" style="padding: 0;"> detalii profil</a>
+        </p>
+    </div>
+    <div class="options">
+        <a href="#services" class="istoric" onclick="showCommands()">
+            <img class="img" src="../resources/istoric.png" alt="user" style="width:20px; height:20px;">
+            Curse in asteptare
+        </a>
+    </div>
+</div>
+<div class="menu-small">
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <a href="#services" class="istoric">
+                <img class="img" src="../resources/istoric.png" alt="user" style="width:20px; height:20px;">
+                Istoric curse
+            </a>
+        </div>
+    </div>
+    <span id="profile" onclick="openNav()">&#9776;Profil</span>
+</div>
+
+<div id="defaultTitle">Bine ai revenit, username!</div>
+<div id="commandsList">
+    <h2 id="title">Comenzi care te asteapta</h2>
+    <div class="command">
+        <div>
+            <h1>USER</h1>
+            <p>de la...pana la</p>
+        </div>
+        <label>
+            <select class="selectStatus" name="status">
+                <option value="none" selected disabled hidden>Status</option>
+                <option value="yes">Confirma</option>
+                <option value="no">Refuza</option>
+                <option value="done">Terminat</option>
+            </select>
+        </label>
+    </div>
+    <div class="command">
+        <div>
+            <h1>USER</h1>
+            <p>de la...pana la</p>
+        </div>
+        <label>
+            <select class="selectStatus" name="status">
+                <option value="none" selected disabled hidden>Status</option>
+                <option value="yes">Confirma</option>
+                <option value="no">Refuza</option>
+                <option value="done">Terminat</option>
+            </select>
+        </label>
+    </div>
+</div>
+
+</body>
+</html>

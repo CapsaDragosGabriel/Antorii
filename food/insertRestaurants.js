@@ -3,18 +3,31 @@
 //import restaurantsList from './restaurants.json' assert {type: "application/json"};
 let display="";
  async function getRestaurants(){
-     console.log("ce dracu bre")
+     // console.log("ce dracu bre")
+
      const response = await fetch('http://localhost:8000/api/restaurants', {
-        method: 'post', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'no-cors', // no-cors, *cors, same-origin
+        headers: {
+            'Content-Type': 'application/json'
         //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body:{} // body data type must match "Content-Type" header
+        },
+        // body: // body data type must match "Content-Type" header
     })
        //console.log("\n\n\n\n"+response);
-return response;
+        console.log("AM PRIMIT DE LA SERVER:"+response);
+           // return response.json();
+        console.log(JSON.stringify(response));
+            let jsondata = response;
+            var x = document.getElementById("box");
+
+            for (let i = 0; i < jsondata.length; i++) {
+                let obj = jsondata[i];
+                // let nume=obj.name;
+                x.innerHTML = x.innerHTML + `` +
+                    `<a onclick="display='${obj.name}'; console.log(${display}); changeDisplay()">${obj.name}<br>
+<img src=${obj.photo}> </a><br>`
+            }
             // console.log(jsondata)
 
 }
@@ -36,21 +49,7 @@ return response;
             // console.log(jsondata)
         });
 }*/
-getRestaurants().then(response=>{
-    console.log("AM PRIMIT DE LA SERVER:"+response);
-    // return response.json();
-    console.log(JSON.stringify(response));
-    let jsondata = response;
-    var x = document.getElementById("box");
-
-    for (let i = 0; i < jsondata.length; i++) {
-        let obj = jsondata[i];
-        // let nume=obj.name;
-        x.innerHTML = x.innerHTML + `` +
-            `<a onclick="display='${obj.name}'; console.log(${display}); changeDisplay()">${obj.name}<br>
-<img src=${obj.photo}> </a><br>`
-    }
-});
+getRestaurants();
 /* var anchor=document.createElement("a");
  var text=document.createTextNode(obj.name);
  var img=document.createElement("img");

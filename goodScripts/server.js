@@ -597,15 +597,15 @@ console.log(JSON.stringify(rides[i].start));
         req.on('end', () => {
             // data = JSON.parse(data);
             // console.log('data chunk finished ' + data.token)
-          //  console.log(data);
+            console.log(data);
 
        restaurantDB.getAllRestaurants().then(r=> {
            // r.json();
            let restaurants = {};
            for (let i = 0; i < r.length; i++) {
-               res.write(JSON.stringify(r[i]),'utf-8')
+               restaurants[i] = r[i];
            }
-           // console.log("DIN BAZA DE DATE AM LUAT SMECHERIA ASTA:" + JSON.stringify(restaurants))
+           console.log("DIN BAZA DE DATE AM LUAT SMECHERIA ASTA:" + JSON.stringify(restaurants))
            res.writeHead(200, {
                'Access-Control-Allow-Origin': '*',
                // 'Content-Type': 'application/json'
@@ -615,7 +615,7 @@ console.log(JSON.stringify(rides[i].start));
            //daca da pun comanda in baza de date
            // res.write(JSON.stringify(restaurants),'utf-8');
            // res.end("");
-           console.log(JSON.stringify(r));
+           console.log(JSON.stringify(restaurants));
            res.end(JSON.stringify(r), 'utf-8');
            //getPage(req, res).then();
            // console.log(res)

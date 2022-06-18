@@ -354,11 +354,21 @@ body {
     }
 
     #smth {
-        display: none;
+        margin: 30%;
+        font-size: 50px;
     }
 
     #main-div {
-        display: none;
+        width: auto;
+        margin: 40% 0 0 0;
+    }
+
+    #main-div #ridesharing-form {
+        width: 60%;
+    }
+
+    #ridesharing-form input::placeholder {
+        font-size: 30px;
     }
 
 }

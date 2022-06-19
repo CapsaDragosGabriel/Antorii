@@ -9,20 +9,13 @@ function myFunction() {
         document.getElementById("details").style.display = "none";
         count = 0;
     } else {
-        const myDropdown = document.getElementById("myDropdown");
-// Close the dropdown if the user clicks outside of it
-        window.onclick = function (e) {
-            if (!document.getElementById("details")) return;
-            if (!e.target.matches('.dropbtn')) {
-                var myDropdown = document.getElementById("myDropdown");
-                if (myDropdown)
-                    if (myDropdown.classList.contains('show')) {
-                        myDropdown.classList.remove('show');
-                    }
-                document.getElementById("details").style.display = "block";
-                count = 1;
+        var myDropdown = document.getElementById("myDropdown");
+        if (myDropdown)
+            if (myDropdown.classList.contains('show')) {
+                myDropdown.classList.remove('show');
             }
-        }
+        document.getElementById("details").style.display = "block";
+        count = 1;
     }
 }
 

@@ -40,10 +40,16 @@ function insertOrder(order) {
                 orderID = r.id;
 
                 console.log("ORDER ID: " + orderID)
-
+                for (let j=0;j<order.items.length;j++)
+                {
+                    addItemToOrder(orderID,order.items[j]);
+                }
+                /*if (order.items.length>1)
                 for(var item of order.items){
                     addItemToOrder(orderID,item)
                 }
+                else
+                    addItemToOrder(orderID,order.items[0]);*/
             })
         });
 
@@ -115,21 +121,20 @@ async function getTotal(orderID){
 }
 
 var order = {
-    restaurantID: 1,
-    consumerID: 1,
+    restaurantID: 2,
+    consumerID: 3,
     adress: 'undeva la mama dracu',
     items: [{
         id: 1,
         quantity: 3
     },
         {
-            id: 3,
+            id: 2,
             quantity: 1
         }]
 }
 
-// insertOrder(order)
-
-getTotal(1).then(r => {
-    console.log("Total comanda: " + r)
-})
+//insertOrder(order)
+module.exports={
+    insertOrder,
+}

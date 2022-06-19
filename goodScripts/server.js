@@ -3,6 +3,7 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 var userDB = require("../database/userManager.js");
 var rideDB = require("../database/rideManager");
 var restaurantDB=require("../database/restaurantManager");
+var orderDB=require("../database/orderManager");
 const http = require('http');
 
 const nodemailer= require('nodemailer');
@@ -210,7 +211,7 @@ const server = http.createServer((req, res) => {
             //res.write()
         })
         // res.end();
-    }
+    }//get token service
     else if (req.url.startsWith('/api/logout')){
         let data = '';
         req.on('data', chunk => {
@@ -229,7 +230,7 @@ const server = http.createServer((req, res) => {
             })
           res.end('{}');
         })
-    }
+    }//delete token
     else  if (req.url.startsWith('/api/register')) {
 
         console.log('API called');
@@ -302,7 +303,7 @@ const server = http.createServer((req, res) => {
 
         })
 
-    }
+    }//register
     else  if (req.url.startsWith('/api/team')) {
 
         console.log('API TEAM');
@@ -381,7 +382,7 @@ const server = http.createServer((req, res) => {
 
         })
 
-    }
+    }//register as service provider
     else  if (req.url.startsWith('/api/ride-sharing')) {
 
         console.log('API RIDE');
@@ -424,7 +425,7 @@ const server = http.createServer((req, res) => {
             res.end(JSON.stringify(result), 'utf-8');
         })
 
-    }
+    }//give ride request
     else  if (req.url.startsWith('/api/rides')) {
 
         console.log('API RIDEs');
@@ -583,9 +584,8 @@ console.log(JSON.stringify(rides[i].start));
 
 
         })
-    }
-    else if (req.url.startsWith('/api/restaurants') )
-    {
+    }//get own rides (driver/consumer)
+    else if (req.url.startsWith('/api/restaurants') ){
         console.log('API restaurants');
 
         let data = '';
@@ -621,8 +621,8 @@ console.log(JSON.stringify(rides[i].start));
            // console.log(res)
        })
         })
-    }
-    else if (req.url.startsWith('/api/menu') )
+    }//get restaurants from db
+    else if (req.url.startsWith('/api/menu') )//get menu from db
     {
         console.log('API restaurants');
 
@@ -651,7 +651,7 @@ console.log(JSON.stringify(rides[i].start));
 
         })
     }
-    else if (req.url.startsWith('/api/food'))
+    else if (req.url.startsWith('/api/food'))//
         {
             console.log('API FOOD');
             let data = '';
@@ -670,6 +670,32 @@ console.log(JSON.stringify(rides[i].start));
                     adresa: data.adresa,
                     prices: data.prices
                 };
+                let items={}
+                for(let i=0; i<result.items.length;i++)
+                {
+                    let quantity;
+                    let id;
+                    quantity=result.quantities[i];
+                    id=result.items[i];
+                    let obj={
+                        id:id,
+                        quantity:quantity
+                    }
+
+                    items[i]=obj;
+                }
+console.log("iteme transmise"+JSON.stringify((items)));
+                restaurantDB.getRestaurantByName(result.numeRestaurant).then(r=>{
+                   userDB.getIDByToken(result.token).then(f=>{
+                       var order={
+                           restaurantID:r.id,
+                           consumerID:f,
+                           items:items
+                       }
+                            console.log(order);
+                            orderDB.insertOrder(order);
+                   })
+                })
 
 
                 res.writeHead(201, {

@@ -183,6 +183,8 @@ body {
 }
 
 #defaultTitle {
+    width: auto;
+    height: auto;
     margin-left: 350px;
     margin-bottom: 0;
     margin-top: 50px;
@@ -193,9 +195,6 @@ body {
     text-align: left;
     text-shadow: 1px 1px 3px #B64141;
     filter: drop-shadow(0px 7px 1px #ADADAD);
-    position: fixed;
-    top: 0;
-    transition: top 0.3ms;
 }
 
 #commandsList {
@@ -274,6 +273,12 @@ body {
         font-size: 40px;
         top: 15px;
         right: 35px;
+    }
+    #defaultTitle {
+        font-size: 40px;
+        margin: 5% 0 0 0;
+        align-content: center;
+        text-align: center;
     }
 
 }

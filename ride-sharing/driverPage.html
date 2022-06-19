@@ -6,28 +6,27 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
     <link rel="stylesheet" href="driverPage.css">
-    <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="../startUser/startUser.js"></script>
     <script src="driver.js"></script>
     <script >
-
         if (localStorage.getItem('token')) {
             getUsername();
             changeUsername();
-            getService().then(() => {
-                if (globalService == "consumer") {
-                    window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
-                } else
-                if (globalService=="ride-sharing"){
+            getService().then(p => {
+                if (p === "ride-sharing") {
+
+                } else if (globalService === "consumer") {
+                    window.location.href = "../startUser/startUser.html"
+                    //redirect pe pagina serviciului corespunzator
                     //  window.location.href="https://stackoverflow.com/questions/1827063/mysql-error-key-specification-without-a-key-length";
                 }
             })
         }
-        else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
+        //else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
         getNewRides().then(()=>{getClaimedRides().then(()=>{refreshRides(); showRides()})})
-
     </script>
     <script src="../goodScripts/utils.js"></script>
+    <script src="../scriptsFrontend/servicesBtn.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Comenzi</title>
 </head>
@@ -60,7 +59,7 @@
     <!--            <a href="#">Inchirieri</a>-->
     <!--        </div>-->
     <!--    </div>-->
-    <a class="link" href="../login/login.html">Deconectare</a>
+    <a class="link" href="../login/login.html" onclick="logout()">Deconectare</a>
 </div>
 <div id="details" itemscope itemtype="https://schema.org/Organization">
     <div class="user-div">

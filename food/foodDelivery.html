@@ -6,29 +6,23 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
     <link rel="stylesheet" href="foodDelivery.css">
+    <script src="../startUser/startUser.js"></script>
+    <script src="delivery.js"></script>
     <script>
         if (localStorage.getItem('token')) {
+            getUsername();
+            changeUsername();
             getService().then(p => {
-                if (p == "food") {
+                if (p === "food") {
 
-                } else if (globalService=="consumer") {
-                    window.location.href="../startUser/startUser.html"
+                } else if (globalService === "consumer") {
+                    window.location.href = "../startUser/startUser.html"
                     //redirect pe pagina serviciului corespunzator
                     //  window.location.href="https://stackoverflow.com/questions/1827063/mysql-error-key-specification-without-a-key-length";
                 }
-                else{
-                    window.location.href="../mainHome/mainHome.html"
-
-                }
-
             })
         }
-        else{
-          //  window.location.href="../mainHome/mainHome.html"
-
-        }
     </script>
-    <script src="startUser/startUser.js"></script>
     <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="../goodScripts/utils.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -68,7 +62,7 @@
 <div id="details" itemscope itemtype="https://schema.org/Organization">
     <div class="user-div">
         <img class="img" src="../resources/user.png" alt="user" style="width:50px; height:50px;">
-        <p>
+        <p id="username">
             Username
             <a href="#user" style="padding: 0;"> detalii profil</a>
         </p>
@@ -80,19 +74,6 @@
         </a>
     </div>
 </div>
-<div class="menu-small">
-    <div id="myNav" class="overlay">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div class="overlay-content">
-            <a href="#services" class="istoric">
-                <img class="img" src="../resources/istoric.png" alt="user" style="width:20px; height:20px;">
-                Istoric curse
-            </a>
-        </div>
-    </div>
-    <span id="profile" onclick="openNav()">&#9776;Profil</span>
-</div>
-
 <div id="defaultTitle">Bine ai revenit, username!</div>
 <div id="commandsList">
     <h2 id="title">Comenzi care te asteapta</h2>

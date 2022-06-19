@@ -6,21 +6,24 @@ let display="";
      // console.log("ce dracu bre")
 
      const response = await fetch('http://localhost:8000/api/restaurants', {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        mode: 'no-cors', // no-cors, *cors, same-origin
-        headers: {
-            'Content-Type': 'application/json'
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        //mode: 'no-cors', // no-cors, *cors, same-origin
+        //headers: {
+            //'Content-Type': 'application/json'
         //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        // body: // body data type must match "Content-Type" header
-    })
+        //},
+        //body: JSON.stringify(data)// body data type must match "Content-Type" header
+    }).then(r => r.json())
+         .catch(e => {
+             console.log('error');
+             console.log(e);
+         });
        //console.log("\n\n\n\n"+response);
-        console.log("AM PRIMIT DE LA SERVER:"+response);
+        //console.log("AM PRIMIT DE LA SERVER:"+response);
            // return response.json();
-        console.log(JSON.stringify(response));
+        //console.log(JSON.stringify(response));
             let jsondata = response;
             var x = document.getElementById("box");
-
             for (let i = 0; i < jsondata.length; i++) {
                 let obj = jsondata[i];
                 // let nume=obj.name;

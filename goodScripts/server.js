@@ -605,7 +605,7 @@ console.log(JSON.stringify(rides[i].start));
            for (let i = 0; i < r.length; i++) {
                restaurants[i] = r[i];
            }
-           console.log("DIN BAZA DE DATE AM LUAT SMECHERIA ASTA:" + JSON.stringify(restaurants))
+           // console.log("DIN BAZA DE DATE AM LUAT SMECHERIA ASTA:" + JSON.stringify(restaurants))
            res.writeHead(200, {
                'Access-Control-Allow-Origin': '*',
                // 'Content-Type': 'application/json'
@@ -615,14 +615,42 @@ console.log(JSON.stringify(rides[i].start));
            //daca da pun comanda in baza de date
            // res.write(JSON.stringify(restaurants),'utf-8');
            // res.end("");
-           console.log(JSON.stringify(restaurants));
+           // console.log(JSON.stringify(restaurants));
            res.end(JSON.stringify(r), 'utf-8');
            //getPage(req, res).then();
            // console.log(res)
        })
         })
     }
+    else if (req.url.startsWith('/api/menu') )
+    {
+        console.log('API restaurants');
 
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+             console.log('data chunk finished ' + data.restaurantName)
+            console.log(data);
+             let result={
+                 restaurantName:data.restaurantName
+             }
+            console.log(JSON.stringify( result));
+            restaurantDB.getItemsFromRestaurantByName(result.restaurantName).then(r=> {
+                    res.writeHead(201, {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json'
+                    });
+                    res.end(JSON.stringify(r),'utf-8');
+             }
+             )
+
+        })
+    }
     else if (req.url.startsWith('/api/food'))
         {
             console.log('API FOOD');

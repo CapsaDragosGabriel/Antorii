@@ -188,23 +188,35 @@ let quantities = [];
 let items = [];
 let prices = [];
 
-function getMenu() {
-    fetch(`./${display}.json`)
-        .then(response => {
-            return response.json();
-        })
-        .then(jsondata => {
-            var x = document.getElementById("box");
-            x.setAttribute("style", "text-align:left; padding: 3.5%;")
-            for (let i = 0; i < jsondata.length; i++) {
-                let obj = jsondata[i];
-                quantities[i] = 0;
-                //quantities[${i}]=quantities[${i}]+1;
-                // let nume=obj.name;
-                items[i] = obj.name;
-                prices[i] = obj.price;
-                x.innerHTML = x.innerHTML + `` +
-                    `<h1>${obj.name}</h1>
+async function getMenu() {
+    let data={
+        restaurantName:display
+    }
+    console.log("TRIMIT NUMELE: "+data.restaurantName);
+   response= await fetch('http://localhost:8000/api/menu', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        // mode: 'no-cors', // no-cors, *cors, same-origin
+        // headers: {
+        //     'Content-Type': 'application/json'
+        //     // 'Content-Type': 'application/x-www-form-urlencoded',
+        // },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    }).then(r => r.json()).catch(e=>{
+        console.log(e);
+   })
+       let jsondata=response
+        console.log("AM PRIMIT "+ response);
+       var x = document.getElementById("box");
+       x.setAttribute("style", "text-align:left; padding: 3.5%;")
+       for (let i = 0; i < jsondata.length; i++) {
+           let obj = jsondata[i];
+           quantities[i] = 0;
+           //quantities[${i}]=quantities[${i}]+1;
+           // let nume=obj.name;
+           items[i] = obj.name;
+           prices[i] = obj.price;
+           x.innerHTML = x.innerHTML + `` +
+               `<h1>${obj.name}</h1>
 <p>${obj.description}</p>
 <p id="pret" style="display: inline-block; font-weight: bold">Pret/buc:${obj.price} lei</p>
 <div id="addProduct" style="flex-direction: row;text-align: right">
@@ -214,8 +226,7 @@ function getMenu() {
     <button style="text-align:right;"  onclick='adjustQTplus(${i}) ; totalCost(); 
         console.log(quantities[${i}]); ' >+</button>
 </div>`;
+           createPriceDiv();
 
-            }
-            createPriceDiv();
-        })
+   }
 }

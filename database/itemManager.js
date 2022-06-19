@@ -34,10 +34,10 @@ function insertItem(restaurantName,item) {
     })
 }
 
-var item = {
-    name: "cartofi pai",
-    description: "cei mai tari",
-    price: 10
+var item =
+{
+    "name": "BigMC",
+    "description": "Biggest of them MCs, wrapping it up for good!",
+    "price": 17
 }
-
-insertItem('KFC',item)
+// insertItem('McDonalds',item)

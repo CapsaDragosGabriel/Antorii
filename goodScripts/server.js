@@ -670,7 +670,7 @@ console.log(JSON.stringify(rides[i].start));
                     adresa: data.adresa,
                     prices: data.prices
                 };
-                let items={}
+                let items={};
                 for(let i=0; i<result.items.length;i++)
                 {
                     let quantity;
@@ -690,6 +690,7 @@ console.log("iteme transmise"+JSON.stringify((items)));
                        var order={
                            restaurantID:r.id,
                            consumerID:f,
+                           adress:result.adresa,
                            items:items
                        }
                             console.log(order);

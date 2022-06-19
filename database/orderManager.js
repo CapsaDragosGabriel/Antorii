@@ -38,12 +38,24 @@ function insertOrder(order) {
 
             getOrderByIDs(order.consumerID,order.restaurantID).then(r => {
                 orderID = r.id;
-
+                console.log(order.items[0]);
+                // console.log(order.items.length);
                 console.log("ORDER ID: " + orderID)
-                for (let j=0;j<order.items.length;j++)
+                let j=0;
+                while(order.items[j]!=undefined)
                 {
-                    addItemToOrder(orderID,order.items[j]);
+                    var item= order.items[j];
+                    console.log(item);
+                    var itemid
+                    addItemToOrder(orderID,item);
+                    j++;
                 }
+               /* for (let j=0;j<order.items.length;j++)
+                {
+                    var item= order.items[j];
+                    console.log(item);
+                    addItemToOrder(orderID,item);
+                }*/
                 /*if (order.items.length>1)
                 for(var item of order.items){
                     addItemToOrder(orderID,item)
@@ -69,7 +81,20 @@ async function getOrderByIDs(consumerID,restaurantID){
         });
     })
 }
+async function getIDofItem(restaurantID){//de facut
 
+    return new Promise((resolve, reject) => {
+        var sql = "select * from items where consumerID = " + consumerID + " and restaurantID = " + restaurantID + " and status <> \'finished\';"
+
+        console.log("getOrderSQL: " + sql)
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+
+            resolve(result[0])
+        });
+    })
+}
 
 
 function addItemToOrder(orderID, item){

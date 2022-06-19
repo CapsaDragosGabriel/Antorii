@@ -282,6 +282,13 @@ body {
         right: 35px;
     }
 
+    #defaultTitle {
+        font-size: 40px;
+        margin: 5% 0 0 0;
+        align-content: center;
+        text-align: center;
+    }
+
 }
 
 @media screen and (min-width: 601px) {

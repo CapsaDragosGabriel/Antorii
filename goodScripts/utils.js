@@ -30,7 +30,7 @@ function getPostData(req) {
     })
 }
 */
-/*
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -39,6 +39,7 @@ function getRandomInt(min, max) {
 
 module.exports = {
     getRandomInt
+}
     /*
     logout,
     writeDataToFile,

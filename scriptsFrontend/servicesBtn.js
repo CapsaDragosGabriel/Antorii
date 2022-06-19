@@ -59,8 +59,23 @@ function showCourses() {
     document.getElementById('commandsList').style.display = "block";
 }
 
+let variabila = 1;
+
+function showCoursesMobile() {
+        document.getElementById("myNav").style.height = "0%"
+        document.getElementById("smth").style.display = "none";
+        document.getElementById("main-div").style.display = "none";
+        document.getElementById('commandsList').style.display = "block";
+}
+
 //for history food
 function showFoods() {
+    document.getElementById('box').style.display = "none";
+    document.getElementById('commandsList').style.display = "block";
+}
+
+function showFoodMobile() {
+    document.getElementById("myNav").style.height = "0%"
     document.getElementById('box').style.display = "none";
     document.getElementById('commandsList').style.display = "block";
 }

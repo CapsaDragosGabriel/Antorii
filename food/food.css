@@ -13,6 +13,13 @@ body {
     margin: 0;
 }
 
+.headerMobile {
+    background-color: #B64141;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .header {
     overflow: hidden;
     background-color: #B64141;
@@ -281,7 +288,8 @@ input {
 .menu-small {
     background-color: #B64141;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    margin: 10px 20px 0 20px;
 }
 
 .menu-small #profile {
@@ -547,12 +555,22 @@ input::placeholder {
     }
 
     #box {
-        margin: 10% 2%;
+        margin: 10% 2% 35% 2%;
         width: auto;
     }
 
     #box img {
         width: 300px;
+    }
+
+    .menu-small {
+        float: right;
+    }
+
+    #commandsList {
+        width: 80%;
+        margin: 20% 5% 60% 10%;
+
     }
 
 }

@@ -48,20 +48,42 @@
     </div>
     <a class="link" onclick="logout()">Deconectare</a>
 </div>
-<div itemscope  class="header_small" itemtype="https://schema.org/Organization">
-    <a class="active" href="../mainHome/mainHome.html" itemprop="legalName"><p>SerP</p></a>
-    <div class="dropdown">
-        <button class="dropbtn" onclick="myFunctionSmall()">&#9776;
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content" id="myDropdownsmall">
-            <a href="../ride-sharing/ride-sharing.html">Ride-sharing</a>
-            <a href="../food/food.html">Food delivery</a>
-            <a href="../login/login.html">Curier</a>
-            <a href="../login/login.html">Inchirieri</a>
+<div itemscope class="headerMobile" itemtype="https://schema.org/Organization">
+    <div class="header_small">
+        <a class="active" href="../mainHome/mainHome.html" itemprop="legalName"><p>SerP</p></a>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="myFunctionSmall()">Servicii
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content" id="myDropdownsmall">
+                <a href="../ride-sharing/ride-sharing.html">Ride-sharing</a>
+                <a href="../food/food.html">Food delivery</a>
+                <a href="../login/login.html">Curier</a>
+                <a href="../login/login.html">Inchirieri</a>
+            </div>
         </div>
+        <a class="link" onclick="logout()">Deconectare</a>
     </div>
-    <a class="link" onclick="logout()">Deconectare</a>
+    <div class="menu-small">
+        <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="overlay-content">
+                <a href="#services" class="istoric" onclick="showFoodMobile()">
+                    <img class="img" src="../resources/istoric.png" alt="user" style="width:20px; height:20px;">
+                    Comenzile tale
+                </a>
+                <!--            <a href="#clients" class="promo">-->
+                <!--                <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">-->
+                <!--                Promotii-->
+                <!--            </a>-->
+                <!--            <a href="#contact" class="status">-->
+                <!--                <img class="img" src="../resources/truck.png" alt="user" style="width:20px; height:20px;">-->
+                <!--                Status comanda-->
+                <!--            </a>-->
+            </div>
+        </div>
+        <span id="profile" onclick="openNav()">&#9776;</span>
+    </div>
 </div>
 <div id="details" itemscope itemtype="https://schema.org/Organization">
     <div class="user-div" style="flex-flow:row">
@@ -85,26 +107,6 @@
 <!--            Status comanda-->
 <!--        </a>-->
     </div>
-</div>
-<div class="menu-small">
-    <div id="myNav" class="overlay">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div class="overlay-content">
-            <a href="#services" class="istoric">
-                <img class="img" src="../resources/istoric.png" alt="user" style="width:20px; height:20px;">
-                Istoric curse
-            </a>
-            <a href="#clients" class="promo">
-                <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">
-                Promotii
-            </a>
-            <a href="#contact" class="status">
-                <img class="img" src="../resources/truck.png" alt="user" style="width:20px; height:20px;">
-                Status comanda
-            </a>
-        </div>
-    </div>
-    <span id="profile" onclick="openNav()">&#9776;Profil</span>
 </div>
 <div id="box" >
     <h1>Alege restaurantul</h1>

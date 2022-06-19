@@ -78,7 +78,7 @@ function showRides(){
 
                 var newCommand=document.createElement('div');
                 // console.log("PLECAM DE LA "+currRide);
-                newCommand.innerHTML=`<h1>De la ${newObj.start} la ${newObj.finish}.
+                newCommand.innerHTML=`<h1>${newObj.start} - ${newObj.finish}
             </h1>`;
                 newCommand.className="command";
                 newCommand.innerHTML=newCommand.innerHTML+

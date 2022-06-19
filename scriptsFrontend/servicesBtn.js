@@ -61,13 +61,25 @@ function showCommands() {
 
 //for history ride
 function showCourses() {
-    document.getElementById('main-div').remove();
-    document.getElementById('smth').remove();
+    document.getElementById('main-div').style.display = "none";
+    document.getElementById('smth').style.display = "none";
     document.getElementById('commandsList').style.display = "block";
 }
 
 //for history food
 function showFoods() {
-    document.getElementById('box').remove();
+    document.getElementById('box').style.display = "none";
     document.getElementById('commandsList').style.display = "block";
+}
+
+//back to main page in the service
+function backRideS() {
+    document.getElementById('commandsList').style.display = "none";
+    document.getElementById('main-div').style.display = "flex";
+    document.getElementById('smth').style.display = "block";
+}
+
+function backFood() {
+    document.getElementById('commandsList').style.display = "none";
+    document.getElementById('box').style.display = "flex";
 }

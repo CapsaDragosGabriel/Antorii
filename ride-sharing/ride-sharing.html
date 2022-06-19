@@ -11,17 +11,17 @@
     <script src="ride-sharing.js"></script>
     <script src="../startUser/startUser.js"></script>
     <script src="../goodScripts/utils.js"></script>
-    <script >
+    <script>
         if (localStorage.getItem('token')) {
             getService().then(() => {
                 if (globalService == "consumer") {
-                    getOwnRides().then(r=>{
+                    getOwnRides().then(r => {
                         console.log(r);
                         showRides()
                     })
                 } else {
                     //redirect pe pagina serviciului corespunzator
-                      window.location.href="driverPage.html"
+                    window.location.href = "driverPage.html"
                 }
             })
         }
@@ -62,7 +62,7 @@
 <div id="details" itemscope itemtype="https://schema.org/Organization">
     <div class="user-div">
         <img class="img" src="../resources/user.png" alt="user" style="width:50px; height:50px;">
-        <p id="username" >
+        <p id="username">
             Username
             <a href="#user" style="padding: 0;"> Detalii profil</a>
         </p>
@@ -72,14 +72,14 @@
             <img class="img" src="../resources/istoric.png" alt="user" style="width:20px; height:20px;">
             Cursele tale
         </a>
-<!--        <a href="#clients" class="promo">-->
-<!--            <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">-->
-<!--            Promotii-->
-<!--        </a>-->
-<!--        <a href="#contact" class="status">-->
-<!--            <img class="img" src="../resources/truck.png" alt="user" style="width:20px; height:20px;">-->
-<!--            Status comanda-->
-<!--        </a>-->
+        <!--        <a href="#clients" class="promo">-->
+        <!--            <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">-->
+        <!--            Promotii-->
+        <!--        </a>-->
+        <!--        <a href="#contact" class="status">-->
+        <!--            <img class="img" src="../resources/truck.png" alt="user" style="width:20px; height:20px;">-->
+        <!--            Status comanda-->
+        <!--        </a>-->
     </div>
 </div>
 <div class="menu-small">
@@ -90,14 +90,14 @@
                 <img class="img" src="../resources/istoric.png" alt="user" style="width:20px; height:20px;">
                 Cursele tale
             </a>
-<!--            <a href="#clients" class="promo">-->
-<!--                <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">-->
-<!--                Promotii-->
-<!--            </a>-->
-<!--            <a href="#contact" class="status">-->
-<!--                <img class="img" src="../resources/truck.png" alt="user" style="width:20px; height:20px;">-->
-<!--                Status comanda-->
-<!--            </a>-->
+            <!--            <a href="#clients" class="promo">-->
+            <!--                <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">-->
+            <!--                Promotii-->
+            <!--            </a>-->
+            <!--            <a href="#contact" class="status">-->
+            <!--                <img class="img" src="../resources/truck.png" alt="user" style="width:20px; height:20px;">-->
+            <!--                Status comanda-->
+            <!--            </a>-->
         </div>
     </div>
     <span id="profile" onclick="openNav()">&#9776;Profil</span>
@@ -108,16 +108,21 @@
 <div id="main-div">
     <form id="ridesharing-form">
         <h1 id="title">Selecteaza destinatia</h1>
-        <input class="full-width" itemprop="fromAdress" type="text" id="from" name="from" placeholder="adresa de plecare"
+        <input class="full-width" itemprop="fromAdress" type="text" id="from" name="from"
+               placeholder="adresa de plecare"
                required>
-        <input class="full-width" itemprop="toAdress" type="text" id="to" name="to" placeholder="destinatia finala" required>
+        <input class="full-width" itemprop="toAdress" type="text" id="to" name="to" placeholder="destinatia finala"
+               required>
         <label id="buton">
             <button class="submitbtn" type="submit" value="search" onclick="comanda()">Cauta sofer</button>
         </label>
     </form>
 </div>
 <div id="commandsList">
-    <h2 id="titleC">Comenzile tale</h2>
+    <div class="title-back">
+        <button id="back" onclick="backRideS()">Inapoi</button>
+        <h2 id="titleC">Cursele tale</h2>
+    </div>
 </div>
 <footer class="footer">
     <p>&copy; 2022 Antorii</p>

@@ -76,12 +76,12 @@ function showRides(){
 
             var newCommand=document.createElement('div');
             // console.log("PLECAM DE LA "+currRide);
-            newCommand.innerHTML=`<h1>De la ${newObj.start} la ${newObj.finish}.
+            newCommand.innerHTML=`<h1>${newObj.start} - ${newObj.finish}
             </h1>`;
             newCommand.className="command";
             newCommand.innerHTML=newCommand.innerHTML+
                 `<label>
-                        <p>Status comanda: ${newObj.status}</p>
+                        <p id="status">Status comanda: ${newObj.status}</p>
                        <!-- <select class="selectStatus" name="status">
                             <option value="none" selected disabled hidden>Status</option>
                             <option value="yes">Confirma</option>
@@ -89,7 +89,7 @@ function showRides(){
                             <option value="done">Terminat</option>
                         </select>-->
                     </label>
-                    <button class="buttonaut" onclick="
+                    <button class="butonStatus" onclick="
                     if (globalRides[${i}].status!='done')
                      {  console.log(${i})
                     globalRides[${i}].status='done'

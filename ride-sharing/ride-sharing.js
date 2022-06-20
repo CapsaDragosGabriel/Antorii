@@ -25,7 +25,10 @@ async function getOwnRides() {
 
 function refreshRides() {
     var x = document.getElementById("commandsList");
-    x.innerHTML = "<h2 id=\"title\">Comenzile tale</h2>";
+    x.innerHTML = `<div class="title-back">
+        <button id="back" onclick="backRideS()">Inapoi</button>
+        <h2 id="titleC">Cursele tale</h2>
+    </div>`;
 
 }
 
@@ -70,12 +73,6 @@ function showRides() {
                 <h1>${newObj.start} - ${newObj.finish}</h1>
                 <label>
                     <p id="status">Status comanda: ${newObj.status}</p>
-                       <!-- <select class="selectStatus" name="status">
-                            <option value="none" selected disabled hidden>Status</option>
-                            <option value="yes">Confirma</option>
-                            <option value="no">Refuza</option>
-                            <option value="done">Terminat</option>
-                        </select>-->
                 </label>
                 <button class="butonStatus" onclick="
                     if (globalRides[${i}].status!='claimed'&&globalRides[${i}].status!='done'&&globalRides[${i}].status!='anulat'){  
@@ -86,15 +83,28 @@ function showRides() {
                             refreshRides()
                             showRides()
                         })
-                    }">Terminat</button>
+                    }">Anuleaza</button>
                     </div>`;
             if (newObj.status === 'done') {
                 newCommand.innerHTML = newCommand.innerHTML + `
   <div class="form-popup" id="myForm">
-    <form class="form-container" action="ride-sharing.html">
-        <label><b>Feedback</b></label>
+    <form method="post" class="form-container">
+        <label><b>Feedback</b>
+        </label>
         <input type="text" placeholder="Spune-ne parerea ta!" name="feedback" required>
-        <div id="butonSend""><button class="btn" onclick="deleteFeedback()">Trimite</button></div>
+        <div class="rate">
+    <input type="radio" id="star5" name="rate" value="5" />
+    <label for="star5" title="text">5 stars</label>
+    <input type="radio" id="star4" name="rate" value="4" />
+    <label for="star4" title="text">4 stars</label>
+    <input type="radio" id="star3" name="rate" value="3" />
+    <label for="star3" title="text">3 stars</label>
+    <input type="radio" id="star2" name="rate" value="2" />
+    <label for="star2" title="text">2 stars</label>
+    <input type="radio" id="star1" name="rate" value="1" />
+    <label for="star1" title="text">1 star</label>
+  </div>
+        <div id="butonSend"><button class="btn" type="submit">Trimite</button></div>
     </form>
   </div>`
             }

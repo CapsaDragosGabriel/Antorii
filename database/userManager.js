@@ -9,12 +9,12 @@ var con = mysql.createConnection({
 });
 
 async function checkLogin(email, pass) {
-    return new Promise( (resolve,reject)=>{
+    return new Promise((resolve, reject) => {
         var sql = "select * from users where email = \'" + email + "\' and pass = \'" + pass + "\'";
         con.query(sql, function (err, result) {
             if (err) throw err;
 
-            if(result.length === 1)
+            if (result.length === 1)
                 resolve("da");
             else
                 resolve("nu");
@@ -24,27 +24,25 @@ async function checkLogin(email, pass) {
 }
 
 async function checkUserExistence(email) {
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve, reject) => {
         var sql = "select * from users where email = \'" + email + "\'";
         con.query(sql, function (err, result) {
             if (err) throw err;
 
-            if(result.length === 1)
-            {
+            if (result.length === 1) {
                 resolve("da");
-                    ;}
+                ;
+            }
 
             resolve("nu");
         });
     });
 
 
-
 }
 
-async function getUserByEmail(email){
+async function getUserByEmail(email) {
     return new Promise((resolve, reject) => {
-
 
 
         var sql = "select * from users where email = \'" + email + "\'";
@@ -52,7 +50,7 @@ async function getUserByEmail(email){
         con.query(sql, function (err, result) {
             if (err) throw err;
 
-            let jsonPackage=result[0];
+            let jsonPackage = result[0];
 
             resolve(jsonPackage)
             // console.log([result[0].first_name,result[0].last_name, result[0].phone_number, result[0].email, result[0].pass,
@@ -63,56 +61,64 @@ async function getUserByEmail(email){
 }
 
 function insertUser(firstName, lastName, phone, email, pass, city, county, localization, service) {
-        var sql = "INSERT INTO `web`.`users`\n" +
-            "(`first_name`,\n" +
-            "`last_name`,\n" +
-            "`phone_number`,\n" +
-            "`email`,\n" +
-            "`pass`,\n" +
-            "`city`,\n" +
-            "`county`,\n" +
-            "`localization`,\n" +
-            "`service`)\n" +
-            "VALUES\n" +
-            "(\'" + firstName +
-            "\', \'" + lastName +
-            "\', \'" + phone +
-            "\', \'" + email +
-            "\', \'" + pass +
-            "\', \'" + city +
-            "\', \'" + county +
-            "\', \'" + localization +
-            "\', \'" + service + "\');\n";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log("user inserted");
-        });
-        //show result
-        con.query("select * from users", function (err, result) {
-            if (err) throw err;
-            console.log(result);
-        });
+    var sql = "INSERT INTO `web`.`users`\n" +
+        "(`first_name`,\n" +
+        "`last_name`,\n" +
+        "`phone_number`,\n" +
+        "`email`,\n" +
+        "`pass`,\n" +
+        "`city`,\n" +
+        "`county`,\n" +
+        "`localization`,\n" +
+        "`service`)\n" +
+        "VALUES\n" +
+        "(\'" + firstName +
+        "\', \'" + lastName +
+        "\', \'" + phone +
+        "\', \'" + email +
+        "\', \'" + pass +
+        "\', \'" + city +
+        "\', \'" + county +
+        "\', \'" + localization +
+        "\', \'" + service + "\');\n";
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("user inserted");
+    });
+    //show result
+    con.query("select * from users", function (err, result) {
+        if (err) throw err;
+        console.log(result);
+    });
 }
 
-function updateTokenByEmail(email,token){
-        var sql = "update users set token = \'" + token + "\' where email = \'" + email + "\'";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-        });
-}
-
-function removeTokenByEmail(email){
-    var sql = "update users set token = NULL where email = \'" + email + "\'";
+function updateTokenByEmail(email, token) {
+    var sql = "UPDATE `web`.`users`\n" +
+        "SET\n" +
+        "`token` = \'" + token +
+        "\', `created_token_time` = CURRENT_TIMESTAMP\n" +
+        "WHERE `email` = \'" + email + "\';"
     con.query(sql, function (err, result) {
         if (err) throw err;
     });
 }
-async function getTokenByEmail(email){
-    return new Promise((resolve, reject)=>{
+
+function removeTokenByEmail(email) {
+    var sql = "UPDATE `web`.`users`\n" +
+        "SET\n" +
+        "`token` = NULL, `created_token_time` = NULL\n" +
+        "WHERE `email` = \'" + email + "\';"
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+    });
+}
+
+async function getTokenByEmail(email) {
+    return new Promise((resolve, reject) => {
         var sql = "select token from users where email = \'" + email + "\'";
         con.query(sql, function (err, result) {
             if (err) throw err;
-            if (result.length==1)
+            if (result.length == 1)
                 resolve(JSON.parse(JSON.stringify(result[0])).token);
             else
                 resolve(null);
@@ -120,12 +126,13 @@ async function getTokenByEmail(email){
     })
 
 }
-async function getIDByToken(token){
-    return new Promise((resolve, reject)=>{
+
+async function getIDByToken(token) {
+    return new Promise((resolve, reject) => {
         var sql = "select id from users where token =\'" + token + "\'";
         con.query(sql, function (err, result) {
             if (err) throw err;
-            if (result.length==1)
+            if (result.length == 1)
                 resolve(JSON.parse(JSON.stringify(result[0])).id);
             else
                 resolve(null);
@@ -133,6 +140,7 @@ async function getIDByToken(token){
     })
 
 }
+
 async function getIDByEmail(email) {
     return new Promise((resolve, reject) => {
         var sql = "select id from users where email = \'" + email + "\'";
@@ -145,12 +153,13 @@ async function getIDByEmail(email) {
         });
     })
 }
-async function getEmailByToken(token){
-    return new Promise((resolve, reject)=>{
+
+async function getEmailByToken(token) {
+    return new Promise((resolve, reject) => {
         var sql = "select email from users where token = \'" + token + "\'";
         con.query(sql, function (err, result) {
             if (err) throw err;
-            if (result.length==1)
+            if (result.length == 1)
                 resolve(JSON.parse(JSON.stringify(result[0])).email);
             else
                 resolve(null);
@@ -158,12 +167,13 @@ async function getEmailByToken(token){
     })
 
 }
-async function getServiceByToken(token){
-    return new Promise((resolve, reject)=>{
+
+async function getServiceByToken(token) {
+    return new Promise((resolve, reject) => {
         var sql = "select service from users where token = \'" + token + "\'";
         con.query(sql, function (err, result) {
             if (err) throw err;
-            if (result.length==1)
+            if (result.length == 1)
                 resolve(JSON.parse(JSON.stringify(result[0])).service);
             else
                 resolve(null);
@@ -173,8 +183,10 @@ async function getServiceByToken(token){
 }
 
 
- // insertUser("NUme","prenume","98451312","capsadragos@gmail.com","Parola123","Bacau","Buhusi",
- //    "banca boss","consumer");
+// insertUser("nume","prenume","98451312","capsadragos@gmail.com","Parola123","Bacau","Buhusi",
+//    "banca boss","consumer");
+
+updateTokenByEmail("capsadragos@gmail.com", "123444")
 // checkLogin("capsadragos@gmail.com","Parola123").then(r=>{
 //     console.log(r);
 // })
@@ -194,8 +206,8 @@ async function getServiceByToken(token){
 //     console.log(r)
 // })
 
-let lolw="595";
-module.exports={
+let lolw = "595";
+module.exports = {
     lolw,
     removeTokenByEmail,
     getUserByEmail,

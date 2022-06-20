@@ -20,7 +20,7 @@ const fs = require('fs');
 const url = require('url');
 const qs = require('querystring');
 const {con} = require("../database/demo_db_connection");
-
+// 
 function makeid(length) {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

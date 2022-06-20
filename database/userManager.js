@@ -186,7 +186,7 @@ async function getServiceByToken(token) {
 // insertUser("nume","prenume","98451312","capsadragos@gmail.com","Parola123","Bacau","Buhusi",
 //    "banca boss","consumer");
 
-updateTokenByEmail("capsadragos@gmail.com", "123444")
+//updateTokenByEmail("capsadragos@gmail.com", "123444")
 // checkLogin("capsadragos@gmail.com","Parola123").then(r=>{
 //     console.log(r);
 // })

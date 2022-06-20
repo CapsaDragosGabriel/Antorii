@@ -748,7 +748,7 @@ console.log(JSON.stringify(rides[i].start));
                             //  console.log(r);
                             // console.log(r);
                             orderDB.getOrders.then(fn=>{
-                                console.log("CLAIMED RIDES ARE "+fn);
+                                console.log("CLAIMED orders ARE "+fn);
                                 res.end(JSON.stringify(fn));
                             });
                         }
@@ -759,8 +759,8 @@ console.log(JSON.stringify(rides[i].start));
                     console.log(data)
                     userDB.getIDByToken(result.token).then(r=>{
                         console.log(r);
-                        rideDB.getOwn(r).then(fn=>{
-                            // console.log("your rides are losdloas"+fn);
+                       orderDB.getCompleteOrdersByID(r) .then(fn=>{
+                            console.log("your orders are"+fn);
                             res.end(JSON.stringify(fn));
                         })
                     })

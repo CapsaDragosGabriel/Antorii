@@ -9,7 +9,7 @@ function createPriceDiv() {
         </button>
     </div>`;
 }
-let globalOrders={};
+let globalOrders=[];
 
 async function getOrders(){
     const data = {
@@ -17,7 +17,7 @@ async function getOrders(){
     }
     let sent = true;
 
-    const response = await fetch('http://localhost:8000/api/username', {
+    const response = await fetch('http://localhost:8000/api/claim/orders', {
         method: 'POST',
         body: JSON.stringify(data)
     }).then(r => r.json())
@@ -27,11 +27,56 @@ async function getOrders(){
             //wrongPassword()
             sent = false
         });
-    console.log(response);
-    if (sent) {
-        console.log(response.email);
-        username = response.email;
-        changeUsername();
+    console.log("Raspunsul:"+response);
+    globalOrders=response;
+    showOrders()
+}
+function refreshOrders() {
+    var x = document.getElementById("commandsList");
+    x.innerHTML = "<h2 id=\"title\">Comenzile tale</h2>";
+
+}
+function showOrders() {
+    var x = document.getElementById("commandsList");
+    console.log(JSON.stringify(globalOrders[0]));
+    for (let i = 0; i < globalOrders.length; i++) {
+        if (globalOrders[i]) {
+            var newObj = (globalOrders[i]);
+            for (var item of newObj.items) {
+                var newCommand = document.createElement('div');
+                newCommand.className = "boxCommand";
+                newCommand.id = "boxCommandId";
+                newCommand.innerHTML = `<div class="command">
+                <h1>${newObj.start} - ${newObj.finish}</h1>
+                <label>
+                    <p id="status">Status comanda: ${newObj.status}</p>
+                </label>
+                <button class="butonStatus" onclick="
+                    if (globalOrders[${i}].status!='done'){  
+                        console.log(${i})
+                        globalOrders[${i}].status='done'
+                        console.log(globalOrders[${i}]);
+                        updateRide(globalOrders[${i}].id).then(()=>{
+                            refreshOrders()
+                            showRides()
+                        })
+                    }">Terminat</button>
+                    </div>`;
+                if (newObj.status === 'done') {
+                    newCommand.innerHTML = newCommand.innerHTML + `
+  <div class="form-popup" id="myForm">
+    <form class="form-container" action="ride-sharing.html">
+        <label><b>Feedback</b></label>
+        <input type="text" placeholder="Spune-ne parerea ta!" name="feedback" required>
+        <div id="butonSend""><button class="btn" onclick="deleteFeedback()">Trimite</button></div>
+    </form>
+  </div>`
+                }
+
+                x.appendChild(newCommand);
+            }
+
+        }
     }
 }
 

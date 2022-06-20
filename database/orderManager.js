@@ -129,49 +129,73 @@ async function getCompleteOrdersByID(consumerID){
 
         console.log("getOrderSQL: " + sql)
 
-        con.query(sql, function (err, result) {
+        con.query(sql, async function (err, result) {
             if (err) throw err;
 
             //r=result;
-            console.log(JSON.stringify(result));
-            let ordersList=[];
-            let currOrder={};
-            new Promise(resolve,reject)=>
-            
-            for (let i=0;i<result.length;i++)
-            {
-                getOrderItems(JSON.stringify( result[i].id)).then(r=>{
-                    // console.log(JSON.stringify(r));
-                    let l=0;
+            // console.log(JSON.stringify(result));
+            let ordersList =[];
+
+            let doStuff = await async function () {
+                let tempList=[]
+                for (i = 0; i < result.length; i++) {
+
+                await   getOrderItemNames(result[i].id).then(f => {
+                        // console.log(JSON.parse(f));
+                        let toReturn={
+                            order:JSON.parse(f),
+                            address:result.address
+                        }
+                        tempList[i] = (JSON.parse(f));
+                    })
+
+                }
+                 return tempList;
+            };
+        doStuff().then(r=>ordersList=r).then(()=>{
+            // let toReturn={}
+        //    console.log("Orders for "+JSON.stringify( consumerID)+" are: " + JSON.stringify(ordersList));
+        for (let k=0;k<ordersList.length;k++)
+            console.log("Comanda"+JSON.stringify(ordersList[k]));
+
+        resolve(ordersList);
+        })
+            //console.log("orders list:" + ordersList.then(r=>) );
+            // l++;
 
 
-                    for (let i=0;i<r.length;i++)
-                    {let currItem={};
-
-                        itemDB.getItemName(r[i].itemID).then(f=>{
-                            if(r[i].quantity!=0){
-                                // console.log(r[i].id+" au fost comandate:" +r[i].quantity +"x"+ f.name );
-                                currItem={
-                                    name:f.name,
-                                    quantity:r[i].quantity
-                                }
-                                console.log("ITEM-UL CURENT ESTE:"+JSON.stringify(currItem));
-                                currOrder[l]=JSON.parse(JSON.stringify(currItem));
-
-                            }
-                        })
-                    }
-                    l++;
-                })
-            }
             // console.log("order-ul curent:"+ currOrder[0]);
-            resolve(result)
         });
     })
 }
+async function getOrderItemNames(orderID){
+    return new Promise((resolve, reject) => {
+        var sql = "select name,quantity from ordered_items o join items i on o.itemID=i.id where orderID='"+orderID+"';"
+
+        console.log("getOrderItems: " + sql)
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            // console.log("RESULT"+JSON.stringify (result))
+            getTotal(orderID).then(f=>{
+                let toReturn={
+                    items:result,
+                    cost:f
+
+                }
+                resolve(JSON.stringify(toReturn))
+            })
+
+        });
+    })
+}
+// getOrderItemNames(86).then(r=>{
+//     console.log(r);
+// })
 
  getCompleteOrdersByID(3).then(f=>{
-   console.log(JSON.stringify(f));
+   for (var item of f)
+       console.log(item);
  })
 /*async function getOrderAndItemsByID(consumerID)
 {
@@ -348,6 +372,7 @@ module.exports = {
     addItemToOrder,
     changeStatusForOrder,
     setFeedback,
-    getOrdersByID: getCompleteOrdersByID
+//    getOrdersByID,
+    getCompleteOrdersByID
 }
 // >>>>>>> Stashed changes

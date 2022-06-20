@@ -6,6 +6,7 @@ let count = 1;
 function myFunction() {
     if (count === 1) {
         document.getElementById("myDropdown").classList.toggle("show");
+        if(document.getElementById("details"))
         document.getElementById("details").style.display = "none";
         count = 0;
     } else {
@@ -14,6 +15,7 @@ function myFunction() {
             if (myDropdown.classList.contains('show')) {
                 myDropdown.classList.remove('show');
             }
+        if(document.getElementById("details"))
         document.getElementById("details").style.display = "block";
         count = 1;
     }

@@ -29,9 +29,10 @@ function refreshRides() {
 
 }
 
-async function updateRide(id) {
+async function updateRide(id,i) {
     const data = {
         id: id,
+        status:globalRides[i].status,
         token: localStorage.getItem('token')
     }
     let sent = true;
@@ -81,7 +82,7 @@ function showRides() {
                         console.log(${i})
                         globalRides[${i}].status='anulat'
                         console.log(globalRides[${i}]);
-                        updateRide(globalRides[${i}].id).then(()=>{
+                        updateRide(globalRides[${i}].id,${i}).then(()=>{
                             refreshRides()
                             showRides()
                         })

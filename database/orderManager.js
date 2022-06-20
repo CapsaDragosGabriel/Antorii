@@ -48,10 +48,10 @@ function insertOrder(order) {
                 console.log("ITEME DIN ORDERUL ACESTA SUNT:"+ JSON.stringify(order.items));
 
                 // for(var item of JSON.parse(JSON.stringify(order)).items){
-
-
+                console.log(order.items);
+                console.log(order)
                 let k=0;
-                for (k=0;k<order.items.length;k++) {
+                for (k=0;k<(order.items).length;k++) {
                     console.log("parametrii dati sunt:"+orderID+" "+JSON.stringify(order.items[k])+" "+order.restaurantID)
                     addItemToOrder(orderID, order.items[k], order.restaurantID)
                 }
@@ -76,6 +76,52 @@ async function getOrderByIDs(consumerID,restaurantID){
     })
 }
 
+/*async function getCompleteOrdersByID(consumerID){
+
+    return new Promise((resolve, reject) => {
+        var sql = "select * from orders where consumerID = '" + consumerID + "';"
+
+        console.log("getOrderSQL: " + sql)
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+
+            //r=result;
+            console.log(JSON.stringify(result));
+                let ordersList=[];
+            let currOrder={};
+                for (let i=0;i<result.length;i++)
+                {
+                    getOrderItems(JSON.stringify( result[i].id)).then(r=>{
+                    // console.log(JSON.stringify(r));
+                    let l=0;
+
+
+                   for (let i=0;i<r.length;i++)
+                        {let currItem={};
+
+                            itemDB.getItemName(r[i].itemID).then(f=>{
+                                if(r[i].quantity!=0){
+                                    // console.log(r[i].id+" au fost comandate:" +r[i].quantity +"x"+ f.name );
+                                    currItem={
+                                        name:f.name,
+                                        quantity:r[i].quantity
+                                    }
+                                    console.log("ITEM-UL CURENT ESTE:"+JSON.stringify(currItem));
+                                    currOrder[l]=JSON.parse(JSON.stringify(currItem));
+
+                                }
+                            })
+                        }
+                        l++;
+                    })
+                }
+           // console.log("order-ul curent:"+ currOrder[0]);
+            resolve(result)
+        });
+    })
+}*/
+
 async function getCompleteOrdersByID(consumerID){
 
     return new Promise((resolve, reject) => {
@@ -88,25 +134,45 @@ async function getCompleteOrdersByID(consumerID){
 
             //r=result;
             console.log(JSON.stringify(result));
-                let ordersList={}
-                for (let i=0;i<result.length;i++)
-                {
-                    getOrderItems(JSON.stringify( result[i].id)).then(r=>{
-                    console.log(r);
-                        for (let i=0;i<r.length;i++)
-                            itemDB.getItemName(r[i].itemID).then(f=>{
-                                console.log(r[i].id+" au fost comandate:" + f.name );
+            let ordersList=[];
+            let currOrder={};
+            new Promise(resolve,reject)=>
+            
+            for (let i=0;i<result.length;i++)
+            {
+                getOrderItems(JSON.stringify( result[i].id)).then(r=>{
+                    // console.log(JSON.stringify(r));
+                    let l=0;
 
-                            })
-                    })
-                }
+
+                    for (let i=0;i<r.length;i++)
+                    {let currItem={};
+
+                        itemDB.getItemName(r[i].itemID).then(f=>{
+                            if(r[i].quantity!=0){
+                                // console.log(r[i].id+" au fost comandate:" +r[i].quantity +"x"+ f.name );
+                                currItem={
+                                    name:f.name,
+                                    quantity:r[i].quantity
+                                }
+                                console.log("ITEM-UL CURENT ESTE:"+JSON.stringify(currItem));
+                                currOrder[l]=JSON.parse(JSON.stringify(currItem));
+
+                            }
+                        })
+                    }
+                    l++;
+                })
+            }
+            // console.log("order-ul curent:"+ currOrder[0]);
             resolve(result)
         });
     })
 }
- /*getCompleteOrdersByID(3).then(f=>{
-  // console.log(f);
- })*/
+
+ getCompleteOrdersByID(3).then(f=>{
+   console.log(JSON.stringify(f));
+ })
 /*async function getOrderAndItemsByID(consumerID)
 {
     getOrdersByID(consumerID).then(r=>{

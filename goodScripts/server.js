@@ -671,7 +671,7 @@ console.log(JSON.stringify(rides[i].start));
                     adresa: data.adresa,
                     prices: data.prices
                 };
-                let items={};
+                let items=[];
                 for(let i=0; i<result.items.length;i++)
                 {
                     let quantity;

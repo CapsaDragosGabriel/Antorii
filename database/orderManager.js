@@ -48,10 +48,10 @@ function insertOrder(order) {
                 console.log("ITEME DIN ORDERUL ACESTA SUNT:"+ JSON.stringify(order.items));
 
                 // for(var item of JSON.parse(JSON.stringify(order)).items){
-
-
+                console.log(order.items);
+                console.log(order)
                 let k=0;
-                for (k=0;k<order.items.length;k++) {
+                for (k=0;k<(order.items).length;k++) {
                     console.log("parametrii dati sunt:"+orderID+" "+JSON.stringify(order.items[k])+" "+order.restaurantID)
                     addItemToOrder(orderID, order.items[k], order.restaurantID)
                 }

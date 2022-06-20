@@ -70,6 +70,37 @@ async function getItemsFromRestaurantByName(restaurantName){
           })
     })
 }
+async function getItemIDFromRestaurantByName(restaurantName,itemName){
+    return new Promise((resolve, reject) => {
+        getRestaurantByName(restaurantName).then( r => {
+            let restaurantID = r.id;
+
+            sql = "select id from items where restaurantID = " + restaurantID + " and name="+itemName+";"
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                // console.log(result);
+
+                resolve(result)
+            });
+
+
+        })
+    })
+}
+async function getItemIDFromRestaurantID(restaurantID,itemName){
+    return new Promise((resolve, reject) => {
+            sql = "select id from items where restaurantID = " + restaurantID + " and name='"+itemName+"';"
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                // console.log(result);
+                //console.log("\n\nAM GASITA:" + JSON.parse(JSON.stringify(result)));
+                resolve(result)
+            });
+
+
+
+    })
+}
 
 getItemsFromRestaurantByName('McDonalds').then(r => {
     console.log(r)
@@ -83,6 +114,8 @@ getItemsFromRestaurantByName('McDonalds').then(r => {
 module.exports={
     getAllRestaurants,
     getRestaurantByName,
+    getItemIDFromRestaurantByName,
     getItemsFromRestaurantByName,
+    getItemIDFromRestaurantID
 
 }

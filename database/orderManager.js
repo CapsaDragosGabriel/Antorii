@@ -37,6 +37,7 @@ function insertOrder(order) {
             console.log("order inserted");
 
             getOrderByIDs(order.consumerID,order.restaurantID).then(r => {
+                console.log("ID-UL PRODUSULUI MEU ESTE"+r);
                 orderID = r.id;
                 console.log(order.items[0]);
                 // console.log(order.items.length);
@@ -46,9 +47,13 @@ function insertOrder(order) {
                 {
                     var item= order.items[j];
                     console.log(item);
-                    var itemid
-                    addItemToOrder(orderID,item);
-                    j++;
+                    var itemid;
+                   // item.id=r;
+                  //  restaurantManager.getItemIDFromRestaurantID(order.restaurantID,item.id).then(r=>{
+                        addItemToOrder(orderID,item,order.restaurantID);
+                        j++;
+                  //  })
+
                 }
                /* for (let j=0;j<order.items.length;j++)
                 {
@@ -81,38 +86,29 @@ async function getOrderByIDs(consumerID,restaurantID){
         });
     })
 }
-async function getIDofItem(restaurantID){//de facut
 
-    return new Promise((resolve, reject) => {
-        var sql = "select * from items where consumerID = " + consumerID + " and restaurantID = " + restaurantID + " and status <> \'finished\';"
 
-        console.log("getOrderSQL: " + sql)
 
+function addItemToOrder(orderID, item,restaurantID){
+
+    restaurantManager.getItemIDFromRestaurantID(restaurantID,item.id).then(r=>{
+        // console.log("VREAU SA BAG ITEMUL"+JSON.stringify(r[0]));
+        var sql = "INSERT INTO `web`.`ordered_items`\n" +
+            "(`orderID`,\n" +
+            "`itemID`,\n" +
+            "`quantity`)\n" +
+            "VALUES\n" +
+            "(" + orderID + ", " +
+            r[0].id + ", " +
+            item.quantity + ");"
+
+        console.log("SQL: " + sql)
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result[0])
+            console.log("item inserted");
         });
     })
-}
 
-
-function addItemToOrder(orderID, item){
-
-    var sql = "INSERT INTO `web`.`ordered_items`\n" +
-        "(`orderID`,\n" +
-        "`itemID`,\n" +
-        "`quantity`)\n" +
-        "VALUES\n" +
-        "(" + orderID + ", " +
-        item.id + ", " +
-        item.quantity + ");"
-
-    console.log("SQL: " + sql)
-    con.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log("item inserted");
-    });
 }
 
 function changeStatusForOrder(orderID,status) { //status can be checked with an allowlist

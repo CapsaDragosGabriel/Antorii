@@ -677,14 +677,17 @@ console.log(JSON.stringify(rides[i].start));
                     let id;
                     quantity=result.quantities[i];
                     id=result.items[i];
-                    let obj={
-                        id:id,
-                        quantity:quantity
-                    }
+                        let obj={
+                            id:id,
+                            quantity:quantity
+                        }
 
-                    items[i]=obj;
+                        items[i]=obj;
+
+
                 }
-console.log("iteme transmise"+JSON.stringify((items)));
+                console.log("iteme transmise"+JSON.stringify((items)));
+
                 restaurantDB.getRestaurantByName(result.numeRestaurant).then(r=>{
                    userDB.getIDByToken(result.token).then(f=>{
                        var order={

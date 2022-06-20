@@ -39,6 +39,21 @@ function refreshOrders() {
 
 }
 
+/**Obiectele au forma:
+ * [{
+ *   food: { items: [ [Object], [Object] ], cost: 51 },
+ *   address: 'pepega',
+ *   feedback_restaurant: null,
+ *   feedback_provider: null
+ * },
+ * {
+ *   food: { items: [ [Object], [Object] ], cost: 51 },
+ *   address: 'pepega',
+ *   feedback_restaurant: null,
+ *   feedback_provider: null
+ * },
+ * ]
+ */
 function showOrders() {
     var x = document.getElementById("commandsList");
     console.log(JSON.stringify(globalOrders[0]));
@@ -46,21 +61,26 @@ function showOrders() {
         if (globalOrders[i]) {
             var currOrderDiv=document.createElement("div");
             //currOrderDiv.chan
-            currOrderDiv.setAttribute("id","boxCommand");
-            var newObj = (globalOrders[i]);
-           // for (var item of newObj.items) {
+            currOrderDiv.setAttribute("class","boxCommand");
+            // currOrderDiv.setAttribute("id","boxCommandId");
+            var newObj = (globalOrders[i]);///asta e o acolada mare
+            console.log("NEW OBJ ARATA ASA:"+JSON.stringify(newObj))
+            currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<h1>Comanda la adresa ${newObj.address}</h1>`
+
                 console.log("CURRENT ITEM ISSS:"+ JSON.stringify( newObj));
-                var foodObj=newObj.food;
+                var foodObj=newObj.food;//asta e food
 
                 console.log("The food is getting prepped, and it is: "+JSON.stringify(foodObj));
                 for (var item of foodObj.items)
-                {
+                {//item e fiecare chestie din food items
                     console.log(JSON.stringify(item));
                     if(item.quantity!=0)
                     currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p>${item.name} x ${item.quantity}</p>`
                     console.log("This food item is:"+item.name + " and you got "+ item.quantity+" of them");
 
                 }
+                //foodObj.cost e costul
+            //newObj.feedback... sunt feedbacks
                 currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p style="text-align:right"><b>${foodObj.cost} </b></p>`
                 x.appendChild(currOrderDiv);
 

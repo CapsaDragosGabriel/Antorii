@@ -207,7 +207,17 @@ body {
     flex-direction: column;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
 }
-
+.boxCommand {
+    font-family: "Zilla Slab";
+    color: black;
+    font-weight: bold;
+    font-size: 10px;
+    margin: 2%;
+    padding: 4% 3% 0 3%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    padding-bottom: 20px;
+}
 .command {
     font-family: "Zilla Slab";
     color: black;

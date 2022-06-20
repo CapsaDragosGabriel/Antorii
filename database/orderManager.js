@@ -138,14 +138,15 @@ async function getCompleteOrdersByID(consumerID){
 
             let doStuff = await async function () {
                 let tempList=[]
-                for (i = 0; i < result.length; i++) {
+                for (i = 0; i < result.length; i++) {//iteram prin orders
 
-                await   getOrderItemNames(result[i].id).then(f => {
+                await   getOrderItemNames(result[i].id).then(f => {//intoarcem mancarea si costul total
                         // console.log(JSON.parse(f));
                         let toReturn={
                             food:JSON.parse(f),
-                            address:result.adress
+                            address:result[i].address
                         }
+                        console.log("TO RETURN ESTE: "+ JSON.stringify(toReturn));
                         tempList[i] = (toReturn);
                     })
 
@@ -155,9 +156,16 @@ async function getCompleteOrdersByID(consumerID){
         doStuff().then(r=>ordersList=r).then(()=>{
             // let toReturn={}
         //    console.log("Orders for "+JSON.stringify( consumerID)+" are: " + JSON.stringify(ordersList));
-        for (let k=0;k<ordersList.length;k++)
-            console.log("Comanda"+JSON.stringify(ordersList[k]));
-
+        for (let k=0;k<ordersList.length;k++) {
+            console.log("Comanda" + JSON.stringify(ordersList[k]));
+            var newReturn = {
+                food:ordersList[k].food,
+                address:result[k].address,
+                feedback_restaurant:result[k].feedback_restaurant,
+                feedback_provider:result[k].feedback_provider
+            }
+            ordersList[k]=newReturn;
+        }
         resolve(ordersList);
         })
             //console.log("orders list:" + ordersList.then(r=>) );
@@ -408,11 +416,11 @@ module.exports = {
     insertOrder,
     getOrderByIDs,
     getTotal,
-    getFeedbackByOrderID,
-    getFeedbacksByRestaurantID,
+    // getFeedbackByOrderID,
+    // getFeedbacksByRestaurantID,
     addItemToOrder,
     changeStatusForOrder,
-    setFeedback,
+    // setFeedback,
 //    getOrdersByID,
     getCompleteOrdersByID
 }

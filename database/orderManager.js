@@ -42,7 +42,7 @@ function insertOrder(order) {
                 console.log("ORDER ID: " + orderID)
 
                 for(var item of order.items){
-                    addItemToOrder(orderID,item)
+                    addItemToOrder(orderID,item,order.restaurantID)
                 }
             })
         });
@@ -66,22 +66,26 @@ async function getOrderByIDs(consumerID,restaurantID){
 
 
 
-function addItemToOrder(orderID, item){
+function addItemToOrder(orderID, item,restaurantID){
 
-    var sql = "INSERT INTO `web`.`ordered_items`\n" +
-        "(`orderID`,\n" +
-        "`itemID`,\n" +
-        "`quantity`)\n" +
-        "VALUES\n" +
-        "(" + orderID + ", " +
-        item.id + ", " +
-        item.quantity + ");"
+    restaurantManager.getItemIDFromRestaurantID(restaurantID,item.id).then(r=>{
+        // console.log("VREAU SA BAG ITEMUL"+JSON.stringify(r[0]));
+        var sql = "INSERT INTO `web`.`ordered_items`\n" +
+            "(`orderID`,\n" +
+            "`itemID`,\n" +
+            "`quantity`)\n" +
+            "VALUES\n" +
+            "(" + orderID + ", " +
+            r[0].id + ", " +
+            item.quantity + ");"
 
-    console.log("SQL: " + sql)
-    con.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log("item inserted");
-    });
+        console.log("SQL: " + sql)
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log("item inserted");
+        });
+    })
+
 }
 
 function changeStatusForOrder(orderID,status) { //status can be checked with an allowlist
@@ -169,7 +173,7 @@ var order = {
         }]
 }
 
-// insertOrder(order)
+//insertOrder(order)
 
 // getTotal(1).then(r => {
 //     console.log("Total comanda: " + r)

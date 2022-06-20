@@ -9,20 +9,13 @@ function myFunction() {
         document.getElementById("details").style.display = "none";
         count = 0;
     } else {
-        const myDropdown = document.getElementById("myDropdown");
-// Close the dropdown if the user clicks outside of it
-        window.onclick = function (e) {
-            if (!document.getElementById("details")) return;
-            if (!e.target.matches('.dropbtn')) {
-                var myDropdown = document.getElementById("myDropdown");
-                if (myDropdown)
-                    if (myDropdown.classList.contains('show')) {
-                        myDropdown.classList.remove('show');
-                    }
-                document.getElementById("details").style.display = "block";
-                count = 1;
+        var myDropdown = document.getElementById("myDropdown");
+        if (myDropdown)
+            if (myDropdown.classList.contains('show')) {
+                myDropdown.classList.remove('show');
             }
-        }
+        document.getElementById("details").style.display = "block";
+        count = 1;
     }
 }
 
@@ -66,8 +59,23 @@ function showCourses() {
     document.getElementById('commandsList').style.display = "block";
 }
 
+let variabila = 1;
+
+function showCoursesMobile() {
+        document.getElementById("myNav").style.height = "0%"
+        document.getElementById("smth").style.display = "none";
+        document.getElementById("main-div").style.display = "none";
+        document.getElementById('commandsList').style.display = "block";
+}
+
 //for history food
 function showFoods() {
+    document.getElementById('box').style.display = "none";
+    document.getElementById('commandsList').style.display = "block";
+}
+
+function showFoodMobile() {
+    document.getElementById("myNav").style.height = "0%"
     document.getElementById('box').style.display = "none";
     document.getElementById('commandsList').style.display = "block";
 }

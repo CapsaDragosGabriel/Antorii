@@ -143,10 +143,10 @@ async function getCompleteOrdersByID(consumerID){
                 await   getOrderItemNames(result[i].id).then(f => {
                         // console.log(JSON.parse(f));
                         let toReturn={
-                            order:JSON.parse(f),
-                            address:result.address
+                            food:JSON.parse(f),
+                            address:result.adress
                         }
-                        tempList[i] = (JSON.parse(f));
+                        tempList[i] = (toReturn);
                     })
 
                 }

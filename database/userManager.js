@@ -208,10 +208,13 @@ function hashPasswordByID(userID) {
 
 }
 
-// hashPasswordByID(6)
+ hashPasswordByID(5);
+hashPasswordByID(8);
+hashPasswordByID(9);
 
-insertUser("nume","prenume","98451312","alex@gmail.com","Parola123","Bacau","Buhusi",
-   "banca boss","consumer");
+
+// insertUser("nume","prenume","98451312","alex@gmail.com","Parola123","Bacau","Buhusi",
+//    "banca boss","consumer");
 
 // checkLogin("capsadragos@gmail.com","Parola13").then(r =>{
 //     console.log(r)

@@ -77,9 +77,9 @@ function showRides() {
                         </select>-->
                 </label>
                 <button class="butonStatus" onclick="
-                    if (globalRides[${i}].status!='done'){  
+                    if (globalRides[${i}].status!='claimed'&&globalRides[${i}].status!='done'&&globalRides[${i}].status!='anulat'){  
                         console.log(${i})
-                        globalRides[${i}].status='done'
+                        globalRides[${i}].status='anulat'
                         console.log(globalRides[${i}]);
                         updateRide(globalRides[${i}].id).then(()=>{
                             refreshRides()

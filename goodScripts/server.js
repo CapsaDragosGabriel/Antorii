@@ -523,7 +523,7 @@ console.log(JSON.stringify(rides[i].start));
                 }
                 else{
 
-                    rideDB.changeRideStatus(result.id,'done',null)
+                    rideDB.changeRideStatus(result.id,result.status,null)
                 }
 
             })

@@ -387,8 +387,8 @@ input {
 
 #box img {
     opacity: initial;
-    width: 400px;
-    height: 170px;
+    width: 70%;
+    height: 180px;
     border-radius: 10px;
     background-blend-mode: soft-light;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
@@ -409,6 +409,19 @@ input {
     font-family: "Zilla Slab";
     font-weight: bold;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    margin: 0;
+}
+
+#buton {
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+#delete_back {
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
 }
 
 #delete {
@@ -526,7 +539,7 @@ input::placeholder {
     margin: 0;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 800px) {
     div.header {
         display: none;
     }
@@ -575,7 +588,7 @@ input::placeholder {
 
 }
 
-@media screen and (min-width: 901px) {
+@media screen and (min-width: 801px) {
     div.header {
         display: block;
     }

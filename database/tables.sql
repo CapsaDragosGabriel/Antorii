@@ -38,6 +38,7 @@ CREATE TABLE users (
     county varchar(60),
     localization varchar(100),
     token varchar(50),
+    created_token_time datetime,
     service varchar(50),
     PRIMARY KEY (id)
 );
@@ -52,6 +53,7 @@ CREATE TABLE ride_shares (
     finish varchar(100) NOT NULL,
     status varchar(100) NOT NULL,
     estimated varchar(5) NOT NULL,
+    feedback varchar(1000),
     FOREIGN KEY (consumerID) REFERENCES users (id),
     FOREIGN KEY (providerID) REFERENCES users (id),
     PRIMARY KEY (id)
@@ -86,6 +88,7 @@ CREATE TABLE orders (
     address varchar(100) NOT NULL,
     status varchar(100) NOT NULL,
     estimated varchar(5) NOT NULL,
+    feedback varchar(1000),
     FOREIGN KEY (restaurantID) REFERENCES restaurants (id),
     FOREIGN KEY (consumerID) REFERENCES users (id),
     PRIMARY KEY (id)

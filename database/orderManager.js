@@ -99,6 +99,47 @@ function changeStatusForOrder(orderID,status) { //status can be checked with an 
 
 }
 
+function setFeedback(feedback,orderID){
+
+    var sql = "UPDATE `web`.`orders`\n" +
+        "SET\n" +
+        "`feedback` = \'" + feedback +
+        "\' WHERE `id` = " + orderID + ";"
+
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+
+        console.log("Feedback set")
+    });
+}
+
+async function getFeedbackByOrderID(orderID){
+    return new Promise((resolve, reject) => {
+
+        var sql = "select feedback from orders where id = " + orderID + ";"
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+
+            resolve(result[0].feedback)
+        });
+    })
+}
+
+
+async function getFeedbacksByRestaurantID(restaurantID){
+    return new Promise((resolve, reject) => {
+
+        var sql = "select feedback from orders where restaurantID = " + restaurantID + ";"
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+
+            resolve(result)
+        });
+    })
+}
+
 async function getTotal(orderID){
 
     return new Promise((resolve, reject) => {
@@ -130,6 +171,28 @@ var order = {
 
 // insertOrder(order)
 
-getTotal(1).then(r => {
-    console.log("Total comanda: " + r)
+// getTotal(1).then(r => {
+//     console.log("Total comanda: " + r)
+// })
+
+// setFeedback("oleaca cam sarat",1)
+// getFeedbackByOrderID(1).then(r => {
+//     console.log(r)
+// })
+
+getFeedbacksByRestaurantID(2).then(r => {
+    console.log(r)
 })
+
+module.exports = {
+
+    insertOrder,
+    getOrderByIDs,
+    getTotal,
+    getFeedbackByOrderID,
+    getFeedbacksByRestaurantID,
+    addItemToOrder,
+    changeStatusForOrder,
+    setFeedback
+
+}

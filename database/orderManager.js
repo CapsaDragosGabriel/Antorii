@@ -2,6 +2,7 @@
 var mysql = require('mysql');
 var restaurantManager = require('./restaurantManager.js')
 var utils = require('../goodScripts/utils.js')
+var itemDB= require('../database/itemManager');
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -29,7 +30,7 @@ function insertOrder(order) {
             "(" + order.restaurantID +
             ", " + order.consumerID +
             ", \'" + order.adress + "\', " +
-            "\'order sent\', " +
+            "\'unclaimed\', " +
             "\'" + estimatedTime + "\');"
 
         con.query(sql, function (err, result) {
@@ -37,13 +38,24 @@ function insertOrder(order) {
             console.log("order inserted");
 
             getOrderByIDs(order.consumerID,order.restaurantID).then(r => {
-                orderID = r.id;
+                // orderID = r.id;
 
-                console.log("ORDER ID: " + orderID)
+                // console.log("ORDER ID: " + orderID)
+                let j=0;
+                console.log("ORDERUL CURENT ESTE"+ r.id);
 
-                for(var item of order.items){
-                    addItemToOrder(orderID,item,order.restaurantID)
+                orderID=r.id;
+                console.log("ITEME DIN ORDERUL ACESTA SUNT:"+ JSON.stringify(order.items));
+
+                // for(var item of JSON.parse(JSON.stringify(order)).items){
+
+
+                let k=0;
+                for (k=0;k<order.items.length;k++) {
+                    console.log("parametrii dati sunt:"+orderID+" "+JSON.stringify(order.items[k])+" "+order.restaurantID)
+                    addItemToOrder(orderID, order.items[k], order.restaurantID)
                 }
+
             })
         });
 
@@ -59,12 +71,73 @@ async function getOrderByIDs(consumerID,restaurantID){
         con.query(sql, function (err, result) {
             if (err) throw err;
 
-            resolve(result[0])
+            resolve(result[result.length-1])
         });
     })
 }
 
+async function getCompleteOrdersByID(consumerID){
 
+    return new Promise((resolve, reject) => {
+        var sql = "select * from orders where consumerID = '" + consumerID + "';"
+
+        console.log("getOrderSQL: " + sql)
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+
+            //r=result;
+            console.log(JSON.stringify(result));
+                let ordersList={}
+                for (let i=0;i<result.length;i++)
+                {
+                    getOrderItems(JSON.stringify( result[i].id)).then(r=>{
+                    console.log(r);
+                        for (let i=0;i<r.length;i++)
+                            itemDB.getItemName(r[i].itemID).then(f=>{
+                                console.log(r[i].id+" au fost comandate:" + f.name );
+
+                            })
+                    })
+                }
+            resolve(result)
+        });
+    })
+}
+ /*getCompleteOrdersByID(3).then(f=>{
+  // console.log(f);
+ })*/
+/*async function getOrderAndItemsByID(consumerID)
+{
+    getOrdersByID(consumerID).then(r=>{
+        for(let i=0;i<r.length;i++)
+        {
+            let completeOrder={
+                id:r[i].id,
+                restaurantID: r[i].restaurantID,
+                consumerID:r[i].consumerID,
+                address:r[i].address,
+                status:r[i].status,
+                estimated:r[i].estimated,
+
+
+            }
+        }
+    })
+}*/
+async function getOrderItems(orderID){
+    return new Promise((resolve, reject) => {
+        var sql = "select * from ordered_items where orderID = '" + orderID+"';"
+
+        console.log("getOrderItems: " + sql)
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            // console.log("RESULT"+JSON.stringify (result))
+            resolve(result)
+        });
+    })
+}
 
 function addItemToOrder(orderID, item,restaurantID){
 
@@ -172,6 +245,17 @@ var order = {
             quantity: 1
         }]
 }
+/**
+getOrderItems(60).then(r=>{
+// console.log(r);
+    for (let i=0;i<r.length;i++)
+     itemDB.getItemName(r[i].itemID).then(f=>{
+         console.log(r[i].id+" au fost comandate:" + f.name );
+
+     })
+}).then(()=>
+console.log("Asdasdas")
+)*/
 
 //insertOrder(order)
 
@@ -184,9 +268,9 @@ var order = {
 //     console.log(r)
 // })
 
-getFeedbacksByRestaurantID(2).then(r => {
-    console.log(r)
-})
+// getFeedbacksByRestaurantID(2).then(r => {
+//     console.log(r)
+// })
 
 module.exports = {
 
@@ -197,6 +281,7 @@ module.exports = {
     getFeedbacksByRestaurantID,
     addItemToOrder,
     changeStatusForOrder,
-    setFeedback
-
+    setFeedback,
+    getOrdersByID: getCompleteOrdersByID
 }
+// >>>>>>> Stashed changes

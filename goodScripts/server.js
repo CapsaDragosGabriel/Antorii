@@ -4,6 +4,7 @@ var userDB = require("../database/userManager.js");
 var rideDB = require("../database/rideManager");
 var restaurantDB=require("../database/restaurantManager");
 var orderDB=require("../database/orderManager");
+var itemDB=require("../database/itemManager")
 const http = require('http');
 
 const nodemailer= require('nodemailer');
@@ -73,12 +74,12 @@ const server = http.createServer((req, res) => {
             let data = '';
             req.on('data', chunk => {
                 data += chunk;
-                console.log('data chunk added ' + data)
+                //console.log('data chunk added ' + data)
             })
             //aici lucrez cu email-ul si parola primite
             req.on('end', () => {
                 data = JSON.parse(data);
-                console.log('data chunk finished ' + data.email)
+                //console.log('data chunk finished ' + data.email)
                 const result = {
                     email: data.email,
                     parola: data.password,
@@ -135,12 +136,12 @@ const server = http.createServer((req, res) => {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
-            console.log('data chunk added ' + data)
+            //console.log('data chunk added ' + data)
         })
         //aici lucrez cu email-ul si parola primite
         req.on('end', () => {
             data = JSON.parse(data);
-            console.log('data chunk finished ' + data.token)
+            //console.log('data chunk finished ' + data.token)
             const result = {
                 token: data.token
             }
@@ -176,12 +177,12 @@ const server = http.createServer((req, res) => {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
-            console.log('data chunk added ' + data)
+            //console.log('data chunk added ' + data)
         })
         //aici lucrez cu email-ul si parola primite
         req.on('end', () => {
             data = JSON.parse(data);
-            console.log('data chunk finished ' + data.token)
+            //console.log('data chunk finished ' + data.token)
             const result = {
                 token: data.token
             }
@@ -216,12 +217,12 @@ const server = http.createServer((req, res) => {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
-            console.log('data chunk added ' + data)
+            // //console.log('data chunk added ' + data)
         })
         //aici lucrez cu email-ul si parola primite
         req.on('end', () => {
             data = JSON.parse(data);
-            console.log('data chunk finished ' + data.email)
+            // //console.log('data chunk finished ' + data.email)
             const result = {
                 token: data.token
             }
@@ -237,12 +238,12 @@ const server = http.createServer((req, res) => {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
-            console.log('data chunk added ' + data)
+            //console.log('data chunk added ' + data)
         })
         //aici lucrez cu email-ul si parola primite
         req.on('end', () => {
             data = JSON.parse(data);
-            console.log('data chunk finished ' + data.email)
+            //console.log('data chunk finished ' + data.email)
 
             const result = {
                 email: data.email,
@@ -310,12 +311,12 @@ const server = http.createServer((req, res) => {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
-            console.log('data chunk added ' + data)
+            //console.log('data chunk added ' + data)
         })
         //aici lucrez cu email-ul si parola primite
         req.on('end', () => {
             data = JSON.parse(data);
-            console.log('data chunk finished ' + data.email)
+            //console.log('data chunk finished ' + data.email)
 
             const result = {
                 email: data.email,
@@ -389,12 +390,12 @@ const server = http.createServer((req, res) => {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
-            console.log('data chunk added ' + data)
+            //console.log('data chunk added ' + data)
         })
         //aici lucrez cu email-ul si parola primite
         req.on('end', () => {
             data = JSON.parse(data);
-            // console.log('data chunk finished ' + data.email)
+            // //console.log('data chunk finished ' + data.email)
 
             const result = {
                from: data.from,
@@ -432,14 +433,14 @@ const server = http.createServer((req, res) => {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
-            console.log('data chunk added ' + data)
+            //console.log('data chunk added ' + data)
         })
         //aici lucrez cu email-ul si parola primite
         req.on('end', () => {
             console.log("PANA AICI AM AJUNS SI TOKENUL E:")
 
            data = JSON.parse(data);
-            // console.log('data chunk finished ' + data.email)
+            // //console.log('data chunk finished ' + data.email)
 
             const result = {
                 token:data.token
@@ -489,14 +490,14 @@ console.log(JSON.stringify(rides[i].start));
         let data = '';
         req.on('data', chunk => {
             data += chunk;
-            console.log('data chunk added ' + data)
+            //console.log('data chunk added ' + data)
         })
         //aici lucrez cu email-ul si parola primite
         req.on('end', () => {
             console.log("PANA AICI AM AJUNS SI TOKENUL E:")
 
             data = JSON.parse(data);
-            // console.log('data chunk finished ' + data.email)
+            // //console.log('data chunk finished ' + data.email)
 
             const result = {
                 id: data.id,
@@ -535,14 +536,14 @@ console.log(JSON.stringify(rides[i].start));
         let data = '';
         req.on('data', chunk => {
             data += chunk;
-            console.log('data chunk added ' + data)
+            //console.log('data chunk added ' + data)
         })
         //aici lucrez cu email-ul si parola primite
         req.on('end', () => {
             console.log("PANA AICI AM AJUNS SI TOKENUL E:")
 
             data = JSON.parse(data);
-            // console.log('data chunk finished ' + data.email)
+            // //console.log('data chunk finished ' + data.email)
 
             const result = {
                 id: data.id,
@@ -591,12 +592,12 @@ console.log(JSON.stringify(rides[i].start));
         let data = '';
         req.on('data', chunk => {
             data += chunk;
-            console.log('data chunk added ' + data)
+            //console.log('data chunk added ' + data)
         })
         //aici lucrez cu email-ul si parola primite
         req.on('end', () => {
             // data = JSON.parse(data);
-            // console.log('data chunk finished ' + data.token)
+            // //console.log('data chunk finished ' + data.token)
             console.log(data);
 
        restaurantDB.getAllRestaurants().then(r=> {
@@ -629,12 +630,12 @@ console.log(JSON.stringify(rides[i].start));
         let data = '';
         req.on('data', chunk => {
             data += chunk;
-            console.log('data chunk added ' + data)
+            //console.log('data chunk added ' + data)
         })
         //aici lucrez cu email-ul si parola primite
         req.on('end', () => {
             data = JSON.parse(data);
-             console.log('data chunk finished ' + data.restaurantName)
+             //console.log('data chunk finished ' + data.restaurantName)
             console.log(data);
              let result={
                  restaurantName:data.restaurantName
@@ -657,7 +658,7 @@ console.log(JSON.stringify(rides[i].start));
             let data = '';
             req.on('data', chunk => {
                 data += chunk;
-                console.log('data chunk added ' + data)
+                //console.log('data chunk added ' + data)
             })
             //aici lucrez cu comanda primita
             req.on('end', () => {
@@ -716,7 +717,62 @@ console.log(JSON.stringify(rides[i].start));
        })
 
 }
-        else if (cookies.name) {
+    else if (req.url.startsWith('/api/claim/orders')){
+        console.log('API ORDERS');
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            //console.log('data chunk added ' + data)
+        })
+        req.on('end', () => {
+            console.log("PANA AICI AM AJUNS SI TOKENUL E:")
+
+            data = JSON.parse(data);
+            // //console.log('data chunk finished ' + data.email)
+
+            const result = {
+                id: data.id,
+                token:data.token,
+                status: data.status
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+
+            userDB.getServiceByToken(result.token).then(p=>{
+                console.log(p)
+                if (p=="food"){
+                    console.log(data);
+                    userDB.getIDByToken(result.token).then(r=>{
+                            //  console.log(r);
+                            // console.log(r);
+                            orderDB.getOrders.then(fn=>{
+                                console.log("CLAIMED RIDES ARE "+fn);
+                                res.end(JSON.stringify(fn));
+                            });
+                        }
+
+                    )
+                }
+                else{
+                    console.log(data)
+                    userDB.getIDByToken(result.token).then(r=>{
+                        console.log(r);
+                        rideDB.getOwn(r).then(fn=>{
+                            // console.log("your rides are losdloas"+fn);
+                            res.end(JSON.stringify(fn));
+                        })
+                    })
+
+                }
+            })
+
+
+        })
+    }//get own rides (driver/consumer)
+
+    else if (cookies.name) {
 
         } else {
 

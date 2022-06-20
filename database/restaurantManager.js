@@ -1,5 +1,4 @@
 var mysql = require('mysql');
-
 var con = mysql.createConnection({
     host: "localhost",
     user: "student",
@@ -102,9 +101,7 @@ async function getItemIDFromRestaurantID(restaurantID,itemName){
     })
 }
 
-getItemsFromRestaurantByName('McDonalds').then(r => {
-    console.log(r)
-})
+
 
 // getAllRestaurants().then(r=>{
 //     console.log(r);

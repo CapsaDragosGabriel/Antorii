@@ -33,11 +33,26 @@ function insertItem(restaurantName,item) {
 
     })
 }
+function getItemName(itemID){
+    return new Promise((resolve, reject) => {
+        var sql = "select name from items where id='"+itemID+"';"
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+
+             console.log(result)
+            resolve(result[0])
+        });
+    })
+}
+// getItemName(1).then(r=>console.log("item id =1 =>"+r.name));
 
 var item =
-{
-    "name": "BigMC",
-    "description": "Biggest of them MCs, wrapping it up for good!",
-    "price": 17
+    {"name": "Chicken Nuggies",
+        "description": "Up for tender breasts?",
+        "price": "12"
+    }
+module.exports={
+    getItemName,
 }
-// insertItem('McDonalds',item)
+ // insertItem('McDonalds',item)

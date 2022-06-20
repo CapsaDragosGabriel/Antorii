@@ -173,8 +173,8 @@ async function getServiceByToken(token){
 }
 
 
- insertUser("NUme","prenume","98451312","capsadragos@gmail.com","Parola123","Bacau","Buhusi",
-    "banca boss","consumer");
+ // insertUser("NUme","prenume","98451312","capsadragos@gmail.com","Parola123","Bacau","Buhusi",
+ //    "banca boss","consumer");
 // checkLogin("capsadragos@gmail.com","Parola123").then(r=>{
 //     console.log(r);
 // })

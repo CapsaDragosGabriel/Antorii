@@ -9,6 +9,31 @@ function createPriceDiv() {
         </button>
     </div>`;
 }
+let globalOrders={};
+
+async function getOrders(){
+    const data = {
+        token: localStorage.getItem('token')
+    }
+    let sent = true;
+
+    const response = await fetch('http://localhost:8000/api/username', {
+        method: 'POST',
+        body: JSON.stringify(data)
+    }).then(r => r.json())
+        .catch(e => {
+            console.log('error');
+            console.log(e);
+            //wrongPassword()
+            sent = false
+        });
+    console.log(response);
+    if (sent) {
+        console.log(response.email);
+        username = response.email;
+        changeUsername();
+    }
+}
 
 let numeRestaurant = "";
 

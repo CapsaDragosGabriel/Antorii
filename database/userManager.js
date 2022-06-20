@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 const Console = require("console");
+const crypto = require("crypto")
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -10,7 +11,10 @@ var con = mysql.createConnection({
 
 async function checkLogin(email, pass) {
     return new Promise((resolve, reject) => {
-        var sql = "select * from users where email = \'" + email + "\' and pass = \'" + pass + "\'";
+
+        var hashedPass = crypto.createHash("sha256").update(pass).digest("base64")
+
+        var sql = "select * from users where email = \'" + email + "\' and pass = \'" + hashedPass + "\'";
         con.query(sql, function (err, result) {
             if (err) throw err;
 
@@ -61,6 +65,8 @@ async function getUserByEmail(email) {
 }
 
 function insertUser(firstName, lastName, phone, email, pass, city, county, localization, service) {
+    var hashedPass = crypto.createHash("sha256").update(pass).digest("base64")
+
     var sql = "INSERT INTO `web`.`users`\n" +
         "(`first_name`,\n" +
         "`last_name`,\n" +
@@ -76,7 +82,7 @@ function insertUser(firstName, lastName, phone, email, pass, city, county, local
         "\', \'" + lastName +
         "\', \'" + phone +
         "\', \'" + email +
-        "\', \'" + pass +
+        "\', \'" + hashedPass +
         "\', \'" + city +
         "\', \'" + county +
         "\', \'" + localization +
@@ -182,9 +188,40 @@ async function getServiceByToken(token) {
 
 }
 
+function hashPasswordByID(userID) {
+
+    var sql = "select pass from users where id = " + userID + ";"
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+
+        console.log("pass: " + result[0].pass)
+        var hashedPass = crypto.createHash("sha256").update(result[0].pass).digest("base64")
+
+        var sql = "update users set pass = \'" + hashedPass + "\' where id = " + userID + ";"
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+        })
+
+        console.log("password hashed")
+    });
+
+}
+
+// hashPasswordByID(6)
+
+insertUser("nume","prenume","98451312","alex@gmail.com","Parola123","Bacau","Buhusi",
+   "banca boss","consumer");
+
+// checkLogin("capsadragos@gmail.com","Parola13").then(r =>{
+//     console.log(r)
+// })
 
 // insertUser("nume","prenume","98451312","capsadragos@gmail.com","Parola123","Bacau","Buhusi",
 //    "banca boss","consumer");
+
+// insertUser("bla","blala","98451312","alexeeeeut@gmail.com","Parola123","Bacau","Buhusi",
+//     "banca boss","consumer");
 
 //updateTokenByEmail("capsadragos@gmail.com", "123444")
 // checkLogin("capsadragos@gmail.com","Parola123").then(r=>{

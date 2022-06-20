@@ -84,13 +84,16 @@ CREATE TABLE items (
 CREATE TABLE orders (
     id int NOT NULL AUTO_INCREMENT,
     restaurantID int NOT NULL,
-    consumerID int NOT NULL,
     address varchar(100) NOT NULL,
     status varchar(100) NOT NULL,
     estimated varchar(5) NOT NULL,
-    feedback varchar(1000),
+    feedback_restaurant varchar(1000),
+    feedback_provider varchar(1000),
+    consumerID int NOT NULL,
+    providerID int NOT NULL,
     FOREIGN KEY (restaurantID) REFERENCES restaurants (id),
     FOREIGN KEY (consumerID) REFERENCES users (id),
+    FOREIGN KEY (providerID) REFERENCES users (id),
     PRIMARY KEY (id)
 );
 

@@ -266,11 +266,11 @@ function changeStatusForOrder(orderID,status) { //status can be checked with an 
 
 }
 
-function setFeedback(feedback,orderID){
+function setFeedbackForRestaurant(feedback,orderID){
 
     var sql = "UPDATE `web`.`orders`\n" +
         "SET\n" +
-        "`feedback` = \'" + feedback +
+        "`feedback_restaurant` = \'" + feedback +
         "\' WHERE `id` = " + orderID + ";"
 
     con.query(sql, function (err, result) {
@@ -280,10 +280,38 @@ function setFeedback(feedback,orderID){
     });
 }
 
-async function getFeedbackByOrderID(orderID){
+function setFeedbackForProvider(feedback,orderID){
+
+    var sql = "UPDATE `web`.`orders`\n" +
+        "SET\n" +
+        "`feedback_provider` = \'" + feedback +
+        "\' WHERE `id` = " + orderID + ";"
+
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+
+        console.log("Feedback set")
+    });
+}
+
+
+async function getFeedbackForRestaurantByOrderID(orderID){
     return new Promise((resolve, reject) => {
 
-        var sql = "select feedback from orders where id = " + orderID + ";"
+        var sql = "select feedback_restaurant from orders where id = " + orderID + ";"
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+
+            resolve(result[0].feedback)
+        });
+    })
+}
+
+async function getFeedbackForProviderByOrderID(orderID){
+    return new Promise((resolve, reject) => {
+
+        var sql = "select feedback_provider from orders where id = " + orderID + ";"
 
         con.query(sql, function (err, result) {
             if (err) throw err;
@@ -294,10 +322,23 @@ async function getFeedbackByOrderID(orderID){
 }
 
 
-async function getFeedbacksByRestaurantID(restaurantID){
+async function getFeedbacksForRestaurant(restaurantID){
     return new Promise((resolve, reject) => {
 
-        var sql = "select feedback from orders where restaurantID = " + restaurantID + ";"
+        var sql = "select feedback_restaurant from orders where restaurantID = " + restaurantID + ";"
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+
+            resolve(result)
+        });
+    })
+}
+
+async function getFeedbacksForProvider(restaurantID){
+    return new Promise((resolve, reject) => {
+
+        var sql = "select feedback_provider from orders where restaurantID = " + restaurantID + ";"
 
         con.query(sql, function (err, result) {
             if (err) throw err;

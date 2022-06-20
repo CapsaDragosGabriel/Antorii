@@ -20,24 +20,21 @@ async function getRide(consumerID)
     })
 
 }
- function changeRideStatus(id,string,providerID){
+ function changeRideStatus(id,status,providerID){
     if(providerID) {
-        var sql = "update ride_shares set status = \'" + string + "\' where id = \'" + id + "\'";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-        })
-        var sql = "update ride_shares set providerID = \'" + providerID + "\' where id = \'" + id + "\'";
+        var sql = "update ride_shares set status = \'" + status + "\', providerID = " + providerID + " where id = \'" + id + "\'";
         con.query(sql, function (err, result) {
             if (err) throw err;
         })
     }
     else{
-        var sql = "update ride_shares set status = \'" + string + "\' where id = \'" + id + "\'";
+        var sql = "update ride_shares set status = \'" + status + "\' where id = \'" + id + "\'";
         con.query(sql, function (err, result) {
             if (err) throw err;
         })
     }
 }
+
 async function getOwn(id){
     return new Promise((resolve, reject)=>{
         var sql = "select * from ride_shares where consumerID=\'"+id+ "' order by status; ";

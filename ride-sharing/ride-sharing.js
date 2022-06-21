@@ -98,13 +98,18 @@ function showRides() {
                                     showRides()        })}
             
             ">
-                <label><b>Feedback</b>
-                </label>`
+                `
                     if (globalRides[i].feedback == null) {
-                        newCommand.innerHTML = newCommand.innerHTML + ` <input type="text" placeholder="Spune-ne parerea ta!" onblur="getValue(${i})" name="feedback" id="feedback${i}" required><br>`
+                        newCommand.innerHTML = newCommand.innerHTML + ` 
+ <label><b>Feedback</b></label>
+ <input type="text" placeholder="Spune-ne parerea ta!" onblur="getValue(${i})" name="feedback" id="feedback${i}" required><br>`
 
                     } else
-                        newCommand.innerHTML = newCommand.innerHTML + ` <p>${newObj.feedback} </p>`
+                        newCommand.innerHTML = newCommand.innerHTML + ` 
+ <div class="feedbackBox"
+    <label>Feedback</label>
+    <p style="margin: 0;">${newObj.feedback} </p>
+</div>`
                     if (newObj.rating == null) {
                         newCommand.innerHTML = newCommand.innerHTML + `
                 
@@ -125,18 +130,15 @@ function showRides() {
 
                     } else {
                         let valueRating = globalRides[i].rating
-
-                        newCommand.innerHTML = newCommand.innerHTML + `<p>Ai acordat: ${valueRating} stele</p>`;
+                        newCommand.innerHTML = newCommand.innerHTML + `
+<div class="feedbackBox">
+    <p style="margin: 0;">Ai acordat:</p>
+    <p style="margin: 0;">${valueRating} stele</p>
+</div>`;
                     }
                     newCommand.innerHTML=newCommand.innerHTML+`
                     <div id="butonSend">
                         <button class="btn" type="submit" onclick="
-                        // if (globalRides[${i}].feedback==null)
-                        //     {
-                        //         var getValue=document.getElementById('feedback${i}')
-                        //         const val=document.querySelector('feedback${i}')
-                        //         console.log(val)
-                        //     }
                         updateRide(globalRides[${i}].id,${i}).then(()=>{
                             refreshRides()
                             showRides()
@@ -144,17 +146,27 @@ function showRides() {
                     </div>`
 
             newCommand.innerHTML=newCommand.innerHTML+`
-    </form>
+    </from>
   </div>`
   }
 
             else
             {
                 newCommand.innerHTML = newCommand.innerHTML + `
-                <p>Feedback:</p>
-                <p>${newObj.feedback}</p>
-                <p>Rating:</p>
-                <p>${newObj.rating} stele</p>
+            <div class="feedbackBoxSend">
+              <div style="display: flex;
+                          flex-direction: row;
+                          justify-content: space-between;">
+                <p style="margin: 0;">Feedback:</p>
+                <p style="margin: 0;">${newObj.feedback}</p>
+              </div>
+              <div style="display: flex;
+                          flex-direction: row;
+                          justify-content: space-between;">
+                <p style="margin: 0;">Rating:</p>
+                <p style="margin: 0;">${newObj.rating} stele</p>
+              </div>
+            </div>
 `
             }
             x.appendChild(newCommand);

@@ -686,8 +686,8 @@ console.log(JSON.stringify(rides[i].start));
                     userDB.getIDByToken(result.token).then(r=>{
                             //  console.log(r);
                             // console.log(r);
-                            orderDB.getClaimed(r).then(fn=>{
-                                console.log("CLAIMED RIDES ARE "+fn);
+                            orderDB.getCompleteOrdersByProviderID(r).then(fn=>{
+                                console.log("CLAIMED ORDERS ARE "+fn);
                                 res.end(JSON.stringify(fn));
                             });
                         }
@@ -710,6 +710,59 @@ console.log(JSON.stringify(rides[i].start));
 
         })
     }//get own orders (driver/consumer)
+    else  if (req.url.startsWith('/api/orders')) {
+
+        console.log('API ORDERS');
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            //console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            console.log("PANA AICI AM AJUNS SI TOKENUL E:")
+
+            data = JSON.parse(data);
+            // //console.log('data chunk finished ' + data.email)
+
+            const result = {
+                token:data.token
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+            //aici se adauga verificarea datelor
+            console.log(result.token);
+
+
+            userDB.getServiceByToken(result.token).then(p=>{
+                console.log(p)
+                if (p=="food"){
+                    console.log(data);
+                    userDB.getIDByToken(result.token).then(r=>{
+                            // console.log(r);
+                            rideDB.getClaimed(r).then(fn=>{
+                                console.log("CLAIMED RIDES ARE "+JSON.stringify(fn));
+                                res.end(JSON.stringify(fn));
+                            });
+                        }
+
+                    )
+                }
+
+
+
+
+
+            })
+            //aici se adauga introducerea datelor in baza de date
+            //console.log(result);
+            //getPage(req, res).then();
+
+        })
+
+    }
 
     else if (req.url.startsWith('/api/restaurants') ){
         console.log('API restaurants');

@@ -13,7 +13,8 @@
             getUsername();
             changeUsername();
             getService().then(p => {
-                if (p === "food") {
+                if (globalService === "food") {
+                    getNewOrders().then(()=>{getClaimedOrders().then(()=>{refreshOrders(); showOrders()})})
 
                 } else if (globalService === "consumer") {
                     window.location.href = "../startUser/startUser.html"
@@ -22,6 +23,7 @@
                 }
             })
         }
+
     </script>
     <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="../goodScripts/utils.js"></script>

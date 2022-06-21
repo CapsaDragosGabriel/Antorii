@@ -181,7 +181,14 @@ function showRides() {
                     }"
                     >Terminat</button>     
             `;
-            x.appendChild(newCommand);
+            if (globalRides[i].feedback)
+                newCommand.innerHTML = newCommand.innerHTML +
+                        `<br><p>Feedback de la client: ${globalRides[i].feedback}</p>`
+       if (globalRides[i].rating)
+                newCommand.innerHTML = newCommand.innerHTML +
+                    `<p>Rating de la client: ${globalRides[i].rating}</p>`
+
+                    x.appendChild(newCommand);
             var newRide = document.createElement('div')
         }
         // console.log("una bucata ride"+currRide);
@@ -212,9 +219,8 @@ async function getNewRides() {
             sent = false
         });
     //   console.log("Raspunsul de la server esteeee : "+ response);
-    if (globalRides)
+
     globalRides = response;
-    else globalRides=[];
     console.log("GLOBAL RIDES DUPA  GET NEW RIDES" + globalRides);
     //showRides()
 

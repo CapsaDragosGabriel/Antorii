@@ -120,6 +120,55 @@ async function getCompleteOrdersByID(consumerID) {
     })
 }
 
+
+async function getCompleteOrdersByProviderID(providerID) {
+
+    return new Promise((resolve, reject) => {
+        var sql = "select * from orders where providerID = '" + con.escape(providerID) + "';"
+
+        console.log("getOrderSQL: " + sql)
+
+        con.query(sql, async function (err, result) {
+            if (err) throw err;
+
+            let ordersList = [];
+
+            let doStuff = await async function () {
+                let tempList = []
+                for (i = 0; i < result.length; i++) {//iteram prin orders
+
+                    await getOrderItemNames(result[i].id).then(f => {//intoarcem mancarea si costul total
+                        // console.log(JSON.parse(f));
+                        let toReturn = {
+                            food: JSON.parse(f),
+                            address: result[i].address
+                        }
+                        console.log("TO RETURN ESTE: " + JSON.stringify(toReturn));
+                        tempList[i] = (toReturn);
+                    })
+
+                }
+                return tempList;
+            };
+            doStuff().then(r => ordersList = r).then(() => {
+
+                for (let k = 0; k < ordersList.length; k++) {
+                    console.log("Comanda" + JSON.stringify(ordersList[k]));
+                    var newReturn = {
+                        food: ordersList[k].food,
+                        address: result[k].address,
+                        consumerID:result[k].consumerID,
+                        feedback_restaurant: result[k].feedback_restaurant,
+                        feedback_provider: result[k].feedback_provider
+                    }
+                    ordersList[k] = newReturn;
+                }
+                resolve(ordersList);
+            })
+
+        });
+    })
+}
 async function getOrderItemNames(orderID) {
     return new Promise((resolve, reject) => {
         var sql = "select name,quantity from ordered_items o join items i on o.itemID=i.id where orderID='" + con.escape(orderID) + "';"
@@ -308,7 +357,7 @@ var order = {
 
 
 module.exports = {
-
+getCompleteOrdersByProviderID,
     insertOrder,
     getOrderByIDs,
     getTotal,

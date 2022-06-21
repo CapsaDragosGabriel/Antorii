@@ -149,7 +149,7 @@ function showOrders() {
               if (newObj.feedback_restaurant) {
                   currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p> Feedback restaurant: ${newObj.feedback_restaurant}</p> `;
               } else {
-                  currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p>Lasa un feedback providerului: </p> `;
+                  currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p>Lasa un feedback restaurantului: </p> `;
                   //text input area
                   currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<button onclick="globalOrders[${i}].feedback_restaurant='valoare restaurant feedback' ;updateOrder(globalOrders[${i}].id,${i}).then(()=>{
                             refreshOrders()

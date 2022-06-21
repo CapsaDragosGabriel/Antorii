@@ -13,16 +13,18 @@
             getUsername();
             changeUsername();
             getService().then(p => {
-                if (globalService === "food") {
+                if (globalService==undefined) {localStorage.removeItem('token'); window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";}
+               else if (globalService === "food") {
                     getNewOrders().then(()=>{getClaimedOrders().then(()=>{refreshOrders(); showOrders()})})
 
-                } else if (globalService === "consumer") {
+                } else{
                     window.location.href = "../startUser/startUser.html"
                     //redirect pe pagina serviciului corespunzator
                     //  window.location.href="https://stackoverflow.com/questions/1827063/mysql-error-key-specification-without-a-key-length";
                 }
             })
-        }
+        }        else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html"
+
 
     </script>
     <script src="../scriptsFrontend/servicesBtn.js"></script>

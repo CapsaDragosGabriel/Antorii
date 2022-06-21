@@ -12,7 +12,9 @@
     <script>
 if (localStorage.getItem('token')) {
     getService().then(() => {
-        if (globalService == "consumer") {
+        if (globalService==undefined) {localStorage.removeItem('token'); window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";}
+
+        else if (globalService == "consumer") {
 
         } else
         if (globalService=="ride-sharing"){

@@ -8,13 +8,21 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Imbue">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="../scriptsFrontend/servicesBtn.js"></script>
+        <script src="../goodScripts/utils.js"></script>
     <script>
-        if (localStorage.getItem('token')!=null)
+        if (localStorage.getItem('token'))
         {
-            //check cu baza de date
-            //if all good
-            window.location.href="http://127.0.0.1:8000/startUser/startUser.html";
+            getServiceReturned().then(r=>{
+                if (r==undefined) localStorage.removeItem('token');
+                else  window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
+
+
+            })
+
+            //check with db
+            //after ok
         }
+
     </script>
     <title>SerP</title>
 </head>

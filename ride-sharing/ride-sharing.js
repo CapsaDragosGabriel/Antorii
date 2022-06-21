@@ -72,12 +72,16 @@ function showRides() {
             newCommand.id = "boxCommandId";
             newCommand.innerHTML =
                 `<div class="command">
-                <h1>${newObj.start} - ${newObj.finish}</h1>
-                <label>
-                    <p id="status">Status comanda: ${newObj.status}</p>
-                </label>
-                <p>Pretul comenzii: ${newObj.price} RON</p>
-                <button class="butonStatus" onclick="
+                    <h1>${newObj.start} - ${newObj.finish}</h1>
+                    <label>
+                        <p id="status">Status comanda: ${newObj.status}</p>
+                    </label>
+                        <p id="pretCursa">Pret: ${newObj.price} RON</p>
+                </div>
+                    <div style="display: flex;
+                                justify-content: right;
+                                flex-direction: row;
+                                margin-bottom: 2%;"><button class="btn" onclick="
                     if (globalRides[${i}].status!='claimed'&&globalRides[${i}].status!='done'&&globalRides[${i}].status!='anulat'){  
                         console.log(${i})
                         globalRides[${i}].status='anulat'
@@ -86,8 +90,7 @@ function showRides() {
                             refreshRides()
                             showRides()
                         })
-                    }">Anuleaza</button>
-                    </div>`;
+                    }">Anuleaza</button></div>`;
             if (newObj.status === 'done')
                 if( newObj.feedback==null || newObj.rating==null ) {
                     newCommand.innerHTML = newCommand.innerHTML + `

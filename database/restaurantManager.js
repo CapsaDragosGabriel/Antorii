@@ -74,7 +74,7 @@ async function getItemIDFromRestaurantByName(restaurantName,itemName){
             let restaurantID = r.id;
 
             sql = "select id from items where restaurantID = ? and name= ?;"
-            con.query(sql,[restaurantID,itemName] function (err, result) {
+            con.query(sql,[restaurantID,itemName] ,function (err, result) {
                 if (err) throw err;
                 // console.log(result);
 

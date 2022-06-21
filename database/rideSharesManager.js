@@ -87,4 +87,4 @@ const rideShare = {
 
 // insertRideShare(rideShare)
 // setProviderByEmail("andrei@gmail.com","capsadragos@gmail.com")
-deleteRideShareByConsumerEmail("andrei@gmail.com")
+// deleteRideShareByConsumerEmail("andrei@gmail.com")

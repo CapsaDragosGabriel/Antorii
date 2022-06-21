@@ -101,6 +101,7 @@ const server = http.createServer((req, res) => {
                     }
                     else
                     {
+
                         userDB.checkLogin(result.email,result.parola).then(r=>{
                             if (r=="nu")
                             {console.log("NU AVEM MATCH")
@@ -629,10 +630,9 @@ console.log(JSON.stringify(rides[i].start));
                 if (p=="ride-sharing"){
                     console.log(data);
                     userDB.getIDByToken(result.token).then(r=>{
-                            //  console.log(r);
                             // console.log(r);
                             rideDB.getClaimed(r).then(fn=>{
-                                console.log("CLAIMED RIDES ARE "+fn);
+                                console.log("CLAIMED RIDES ARE "+JSON.stringify(fn));
                                 res.end(JSON.stringify(fn));
                             });
                         }

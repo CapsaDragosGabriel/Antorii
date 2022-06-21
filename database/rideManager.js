@@ -1,19 +1,18 @@
 const mysql = require("mysql");
-const userManager = require("./userManager");
-var utils = require('../goodScripts/utils.js')
+const {getEmailByToken, getIDByEmail} = require("./userManager");
 var con = mysql.createConnection({
     host: "localhost",
     user: "student",
     password: "student",
     database: "web"
 });
-
-async function getRide(consumerID) {
-    return new Promise((resolve, reject) => {
-        var sql = "select * from ride_shares where consumerID = " + con.escape(consumerID) + ";";
+async function getRide(consumerID)
+{
+    return new Promise((resolve, reject)=>{
+        var sql = "select * from ride_shares where consumerID = \'" + consumerID + "\'";
         con.query(sql, function (err, result) {
             if (err) throw err;
-            if (result.length != 0)
+            if (result.length!=0)
                 resolve(JSON.parse(JSON.stringify(result)));
             else
                 resolve(null);
@@ -21,60 +20,59 @@ async function getRide(consumerID) {
     })
 
 }
-
-function changeRideStatus(id, status, providerID) {
-    if (providerID) {
-        var sql = "update ride_shares set status = ?, providerID = ? where id = ?;";
-        con.query(sql, [status, providerID, id], function (err, result) {
+ function changeRideStatus(id,status,providerID){
+    if(providerID) {
+        var sql = "update ride_shares set status = \'" + status + "\', providerID = " + providerID + " where id = \'" + id + "\'";
+        con.query(sql, function (err, result) {
             if (err) throw err;
         })
-    } else {
-        var sql = "update ride_shares set status = ? where id = ?;";
-        con.query(sql, [status, id], function (err, result) {
+    }
+    else{
+        var sql = "update ride_shares set status = \'" + status + "\' where id = \'" + id + "\'";
+        con.query(sql, function (err, result) {
             if (err) throw err;
         })
     }
 }
 
-async function getOwn(id) {
-    return new Promise((resolve, reject) => {
-        var sql = "select * from ride_shares where consumerID= " + con.escape(id) + " order by status; ";
+async function getOwn(id){
+    return new Promise((resolve, reject)=>{
+        var sql = "select * from ride_shares where consumerID=\'"+id+ "' order by status; ";
         console.log(sql);
         con.query(sql, function (err, result) {
             if (err) throw err;
-            if (result.length != 0)
+            if (result.length!=0)
                 resolve(JSON.parse(JSON.stringify(result)));
             else
                 resolve(null);
         });
     })
 }
-
-async function getUnclaimed() {
-    return new Promise((resolve, reject) => {
+async function getUnclaimed(){
+    return new Promise((resolve, reject)=>{
         var sql = "select * from ride_shares where status = \'unclaimed\'";
         con.query(sql, function (err, result) {
             if (err) throw err;
-            if (result.length != 0)
+            if (result.length!=0)
                 resolve(JSON.parse(JSON.stringify(result)));
             else
                 resolve(null);
         });
     })
 }
-
-async function getClaimed(id) {
-    return new Promise((resolve, reject) => {
-        var sql = "select * from ride_shares where providerID = " + con.escape(id) + ";";
+async function getClaimed(id){
+    return new Promise((resolve, reject)=>{
+        var sql = "select * from ride_shares where providerID = \'"+id+"\'";
         con.query(sql, function (err, result) {
             if (err) throw err;
-            if (result.length != 0)
+            if (result.length!=0)
                 resolve(JSON.parse(JSON.stringify(result)));
             else
                 resolve(null);
         });
     })
 }
+function setFeedback(feedback,orderID){
 
     var sql = "UPDATE `web`.`ride_shares`\n" +
         "SET\n" +
@@ -101,29 +99,40 @@ function setRating(rating,orderID){
     });
 }
 function insertRide(from, to, consumerID) {
-
-    var randomNumberOfMinutes = utils.getRandomInt(25, 120)
-    var estimatedTime = new Date(new Date().getTime() + randomNumberOfMinutes * 60000);
-    estimatedTime = estimatedTime.toLocaleTimeString([], {hour12: false}).substring(0, 5)
-
-    var sql = "INSERT INTO `web`.`ride_shares`\n" +
-        "(\n" +
-        "`consumerID`,\n" +
-        "`start`,\n" +
+    var sql = "INSERT INTO `web`.`ride_shares`" +
+        "(start,finish,consumerID,providerID,status,estimated)" +
+        "VALUES ('"+from+"','"+to+"','"+consumerID+"',null,'unclaimed','20');"
+       /*/ "(`start`,\n" +
         "`finish`,\n" +
-        "`status`,\n" +
-        "`estimated`)\n" +
-        "VALUES(?,?,?,\'unclaimed\',?)"
-
-    con.query(sql, [consumerID, from, to, estimatedTime], function (err, result) {
+        "'consumerID',\n" +
+        "'estimated',\n" +
+        "'providerID',\n" +
+        "'status') " +
+        "VALUES\n" +
+        "(\'" + from +
+        "\', \'" + to +
+        "\', \'" + consumerID +
+        "\',\'20" +
+        "\',null"+
+        ", \'unclaimed\');\n"*/
+    console.log(sql);
+    con.query(sql, function (err, result) {
         if (err) throw err;
-        console.log("ride-share inserted");
+        console.log("ride inserted");
+    });
+    //show result
+    con.query("select * from users", function (err, result) {
+        if (err) throw err;
+        console.log(result);
     });
 }
-
-insertRide("roman", "iasi", 10)
-
-module.exports =
+// getOwn("3").then(r=>{
+//     console.log(r);
+// })
+// console.log("fuck");
+// changeRideStatus(3,"claimed")
+// insertRide("boom","chow",4);
+module.exports=
     {
         getOwn,
         changeRideStatus,

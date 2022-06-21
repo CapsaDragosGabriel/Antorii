@@ -63,7 +63,7 @@ async function getOrderByIDs(consumerID, restaurantID) {
 
         console.log("getOrderSQL: " + sql)
 
-        con.query(sql,[consumerID,restaurantID] function (err, result) {
+        con.query(sql,[consumerID,restaurantID] ,function (err, result) {
             if (err) throw err;
 
             resolve(result[result.length - 1])
@@ -189,7 +189,7 @@ function changeStatusForOrder(orderID, status) { //status can be checked with an
         "SET\n" +
         "`status` = ? WHERE `id` = ?;"
 
-    con.query(sql,[staus,orderID] function (err, result) {
+    con.query(sql,[status,orderID] ,function (err, result) {
         if (err) throw err;
         console.log("status changed");
     });

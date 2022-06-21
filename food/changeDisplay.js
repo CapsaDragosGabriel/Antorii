@@ -78,40 +78,60 @@ async function updateOrder(id,i) {
 
 function showOrders() {
     var x = document.getElementById("commandsList");
-    console.log(JSON.stringify(globalOrders[0]));
     for (let i = 0; i < globalOrders.length; i++) {
         if (globalOrders[i]) {
             var currOrderDiv=document.createElement("div");
-            //currOrderDiv.chan
             currOrderDiv.setAttribute("class","boxCommand");
-            // currOrderDiv.setAttribute("id","boxCommandId");
-            var newObj = (globalOrders[i]);///asta e o acolada mare
-            // console.log("NEW OBJ ARATA ASA:"+JSON.stringify(newObj))
+            var newObj = (globalOrders[i]); ///asta e o acolada mare
             currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<h1>Comanda la adresa ${newObj.address}</h1>`
-
-                // console.log("CURRENT ITEM ISSS:"+ JSON.stringify( newObj));
-                var foodObj=newObj.food;//asta e food
-
-                // console.log("The food is getting prepped, and it is: "+JSON.stringify(foodObj));
+                var foodObj=newObj.food; //asta e food
+                var comandaActuala=document.createElement("div");
+                comandaActuala.className = "command";
                 for (var item of foodObj.items)
-                {//item e fiecare chestie din food items
-                    // console.log(JSON.stringify(item));
+                {
+                    //item e fiecare chestie din food items
                     if(item.quantity!=0)
-                    currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p>${item.name} x ${item.quantity}</p>`
-                    // console.log("This food item is:"+item.name + " and you got "+ item.quantity+" of them");
-
+                        comandaActuala.innerHTML=`<p>${item.name} x ${item.quantity}</p>`
                 }
                 //foodObj.cost e costul
-            //newObj.feedback... sunt feedbacks
-                currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p style="text-align:right"><b>${foodObj.cost} </b></p>`
+                //newObj.feedback... sunt feedbacks
+                comandaActuala.innerHTML=comandaActuala.innerHTML+`
+<div style="border-top: 1px solid rgb(0 0 0 / 65%); 
+            display: flex; 
+            justify-content: space-between;
+            margin: 0 5%;">
+    <p style="margin-top: 10px;">Total de plata:</p>
+    <p style="margin-top: 10px;">${foodObj.cost} RON</p>
+</div>`
+                currOrderDiv.appendChild(comandaActuala);
           if(newObj.status!='anulat')
-          {if(newObj.provider)
-            currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Livrator: ${newObj.provider}</p> `;
-            else
-                currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Livrator: - </p> `;
+          {
+              var detalii =document.createElement("div");
+              detalii.className = "commandDetails";
+              if(newObj.provider)
+                detalii.innerHTML=`
+<div class="infoComanda"">
+    <p> Livrator: </p>
+    <p> ${newObj.provider}</p>
+</div> `;
+              else
+                detalii.innerHTML=`
+<div class="infoComanda">
+    <p> Livrator:</p>
+    <p>  - </p>
+</div>`;
 
-            currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Status: ${newObj.status}</p> `;
-            currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Ora aproximativa a livrarii: ${newObj.estimated}</p> `;
+            detalii.innerHTML=detalii.innerHTML+`
+<div class="infoComanda">
+    <p> Status:</p>
+    <p> ${newObj.status}</p>
+</div>`;
+            detalii.innerHTML=detalii.innerHTML+`
+<div class="infoComanda">
+    <p> Ora aproximativa a livrarii:</p>
+    <p> ${newObj.estimated}</p>
+</div>`;
+            currOrderDiv.appendChild(detalii);
             if(newObj.feedback_provider){
                 currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Feedback provider: ${newObj.feedback_provider}</p> `;
             }
@@ -136,22 +156,16 @@ function showOrders() {
                             showOrders()     
                             console.log('AM TRIMIS FEEDBACK');
                         })">Trimite</button><br> `;
-
             }
-
-
             currOrderDiv.innerHTML=currOrderDiv.innerHTML+`
                 <button class="butonStatus" onclick="
                     if (globalOrders[${i}].status!='claimed'&&globalOrders[${i}].status!='done'&&globalOrders[${i}].status!='anulat'){  
-                        // console.log(${i})
                         globalOrders[${i}].status='anulat'
-                        // console.log(globalOrders[${i}]);
                         updateOrder(globalOrders[${i}].id,${i}).then(()=>{
                             refreshOrders()
                             showOrders()        
                         })
                     }">Anuleaza</button>`;
-            
             x.appendChild(currOrderDiv);
 
 

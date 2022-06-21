@@ -475,6 +475,18 @@ input::placeholder {
     transition: top 0.3ms;
 }
 
+.boxCommand {
+    font-family: "Zilla Slab";
+    color: black;
+    font-weight: bold;
+    font-size: 10px;
+    margin: 2%;
+    padding: 4% 3% 0 3%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    padding-bottom: 20px;
+}
+
 #commandsList {
     display: none;
     width: 45%;
@@ -487,22 +499,42 @@ input::placeholder {
 }
 
 .command {
-    width: fit-content;
-    height: fit-content;
-    background-color: #B64141;
-    border: none;
-    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
-    text-decoration: none;
-    font-size: 15px;
-    margin: 1% 0 5% 0;
-    padding: 2%;
-    cursor: pointer;
-    border-radius: 30px;
-    font-family: "Zilla Slab";
-    font-weight: bold;
+    align-content: center;
+
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    padding: 1%;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 5%;
 }
+
+.commandDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    padding: 1%;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 3%;
+}
+
+.infoComanda {
+    display: flex;
+    justify-content: space-between;
+}
+
+.commandDetails p {
+    margin: 1% 5%;
+}
+
 
 .selectStatus {
     margin-top: 19px;

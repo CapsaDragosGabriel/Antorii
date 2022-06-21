@@ -580,6 +580,7 @@ console.log(JSON.stringify(rides[i].start));
                             //  console.log(r);
                             // console.log(r);
                         // rideDB.changeRideStatus()
+                        console.log("\n\n\n MY id is :"+r)
                             orderDB.changeStatusForOrder(result.id,result.status,r);
                         }
 
@@ -688,6 +689,8 @@ console.log(JSON.stringify(rides[i].start));
                     userDB.getIDByToken(result.token).then(r=>{
                             //  console.log(r);
                             // console.log(r);
+                        console.log("MY PROVIDER ID IS: "+r);
+
                             orderDB.getCompleteOrdersByProviderID(r).then(fn=>{
                                 console.log("CLAIMED ORDERS ARE "+fn);
                                 res.end(JSON.stringify(fn));
@@ -745,7 +748,7 @@ console.log(JSON.stringify(rides[i].start));
                     userDB.getIDByToken(result.token).then(r=>{
                             // console.log(r);
                             orderDB.getCompleteOrdersUnclaimed().then(fn=>{
-                                console.log("CLAIMED ORDERS ARE "+JSON.stringify(fn[0]));
+                                console.log("unclaimed ORDERS ARE "+JSON.stringify(fn[0]));
                                 res.end(JSON.stringify(fn));
                             });
                         }

@@ -121,7 +121,7 @@ function showOrders() {
     <p style="margin-top: 10px;">${foodObj.cost} RON</p>
 </div>`
             currOrderDiv.appendChild(comandaActuala);
-            if (newObj.status != 'anulat') {
+            if (true) {
                 var detalii = document.createElement("div");
                 detalii.className = "commandDetails";
                 if (newObj.providerID)

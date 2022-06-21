@@ -13,6 +13,28 @@ async function changeUsername() {
 
 }
 let globalOrders;
+let providerID
+async function updateOrder(id, i) {
+console.log(globalOrders[i].status);
+    const data = {
+        id: globalOrders[i].orderID,
+        status: globalOrders[i].status,
+        token: localStorage.getItem('token')
+    }
+    let sent = true;
+    console.log("TRANSMIT: " + JSON.stringify(data));
+    console.log("ID-UL ESTE : "+id);
+    const response = await fetch('http://localhost:8000/api/update/order', {
+        method: 'POST',
+        body: JSON.stringify(data)
+    }).then(r => r.json())
+        .catch(e => {
+            console.log('error');
+            console.log(e);
+            sent = false
+        });
+}
+
 function showOrders() {
     var x = document.getElementById("commandsList");
     console.log(JSON.stringify(globalOrders[0]));
@@ -23,9 +45,19 @@ function showOrders() {
 
             var newCommand = document.createElement('div');
             // console.log("PLECAM DE LA "+currorder);
-            newCommand.innerHTML = `<h1>${newObj.start} - ${newObj.finish}
+            newCommand.innerHTML = `<h1>La ${newObj.address}
             </h1>`;
             newCommand.className = "command";
+            newCommand.innerHTML = newCommand.innerHTML+`<ul>`
+
+            for (var item of newObj.food.items){
+                if(item.quantity)
+            newCommand.innerHTML = newCommand.innerHTML+
+                `
+            <li>${item.name} x ${item.quantity}</li>
+            `}
+            newCommand.innerHTML = newCommand.innerHTML+`</ul>`
+
             newCommand.innerHTML = newCommand.innerHTML +
                 `<label>
                         <p>Status comanda: ${newObj.status}</p>
@@ -41,10 +73,9 @@ function showOrders() {
                     if (globalOrders[${i}].status=='unclaimed')
                     {globalOrders[${i}].status='claimed'
                     console.log(globalOrders[${i}]);
-                    
-                    updateorder(globalOrders[${i}].id,'claimed').then(()=>{
-                      refreshorders()
-                    showorders()}
+                    updateOrder(globalOrders[${i}].id,${i}).then(()=>{
+                    refreshOrders()
+                    showOrders()}
                     )
                     }
                     }"}
@@ -55,9 +86,9 @@ function showOrders() {
                     globalOrders[${i}].status='done'
                     console.log(globalOrders[${i}]);
 
-                    updateorder(globalOrders[${i}].id,'done').then(()=>{
-                      refreshorders()
-                    showorders()
+                    updateOrder(globalOrders[${i}].id,${i}).then(()=>{
+                      refreshOrders()
+                    showOrders()
                     })
                     
                     }"
@@ -73,7 +104,11 @@ function showOrders() {
         // console.log("una bucata order"+currorder);
     }
 }
+function refreshOrders() {
+    var x = document.getElementById("commandsList");
+    x.innerHTML = "<h2 id=\"title\">Comenzi care te asteapta</h2>";
 
+}
 async function getClaimedOrders() {
     const data = {
         token: localStorage.getItem('token')
@@ -111,7 +146,7 @@ async function getClaimedOrders() {
         // console.log(globalOrders);
     }
     //   console.log("Raspunsul de la server esteeee : "+ response);
-        globalOrders = response;
+        //globalOrders = response;
         
     console.log("GLOBAL orderS DUPA  GET NEW orderS" + globalOrders);
     //showorders()

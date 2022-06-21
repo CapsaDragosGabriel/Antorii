@@ -559,6 +559,8 @@ console.log(JSON.stringify(rides[i].start));
 
             let result = {
                 id: data.id,
+                food:data.food,
+                address:data.address,
                 feedback_provider:data.feedback_provider,
                 feedback_restaurant:data.feedback_restaurant,
                 token:data.token,
@@ -742,8 +744,8 @@ console.log(JSON.stringify(rides[i].start));
                     console.log(data);
                     userDB.getIDByToken(result.token).then(r=>{
                             // console.log(r);
-                            rideDB.getClaimed(r).then(fn=>{
-                                console.log("CLAIMED RIDES ARE "+JSON.stringify(fn));
+                            orderDB.getCompleteOrdersUnclaimed().then(fn=>{
+                                console.log("CLAIMED ORDERS ARE "+JSON.stringify(fn[0]));
                                 res.end(JSON.stringify(fn));
                             });
                         }
@@ -925,7 +927,7 @@ console.log(JSON.stringify(rides[i].start));
                     userDB.getIDByToken(result.token).then(r=>{
                             //  console.log(r);
                             // console.log(r);
-                            orderDB.getOrders.then(fn=>{
+                            orderDB.getCompleteOrdersByProviderID(r).then(fn=>{
                                 console.log("CLAIMED orders ARE "+fn);
                                 res.end(JSON.stringify(fn));
                             });

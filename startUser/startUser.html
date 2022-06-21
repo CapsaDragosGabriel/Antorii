@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Imbue">
     <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="startUser.js"></script>
+    <script src="../startUser/topServices.js"></script>
     <script>
 if (localStorage.getItem('token')) {
     getService().then(() => {
@@ -78,6 +79,29 @@ else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
     </div>
     <img id="img" src="../resources/woman_serP.jpg" alt="woman using rideshare">
 </div>
+
+<div class="caption-container">
+    <a class="prev" onclick="showSlidesPrev()">❮</a>
+    <div class="row">
+        <div class="column1">
+            <p id="top1" style="width:100%">Restaurant 1</p>
+        </div>
+        <div class="column2">
+            <p id="top2" style="width:100%">Restaurant 2</p>
+        </div>
+        <div class="column3">
+            <p id="top3" style="width:100%" >Restaurant 3</p>
+        </div>
+        <div class="column4">
+            <p id="top4" style="width:100%" >Restaurant 4</p>
+        </div>
+        <div class="column5">
+            <p id="top5" style="width:100%" >Restaurant 5</p>
+        </div>
+    </div>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+</div>
+
 
 <div id="services-container">
     <div class="service">

@@ -166,6 +166,8 @@ async function getCompleteOrdersByID(consumerID){
                 status:result[k].status,
                 provider:result[k].provider,
                 id:result[k].id,
+                estimated:result[k].estimated,
+
             }
             ordersList[k]=newReturn;
         }
@@ -290,8 +292,8 @@ function changeStatusForOrder(orderID,status,providerID) { //status can be check
 
     var sql = "UPDATE `web`.`orders`\n" +
         "SET\n" +
-        "`providerID` = \'" + providerID +
-        "\' WHERE `id` = " + orderID + ";"
+        "`providerID` = " + providerID +
+        " WHERE `id` = " + orderID + ";"
 
     con.query(sql, function (err, result) {
         if (err) throw err;

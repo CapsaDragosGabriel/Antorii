@@ -542,10 +542,10 @@ console.log(JSON.stringify(rides[i].start));
         req.on('end', () => {
             console.log("PANA AICI AM AJUNS SI TOKENUL E:")
 
-            // data = JSON.parse(data);
+            data = JSON.parse(data);
             // //console.log('data chunk finished ' + data.email)
 
-            const result = {
+            let result = {
                 id: data.id,
                 token:data.token,
                 status: data.status
@@ -555,7 +555,8 @@ console.log(JSON.stringify(rides[i].start));
                 'Content-Type': 'application/json'
             });
             console.log(data);
-
+            // result=JSON.parse(JSON.stringify(result));
+            console.log(result.token);
             userDB.getServiceByToken(result.token).then(p=>
             {console.log(p)
                 if(p=="food"){

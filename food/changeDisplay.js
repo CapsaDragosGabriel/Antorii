@@ -108,6 +108,7 @@ function showOrders() {
                 currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Livrator: - </p> `;
 
             currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Status: ${newObj.status}</p> `;
+            currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Ora aproximativa a livrarii: ${newObj.estimated}</p> `;
             currOrderDiv.innerHTML=currOrderDiv.innerHTML+`
                 <button class="butonStatus" onclick="
                     if (globalOrders[${i}].status!='claimed'&&globalOrders[${i}].status!='done'&&globalOrders[${i}].status!='anulat'){  

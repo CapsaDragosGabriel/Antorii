@@ -88,12 +88,11 @@ function showRides() {
                     }">Anuleaza</button>
                     </div>`;
             if (newObj.status === 'done')
-                if( newObj.feedback=='undefined' || newObj.rating==null ) {
+                if( newObj.feedback==null || newObj.rating==null ) {
                     newCommand.innerHTML = newCommand.innerHTML + `
           <div class="form-popup" id="myForm">
-            <form method="post" class="form-container" onsubmit=" { val='s-a pus feedback';
-                globalRides[${i}].feedback=val; 
-                console.log('am setat feedbackul:'+val)
+            <form method="post" class="form-container" onsubmit=" {
+               getVal(${i});
                 updateRide(globalRides[${i}].id,${i}).then(()=>{
                                     refreshRides()
                                     showRides()        })}
@@ -101,8 +100,8 @@ function showRides() {
             ">
                 <label><b>Feedback</b>
                 </label>`
-                    if (globalRides[i].feedback == 'undefined') {
-                        newCommand.innerHTML = newCommand.innerHTML + ` <input type="text" placeholder="Spune-ne parerea ta!" name="feedback" id="feeback${i}" required>`
+                    if (globalRides[i].feedback == null) {
+                        newCommand.innerHTML = newCommand.innerHTML + ` <input type="text" placeholder="Spune-ne parerea ta!" onblur="getValue(${i})" name="feedback" id="feeback${i}" required><br>`
 
                     } else
                         newCommand.innerHTML = newCommand.innerHTML + ` <p>${newObj.feedback} </p>`
@@ -122,19 +121,27 @@ function showRides() {
                         <label for="star1" title="text">1 star</label>
                     </div>
                     `
-                            newCommand.innerHTML=newCommand.innerHTML+`
-                    <div id="butonSend">
-                        <button class="btn" type="submit" onclick="updateRide(globalRides[${i}].id,${i}).then(()=>{
-                            refreshRides()
-                            showRides()
-                        }) ">Trimite</button>
-                    </div>`
+
 
                     } else {
                         let valueRating = globalRides[i].rating
 
                         newCommand.innerHTML = newCommand.innerHTML + `<p>Ai acordat: ${valueRating} stele</p>`;
                     }
+                    newCommand.innerHTML=newCommand.innerHTML+`
+                    <div id="butonSend">
+                        <button class="btn" type="submit" onclick="
+                        // if (globalRides[${i}].feedback==null)
+                        //     {
+                        //         var getValue=document.getElementById('feedback${i}')
+                        //         const val=document.querySelector('feedback${i}')
+                        //         console.log(val)
+                        //     }
+                        updateRide(globalRides[${i}].id,${i}).then(()=>{
+                            refreshRides()
+                            showRides()
+                        }) ">Trimite</button>
+                    </div>`
 
             newCommand.innerHTML=newCommand.innerHTML+`
     </form>
@@ -155,6 +162,12 @@ function showRides() {
     }
 }
 
+function getValue(i)
+{
+    var feedbackValue=document.getElementById(`feeback${i}`).value;
+    globalRides[i].feedback=feedbackValue;
+    console.log(i+" "+ JSON.stringify(feedbackValue));
+}
 async function getUsername() {
     const data = {
         token: localStorage.getItem('token')

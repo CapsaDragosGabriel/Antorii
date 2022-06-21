@@ -92,6 +92,7 @@ async function getCompleteOrdersByID(consumerID) {
                         // console.log(JSON.parse(f));
                         let toReturn = {
                             food: JSON.parse(f),
+                            orderID:result[i].id,
                             address: result[i].address
                         }
                         console.log("TO RETURN ESTE: " + JSON.stringify(toReturn));
@@ -108,7 +109,65 @@ async function getCompleteOrdersByID(consumerID) {
                     var newReturn = {
                         food: ordersList[k].food,
                         address: result[k].address,
+                        orderID:ordersList[k].orderID,
+                        consumerID:result[k].consumerID,
+                        providerID:result[k].providerID,
                         feedback_restaurant: result[k].feedback_restaurant,
+                        estimated:result[k].estimated,
+                        status:result[k].status,
+                        feedback_provider: result[k].feedback_provider
+                    }
+                    ordersList[k] = newReturn;
+                }
+                resolve(ordersList);
+            })
+
+        });
+    })
+}
+async function getCompleteOrdersUnclaimed() {
+
+    return new Promise((resolve, reject) => {
+        var sql = "select * from orders where status = 'unclaimed';"
+
+        console.log("getOrderSQL: " + sql)
+
+        con.query(sql, async function (err, result) {
+            if (err) throw err;
+
+            let ordersList = [];
+
+            let doStuff = await async function () {
+                let tempList = []
+                for (i = 0; i < result.length; i++) {//iteram prin orders
+
+                    await getOrderItemNames(result[i].id).then(f => {//intoarcem mancarea si costul total
+                        // console.log(JSON.parse(f));
+                        let toReturn = {
+                            food: JSON.parse(f),
+                            orderID:result[i].id,
+                            address: result[i].address
+                        }
+                        console.log("TO RETURN ESTE: " + JSON.stringify(toReturn));
+                        tempList[i] = (toReturn);
+                    })
+
+                }
+                return tempList;
+            };
+            doStuff().then(r => ordersList = r).then(() => {
+
+                for (let k = 0; k < ordersList.length; k++) {
+                    console.log("Comanda" + JSON.stringify(ordersList[k]));
+                    var newReturn = {
+                        food: ordersList[k].food,
+                        address: result[k].address,
+                        orderID:ordersList[k].orderID,
+                        consumerID:result[k].consumerID,
+                        providerID:result[k].providerID,
+                        feedback_restaurant: result[k].feedback_restaurant,
+                        estimated:result[k].estimated,
+                        status:result[k].status,
                         feedback_provider: result[k].feedback_provider
                     }
                     ordersList[k] = newReturn;
@@ -141,6 +200,7 @@ async function getCompleteOrdersByProviderID(providerID) {
                         // console.log(JSON.parse(f));
                         let toReturn = {
                             food: JSON.parse(f),
+                            orderID:result[i].id,
                             address: result[i].address
                         }
                         console.log("TO RETURN ESTE: " + JSON.stringify(toReturn));
@@ -153,15 +213,20 @@ async function getCompleteOrdersByProviderID(providerID) {
             doStuff().then(r => ordersList = r).then(() => {
 
                 for (let k = 0; k < ordersList.length; k++) {
-                    console.log("Comanda" + JSON.stringify(ordersList[k]));
                     var newReturn = {
                         food: ordersList[k].food,
                         address: result[k].address,
+                        orderID:ordersList[k].orderID,
                         consumerID:result[k].consumerID,
+                        providerID:result[k].providerID,
                         feedback_restaurant: result[k].feedback_restaurant,
+                        estimated:result[k].estimated,
+                        status:result[k].status,
                         feedback_provider: result[k].feedback_provider
                     }
                     ordersList[k] = newReturn;
+                    console.log("Comanda" + JSON.stringify(ordersList[k]));
+
                 }
                 resolve(ordersList);
             })
@@ -181,8 +246,8 @@ async function getOrderItemNames(orderID) {
             getTotal(orderID).then(f => {
                 let toReturn = {
                     items: result,
-                    cost: f
-
+                    cost: f,
+                    //aici se poate adauga orderID
                 }
                 resolve(JSON.stringify(toReturn))
             })
@@ -254,7 +319,7 @@ function setFeedbackForRestaurant(feedback, orderID) {
 
     con.query(sql,[feedback,orderID], function (err, result) {
         if (err) throw err;
-
+        console.log(sql,[feedback,orderID]);
         console.log("Feedback set")
     });
 }
@@ -360,10 +425,13 @@ insertOrder(order)
 
 module.exports = {
 getCompleteOrdersByProviderID,
+    getCompleteOrdersUnclaimed,
     insertOrder,
     getOrderByIDs,
     getTotal,
     addItemToOrder,
     changeStatusForOrder,
-    getCompleteOrdersByID
+    getCompleteOrdersByID,
+    setFeedbackForProvider,
+    setFeedbackForRestaurant
 }

@@ -61,7 +61,7 @@ function refreshOrders() {
  */
 async function updateOrder(id, i) {
     const data = {
-        id: id,
+        id: globalOrders[i].id,
         feedback_restaurant: globalOrders[i].feedback_restaurant,
         feedback_provider: globalOrders[i].feedback_provider,
         status: globalOrders[i].status,
@@ -69,6 +69,7 @@ async function updateOrder(id, i) {
     }
     let sent = true;
     console.log("TRANSMIT: " + JSON.stringify(data));
+
     const response = await fetch('http://localhost:8000/api/update/order', {
         method: 'POST',
         body: JSON.stringify(data)
@@ -80,7 +81,18 @@ async function updateOrder(id, i) {
         });
 }
 
-
+function getValueLiv(i)
+{
+    var feedbackValue=document.getElementById(`feedbackliv${i}`).value;
+    globalOrders[i].feedback_provider=feedbackValue;
+    console.log(i+" "+ JSON.stringify(feedbackValue));
+}
+function getValueRes(i)
+{
+    var feedbackValue=document.getElementById(`feedbackres${i}`).value;
+    globalOrders[i].feedback_restaurant=feedbackValue;
+    console.log(i+" "+ JSON.stringify(feedbackValue));
+}
 function showOrders() {
     var x = document.getElementById("commandsList");
     for (let i = 0; i < globalOrders.length; i++) {
@@ -144,12 +156,15 @@ function showOrders() {
                         var feedbackBox = document.createElement("div");
                         feedbackBox.className = "feedbackBox";
                         feedbackBox.innerHTML = `<p>Feedback livrator: </p> `;
-                        feedbackBox.innerHTML = feedbackBox.innerHTML + `<input class="inputFeedback" type="text" placeholder="Spune-ne parerea ta!" name="feedback" required>`
+                        feedbackBox.innerHTML = feedbackBox.innerHTML + `<input class="inputFeedback" type="text" placeholder="Spune-ne parerea ta!" name="feedbackliv${i}" id="feedbackliv${i}"  required>`
                         feedbackBox.innerHTML = feedbackBox.innerHTML +
-                            `<div id="butonSend"> <button class="btn" onclick="globalOrders[${i}].feedback_provider='valoare feedback'; 
+                            `<div id="butonSend"> <button class="btn" onclick="
+                            {getValueLiv(${i});
                             updateOrder(globalOrders[${i}].id,${i}).then(()=>{
                             refreshOrders()
-                            showOrders()})">Trimite</button></div>`;
+                            showOrders()})
+                            
+                            }">Trimite</button></div>`;
                         currOrderDiv.appendChild(feedbackBox);
                     }
 
@@ -159,12 +174,13 @@ function showOrders() {
                         var feedbackRestaurant = document.createElement("div");
                         feedbackRestaurant.className = "feedbackBox";
                         feedbackRestaurant.innerHTML = `<p>Feedback restaurant: </p> `;
-                        feedbackRestaurant.innerHTML = feedbackRestaurant.innerHTML + `<input class="inputFeedback" type="text" placeholder="Spune-ne parerea ta!" name="feedback" required>`
+                        feedbackRestaurant.innerHTML = feedbackRestaurant.innerHTML + `<input class="inputFeedback" type="text" placeholder="Spune-ne parerea ta!" name="feedbackres${i}" id="feedbackres${i}" required>`
                         feedbackRestaurant.innerHTML = feedbackRestaurant.innerHTML +
-                            `<div id="butonSend"><button id="butonSend" class="btn" onclick="globalOrders[${i}].feedback_restaurant='valoare restaurant feedback'; 
-                            updateOrder(globalOrders[${i}].id,${i}).then(()=>{
+                            `<div id="butonSend"><button id="butonSend" class="btn" onclick="
+                            {getValueRes(${i});
+                            updateOrder(${globalOrders[i].id},${i}).then(()=>{
                             refreshOrders()
-                            showOrders()})">Trimite</button></div>`;
+                            showOrders()})}">Trimite</button></div>`;
                         currOrderDiv.appendChild(feedbackRestaurant);
                     }
                 }
@@ -173,7 +189,7 @@ function showOrders() {
                 <button class="butonStatus" onclick="
                     if (globalOrders[${i}].status!='claimed'&&globalOrders[${i}].status!='done'&&globalOrders[${i}].status!='anulat'){  
                         globalOrders[${i}].status='anulat'
-                        updateOrder(globalOrders[${i}].id,${i}).then(()=>{
+                        updateOrder(${globalOrders[i].id},${i}).then(()=>{
                             refreshOrders()
                             showOrders()        
                         })

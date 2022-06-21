@@ -96,10 +96,23 @@ async function getClaimedOrders() {
 
             sent = false
         });
+
+    if (sent == true) {
+        let length;
+        if(globalOrders)
+            length= globalOrders.length;
+        else length=0;
+        if (response)
+            for (let i = 0; i < response.length; i++)
+                globalOrders[length + i] = response[i];
+        console.log("RASPUNSUL A FOST" + response)
+        console.log("GLOBAL ORDERS DUPA  GET CLAIMED ORDERS" + globalOrders);
+
+        // console.log(globalOrders);
+    }
     //   console.log("Raspunsul de la server esteeee : "+ response);
-    if (globalOrders)
         globalOrders = response;
-    else globalOrders=[];
+        
     console.log("GLOBAL orderS DUPA  GET NEW orderS" + globalOrders);
     //showorders()
 
@@ -134,9 +147,7 @@ async function getNewOrders() {
             sent = false
         });
     //   console.log("Raspunsul de la server esteeee : "+ response);
-    if (globalOrders)
         globalOrders = response;
-    else globalOrders=[];
     console.log("GLOBAL orderS DUPA  GET NEW orderS" + globalOrders);
     //showorders()
 

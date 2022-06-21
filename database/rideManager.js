@@ -121,7 +121,7 @@ function insertRide(from, to, consumerID) {
     });
 }
 
-insertRide("palas","copou",10)
+//insertRide("palas","copou",10)
 // getRide(10).then(r => {
 //     console.log(r)
 // })

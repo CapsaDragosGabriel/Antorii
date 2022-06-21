@@ -47,11 +47,11 @@ async function getService()
             sent=false
         });
     // const resultData = awa1it response.json();
-     console.log(response);
+    console.log(response);
     let service;
     if (sent) {
         // console.log(response.service);
-        username = response.service;
+        // username = response.service;
         // service = response.service;
         // console.log(response.service);
         globalService=response.service;

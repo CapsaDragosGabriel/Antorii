@@ -6,14 +6,16 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
     <link rel="stylesheet" href="driverPage.css">
-    <script src="../startUser/startUser.js"></script>
+<!--    <script src="../startUser/startUser.js"></script>-->
     <script src="driver.js"></script>
     <script >
         if (localStorage.getItem('token')) {
             getUsername();
             changeUsername();
             getService().then(p => {
-                if (p == "ride-sharing") {
+                console.log(JSON.stringify(p));
+                if (globalService == "ride-sharing") {
+                    getNewRides().then(()=>{getClaimedRides().then(()=>{refreshRides(); showRides()})})
 
                     console.log("AM INTRAT AICI")
                 } else if (globalService === "consumer") {
@@ -23,7 +25,6 @@
                 }
             })
         }
-        getNewRides().then(()=>{getClaimedRides().then(()=>{refreshRides(); showRides()})})
 
         //else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
     </script>

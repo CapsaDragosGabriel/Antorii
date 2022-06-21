@@ -440,19 +440,31 @@ body {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
 }
 
-.form-popup {
-    //display: none;
-    //position: fixed;
-    //bottom: 0;
+.feedbackBoxSend {
     right: 15px;
     border: 3px solid #f1f1f1;
     z-index: 9;
+    padding: 10px 100px;
+    background-color: #ddd;
+    color: gray;
 }
 
-/* Add styles to the form container */
-.form-container {
-    padding: 10px 50px;
+.feedbackBox {
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    padding: 10px 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
+
+.form-popup {
+    right: 15px;
+    z-index: 9;
+}
+
+
 
 /* Full-width input fields */
 .form-container input{
@@ -469,7 +481,7 @@ body {
 }
 
 /* Set a style for the submit/login button */
-.form-container .btn {
+.btn {
     cursor: pointer;
     width: fit-content;
     height: fit-content;
@@ -484,6 +496,18 @@ body {
     font-weight: bold;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
     padding: 2%;
+}
+
+#feedback1 {
+    width: 93%;
+    padding: 10px;
+    margin: 5px 0 10px 0;
+    border: none;
+}
+
+#feedback1 input:focus {
+    background-color: #ddd;
+    outline: none;
 }
 
 #butonSend {

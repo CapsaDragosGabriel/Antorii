@@ -1,6 +1,7 @@
 var mysql = require('mysql');
 var userManager = require("./userManager.js")
 var utils = require('../goodScripts/utils.js')
+const {getEmailByToken, getIDByEmail} = require("./userManager");
 
 
 var con = mysql.createConnection({
@@ -14,31 +15,7 @@ var con = mysql.createConnection({
 function insertRideShare(rideShare) {
 
 
-    userManager.getUserByEmail(rideShare.consumerEmail).then(r => {
-        var consumerID = r.id
-        var randomNumberOfMinutes = utils.getRandomInt(25, 120)
-        var estimatedTime = new Date(new Date().getTime() + randomNumberOfMinutes * 60000);
-        estimatedTime = estimatedTime.toLocaleTimeString([], {hour12: false}).substring(0, 5)
 
-        var sql = "INSERT INTO `web`.`ride_shares`\n" +
-            "(\n" +
-            "`consumerID`,\n" +
-            "`start`,\n" +
-            "`finish`,\n" +
-            "`status`,\n" +
-            "`estimated`)\n" +
-            "VALUES\n" +
-            "(\'" + consumerID + "\', " +
-            "\'" + rideShare.start + "\', " +
-            "\'" + rideShare.finish + "\', " +
-            "\'unclaimed\',  " +
-            "\'" + estimatedTime + "\');"
-
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log("ride-share inserted");
-        });
-    })
 
 }
 
@@ -103,6 +80,9 @@ const rideShare = {
     start: "de undeva",
     finish: "altundeva"
 }
+
+///////////////////////////////////////////////////////////
+
 
 
 // insertRideShare(rideShare)

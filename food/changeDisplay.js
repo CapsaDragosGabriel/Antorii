@@ -186,14 +186,17 @@ function showOrders() {
                 }
                 if (newObj.status == 'unclaimed') {
                     currOrderDiv.innerHTML = currOrderDiv.innerHTML + `
-                <button class="butonStatus" onclick="
+                <div style="display: flex;
+                            flex-direction: row;
+                            justify-content: right;
+                            margin-top: 2%;"><button class="btn" onclick="
                     if (globalOrders[${i}].status!='claimed'&&globalOrders[${i}].status!='done'&&globalOrders[${i}].status!='anulat'){  
                         globalOrders[${i}].status='anulat'
                         updateOrder(globalOrders[${i}].orderID,${i}).then(()=>{
                             refreshOrders()
                             showOrders()        
                         })
-                    }">Anuleaza</button>`;
+                    }">Anuleaza</button></div>`;
                 }
             }
             x.appendChild(currOrderDiv);

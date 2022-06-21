@@ -9,7 +9,6 @@ html {
 body {
     background-image: url("../resources/bkRideS.png");
     background-position: center;
-    background-repeat: no-repeat;
     background-size: cover;
     margin: 0;
 }
@@ -215,15 +214,21 @@ body {
     color: black;
     font-weight: bold;
     font-size: 10px;
-    margin: 2%;
-    padding: 4% 3% 0 3%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.detaliiCursa {
+    font-family: "Zilla Slab";
+    color: black;
+    font-weight: bold;
+    font-size: 10px;
+    margin: 2%;
+    padding: 4% 3%;
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
 }
-
 #title {
     font-family: "Text Me One";
     font-size: 30px;
@@ -232,7 +237,33 @@ body {
     padding-top: 20px;
 }
 
-.command button {
+#feedback {
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    padding: 10px;
+    background-color: #ddd;
+    color: gray;
+    margin: 0;
+}
+
+.divButoane {
+    margin-top: 2%;
+    display: flex;
+    justify-content: right;
+}
+
+#pretCursa {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    width: fit-content;
+    padding: 1%;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.buttonaut {
     width: fit-content;
     height: fit-content;
     background-color: #B64141;
@@ -241,7 +272,7 @@ body {
     text-align: center;
     text-decoration: none;
     font-size: 15px;
-    margin: 1% 0 5% 0;
+    margin: 1% 1% 2% 1%;
     padding: 2%;
     cursor: pointer;
     border-radius: 30px;

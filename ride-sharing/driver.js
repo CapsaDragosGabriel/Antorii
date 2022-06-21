@@ -13,13 +13,8 @@ async function getService()
     let sent = true;
 
     const response = await fetch('http://localhost:8000/api/service', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r => r.json())
         .catch(e => {
             console.log('error');
@@ -31,15 +26,9 @@ async function getService()
     console.log(response);
     let service;
     if (sent) {
-        // console.log(response.service);
-        // username = response.service;
-        // service = response.service;
-        // console.log(response.service);
         globalService=response.service;
         console.log(globalService);
-        //  window.location.href='http://127.0.0.1:8000/startUser/startUser.html';
     }
-    // username= JSON.stringify(response.body);
 }
 async function logout()
 {
@@ -49,13 +38,8 @@ async function logout()
     }
     console.log(data.token);
     const response = await fetch('http://localhost:8000/api/logout', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r => r.json())
         .catch(e => {
             console.log('error');
@@ -72,13 +56,8 @@ async function getClaimedRides() {
     let sent = true;
 
     const response = await fetch('http://localhost:8000/api/claim/rides', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r => r.json())
         .catch(e => {
             console.log('error');
@@ -112,19 +91,12 @@ async function updateRide(id, status) {
     let sent = true;
 
     const response = await fetch('http://localhost:8000/api/update/rides', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r => r.json())
         .catch(e => {
             console.log('error');
             console.log(e);
-            //wrongPassword()
-
             sent = false
         });
 
@@ -138,24 +110,22 @@ function showRides() {
     for (let i = 0; i < globalRides.length; i++) {
         if (globalRides[i]) {
             var newObj = (globalRides[i]);
-
             var newCommand = document.createElement('div');
-            // console.log("PLECAM DE LA "+currRide);
-            newCommand.innerHTML = `<h1>${newObj.start} - ${newObj.finish}
+            newCommand.className = "detaliiCursa";
+            var detalii = document.createElement("div");
+            detalii.className = "command";
+            detalii.innerHTML = `<h1>${newObj.start} - ${newObj.finish}
             </h1>`;
-            newCommand.className = "command";
-            newCommand.innerHTML = newCommand.innerHTML +
+            detalii.innerHTML = detalii.innerHTML +
                 `<label>
                         <p>Status comanda: ${newObj.status}</p>
-                       <!-- <select class="selectStatus" name="status">
-                            <option value="none" selected disabled hidden>Status</option>
-                            <option value="yes">Confirma</option>
-                            <option value="no">Refuza</option>
-                            <option value="done">Terminat</option>
-                        </select>-->
                     </label>
-                    <p>Pretul comenzii: ${newObj.price} RON</p>
-                  <button class="buttonaut" onclick="{
+                    <p id="pretCursa">Pretul: ${newObj.price} RON</p>
+                      
+            `;
+            var butoane = document.createElement("div");
+            butoane.className = "divButoane";
+            butoane.innerHTML = `<button class="buttonaut" onclick="{
                     console.log(${i})
                     if (globalRides[${i}].status=='unclaimed')
                     {globalRides[${i}].status='claimed'
@@ -180,17 +150,16 @@ function showRides() {
                     })
                     
                     }"
-                    >Terminat</button>     
-            `;
+                    >Terminat</button>`;
+            newCommand.appendChild(detalii);
+            newCommand.appendChild(butoane);
             if (globalRides[i].feedback)
                 newCommand.innerHTML = newCommand.innerHTML +
-                        `<br><p>Feedback de la client: ${globalRides[i].feedback}</p>`
-       if (globalRides[i].rating)
+                        `<p id="feedback">Feedback de la client: ${globalRides[i].feedback}</p>`
+            if (globalRides[i].rating)
                 newCommand.innerHTML = newCommand.innerHTML +
-                    `<p>Rating de la client: ${globalRides[i].rating}</p>`
-
-                    x.appendChild(newCommand);
-            var newRide = document.createElement('div')
+                    `<p id="feedback">Rating de la client: ${globalRides[i].rating}</p>`
+            x.appendChild(newCommand);
         }
         // console.log("una bucata ride"+currRide);
     }
@@ -204,19 +173,12 @@ async function getNewRides() {
     let sent = true;
 
     const response = await fetch('http://localhost:8000/api/rides', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r => r.json())
         .catch(e => {
             console.log('error');
             console.log(e);
-            //wrongPassword()
-
             sent = false
         });
     //   console.log("Raspunsul de la server esteeee : "+ response);
@@ -255,13 +217,8 @@ async function getUsername() {
     let sent = true;
 
     const response = await fetch('http://localhost:8000/api/username', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r => r.json())
         .catch(e => {
             console.log('error');

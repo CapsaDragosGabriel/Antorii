@@ -32,7 +32,7 @@ async function getOrders() {
     globalOrders = response;
     showOrders()
 }
-
+let ok="";
 function refreshOrders() {
     var x = document.getElementById("commandsList");
     x.innerHTML = "<h2 id=\"title\">Comenzile tale</h2>";
@@ -54,6 +54,26 @@ function refreshOrders() {
  * },
  * ]
  */
+async function updateOrder(id,i) {
+    const data = {
+        id: id,
+        status:globalOrders[i].status,
+        token: localStorage.getItem('token')
+    }
+    let sent = true;
+    console.log("TRANSMIT: "+JSON.stringify(data));
+    const response = await fetch('http://localhost:8000/api/update/order', {
+        method: 'POST',
+        body: JSON.stringify(data)
+    }).then(r => r.json())
+        .catch(e => {
+            console.log('error');
+            console.log(e);
+            sent = false
+        });
+}
+
+
 function showOrders() {
     var x = document.getElementById("commandsList");
     console.log(JSON.stringify(globalOrders[0]));
@@ -64,25 +84,43 @@ function showOrders() {
             currOrderDiv.setAttribute("class","boxCommand");
             // currOrderDiv.setAttribute("id","boxCommandId");
             var newObj = (globalOrders[i]);///asta e o acolada mare
-            console.log("NEW OBJ ARATA ASA:"+JSON.stringify(newObj))
+            // console.log("NEW OBJ ARATA ASA:"+JSON.stringify(newObj))
             currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<h1>Comanda la adresa ${newObj.address}</h1>`
 
                 console.log("CURRENT ITEM ISSS:"+ JSON.stringify( newObj));
                 var foodObj=newObj.food;//asta e food
 
-                console.log("The food is getting prepped, and it is: "+JSON.stringify(foodObj));
+                // console.log("The food is getting prepped, and it is: "+JSON.stringify(foodObj));
                 for (var item of foodObj.items)
                 {//item e fiecare chestie din food items
-                    console.log(JSON.stringify(item));
+                    // console.log(JSON.stringify(item));
                     if(item.quantity!=0)
                     currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p>${item.name} x ${item.quantity}</p>`
-                    console.log("This food item is:"+item.name + " and you got "+ item.quantity+" of them");
+                    // console.log("This food item is:"+item.name + " and you got "+ item.quantity+" of them");
 
                 }
                 //foodObj.cost e costul
             //newObj.feedback... sunt feedbacks
                 currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p style="text-align:right"><b>${foodObj.cost} </b></p>`
-                x.appendChild(currOrderDiv);
+            if(newObj.provider)
+            currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Livrator: ${newObj.provider}</p> `;
+            else
+                currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Livrator: - </p> `;
+
+            currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Status: ${newObj.status}</p> `;
+            currOrderDiv.innerHTML=currOrderDiv.innerHTML+`
+                <button class="butonStatus" onclick="
+                    if (globalOrders[${i}].status!='claimed'&&globalOrders[${i}].status!='done'&&globalOrders[${i}].status!='anulat'){  
+                        // console.log(${i})
+                        globalOrders[${i}].status='anulat'
+                        // console.log(globalOrders[${i}]);
+                        updateOrder(globalOrders[${i}].id,${i}).then(()=>{
+                            refreshOrders()
+                            showOrders()        
+                        })
+                    }">Anuleaza</button>`;
+            
+            x.appendChild(currOrderDiv);
 
 
 
@@ -182,7 +220,7 @@ var changeDisplay = function () {
         <a id="back" href="#" onclick="let ok=0;
                 for (let i=0;i<quantities.length;i++)
                     if (quantities[i]!==0) display=numeRestaurant;
-                changeDisplay(); console.log(display);" >Inapoi
+                changeDisplay();ok=false; console.log(display);" >Inapoi
         </a>
         <div id="adresaLivrare" ></div>
         <div id="comanda" ></div>

@@ -20,7 +20,7 @@ const fs = require('fs');
 const url = require('url');
 const qs = require('querystring');
 const {con} = require("../database/demo_db_connection");
-// 
+//
 function makeid(length) {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -524,6 +524,53 @@ console.log(JSON.stringify(rides[i].start));
                 else{
 
                     rideDB.changeRideStatus(result.id,result.status,null)
+                }
+
+            })
+
+            res.end('{}');
+        })
+    }
+    else if (req.url.startsWith('/api/update/order')){
+        console.log('API ORDERS');
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            //console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            console.log("PANA AICI AM AJUNS SI TOKENUL E:")
+
+            // data = JSON.parse(data);
+            // //console.log('data chunk finished ' + data.email)
+
+            const result = {
+                id: data.id,
+                token:data.token,
+                status: data.status
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+            console.log(data);
+
+            userDB.getServiceByToken(result.token).then(p=>
+            {console.log(p)
+                if(p=="food"){
+                    userDB.getIDByToken(result.token).then(r=>{
+                            //  console.log(r);
+                            // console.log(r);
+                        // rideDB.changeRideStatus()
+                            orderDB.changeStatusForOrder(result.id,result.status,r);
+                        }
+
+                    )
+                }
+                else{
+                    console.log("\N\N\N\NAM AJUNS AICI SI AM ANULAT COMANDA")
+                    orderDB.changeStatusForOrder(result.id,result.status,null);
                 }
 
             })

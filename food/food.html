@@ -68,8 +68,8 @@
         <div id="myNav" class="overlay">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <div class="overlay-content">
-                <a href="#services" class="istoric" onclick="showFoodMobile()">
-                    <img class="img" src="../resources/istoric.png" alt="user" onclick="getOrders()"  style="width:20px; height:20px;">
+                <a href="#services" class="istoric" onclick="if(ok==''||ok=='deja')showFoodMobile()">
+                    <img class="img" src="../resources/istoric.png" alt="user" onclick="if (ok==''){getOrders();ok='incarcat'}"  style="width:20px; height:20px;">
                     Comenzile tale
                 </a>
                 <!--            <a href="#clients" class="promo">-->
@@ -94,8 +94,9 @@
         </p>
     </div>
     <div class="options">
-        <a href="#services" class="istoric" onclick="getOrders(); showFoods()">
-            <img class="img" src="../resources/istoric.png" alt="user" onclick="getOrders()"  style="width:20px; height:20px;">
+        <a href="#services" class="istoric" onclick="if (ok==''){getOrders();ok='incarcat'; showFoods()}
+else if(ok=='deja') showFoods()">
+            <img class="img" src="../resources/istoric.png" alt="user" onclick=""  style="width:20px; height:20px;">
             Comenzile tale
         </a>
 <!--        <a href="#clients" class="promo">-->
@@ -114,7 +115,7 @@
 
 <div id="commandsList">
     <div class="title-back">
-        <button id="back" onclick="backFood()">Inapoi</button>
+        <button id="back" onclick="backFood(); ok='deja'; ">Inapoi</button>
         <h2 id="title" >Comenzile tale</h2>
     </div>
 </div>

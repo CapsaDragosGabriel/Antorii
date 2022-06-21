@@ -162,7 +162,10 @@ async function getCompleteOrdersByID(consumerID){
                 food:ordersList[k].food,
                 address:result[k].address,
                 feedback_restaurant:result[k].feedback_restaurant,
-                feedback_provider:result[k].feedback_provider
+                feedback_provider:result[k].feedback_provider,
+                status:result[k].status,
+                provider:result[k].provider,
+                id:result[k].id,
             }
             ordersList[k]=newReturn;
         }
@@ -271,6 +274,29 @@ function changeStatusForOrder(orderID,status) { //status can be checked with an 
         console.log("status changed");
     });
 
+
+}
+function changeStatusForOrder(orderID,status,providerID) { //status can be checked with an allowlist
+
+    var sql = "UPDATE `web`.`orders`\n" +
+        "SET\n" +
+        "`status` = \'" + status +
+        "\' WHERE `id` = " + orderID + ";"
+    console.log(sql);
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("status changed");
+    });
+
+    var sql = "UPDATE `web`.`orders`\n" +
+        "SET\n" +
+        "`providerID` = \'" + providerID +
+        "\' WHERE `id` = " + orderID + ";"
+
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("status changed");
+    });
 
 }
 

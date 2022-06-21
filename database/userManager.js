@@ -14,8 +14,8 @@ async function checkLogin(email, pass) {
 
         var hashedPass = crypto.createHash("sha256").update(pass).digest("base64")
 
-        var sql = "select * from users where email = \'" + email + "\' and pass = \'" + hashedPass + "\'";
-        con.query(sql, function (err, result) {
+        var sql = "select * from users where email = ? and pass = ?;";
+        con.query(sql,[email,hashedPass], function (err, result) {
             if (err) throw err;
 
             if (result.length === 1)
@@ -29,13 +29,12 @@ async function checkLogin(email, pass) {
 
 async function checkUserExistence(email) {
     return new Promise((resolve, reject) => {
-        var sql = "select * from users where email = \'" + email + "\'";
+        var sql = "select * from users where email = " + con.escape(email) + ";";
         con.query(sql, function (err, result) {
             if (err) throw err;
 
             if (result.length === 1) {
                 resolve("da");
-                ;
             }
 
             resolve("nu");
@@ -49,16 +48,12 @@ async function getUserByEmail(email) {
     return new Promise((resolve, reject) => {
 
 
-        var sql = "select * from users where email = \'" + email + "\'";
+        var sql = "select * from users where email = " + con.escape(email) + ";";
 
         con.query(sql, function (err, result) {
             if (err) throw err;
 
-            let jsonPackage = result[0];
-
-            resolve(jsonPackage)
-            // console.log([result[0].first_name,result[0].last_name, result[0].phone_number, result[0].email, result[0].pass,
-            //     result[0].city, result[0].county, result[0].localization, result[0].service ])
+            resolve(result[0])
         });
     })
 
@@ -77,34 +72,21 @@ function insertUser(firstName, lastName, phone, email, pass, city, county, local
         "`county`,\n" +
         "`localization`,\n" +
         "`service`)\n" +
-        "VALUES\n" +
-        "(\'" + firstName +
-        "\', \'" + lastName +
-        "\', \'" + phone +
-        "\', \'" + email +
-        "\', \'" + hashedPass +
-        "\', \'" + city +
-        "\', \'" + county +
-        "\', \'" + localization +
-        "\', \'" + service + "\');\n";
-    con.query(sql, function (err, result) {
+        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"
+
+    con.query(sql,[firstName,lastName,phone,email,hashedPass,city,county,localization,service], function (err, result) {
         if (err) throw err;
         console.log("user inserted");
     });
-    //show result
-    con.query("select * from users", function (err, result) {
-        if (err) throw err;
-        console.log(result);
-    });
+
 }
+
 
 function updateTokenByEmail(email, token) {
     var sql = "UPDATE `web`.`users`\n" +
         "SET\n" +
-        "`token` = \'" + token +
-        "\', `created_token_time` = CURRENT_TIMESTAMP\n" +
-        "WHERE `email` = \'" + email + "\';"
-    con.query(sql, function (err, result) {
+        "`token` = ?, `created_token_time` = CURRENT_TIMESTAMP WHERE `email` = ?;"
+    con.query(sql,[token,email], function (err, result) {
         if (err) throw err;
     });
 }
@@ -113,7 +95,7 @@ function removeTokenByEmail(email) {
     var sql = "UPDATE `web`.`users`\n" +
         "SET\n" +
         "`token` = NULL, `created_token_time` = NULL\n" +
-        "WHERE `email` = \'" + email + "\';"
+        "WHERE `email` = " + con.escape(email) + ";"
     con.query(sql, function (err, result) {
         if (err) throw err;
     });
@@ -121,7 +103,7 @@ function removeTokenByEmail(email) {
 
 async function getTokenByEmail(email) {
     return new Promise((resolve, reject) => {
-        var sql = "select token from users where email = \'" + email + "\'";
+        var sql = "select token from users where email = " + con.escape(email) + ";";
         con.query(sql, function (err, result) {
             if (err) throw err;
             if (result.length == 1)
@@ -135,7 +117,7 @@ async function getTokenByEmail(email) {
 
 async function getIDByToken(token) {
     return new Promise((resolve, reject) => {
-        var sql = "select id from users where token =\'" + token + "\'";
+        var sql = "select id from users where token = " + con.escape(token) + ";";
         con.query(sql, function (err, result) {
             if (err) throw err;
             if (result.length == 1)
@@ -149,7 +131,7 @@ async function getIDByToken(token) {
 
 async function getIDByEmail(email) {
     return new Promise((resolve, reject) => {
-        var sql = "select id from users where email = \'" + email + "\'";
+        var sql = "select id from users where email = " + con.escape(email) + ";";
         con.query(sql, function (err, result) {
             if (err) throw err;
             if (result.length == 1)
@@ -162,7 +144,7 @@ async function getIDByEmail(email) {
 
 async function getEmailByToken(token) {
     return new Promise((resolve, reject) => {
-        var sql = "select email from users where token = \'" + token + "\'";
+        var sql = "select email from users where token = " + con.escape(token) + ";";
         con.query(sql, function (err, result) {
             if (err) throw err;
             if (result.length == 1)
@@ -176,10 +158,10 @@ async function getEmailByToken(token) {
 
 async function getServiceByToken(token) {
     return new Promise((resolve, reject) => {
-        var sql = "select service from users where token = \'" + token + "\'";
+        var sql = "select service from users where token = " + con.escape(token) + ";";
         con.query(sql, function (err, result) {
             if (err) throw err;
-            if (result.length)
+            if (result.length == 1)
                 resolve(JSON.parse(JSON.stringify(result[0])).service);
             else
                 resolve(null);
@@ -190,16 +172,16 @@ async function getServiceByToken(token) {
 
 function hashPasswordByID(userID) {
 
-    var sql = "select pass from users where id = " + userID + ";"
+    var sql = "select pass from users where id = " + con.escape(userID) + ";"
     con.query(sql, function (err, result) {
         if (err) throw err;
 
         console.log("pass: " + result[0].pass)
         var hashedPass = crypto.createHash("sha256").update(result[0].pass).digest("base64")
 
-        var sql = "update users set pass = \'" + hashedPass + "\' where id = " + userID + ";"
+        var sql = "update users set pass = ? where id = ?;"
 
-        con.query(sql, function (err, result) {
+        con.query(sql,[hashedPass,userID], function (err, result) {
             if (err) throw err;
         })
 
@@ -208,47 +190,9 @@ function hashPasswordByID(userID) {
 
 }
 
- // hashPasswordByID(5);
-// hashPasswordByID(8);
-// hashPasswordByID(9);
 
 
-// insertUser("nume","prenume","98451312","alex@gmail.com","Parola123","Bacau","Buhusi",
-//    "banca boss","consumer");
-
-// checkLogin("capsadragos@gmail.com","Parola13").then(r =>{
-//     console.log(r)
-// })
-
-// insertUser("nume","prenume","98451312","capsadragos@gmail.com","Parola123","Bacau","Buhusi",
-//    "banca boss","consumer");
-
-// insertUser("bla","blala","98451312","alexeeeeut@gmail.com","Parola123","Bacau","Buhusi",
-//     "banca boss","consumer");
-
-//updateTokenByEmail("capsadragos@gmail.com", "123444")
-// checkLogin("capsadragos@gmail.com","Parola123").then(r=>{
-//     console.log(r);
-// })
-// getTokenByEmail("capsadragos@gmail.com").then(r=>{
-//     console.log(r);
-//     getEmailByToken(r).then(r=>{
-//         console.log(r);
-//     })
-// })
-//
-// updateTokenByEmail("andrei@gmail.com","n8vjKZHQXPeKk82E")
-// getServiceByToken("n8vjKZHQXPeKk82E").then(r=>{
-//     console.log(r);
-// })
-
-// getUserByEmail("andrei@gmail.com").then(r=>{
-//     console.log(r)
-// })
-
-let lolw = "595";
 module.exports = {
-    lolw,
     removeTokenByEmail,
     getUserByEmail,
     getServiceByToken,

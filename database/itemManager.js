@@ -19,14 +19,10 @@ function insertItem(restaurantName,item) {
             "`name`,\n" +
             "`description`,\n" +
             "`price`)\n" +
-            "VALUES\n" +
-            "(" + restaurantID +
-            ", \'" + item.name + "\', " +
-            "\'" + item.description + "\', " +
-             item.price + ");"
+            "VALUES (?, ?, ?, ?)"
 
         console.log("sql: " + sql)
-        con.query(sql, function (err, result) {
+        con.query(sql,[restaurantID,item.name,item.description,item.price], function (err, result) {
             if (err) throw err;
             console.log("item inserted");
         });
@@ -35,12 +31,12 @@ function insertItem(restaurantName,item) {
 }
 function getItemName(itemID){
     return new Promise((resolve, reject) => {
-        var sql = "select name from items where id='"+itemID+"';"
+        var sql = "select name from items where id=" + con.escape(itemID) + ";"
 
         con.query(sql, function (err, result) {
             if (err) throw err;
 
-             console.log(result)
+            console.log(result)
             resolve(result[0])
         });
     })
@@ -55,4 +51,4 @@ var item =
 module.exports={
     getItemName,
 }
- // insertItem('McDonalds',item)
+// insertItem('McDonalds',item)

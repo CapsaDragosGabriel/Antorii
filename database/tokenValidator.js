@@ -21,7 +21,7 @@ function createTokenValidator(minutesLimit) {
             "UPDATE users\n" +
             "SET token = NULL,\n" +
             "created_token_time = NULL\n" +
-            "WHERE TIMESTAMPDIFF(MINUTE,created_token_time,NOW()) >= " + minutesLimit;
+            "WHERE TIMESTAMPDIFF(MINUTE,created_token_time,NOW()) >= " + con.escape(minutesLimit);
 
         con.query(sql, function (err, result) {
             if (err) throw err;

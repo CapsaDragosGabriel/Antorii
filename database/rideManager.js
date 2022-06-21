@@ -72,6 +72,32 @@ async function getClaimed(id){
         });
     })
 }
+function setFeedback(feedback,orderID){
+
+    var sql = "UPDATE `web`.`ride_shares`\n" +
+        "SET\n" +
+        "`feedback` = \'" + feedback +
+        "\' WHERE `id` = " + orderID + ";"
+
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+
+        console.log("Feedback set")
+    });
+}
+function setFeedback(rating,orderID){
+
+    var sql = "UPDATE `web`.`ride_shares`\n" +
+        "SET\n" +
+        "`rating` = \'" + rating +
+        "\' WHERE `id` = " + orderID + ";"
+
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+
+        console.log("Feedback set")
+    });
+}
 function insertRide(from, to, consumerID) {
     var sql = "INSERT INTO `web`.`ride_shares`" +
         "(start,finish,consumerID,providerID,status,estimated)" +
@@ -111,6 +137,7 @@ module.exports=
         getOwn,
         changeRideStatus,
         getRide,
+        setFeedback,
         getClaimed,
         getUnclaimed,
         insertRide,

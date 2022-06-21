@@ -486,7 +486,7 @@ console.log(JSON.stringify(rides[i].start));
 
     }
     else if (req.url.startsWith('/api/update/rides')){
-        console.log('API RIDEs');
+        console.log('API UPDATE RIDES');
         let data = '';
         req.on('data', chunk => {
             data += chunk;
@@ -499,16 +499,20 @@ console.log(JSON.stringify(rides[i].start));
             data = JSON.parse(data);
             // //console.log('data chunk finished ' + data.email)
 
-            const result = {
+            let result = {
                 id: data.id,
                 token:data.token,
+                feedback:data.feedback,
+                rating:data.rating,
                 status: data.status
             };
+
+            console.log("\nRESULT IS : "+result);
             res.writeHead(201, {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json'
             });
-            console.log(data);
+            // console.log(data);
 
             userDB.getServiceByToken(result.token).then(p=>
             {console.log(p)
@@ -522,8 +526,15 @@ console.log(JSON.stringify(rides[i].start));
                     )
                 }
                 else{
-
+                    console.log("ASTA A AJUNS LA SERVER" +result)
+                    if(result.status=='anulat')
                     rideDB.changeRideStatus(result.id,result.status,null)
+                    else{
+                        if(result.feedback)
+                            rideDB.setFeedback(result.feedback,result.id)
+                        if(result.rating)
+                            rideDB.setRating(result.rating,result.id)
+                    }
                 }
 
             })
@@ -633,7 +644,7 @@ console.log(JSON.stringify(rides[i].start));
                     userDB.getIDByToken(result.token).then(r=>{
                         console.log(r);
                         rideDB.getOwn(r).then(fn=>{
-                            // console.log("your rides are losdloas"+fn);
+                            console.log("your rides are"+JSON.stringify(fn));
                             res.end(JSON.stringify(fn));
                         })
                     })
@@ -644,6 +655,62 @@ console.log(JSON.stringify(rides[i].start));
 
         })
     }//get own rides (driver/consumer)
+    else if (req.url.startsWith('/api/claim/orders')){
+        console.log('API ORDERS');
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            //console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            console.log("PANA AICI AM AJUNS SI TOKENUL E:")
+
+            data = JSON.parse(data);
+            // //console.log('data chunk finished ' + data.email)
+
+            const result = {
+                id: data.id,
+                token:data.token,
+                status: data.status
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+
+            userDB.getServiceByToken(result.token).then(p=>{
+                console.log(p)
+                if (p=="food"){
+                    console.log(data);
+                    userDB.getIDByToken(result.token).then(r=>{
+                            //  console.log(r);
+                            // console.log(r);
+                            orderDB.getClaimed(r).then(fn=>{
+                                console.log("CLAIMED RIDES ARE "+fn);
+                                res.end(JSON.stringify(fn));
+                            });
+                        }
+
+                    )
+                }
+                else{
+                    console.log(data)
+                    userDB.getIDByToken(result.token).then(r=>{
+                        console.log(r);
+                        orderDB.getCompleteOrdersByID(r).then(fn=>{
+                            // console.log("your rides are losdloas"+fn);
+                            res.end(JSON.stringify(fn));
+                        })
+                    })
+
+                }
+            })
+
+
+        })
+    }//get own orders (driver/consumer)
+
     else if (req.url.startsWith('/api/restaurants') ){
         console.log('API restaurants');
 

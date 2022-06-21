@@ -438,9 +438,33 @@ console.log("Asdasdas")
 // getFeedbacksByRestaurantID(2).then(r => {
 //     console.log(r)
 // })
-
+async function getOwn(id){
+    return new Promise((resolve, reject)=>{
+        var sql = "select * from orders where consumerID=\'"+id+ "' order by status; ";
+        console.log(sql);
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            if (result.length!=0)
+                resolve(JSON.parse(JSON.stringify(result)));
+            else
+                resolve(null);
+        });
+    })
+}
+async function getClaimed(id){
+    return new Promise((resolve, reject)=>{
+        var sql = "select * from orders where providerID = \'"+id+"\'";
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            if (result.length!=0)
+                resolve(JSON.parse(JSON.stringify(result)));
+            else
+                resolve(null);
+        });
+    })
+}
 module.exports = {
-
+getClaimed,
     insertOrder,
     getOrderByIDs,
     getTotal,

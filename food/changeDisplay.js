@@ -83,6 +83,7 @@ function showOrders() {
             var currOrderDiv=document.createElement("div");
             currOrderDiv.setAttribute("class","boxCommand");
             var newObj = (globalOrders[i]); ///asta e o acolada mare
+            console.log("new OBJ"+JSON.stringify(newObj))
             currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<h1>Comanda la adresa ${newObj.address}</h1>`
                 var foodObj=newObj.food; //asta e food
                 var comandaActuala=document.createElement("div");
@@ -104,60 +105,62 @@ function showOrders() {
     <p style="margin-top: 10px;">${foodObj.cost} RON</p>
 </div>`
                 currOrderDiv.appendChild(comandaActuala);
-          if(newObj.status!='anulat')
-          {
-              var detalii =document.createElement("div");
+          if(newObj.status!='anulat') {
+              var detalii = document.createElement("div");
               detalii.className = "commandDetails";
-              if(newObj.provider)
-                detalii.innerHTML=`
+              if (newObj.provider)
+                  detalii.innerHTML = `
 <div class="infoComanda"">
     <p> Livrator: </p>
     <p> ${newObj.provider}</p>
 </div> `;
               else
-                detalii.innerHTML=`
+                  detalii.innerHTML = `
 <div class="infoComanda">
     <p> Livrator:</p>
     <p>  - </p>
 </div>`;
 
-            detalii.innerHTML=detalii.innerHTML+`
+              detalii.innerHTML = detalii.innerHTML + `
 <div class="infoComanda">
     <p> Status:</p>
     <p> ${newObj.status}</p>
 </div>`;
-            detalii.innerHTML=detalii.innerHTML+`
+              detalii.innerHTML = detalii.innerHTML + `
 <div class="infoComanda">
     <p> Ora aproximativa a livrarii:</p>
     <p> ${newObj.estimated}</p>
 </div>`;
-            currOrderDiv.appendChild(detalii);
-            if(newObj.feedback_provider){
-                currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Feedback provider: ${newObj.feedback_provider}</p> `;
-            }
-            else {
-                currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p>Lasa un feedback providerului: </p> `;
-                //text input area
-                currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<button onclick="globalOrders[${i}].feedback_provider='valoare feedback'; updateOrder(globalOrders[${i}].id,${i}).then(()=>{
+              currOrderDiv.appendChild(detalii);
+              if (newObj.status == 'done') {
+              
+              if (newObj.feedback_provider) {
+                  currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p> Feedback provider: ${newObj.feedback_provider}</p> `;
+              } else {
+                  currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p>Lasa un feedback providerului: </p> `;
+                  //text input area
+                  currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<button onclick="globalOrders[${i}].feedback_provider='valoare feedback'; updateOrder(globalOrders[${i}].id,${i}).then(()=>{
                             refreshOrders()
                             showOrders()        
                         })">Trimite</button> `;
 
-            }
-          }
-            if(newObj.feedback_restaurant){
-                currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Feedback restaurant: ${newObj.feedback_restaurant}</p> `;
-            }
-            else {
-                currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p>Lasa un feedback providerului: </p> `;
-                //text input area
-                currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<button onclick="globalOrders[${i}].feedback_restaurant='valoare restaurant feedback' ;updateOrder(globalOrders[${i}].id,${i}).then(()=>{
+              }
+
+              if (newObj.feedback_restaurant) {
+                  currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p> Feedback restaurant: ${newObj.feedback_restaurant}</p> `;
+              } else {
+                  currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p>Lasa un feedback providerului: </p> `;
+                  //text input area
+                  currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<button onclick="globalOrders[${i}].feedback_restaurant='valoare restaurant feedback' ;updateOrder(globalOrders[${i}].id,${i}).then(()=>{
                             refreshOrders()
                             showOrders()     
                             console.log('AM TRIMIS FEEDBACK');
                         })">Trimite</button><br> `;
-            }
-            currOrderDiv.innerHTML=currOrderDiv.innerHTML+`
+              }
+          }
+              if(newObj.status=='unclaimed')
+              {
+              currOrderDiv.innerHTML = currOrderDiv.innerHTML + `
                 <button class="butonStatus" onclick="
                     if (globalOrders[${i}].status!='claimed'&&globalOrders[${i}].status!='done'&&globalOrders[${i}].status!='anulat'){  
                         globalOrders[${i}].status='anulat'
@@ -165,7 +168,8 @@ function showOrders() {
                             refreshOrders()
                             showOrders()        
                         })
-                    }">Anuleaza</button>`;
+                    }">Anuleaza</button>`;}
+          }
             x.appendChild(currOrderDiv);
 
 

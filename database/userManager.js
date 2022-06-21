@@ -208,9 +208,9 @@ function hashPasswordByID(userID) {
 
 }
 
- hashPasswordByID(5);
-hashPasswordByID(8);
-hashPasswordByID(9);
+ // hashPasswordByID(5);
+// hashPasswordByID(8);
+// hashPasswordByID(9);
 
 
 // insertUser("nume","prenume","98451312","alex@gmail.com","Parola123","Bacau","Buhusi",

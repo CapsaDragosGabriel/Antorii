@@ -36,6 +36,8 @@ async function updateRide(id,i) {
     const data = {
         id: id,
         status:globalRides[i].status,
+        feedback:globalRides[i].feedback,
+        rating:globalRides[i].rating,
         token: localStorage.getItem('token')
     }
     let sent = true;
@@ -85,13 +87,14 @@ function showRides() {
                         })
                     }">Anuleaza</button>
                     </div>`;
-            if (newObj.status === 'done') {
+            if (newObj.status === 'done')
+                if( newObj.feedback!='undefined' ) {
                 newCommand.innerHTML = newCommand.innerHTML + `
   <div class="form-popup" id="myForm">
     <form method="post" class="form-container">
         <label><b>Feedback</b>
         </label>
-        <input type="text" placeholder="Spune-ne parerea ta!" name="feedback" required>
+        <input type="text" placeholder="Spune-ne parerea ta!" name="feedback" id="feeback${i}" required>
         <div class="rate">
     <input type="radio" id="star5" name="rate" value="5" />
     <label for="star5" title="text">5 stars</label>
@@ -104,9 +107,25 @@ function showRides() {
     <input type="radio" id="star1" name="rate" value="1" />
     <label for="star1" title="text">1 star</label>
   </div>
-        <div id="butonSend"><button class="btn" type="submit">Trimite</button></div>
+        <div id="butonSend"><button class="btn" type="submit" onclick=" 
+        
+        // var feedback=document.getElementById('feedback${i}')
+        // const val=document.querySelector('feedback${i}');
+        val='s-a pus feedback';
+        globalRides[${i}].feedback=val; 
+        console.log('am setat feedbackul:'+val)
+        updateRide(globalRides[${i}].id,${i}).then(()=>{
+                            refreshRides()
+                            showRides()        }">Trimite</button></div>
     </form>
   </div>`
+            }
+            else
+            {
+                newCommand.innerHTML = newCommand.innerHTML + `
+                <p>Feedback:</p>
+                <p>${newObj.feedback}</p>
+`
             }
             x.appendChild(newCommand);
         }

@@ -164,7 +164,7 @@ async function getCompleteOrdersByID(consumerID){
                 feedback_restaurant:result[k].feedback_restaurant,
                 feedback_provider:result[k].feedback_provider,
                 status:result[k].status,
-                provider:result[k].provider,
+                providerID:result[k].providerID,
                 id:result[k].id,
                 estimated:result[k].estimated,
 

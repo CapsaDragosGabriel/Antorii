@@ -108,11 +108,11 @@ function showOrders() {
           if(newObj.status!='anulat') {
               var detalii = document.createElement("div");
               detalii.className = "commandDetails";
-              if (newObj.provider)
+              if (newObj.providerID)
                   detalii.innerHTML = `
 <div class="infoComanda"">
     <p> Livrator: </p>
-    <p> ${newObj.provider}</p>
+    <p> ${newObj.providerID}</p>
 </div> `;
               else
                   detalii.innerHTML = `
@@ -133,7 +133,7 @@ function showOrders() {
 </div>`;
               currOrderDiv.appendChild(detalii);
               if (newObj.status == 'done') {
-              
+
               if (newObj.feedback_provider) {
                   currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p> Feedback provider: ${newObj.feedback_provider}</p> `;
               } else {

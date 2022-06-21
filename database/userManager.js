@@ -190,7 +190,9 @@ function hashPasswordByID(userID) {
 
 }
 
-
+checkLogin("antonio.fechita@yahoo.com","Parolam3a").then(r => {
+    console.log(r)
+})
 
 module.exports = {
     removeTokenByEmail,

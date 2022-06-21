@@ -25,7 +25,7 @@ function insertOrder(order) {
         "`address`,\n" +
         "`status`,\n" +
         "`estimated`)\n" +
-        "VALUES(?, ?, ?, unclaimed, ?)"
+        "VALUES(?, ?, ?, \'unclaimed\', ?)"
 
     con.query(sql, [order.restaurantID,order.consumerID,order.adress,estimatedTime], function (err, result) {
         if (err) throw err;
@@ -343,7 +343,7 @@ async function getTotal(orderID) {
 
 var order = {
     restaurantID: 1,
-    consumerID: 1,
+    consumerID: 10,
     adress: 'undeva la mama dracu',
     items: [{
         id: 1,
@@ -354,6 +354,8 @@ var order = {
             quantity: 1
         }]
 }
+
+insertOrder(order)
 
 
 module.exports = {

@@ -355,7 +355,8 @@ var order = {
         }]
 }
 
-insertOrder(order)
+// insertOrder(order)
+changeStatusForOrder(3,"am uitat woopsie")
 
 
 module.exports = {

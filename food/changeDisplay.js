@@ -61,7 +61,7 @@ function refreshOrders() {
  */
 async function updateOrder(id, i) {
     const data = {
-        id: globalOrders[i].id,
+        id: id,
         feedback_restaurant: globalOrders[i].feedback_restaurant,
         feedback_provider: globalOrders[i].feedback_provider,
         status: globalOrders[i].status,
@@ -69,7 +69,7 @@ async function updateOrder(id, i) {
     }
     let sent = true;
     console.log("TRANSMIT: " + JSON.stringify(data));
-
+    console.log("ID-UL ESTE : "+id);
     const response = await fetch('http://localhost:8000/api/update/order', {
         method: 'POST',
         body: JSON.stringify(data)
@@ -160,7 +160,7 @@ function showOrders() {
                         feedbackBox.innerHTML = feedbackBox.innerHTML +
                             `<div id="butonSend"> <button class="btn" onclick="
                             {getValueLiv(${i});
-                            updateOrder(globalOrders[${i}].id,${i}).then(()=>{
+                            updateOrder(globalOrders[${i}].orderID,${i}).then(()=>{
                             refreshOrders()
                             showOrders()})
                             
@@ -178,7 +178,7 @@ function showOrders() {
                         feedbackRestaurant.innerHTML = feedbackRestaurant.innerHTML +
                             `<div id="butonSend"><button id="butonSend" class="btn" onclick="
                             {getValueRes(${i});
-                            updateOrder(${globalOrders[i].id},${i}).then(()=>{
+                            updateOrder(globalOrders[${i}].orderID,${i}).then(()=>{
                             refreshOrders()
                             showOrders()})}">Trimite</button></div>`;
                         currOrderDiv.appendChild(feedbackRestaurant);
@@ -189,7 +189,7 @@ function showOrders() {
                 <button class="butonStatus" onclick="
                     if (globalOrders[${i}].status!='claimed'&&globalOrders[${i}].status!='done'&&globalOrders[${i}].status!='anulat'){  
                         globalOrders[${i}].status='anulat'
-                        updateOrder(${globalOrders[i].id},${i}).then(()=>{
+                        updateOrder(globalOrders[${i}].orderID,${i}).then(()=>{
                             refreshOrders()
                             showOrders()        
                         })

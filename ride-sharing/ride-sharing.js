@@ -101,7 +101,7 @@ function showRides() {
                 <label><b>Feedback</b>
                 </label>`
                     if (globalRides[i].feedback == null) {
-                        newCommand.innerHTML = newCommand.innerHTML + ` <input type="text" placeholder="Spune-ne parerea ta!" onblur="getValue(${i})" name="feedback" id="feeback${i}" required><br>`
+                        newCommand.innerHTML = newCommand.innerHTML + ` <input type="text" placeholder="Spune-ne parerea ta!" onblur="getValue(${i})" name="feedback" id="feedback${i}" required><br>`
 
                     } else
                         newCommand.innerHTML = newCommand.innerHTML + ` <p>${newObj.feedback} </p>`
@@ -164,7 +164,7 @@ function showRides() {
 
 function getValue(i)
 {
-    var feedbackValue=document.getElementById(`feeback${i}`).value;
+    var feedbackValue=document.getElementById(`feedback${i}`).value;
     globalRides[i].feedback=feedbackValue;
     console.log(i+" "+ JSON.stringify(feedbackValue));
 }

@@ -154,7 +154,8 @@ function showRides() {
                             <option value="done">Terminat</option>
                         </select>-->
                     </label>
-                    <button class="buttonaut" onclick="{
+                    <p>Pretul comenzii: ${newObj.price} RON</p>
+                  <button class="buttonaut" onclick="{
                     console.log(${i})
                     if (globalRides[${i}].status=='unclaimed')
                     {globalRides[${i}].status='claimed'

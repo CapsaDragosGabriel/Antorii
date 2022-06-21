@@ -76,6 +76,7 @@ function showRides() {
                 <label>
                     <p id="status">Status comanda: ${newObj.status}</p>
                 </label>
+                <p>Pretul comenzii: ${newObj.price} RON</p>
                 <button class="butonStatus" onclick="
                     if (globalRides[${i}].status!='claimed'&&globalRides[${i}].status!='done'&&globalRides[${i}].status!='anulat'){  
                         console.log(${i})

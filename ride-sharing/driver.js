@@ -3,6 +3,7 @@ function refreshRides() {
     x.innerHTML = "<h2 id=\"title\">Comenzi care te asteapta</h2>";
 
 }
+let globalRides;
 async function getClaimedRides() {
     const data = {
         token: localStorage.getItem('token')
@@ -27,7 +28,7 @@ async function getClaimedRides() {
         });
 
     if (sent == true) {
-        let length
+        let length;
         if(globalRides)
         length= globalRides.length;
         else length=0;

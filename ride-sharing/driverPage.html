@@ -13,9 +13,9 @@
             getUsername();
             changeUsername();
             getService().then(p => {
-                if (p === "ride-sharing") {
-                    let globalRides;
-                    getNewRides().then(()=>{getClaimedRides().then(()=>{refreshRides(); showRides()})})
+                if (p == "ride-sharing") {
+
+                    console.log("AM INTRAT AICI")
                 } else if (globalService === "consumer") {
                     window.location.href = "../startUser/startUser.html"
                     //redirect pe pagina serviciului corespunzator
@@ -23,6 +23,8 @@
                 }
             })
         }
+        getNewRides().then(()=>{getClaimedRides().then(()=>{refreshRides(); showRides()})})
+
         //else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
     </script>
 <!--    <script src="../goodScripts/utils.js"></script>-->

@@ -547,6 +547,8 @@ console.log(JSON.stringify(rides[i].start));
 
             let result = {
                 id: data.id,
+                feedback_provider:data.feedback_provider,
+                feedback_restaurant:data.feedback_restaurant,
                 token:data.token,
                 status: data.status
             };
@@ -570,8 +572,16 @@ console.log(JSON.stringify(rides[i].start));
                     )
                 }
                 else{
-                    console.log("\N\N\N\NAM AJUNS AICI SI AM ANULAT COMANDA")
+                    // console.log("\N\N\N\NAM AJUNS AICI SI AM ANULAT COMANDA")
+                    if (result.status=='anulat')
                     orderDB.changeStatusForOrder(result.id,result.status,null);
+                    else{
+                    if(result.feedback_provider)
+                        orderDB.setFeedbackForProvider(result.feedback_provider,result.id)
+                    if (result.feedback_restaurant)
+                        orderDB.setFeedbackForRestaurant(result.feedback_restaurant,result.id)
+
+                    }
                 }
 
             })

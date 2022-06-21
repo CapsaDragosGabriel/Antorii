@@ -57,6 +57,8 @@ function refreshOrders() {
 async function updateOrder(id,i) {
     const data = {
         id: id,
+        feedback_restaurant: globalOrders[i].feedback_restaurant,
+        feedback_provider: globalOrders[i].feedback_provider,
         status:globalOrders[i].status,
         token: localStorage.getItem('token')
     }
@@ -87,7 +89,7 @@ function showOrders() {
             // console.log("NEW OBJ ARATA ASA:"+JSON.stringify(newObj))
             currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<h1>Comanda la adresa ${newObj.address}</h1>`
 
-                console.log("CURRENT ITEM ISSS:"+ JSON.stringify( newObj));
+                // console.log("CURRENT ITEM ISSS:"+ JSON.stringify( newObj));
                 var foodObj=newObj.food;//asta e food
 
                 // console.log("The food is getting prepped, and it is: "+JSON.stringify(foodObj));
@@ -102,13 +104,42 @@ function showOrders() {
                 //foodObj.cost e costul
             //newObj.feedback... sunt feedbacks
                 currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p style="text-align:right"><b>${foodObj.cost} </b></p>`
-            if(newObj.provider)
+          if(newObj.status!='anulat')
+          {if(newObj.provider)
             currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Livrator: ${newObj.provider}</p> `;
             else
                 currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Livrator: - </p> `;
 
             currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Status: ${newObj.status}</p> `;
             currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Ora aproximativa a livrarii: ${newObj.estimated}</p> `;
+            if(newObj.feedback_provider){
+                currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Feedback provider: ${newObj.feedback_provider}</p> `;
+            }
+            else {
+                currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p>Lasa un feedback providerului: </p> `;
+                //text input area
+                currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<button onclick="globalOrders[${i}].feedback_provider='valoare feedback'; updateOrder(globalOrders[${i}].id,${i}).then(()=>{
+                            refreshOrders()
+                            showOrders()        
+                        })">Trimite</button> `;
+
+            }
+          }
+            if(newObj.feedback_restaurant){
+                currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<p> Feedback restaurant: ${newObj.feedback_restaurant}</p> `;
+            }
+            else {
+                currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p>Lasa un feedback providerului: </p> `;
+                //text input area
+                currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<button onclick="globalOrders[${i}].feedback_restaurant='valoare restaurant feedback' ;updateOrder(globalOrders[${i}].id,${i}).then(()=>{
+                            refreshOrders()
+                            showOrders()     
+                            console.log('AM TRIMIS FEEDBACK');
+                        })">Trimite</button><br> `;
+
+            }
+
+
             currOrderDiv.innerHTML=currOrderDiv.innerHTML+`
                 <button class="butonStatus" onclick="
                     if (globalOrders[${i}].status!='claimed'&&globalOrders[${i}].status!='done'&&globalOrders[${i}].status!='anulat'){  

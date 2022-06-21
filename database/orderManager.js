@@ -446,9 +446,11 @@ module.exports = {
     getTotal,
     // getFeedbackByOrderID,
     // getFeedbacksByRestaurantID,
+
     addItemToOrder,
     changeStatusForOrder,
-    // setFeedback,
+    setFeedbackForProvider,
+    setFeedbackForRestaurant,
 //    getOrdersByID,
     getCompleteOrdersByID
 }

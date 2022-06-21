@@ -85,7 +85,7 @@ function setFeedback(feedback,orderID){
         console.log("Feedback set")
     });
 }
-function setFeedback(rating,orderID){
+function setRating(rating,orderID){
 
     var sql = "UPDATE `web`.`ride_shares`\n" +
         "SET\n" +
@@ -137,6 +137,7 @@ module.exports=
         getOwn,
         changeRideStatus,
         getRide,
+        setRating,
         setFeedback,
         getClaimed,
         getUnclaimed,

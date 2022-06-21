@@ -169,7 +169,7 @@ form {
     margin-top: 5%;
 }
 
-input {
+.inputComanda {
     background: white;
     border-radius: 10px;
     height: 50px;
@@ -394,24 +394,6 @@ input {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
 }
 
-#back {
-    display: inline-block;
-    background-color: #B64141;
-    width: fit-content;
-    border: none;
-    color: white;
-    padding: 4px 8px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 30px;
-    font-family: "Zilla Slab";
-    font-weight: bold;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-    margin: 0;
-}
-
 #buton {
     margin-top: 5%;
     display: flex;
@@ -441,7 +423,7 @@ input {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
 }
 
-input::placeholder {
+.infoComanda input::placeholder {
     font-family: "Zilla Slab";
     color: black;
     opacity: 35%;
@@ -496,6 +478,7 @@ input::placeholder {
     border-radius: 10px;
     flex-direction: column;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    padding-bottom: 3%;
 }
 
 .command {
@@ -555,6 +538,57 @@ input::placeholder {
     text-align: center;
     font-weight: lighter;
     margin: 3% 22% 3% 3%;
+}
+
+.btn {
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
+    background-color: #B64141;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    border-radius: 30px;
+    font-family: "Zilla Slab";
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    padding: 2%;
+}
+
+#butonSend {
+    display: flex;
+    justify-content: center;
+}
+
+.feedbackBox {
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    margin-top: 3%;
+    padding: 10px 50px;
+}
+
+.feedbackBoxSend {
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    padding: 10px 50px;
+    background-color: #ddd;
+    color: gray;
+}
+
+.inputFeedback {
+    width: 93%;
+    padding: 10px;
+    margin: 5px 0 10px 0;
+    border: none;
+}
+
+.inputFeedback input:focus {
+    background-color: #ddd;
+    outline: none;
 }
 
 .footer {

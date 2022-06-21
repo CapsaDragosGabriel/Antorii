@@ -32,10 +32,15 @@ async function getOrders() {
     globalOrders = response;
     showOrders()
 }
-let ok="";
+
+let ok = "";
+
 function refreshOrders() {
     var x = document.getElementById("commandsList");
-    x.innerHTML = "<h2 id=\"title\">Comenzile tale</h2>";
+    x.innerHTML = `<div class="title-back">
+        <button id="back" onclick="backFood(); ok='deja'; ">Inapoi</button>
+        <h2 id="title" >Comenzile tale</h2>
+    </div>`;
 
 }
 
@@ -54,16 +59,16 @@ function refreshOrders() {
  * },
  * ]
  */
-async function updateOrder(id,i) {
+async function updateOrder(id, i) {
     const data = {
         id: id,
         feedback_restaurant: globalOrders[i].feedback_restaurant,
         feedback_provider: globalOrders[i].feedback_provider,
-        status:globalOrders[i].status,
+        status: globalOrders[i].status,
         token: localStorage.getItem('token')
     }
     let sent = true;
-    console.log("TRANSMIT: "+JSON.stringify(data));
+    console.log("TRANSMIT: " + JSON.stringify(data));
     const response = await fetch('http://localhost:8000/api/update/order', {
         method: 'POST',
         body: JSON.stringify(data)
@@ -80,23 +85,22 @@ function showOrders() {
     var x = document.getElementById("commandsList");
     for (let i = 0; i < globalOrders.length; i++) {
         if (globalOrders[i]) {
-            var currOrderDiv=document.createElement("div");
-            currOrderDiv.setAttribute("class","boxCommand");
+            var currOrderDiv = document.createElement("div");
+            currOrderDiv.setAttribute("class", "boxCommand");
             var newObj = (globalOrders[i]); ///asta e o acolada mare
-            console.log("new OBJ"+JSON.stringify(newObj))
-            currOrderDiv.innerHTML=currOrderDiv.innerHTML+`<h1>Comanda la adresa ${newObj.address}</h1>`
-                var foodObj=newObj.food; //asta e food
-                var comandaActuala=document.createElement("div");
-                comandaActuala.className = "command";
-                for (var item of foodObj.items)
-                {
-                    //item e fiecare chestie din food items
-                    if(item.quantity!=0)
-                        comandaActuala.innerHTML=`<p>${item.name} x ${item.quantity}</p>`
-                }
-                //foodObj.cost e costul
-                //newObj.feedback... sunt feedbacks
-                comandaActuala.innerHTML=comandaActuala.innerHTML+`
+            console.log("new OBJ" + JSON.stringify(newObj))
+            currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<h1>Comanda la adresa ${newObj.address}</h1>`
+            var foodObj = newObj.food; //asta e food
+            var comandaActuala = document.createElement("div");
+            comandaActuala.className = "command";
+            for (var item of foodObj.items) {
+                //item e fiecare chestie din food items
+                if (item.quantity != 0)
+                    comandaActuala.innerHTML = `<p>${item.name} x ${item.quantity}</p>`
+            }
+            //foodObj.cost e costul
+            //newObj.feedback... sunt feedbacks
+            comandaActuala.innerHTML = comandaActuala.innerHTML + `
 <div style="border-top: 1px solid rgb(0 0 0 / 65%); 
             display: flex; 
             justify-content: space-between;
@@ -104,63 +108,68 @@ function showOrders() {
     <p style="margin-top: 10px;">Total de plata:</p>
     <p style="margin-top: 10px;">${foodObj.cost} RON</p>
 </div>`
-                currOrderDiv.appendChild(comandaActuala);
-          if(newObj.status!='anulat') {
-              var detalii = document.createElement("div");
-              detalii.className = "commandDetails";
-              if (newObj.providerID)
-                  detalii.innerHTML = `
+            currOrderDiv.appendChild(comandaActuala);
+            if (newObj.status != 'anulat') {
+                var detalii = document.createElement("div");
+                detalii.className = "commandDetails";
+                if (newObj.providerID)
+                    detalii.innerHTML = `
 <div class="infoComanda"">
     <p> Livrator: </p>
     <p> ${newObj.providerID}</p>
 </div> `;
-              else
-                  detalii.innerHTML = `
+                else
+                    detalii.innerHTML = `
 <div class="infoComanda">
     <p> Livrator:</p>
     <p>  - </p>
 </div>`;
 
-              detalii.innerHTML = detalii.innerHTML + `
+                detalii.innerHTML = detalii.innerHTML + `
 <div class="infoComanda">
     <p> Status:</p>
     <p> ${newObj.status}</p>
 </div>`;
-              detalii.innerHTML = detalii.innerHTML + `
+                detalii.innerHTML = detalii.innerHTML + `
 <div class="infoComanda">
     <p> Ora aproximativa a livrarii:</p>
     <p> ${newObj.estimated}</p>
 </div>`;
-              currOrderDiv.appendChild(detalii);
-              if (newObj.status == 'done') {
+                currOrderDiv.appendChild(detalii);
+                if (newObj.status == 'done') {
 
-              if (newObj.feedback_provider) {
-                  currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p> Feedback provider: ${newObj.feedback_provider}</p> `;
-              } else {
-                  currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p>Lasa un feedback providerului: </p> `;
-                  //text input area
-                  currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<button onclick="globalOrders[${i}].feedback_provider='valoare feedback'; updateOrder(globalOrders[${i}].id,${i}).then(()=>{
+                    if (newObj.feedback_provider) {
+                        currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p class="feedbackBoxSend" style="margin:2% 0 0 0;">Feedback livrator: ${newObj.feedback_provider}</p> `;
+                    } else {
+                        var feedbackBox = document.createElement("div");
+                        feedbackBox.className = "feedbackBox";
+                        feedbackBox.innerHTML = `<p>Feedback livrator: </p> `;
+                        feedbackBox.innerHTML = feedbackBox.innerHTML + `<input class="inputFeedback" type="text" placeholder="Spune-ne parerea ta!" name="feedback" required>`
+                        feedbackBox.innerHTML = feedbackBox.innerHTML +
+                            `<div id="butonSend"> <button class="btn" onclick="globalOrders[${i}].feedback_provider='valoare feedback'; 
+                            updateOrder(globalOrders[${i}].id,${i}).then(()=>{
                             refreshOrders()
-                            showOrders()        
-                        })">Trimite</button> `;
+                            showOrders()})">Trimite</button></div>`;
+                        currOrderDiv.appendChild(feedbackBox);
+                    }
 
-              }
-
-              if (newObj.feedback_restaurant) {
-                  currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p> Feedback restaurant: ${newObj.feedback_restaurant}</p> `;
-              } else {
-                  currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p>Lasa un feedback restaurantului: </p> `;
-                  //text input area
-                  currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<button onclick="globalOrders[${i}].feedback_restaurant='valoare restaurant feedback' ;updateOrder(globalOrders[${i}].id,${i}).then(()=>{
+                    if (newObj.feedback_restaurant) {
+                        currOrderDiv.innerHTML = currOrderDiv.innerHTML + `<p class="feedbackBoxSend" style="margin: 0;">Feedback restaurant: ${newObj.feedback_restaurant}</p> `;
+                    } else {
+                        var feedbackRestaurant = document.createElement("div");
+                        feedbackRestaurant.className = "feedbackBox";
+                        feedbackRestaurant.innerHTML = `<p>Feedback restaurant: </p> `;
+                        feedbackRestaurant.innerHTML = feedbackRestaurant.innerHTML + `<input class="inputFeedback" type="text" placeholder="Spune-ne parerea ta!" name="feedback" required>`
+                        feedbackRestaurant.innerHTML = feedbackRestaurant.innerHTML +
+                            `<div id="butonSend"><button id="butonSend" class="btn" onclick="globalOrders[${i}].feedback_restaurant='valoare restaurant feedback'; 
+                            updateOrder(globalOrders[${i}].id,${i}).then(()=>{
                             refreshOrders()
-                            showOrders()     
-                            console.log('AM TRIMIS FEEDBACK');
-                        })">Trimite</button><br> `;
-              }
-          }
-              if(newObj.status=='unclaimed')
-              {
-              currOrderDiv.innerHTML = currOrderDiv.innerHTML + `
+                            showOrders()})">Trimite</button></div>`;
+                        currOrderDiv.appendChild(feedbackRestaurant);
+                    }
+                }
+                if (newObj.status == 'unclaimed') {
+                    currOrderDiv.innerHTML = currOrderDiv.innerHTML + `
                 <button class="butonStatus" onclick="
                     if (globalOrders[${i}].status!='claimed'&&globalOrders[${i}].status!='done'&&globalOrders[${i}].status!='anulat'){  
                         globalOrders[${i}].status='anulat'
@@ -168,41 +177,41 @@ function showOrders() {
                             refreshOrders()
                             showOrders()        
                         })
-                    }">Anuleaza</button>`;}
-          }
+                    }">Anuleaza</button>`;
+                }
+            }
             x.appendChild(currOrderDiv);
 
 
+            /* newCommand.innerHTML = `<div class="command">
+             <h1>${newObj.start} - ${newObj.finish}</h1>
+             <label>
+                 <p id="status">Status comanda: ${newObj.status}</p>
+             </label>
+             <button class="butonStatus" onclick="
+                 if (globalOrders[${i}].status!='done'){
+                     console.log(${i})
+                     globalOrders[${i}].status='done'
+                     console.log(globalOrders[${i}]);
+                     updateRide(globalOrders[${i}].id).then(()=>{
+                         refreshOrders()
+                         showRides()
+                     })
+                 }">Terminat</button>
+                 </div>`;
+             if (newObj.status === 'done') {
+                 newCommand.innerHTML = newCommand.innerHTML + `
+<div class="form-popup" id="myForm">
+ <form class="form-container" action="ride-sharing.html">
+     <label><b>Feedback</b></label>
+     <input type="text" placeholder="Spune-ne parerea ta!" name="feedback" required>
+     <div id="butonSend""><button class="btn" onclick="deleteFeedback()">Trimite</button></div>
+ </form>
+</div>`
+             }
 
-                /* newCommand.innerHTML = `<div class="command">
-                 <h1>${newObj.start} - ${newObj.finish}</h1>
-                 <label>
-                     <p id="status">Status comanda: ${newObj.status}</p>
-                 </label>
-                 <button class="butonStatus" onclick="
-                     if (globalOrders[${i}].status!='done'){
-                         console.log(${i})
-                         globalOrders[${i}].status='done'
-                         console.log(globalOrders[${i}]);
-                         updateRide(globalOrders[${i}].id).then(()=>{
-                             refreshOrders()
-                             showRides()
-                         })
-                     }">Terminat</button>
-                     </div>`;
-                 if (newObj.status === 'done') {
-                     newCommand.innerHTML = newCommand.innerHTML + `
-   <div class="form-popup" id="myForm">
-     <form class="form-container" action="ride-sharing.html">
-         <label><b>Feedback</b></label>
-         <input type="text" placeholder="Spune-ne parerea ta!" name="feedback" required>
-         <div id="butonSend""><button class="btn" onclick="deleteFeedback()">Trimite</button></div>
-     </form>
-   </div>`
-                 }
-
-     x.appendChild(newCommand);
- }*/
+ x.appendChild(newCommand);
+}*/
 
         }
     }
@@ -286,7 +295,7 @@ var changeDisplay = function () {
         var x = document.getElementById("adresaLivrare");
         x.innerHTML = `
         <form method="post" action="food.html" onsubmit="{comanda();return false;}">
-            <input style="width:250px;"  required id="inputAddress" name="inputAddress" placeholder="Adresa de livrare">
+            <input class="inputComanda" style="width:250px;"  required id="inputAddress" name="inputAddress" placeholder="Adresa de livrare">
             <button class="trimite" type="submit">Trimite comanda</button>
         </form>   `
         rezumatComanda();

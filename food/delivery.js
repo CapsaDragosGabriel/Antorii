@@ -12,10 +12,12 @@ async function changeUsername() {
         user.innerHTML = `${username} <a href="#user" style="padding: 0;"> detalii profil</a>`;
 
 }
+
 let globalOrders;
 let providerID
+
 async function updateOrder(id, i) {
-console.log(globalOrders[i].status);
+    console.log(globalOrders[i].status);
     const data = {
         id: globalOrders[i].orderID,
         status: globalOrders[i].status,
@@ -23,7 +25,7 @@ console.log(globalOrders[i].status);
     }
     let sent = true;
     console.log("TRANSMIT: " + JSON.stringify(data));
-    console.log("ID-UL ESTE : "+id);
+    console.log("ID-UL ESTE : " + id);
     const response = await fetch('http://localhost:8000/api/update/order', {
         method: 'POST',
         body: JSON.stringify(data)
@@ -37,33 +39,33 @@ console.log(globalOrders[i].status);
 
 function showOrders() {
     var x = document.getElementById("commandsList");
-    console.log(JSON.stringify(globalOrders[0]));
-    for (let i = 0; i < globalOrders.length; i++) {
-        if (globalOrders[i]) {
-            var newObj = (globalOrders[i]);
+    if(globalOrders!==null) {
+        for (let i = 0; i < globalOrders.length; i++) {
+            if (globalOrders[i]) {
+                var newObj = (globalOrders[i]);
 
-            var newCommand = document.createElement('div');
-            newCommand.className = "commandBox";
+                var newCommand = document.createElement('div');
+                newCommand.className = "commandBox";
 
-            var detaliiComanda = document.createElement("div");
-            detaliiComanda.className = "command";
-            detaliiComanda.innerHTML = `<h1 style="margin-bottom: 0;">La ${newObj.address}</h1>`;
+                var detaliiComanda = document.createElement("div");
+                detaliiComanda.className = "command";
+                detaliiComanda.innerHTML = `<h1 style="margin-bottom: 0;">La ${newObj.address}</h1>`;
 
-            var lista = document.createElement("ul");
+                var lista = document.createElement("ul");
 
-            for (var item of newObj.food.items){
-                if(item.quantity)
-                    lista.innerHTML = lista.innerHTML+ `<li>${item.name} x ${item.quantity}</li>`
-            }
-            detaliiComanda.innerHTML = detaliiComanda.innerHTML +
-                `<label>
+                for (var item of newObj.food.items) {
+                    if (item.quantity)
+                        lista.innerHTML = lista.innerHTML + `<li>${item.name} x ${item.quantity}</li>`
+                }
+                detaliiComanda.innerHTML = detaliiComanda.innerHTML +
+                    `<label>
                     <p>Status comanda: ${newObj.status}</p>
                  </label>     
             `;
 
-            var butoane = document.createElement("div");
-            butoane.className = "butoaneDiv"
-            butoane.innerHTML = `<button class="buttonaut" onclick="{
+                var butoane = document.createElement("div");
+                butoane.className = "butoaneDiv"
+                butoane.innerHTML = `<button class="buttonaut" onclick="{
                     console.log(${i})
                     if (globalOrders[${i}].status=='unclaimed')
                     {globalOrders[${i}].status='claimed'
@@ -88,21 +90,29 @@ function showOrders() {
                     }"
                     >Terminat</button>`;
 
-            newCommand.appendChild(detaliiComanda);
-            newCommand.appendChild(lista);
-            newCommand.appendChild(butoane);
+                newCommand.appendChild(detaliiComanda);
+                newCommand.appendChild(lista);
+                newCommand.appendChild(butoane);
 
-            if (globalOrders[i].feedback_provider)
-                newCommand.innerHTML = newCommand.innerHTML +
-                    `<p id="feedback">Feedback de la client: ${globalOrders[i].feedback_provider}</p>`
-            x.appendChild(newCommand);
+                if (globalOrders[i].feedback_provider)
+                    newCommand.innerHTML = newCommand.innerHTML +
+                        `<p id="feedback">Feedback de la client: ${globalOrders[i].feedback_provider}</p>`
+                x.appendChild(newCommand);
+            }
         }
     }
+    else {
+        var x = document.getElementById("commandsList");
+        x.innerHTML = "<h2 id=\"title\">Comenzi care te asteapta</h2>" +
+                      "<p id='noCommands'>Nu ai primit nicio comanda!</p>";
+    }
 }
+
 function refreshOrders() {
     var x = document.getElementById("commandsList");
     x.innerHTML = "<h2 id=\"title\">Comenzi care te asteapta</h2>";
 }
+
 async function getClaimedOrders() {
     const data = {
         token: localStorage.getItem('token')
@@ -119,11 +129,11 @@ async function getClaimedOrders() {
             sent = false
         });
 
-    if (sent == true) {
+    if (sent === true) {
         let length;
-        if(globalOrders)
-            length= globalOrders.length;
-        else length=0;
+        if (globalOrders)
+            length = globalOrders.length;
+        else length = 0;
         if (response)
             for (let i = 0; i < response.length; i++)
                 globalOrders[length + i] = response[i];
@@ -153,7 +163,7 @@ async function getNewOrders() {
             sent = false
         });
     //   console.log("Raspunsul de la server esteeee : "+ response);
-        globalOrders = response;
+    globalOrders = response;
     console.log("GLOBAL orderS DUPA  GET NEW orderS" + globalOrders);
     //showorders()
 
@@ -164,7 +174,6 @@ async function getNewOrders() {
     }
     // username= JSON.stringify(response.body);
 }
-
 
 
 async function getUsername() {

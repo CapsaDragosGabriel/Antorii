@@ -1,14 +1,14 @@
 function refreshRides() {
     var x = document.getElementById("commandsList");
     x.innerHTML = "<h2 id=\"title\">Comenzi care te asteapta</h2>";
-
 }
+
 let globalRides;
-let globalService="";
-async function getService()
-{
+let globalService = "";
+
+async function getService() {
     const data = {
-        token:localStorage.getItem('token')
+        token: localStorage.getItem('token')
     }
     let sent = true;
 
@@ -19,21 +19,18 @@ async function getService()
         .catch(e => {
             console.log('error');
             console.log(e);
-            //wrongPassword()
-            sent=false
+            sent = false
         });
-    // const resultData = awa1it response.json();
     console.log(response);
-    let service;
     if (sent) {
-        globalService=response.service;
+        globalService = response.service;
         console.log(globalService);
     }
 }
-async function logout()
-{
 
-    const data={
+async function logout() {
+
+    const data = {
         token: localStorage.getItem('token')
     }
     console.log(data.token);
@@ -47,8 +44,9 @@ async function logout()
         });
     localStorage.removeItem('token');
 
-    window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
+    window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html";
 }
+
 async function getClaimedRides() {
     const data = {
         token: localStorage.getItem('token')
@@ -62,23 +60,19 @@ async function getClaimedRides() {
         .catch(e => {
             console.log('error');
             console.log(e);
-            //wrongPassword()
-
             sent = false
         });
 
-    if (sent == true) {
+    if (sent === true) {
         let length;
-        if(globalRides)
-        length= globalRides.length;
-        else length=0;
+        if (globalRides)
+            length = globalRides.length;
+        else length = 0;
         if (response)
             for (let i = 0; i < response.length; i++)
                 globalRides[length + i] = response[i];
         console.log("RASPUNSUL A FOST" + response)
         console.log("GLOBAL RIDES DUPA  GET CLAIMED RIDES" + globalRides);
-
-        // console.log(globalRides);
     }
 }
 
@@ -99,33 +93,29 @@ async function updateRide(id, status) {
             console.log(e);
             sent = false
         });
-
-
 }
 
 function showRides() {
     var x = document.getElementById("commandsList");
-    console.log(JSON.stringify(globalRides[0]));
-    // console.log(newObj.start);
-    for (let i = 0; i < globalRides.length; i++) {
-        if (globalRides[i]) {
-            var newObj = (globalRides[i]);
-            var newCommand = document.createElement('div');
-            newCommand.className = "detaliiCursa";
-            var detalii = document.createElement("div");
-            detalii.className = "command";
-            detalii.innerHTML = `<h1>${newObj.start} - ${newObj.finish}
+    if (globalRides !== null) {
+        for (let i = 0; i < globalRides.length; i++) {
+            if (globalRides[i]) {
+                var newObj = (globalRides[i]);
+                var newCommand = document.createElement('div');
+                newCommand.className = "detaliiCursa";
+                var detalii = document.createElement("div");
+                detalii.className = "command";
+                detalii.innerHTML = `<h1>${newObj.start} - ${newObj.finish}
             </h1>`;
-            detalii.innerHTML = detalii.innerHTML +
-                `<label>
+                detalii.innerHTML = detalii.innerHTML +
+                    `<label>
                         <p>Status comanda: ${newObj.status}</p>
                     </label>
-                    <p id="pretCursa">Pretul: ${newObj.price} RON</p>
-                      
+                    <p id="pretCursa">Pretul: ${newObj.price} RON</p>    
             `;
-            var butoane = document.createElement("div");
-            butoane.className = "divButoane";
-            butoane.innerHTML = `<button class="buttonaut" onclick="{
+                var butoane = document.createElement("div");
+                butoane.className = "divButoane";
+                butoane.innerHTML = `<button class="buttonaut" onclick="{
                     console.log(${i})
                     if (globalRides[${i}].status=='unclaimed')
                     {globalRides[${i}].status='claimed'
@@ -148,20 +138,24 @@ function showRides() {
                       refreshRides()
                     showRides()
                     })
-                    
                     }"
                     >Terminat</button>`;
-            newCommand.appendChild(detalii);
-            newCommand.appendChild(butoane);
-            if (globalRides[i].feedback)
-                newCommand.innerHTML = newCommand.innerHTML +
+                newCommand.appendChild(detalii);
+                newCommand.appendChild(butoane);
+                if (globalRides[i].feedback)
+                    newCommand.innerHTML = newCommand.innerHTML +
                         `<p id="feedback">Feedback de la client: ${globalRides[i].feedback}</p>`
-            if (globalRides[i].rating)
-                newCommand.innerHTML = newCommand.innerHTML +
-                    `<p id="feedback">Rating de la client: ${globalRides[i].rating}</p>`
-            x.appendChild(newCommand);
+                if (globalRides[i].rating)
+                    newCommand.innerHTML = newCommand.innerHTML +
+                        `<p id="feedback">Rating de la client: ${globalRides[i].rating}</p>`
+                x.appendChild(newCommand);
+            }
         }
-        // console.log("una bucata ride"+currRide);
+    }
+    else {
+        var x = document.getElementById("commandsList");
+        x.innerHTML = "<h2 id=\"title\">Comenzi care te asteapta</h2>" +
+            "<p id='noCommands'>Nu ai primit nicio comanda!</p>";
     }
 }
 

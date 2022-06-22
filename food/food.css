@@ -385,6 +385,13 @@ form {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
 }
 
+#noCommands {
+    font-family: "Text Me One";
+    font-size: 30px;
+    text-align: center;
+    font-weight: lighter;
+}
+
 #box img {
     opacity: initial;
     width: 70%;
@@ -601,7 +608,7 @@ form {
     float: right;
 }
 
-.footer p{
+.footer p {
     margin: 0;
 }
 

@@ -281,6 +281,13 @@ body {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
 }
 
+#noCommands {
+    font-family: "Text Me One";
+    font-size: 30px;
+    text-align: center;
+    font-weight: lighter;
+}
+
 .command p {
     font-size: 15px;
 }

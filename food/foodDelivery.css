@@ -226,6 +226,13 @@ body {
     margin: 0;
 }
 
+#noCommands {
+    font-family: "Text Me One";
+    font-size: 30px;
+    text-align: center;
+    font-weight: lighter;
+}
+
 .commandBox {
     font-family: "Zilla Slab";
     color: black;

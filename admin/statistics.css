@@ -505,7 +505,7 @@ form {
 
 .statDetails {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     justify-content: left;
     font-size:15px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
@@ -516,7 +516,7 @@ form {
     margin-top: 3%;
 }
 
-.infoComanda {
+.infoStat {
     display: flex;
     justify-content: space-between;
 }

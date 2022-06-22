@@ -925,7 +925,7 @@ const server = http.createServer((req, res) => {
 
         })
     }//get own rides (driver/consumer)
-    else if (req.url.startsWith('/api/admin/getConsumerProviderUserProcent')){
+    else if (req.url.startsWith('/api/admin/usersStats')){
         let data = '';
         req.on('data', chunk => {
             data += chunk;
@@ -947,7 +947,8 @@ const server = http.createServer((req, res) => {
                 userDB.getServiceByToken(result.token).then(p => {
                     if(p=="admin")
                     {
-
+                        statsDB.aggregateUserData().then(p=>{
+                        res.end(JSON.stringify(p))});
 
                     }
 

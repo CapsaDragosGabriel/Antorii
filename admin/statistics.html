@@ -12,6 +12,7 @@
     <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="../startUser/startUser.js"></script>
     <script src="goodScripts/utils.js"></script>
+    <script src="statistics.js"></script>
     <script>
         if (localStorage.getItem('token')) {
             getService().then(() => {
@@ -21,6 +22,8 @@
                 } else if (globalService != "admin")
                     window.location.href = "http://127.0.0.1:8000/startUser/startUser.html"
                 else
+                    getUserStats().then(r=>
+                    showUsersStats())
                     showStats();
 
             })
@@ -28,9 +31,6 @@
             //check with db
             //after ok
         } else window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html"
-    </script>
-    <script>
-        getUsername();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Food delivery</title>
@@ -67,7 +67,7 @@
         <a class="link" onclick="logout()">Deconectare</a>
     </div>
 </div>
-<div class="boxStat">
+<div class="boxStat" id="boxStat">
     <div class="stat">
         <h1 >These are some stats about users:</h1>
     </div>

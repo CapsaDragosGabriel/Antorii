@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="statistics.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Imbue">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Text+Me+One">
+    <script src="changeDisplay.js"></script>
+    <script type="module" src="insertRestaurants.js"></script>
+    <script src="../scriptsFrontend/servicesBtn.js"></script>
+    <script src="../startUser/startUser.js"></script>
+    <script src="goodScripts/utils.js"></script>
+    <script>
+        if (localStorage.getItem('token')) {
+            getService().then(() => {
+                if (globalService == undefined) {
+                    localStorage.removeItem('token');
+                    window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html";
+                } else if (globalService != "admin")
+                    window.location.href = "http://127.0.0.1:8000/startUser/startUser.html"
+                else
+                    showStats();
+
+            })
+
+            //check with db
+            //after ok
+        } else window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html"
+    </script>
+    <script>
+        getUsername();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Food delivery</title>
+</head>
+<body>
+
+<div class="header" itemscope itemtype="https://schema.org/Organization">
+    <a class="active" href="../mainHome/mainHome.html"><p itemprop="legalName">SerP</p></a>
+    <div class="dropdown">
+        <button class="dropbtn" onclick="myFunction()">Servicii<i class="fa fa-caret-down"></i></button>
+        <div class="dropdown-content" id="myDropdown">
+            <a href="../ride-sharing/ride-sharing.html"><p itemprop="makesOffer">Ride-sharing</p></a>
+            <a href="../food/food.html"><p itemprop="makesOffer">Food delivery</p></a>
+            <a href="../login/login.html"><p itemprop="makesOffer">Curier</p></a>
+            <a href="../login/login.html"><p itemprop="makesOffer">Inchirieri</p></a>
+        </div>
+    </div>
+    <a class="link" onclick="logout()">Deconectare</a>
+</div>
+<div itemscope class="headerMobile" itemtype="https://schema.org/Organization">
+    <div class="header_small">
+        <a class="active" href="../startUser/startUser.html" itemprop="legalName"><p>SerP</p></a>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="myFunctionSmall()">Servicii
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content" id="myDropdownsmall">
+                <a href="../ride-sharing/ride-sharing.html">Ride-sharing</a>
+                <a href="../food/food.html">Food delivery</a>
+                <a href="../login/login.html">Curier</a>
+                <a href="../login/login.html">Inchirieri</a>
+            </div>
+        </div>
+        <a class="link" onclick="logout()">Deconectare</a>
+    </div>
+</div>
+<div class="boxStat">
+    <div class="stat">
+        <h1>Look a stat:</h1>
+        <div class="statDetails">
+            <p>Look details about stat</p>
+        </div>
+    </div>
+
+
+</div>
+
+<footer class="footer">
+    <p>&copy; 2022 Antorii</p>
+    <p>
+        <img src="../resources/earth.png" alt="earth">
+        Romania
+    </p>
+</footer>
+
+</body>
+</html>

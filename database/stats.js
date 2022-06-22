@@ -208,3 +208,20 @@ async function getCountiesByNrOfOrders(){
 
     })
 }
+
+module.exports = {
+    getConsumerProviderUserProcent,
+    getNumberOfUsersPerCounty,
+    getNumberOfConsumersPerCounty,
+    getNumberOfProvidersPerCounty,
+    getUsersOrderedByRideSpending,
+    getUsersOrderedByRestaurantSpending,
+    getUsersOrderedByTotalSpending,
+    getRestaurantsOrderByProfit,
+    getDeliveryByNrOfOrders,
+    getDriversByNrOfTrips,
+    getDriversByRating,
+    getDriversByProfit,
+    getCountiesByNrOfRideShares,
+    getCountiesByNrOfOrders
+}

@@ -421,7 +421,9 @@ var order = {
 }
 
 // insertOrder(order)
-
+getTotal(4).then(r => {
+    console.log(r)
+})
 
 module.exports = {
 getCompleteOrdersByProviderID,

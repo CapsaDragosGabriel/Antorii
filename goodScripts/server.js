@@ -4,6 +4,7 @@ var rideDB = require("../database/rideManager");
 var restaurantDB = require("../database/restaurantManager");
 var orderDB = require("../database/orderManager");
 var itemDB = require("../database/itemManager")
+var statsDB=require("../database/stats");
 const http = require('http');
 
 const nodemailer = require('nodemailer');
@@ -43,30 +44,7 @@ const parseCookies = (cookie = '') =>
         }, {});
 
 const server = http.createServer((req, res) => {
-    const cookies = parseCookies(req.headers.cookie);
-    /*
-    if(req.url.startsWith('/login')) {
-       /* const { query } = url.parse(req.url);
-        const { name } = qs.parse(query);
-        const expires = new Date();
-        expires.setMinutes(expires.getMinutes() + 1);
-        res.writeHead(302, {
-            Location: '/',
-            'Set-Cookie': `name=${encodeURIComponent(name)};Expires=${expires.toGMTString()};HttpOnly; Path=/`,
-        });
-        res.end();
-    } else
-        */
-    //console.log('TEST server called')
-    if (cookies.name) {
-        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-        fs.readFile('../mainHome/mainHome.html', (error, data) => {
-
-            res.end(data);
-        });
-        //res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8'});
-        res.end(`Welcome ${cookies.name}`)
-    } else if (req.url.startsWith('/api/login')) {
+    if (req.url.startsWith('/api/login')) {
         console.log('API LOGIN');
 
         let data = '';
@@ -127,7 +105,8 @@ const server = http.createServer((req, res) => {
 
         })
 
-    } else if (req.url.startsWith('/api/username')) {
+    }
+    else if (req.url.startsWith('/api/username')) {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
@@ -166,7 +145,8 @@ const server = http.createServer((req, res) => {
             //res.write()
         })
         // res.end();
-    } else if (req.url.startsWith('/api/service')) {
+    }
+    else if (req.url.startsWith('/api/service')) {
         console.log("API SERVICE")
         let data = '';
         req.on('data', chunk => {
@@ -472,7 +452,8 @@ const server = http.createServer((req, res) => {
 
         })
 
-    } else if (req.url.startsWith('/api/update/rides')) {
+    }
+    else if (req.url.startsWith('/api/update/rides')){
         console.log('API UPDATE RIDES');
         let data = '';
         req.on('data', chunk => {
@@ -530,7 +511,8 @@ const server = http.createServer((req, res) => {
 
             res.end('{}');
         })
-    } else if (req.url.startsWith('/api/update/order')) {
+    }
+    else if (req.url.startsWith('/api/update/order')) {
         console.log('API ORDERS');
         let data = '';
         req.on('data', chunk => {
@@ -590,7 +572,8 @@ const server = http.createServer((req, res) => {
 
             res.end('{}');
         })
-    } else if (req.url.startsWith('/api/claim/rides')) {
+    }
+    else if (req.url.startsWith('/api/claim/rides')) {
         console.log('API RIDEs');
         let data = '';
         req.on('data', chunk => {
@@ -756,7 +739,8 @@ const server = http.createServer((req, res) => {
 
         })
 
-    } else if (req.url.startsWith('/api/restaurants')) {
+    }
+    else if (req.url.startsWith('/api/restaurants')) {
         console.log('API restaurants');
 
         let data = '';
@@ -793,8 +777,7 @@ const server = http.createServer((req, res) => {
             })
         })
     }//get restaurants from db
-    else if (req.url.startsWith('/api/menu'))//get menu from db
-    {
+    else if (req.url.startsWith('/api/menu')){
         console.log('API restaurants');
 
         let data = '';
@@ -821,8 +804,8 @@ const server = http.createServer((req, res) => {
             )
 
         })
-    } else if (req.url.startsWith('/api/food'))//
-    {
+    }//get menu from db
+    else if (req.url.startsWith('/api/food')){
         console.log('API FOOD');
         let data = '';
         req.on('data', chunk => {
@@ -887,7 +870,8 @@ const server = http.createServer((req, res) => {
             // res.end("ok");
         })
 
-    } else if (req.url.startsWith('/api/claim/orders')) {
+    }//
+    else if (req.url.startsWith('/api/claim/orders')) {
         console.log('API ORDERS');
         let data = '';
         req.on('data', chunk => {
@@ -941,10 +925,39 @@ const server = http.createServer((req, res) => {
 
         })
     }//get own rides (driver/consumer)
+    else if (req.url.startsWith('/api/admin/getConsumerProviderUserProcent')){
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            //console.log('data chunk added ' + data)
+        })
+        req.on('end', () => {
 
-    else if (cookies.name) {
+            data = JSON.parse(data);
+            // //console.log('data chunk finished ' + data.email)
 
-    } else {
+            const result = {
+                token: data.token,
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+            if (result.token)
+                userDB.getServiceByToken(result.token).then(p => {
+                    if(p=="admin")
+                    {
+
+
+                    }
+
+
+                })
+
+
+        })
+    }
+    else {
 
         getPage(req, res).then();
     }

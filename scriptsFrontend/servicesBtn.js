@@ -107,4 +107,9 @@ function showStats(){
         item.innerHTML=item.innerHTML+`<a class="statistici" id="statistici" style="display: block;" class="link" href="../admin/statistics.html">Statistici</a>
 `
     }
+     x=document.getElementsByClassName('header-small');
+    for (var item of x){
+        item.innerHTML=item.innerHTML+`<a class="statistici" id="statistici" style="display: block;" class="link" href="../admin/statistics.html">Statistici</a>
+`
+    }
 }

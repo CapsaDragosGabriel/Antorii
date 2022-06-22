@@ -958,6 +958,28 @@ const server = http.createServer((req, res) => {
 
         })
     }
+    else if (req.url.startsWith('/api/judete')){
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            //console.log('data chunk added ' + data)
+        })
+        req.on('end', () => {
+
+            data = JSON.parse(data);
+            // //console.log('data chunk finished ' + data.email)
+
+            const result = {
+                token: data.token,
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+            loadJudete().then(r=> console.log(r))
+        })
+    }
+
     else {
 
         getPage(req, res).then();
@@ -967,6 +989,12 @@ const server = http.createServer((req, res) => {
 
 
 })
+async function loadJudete()
+{
+const response= await fetch("E:\\AN2\\tw consultatii\\Antorii\\database\\judete.json")
+const names = await response.json();
+    return names;
+}
 
 const PORT = process.env.PORT || 8000
 

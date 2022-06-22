@@ -14,7 +14,10 @@
     <script>
         if (localStorage.getItem('token')) {
             getService().then(() => {
-                if (globalService == "consumer") {
+                if (globalService === undefined) {
+                    localStorage.removeItem('token');
+                    window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html";
+                } else if (globalService === "consumer") {
                     getOwnRides().then(r => {
                         console.log(r);
                         showRides()
@@ -24,7 +27,7 @@
                     window.location.href = "driverPage.html"
                 }
             })
-        }
+        } else window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html"
     </script>
     <script>
         getUsername();
@@ -48,7 +51,7 @@
 </div>
 <div itemscope class="headerMobile" itemtype="https://schema.org/Organization">
     <div class="header_small">
-        <a class="active" href="../mainHome/mainHome.html" itemprop="legalName"><p>SerP</p></a>
+        <a class="active" href="../startUser/startUser.html" itemprop="legalName"><p>SerP</p></a>
         <div class="dropdown">
             <button class="dropbtn" onclick="myFunctionSmall()">Servicii</button>
             <div class="dropdown-content" id="myDropdownsmall">
@@ -64,7 +67,7 @@
         <div id="myNav" class="overlay">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <div class="overlay-content">
-                <a href="#services" class="istoric" onclick="showCoursesMobile()">
+                <a class="istoric" onclick="showCoursesMobile()">
                     <img class="img" src="../resources/istoric.png" alt="user" style="width:20px; height:20px;">
                     Comenzile tale
                 </a>

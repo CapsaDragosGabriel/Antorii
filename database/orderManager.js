@@ -297,13 +297,22 @@ function addItemToOrder(orderID, item, restaurantID) {
 
 }
 
-function changeStatusForOrder(orderID, status) { //status can be checked with an allowlist
+function changeStatusForOrder(orderID, status,providerID) { //status can be checked with an allowlist
 
     var sql = "UPDATE `web`.`orders`\n" +
         "SET\n" +
         "`status` = ? WHERE `id` = ?;"
 
     con.query(sql,[status,orderID] ,function (err, result) {
+        if (err) throw err;
+        console.log("status changed");
+    });
+
+    var sql = "UPDATE `web`.`orders`\n" +
+        "SET\n" +
+        "`providerID` = ? WHERE `id` = ?;"
+
+    con.query(sql,[providerID,orderID] ,function (err, result) {
         if (err) throw err;
         console.log("status changed");
     });

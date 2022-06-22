@@ -12,39 +12,67 @@ async function changeUsername() {
         user.innerHTML = `${username} <a href="#user" style="padding: 0;"> detalii profil</a>`;
 
 }
+
 let globalOrders;
+let providerID
+
+async function updateOrder(id, i) {
+    console.log(globalOrders[i].status);
+    const data = {
+        id: globalOrders[i].orderID,
+        status: globalOrders[i].status,
+        token: localStorage.getItem('token')
+    }
+    let sent = true;
+    console.log("TRANSMIT: " + JSON.stringify(data));
+    console.log("ID-UL ESTE : " + id);
+    const response = await fetch('http://localhost:8000/api/update/order', {
+        method: 'POST',
+        body: JSON.stringify(data)
+    }).then(r => r.json())
+        .catch(e => {
+            console.log('error');
+            console.log(e);
+            sent = false
+        });
+}
+
 function showOrders() {
     var x = document.getElementById("commandsList");
-    console.log(JSON.stringify(globalOrders[0]));
-    // console.log(newObj.start);
-    for (let i = 0; i < globalOrders.length; i++) {
-        if (globalOrders[i]) {
-            var newObj = (globalOrders[i]);
+    if(globalOrders!==null) {
+        for (let i = 0; i < globalOrders.length; i++) {
+            if (globalOrders[i]) {
+                var newObj = (globalOrders[i]);
 
-            var newCommand = document.createElement('div');
-            // console.log("PLECAM DE LA "+currorder);
-            newCommand.innerHTML = `<h1>${newObj.start} - ${newObj.finish}
-            </h1>`;
-            newCommand.className = "command";
-            newCommand.innerHTML = newCommand.innerHTML +
-                `<label>
-                        <p>Status comanda: ${newObj.status}</p>
-                       <!-- <select class="selectStatus" name="status">
-                            <option value="none" selected disabled hidden>Status</option>
-                            <option value="yes">Confirma</option>
-                            <option value="no">Refuza</option>
-                            <option value="done">Terminat</option>
-                        </select>-->
-                    </label>
-                    <button class="buttonaut" onclick="{
+                var newCommand = document.createElement('div');
+                newCommand.className = "commandBox";
+
+                var detaliiComanda = document.createElement("div");
+                detaliiComanda.className = "command";
+                detaliiComanda.innerHTML = `<h1 style="margin-bottom: 0;">La ${newObj.address}</h1>`;
+
+                var lista = document.createElement("ul");
+
+                for (var item of newObj.food.items) {
+                    if (item.quantity)
+                        lista.innerHTML = lista.innerHTML + `<li>${item.name} x ${item.quantity}</li>`
+                }
+                detaliiComanda.innerHTML = detaliiComanda.innerHTML +
+                    `<label>
+                    <p>Status comanda: ${newObj.status}</p>
+                 </label>     
+            `;
+
+                var butoane = document.createElement("div");
+                butoane.className = "butoaneDiv"
+                butoane.innerHTML = `<button class="buttonaut" onclick="{
                     console.log(${i})
                     if (globalOrders[${i}].status=='unclaimed')
                     {globalOrders[${i}].status='claimed'
                     console.log(globalOrders[${i}]);
-                    
-                    updateorder(globalOrders[${i}].id,'claimed').then(()=>{
-                      refreshorders()
-                    showorders()}
+                    updateOrder(globalOrders[${i}].id,${i}).then(()=>{
+                    refreshOrders()
+                    showOrders()}
                     )
                     }
                     }"}
@@ -54,24 +82,35 @@ function showOrders() {
                      {  console.log(${i})
                     globalOrders[${i}].status='done'
                     console.log(globalOrders[${i}]);
-
-                    updateorder(globalOrders[${i}].id,'done').then(()=>{
-                      refreshorders()
-                    showorders()
+                    updateOrder(globalOrders[${i}].id,${i}).then(()=>{
+                      refreshOrders()
+                    showOrders()
                     })
                     
                     }"
-                    >Terminat</button>     
-            `;
-            if (globalOrders[i].feedback_provider)
-                newCommand.innerHTML = newCommand.innerHTML +
-                    `<br><p>Feedback de la client: ${globalOrders[i].feedback_provider}</p>`
+                    >Terminat</button>`;
 
-            x.appendChild(newCommand);
-            // var neworder = document.createElement('div')
+                newCommand.appendChild(detaliiComanda);
+                newCommand.appendChild(lista);
+                newCommand.appendChild(butoane);
+
+                if (globalOrders[i].feedback_provider)
+                    newCommand.innerHTML = newCommand.innerHTML +
+                        `<p id="feedback">Feedback de la client: ${globalOrders[i].feedback_provider}</p>`
+                x.appendChild(newCommand);
+            }
         }
-        // console.log("una bucata order"+currorder);
     }
+    else {
+        var x = document.getElementById("commandsList");
+        x.innerHTML = "<h2 id=\"title\">Comenzi care te asteapta</h2>" +
+                      "<p id='noCommands'>Nu ai primit nicio comanda!</p>";
+    }
+}
+
+function refreshOrders() {
+    var x = document.getElementById("commandsList");
+    x.innerHTML = "<h2 id=\"title\">Comenzi care te asteapta</h2>";
 }
 
 async function getClaimedOrders() {
@@ -81,47 +120,31 @@ async function getClaimedOrders() {
     let sent = true;
 
     const response = await fetch('http://localhost:8000/api/claim/orders', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r => r.json())
         .catch(e => {
             console.log('error');
             console.log(e);
-            //wrongPassword()
-
             sent = false
         });
 
-    if (sent == true) {
+    if (sent === true) {
         let length;
-        if(globalOrders)
-            length= globalOrders.length;
-        else length=0;
+        if (globalOrders)
+            length = globalOrders.length;
+        else length = 0;
         if (response)
             for (let i = 0; i < response.length; i++)
                 globalOrders[length + i] = response[i];
         console.log("RASPUNSUL A FOST" + response)
         console.log("GLOBAL ORDERS DUPA  GET CLAIMED ORDERS" + globalOrders);
-
-        // console.log(globalOrders);
     }
-    //   console.log("Raspunsul de la server esteeee : "+ response);
-        globalOrders = response;
-        
     console.log("GLOBAL orderS DUPA  GET NEW orderS" + globalOrders);
-    //showorders()
-
-    // const resultData = awa1it response.json();
     if (sent) {
 
         //  window.location.href='http://127.0.0.1:8000/startUser/startUser.html';
     }
-    // username= JSON.stringify(response.body);
 }
 
 async function getNewOrders() {
@@ -131,23 +154,16 @@ async function getNewOrders() {
     let sent = true;
 
     const response = await fetch('http://localhost:8000/api/orders', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r => r.json())
         .catch(e => {
             console.log('error');
             console.log(e);
-            //wrongPassword()
-
             sent = false
         });
     //   console.log("Raspunsul de la server esteeee : "+ response);
-        globalOrders = response;
+    globalOrders = response;
     console.log("GLOBAL orderS DUPA  GET NEW orderS" + globalOrders);
     //showorders()
 
@@ -160,7 +176,6 @@ async function getNewOrders() {
 }
 
 
-
 async function getUsername() {
     const data = {
         token: localStorage.getItem('token')
@@ -168,13 +183,8 @@ async function getUsername() {
     let sent = true;
 
     const response = await fetch('http://localhost:8000/api/username', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r => r.json())
         .catch(e => {
             console.log('error');

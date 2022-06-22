@@ -42,5 +42,6 @@ function stopTokenValidator(){
     })
 }
 
-createTokenValidator(999)
+
+createTokenValidator(5)
 //stopTokenValidator()

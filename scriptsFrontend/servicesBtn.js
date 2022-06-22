@@ -54,6 +54,13 @@ function showCommands() {
         document.getElementById('defaultTitle').remove();
 }
 
+function showCommandsMobile() {
+    document.getElementById("myNav").style.height = "0%"
+    document.getElementById('commandsList').style.display = "block";
+    if (document.getElementById('defaultTitle'))
+        document.getElementById('defaultTitle').remove();
+}
+
 //for history ride
 function showCourses() {
     document.getElementById('main-div').style.display = "none";
@@ -77,7 +84,7 @@ function showFoods() {
 }
 
 function showFoodMobile() {
-    document.getElementById("myNav").style.height = "0%"
+    document.getElementById("myNav").style.height = "0%";
     document.getElementById('box').style.display = "none";
     document.getElementById('commandsList').style.display = "block";
 }
@@ -92,4 +99,17 @@ function backRideS() {
 function backFood() {
     document.getElementById('commandsList').style.display = "none";
     document.getElementById('box').style.display = "flex";
+}
+function showStats(){
+    // console.log("DAU SHOW STATAS");
+    var x=document.getElementsByClassName('header');
+    for (var item of x){
+        item.innerHTML=item.innerHTML+`<a class="statistici" id="statistici" style="display: block;" class="link" href="../admin/statistics.html">Statistici</a>
+`
+    }
+     x=document.getElementsByClassName('header-small');
+    for (var item of x){
+        item.innerHTML=item.innerHTML+`<a class="statistici" id="statistici" style="display: block;" class="link" href="../admin/statistics.html">Statistici</a>
+`
+    }
 }

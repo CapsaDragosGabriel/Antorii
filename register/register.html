@@ -8,12 +8,19 @@
     <link rel="stylesheet" href="register.css">
     <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="register.js"></script>
+    <script src="../goodScripts/utils.js"></script>
     <script>
-        if (localStorage.getItem('token')) {
-            //if all goode
-            window.location.href = "http://127.0.0.1:8000/startUser/startUser.html"
-            //if not invalidezi tokenu:
-            // localStorage.removeItem('token');
+        if (localStorage.getItem('token'))
+        {
+            getServiceReturned().then(r=>{
+                if (r==undefined) {localStorage.removeItem('token'); window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";}
+                else  window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
+
+
+            })
+
+            //check with db
+            //after ok
         }
 
     </script>

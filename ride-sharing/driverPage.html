@@ -8,23 +8,26 @@
     <link rel="stylesheet" href="driverPage.css">
 <!--    <script src="../startUser/startUser.js"></script>-->
     <script src="driver.js"></script>
+    <script src="../goodScripts/utils.js"></script>
     <script >
         if (localStorage.getItem('token')) {
             getUsername();
             changeUsername();
-            getService().then(p => {
+            getServiceReturned().then(p => {
                 console.log(JSON.stringify(p));
-                if (globalService == "ride-sharing") {
+                if (p==undefined) {localStorage.removeItem('token'); window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";}
+                else if (p == "ride-sharing") {
                     getNewRides().then(()=>{getClaimedRides().then(()=>{refreshRides(); showRides()})})
 
                     console.log("AM INTRAT AICI")
-                } else if (globalService === "consumer") {
+                } else {
                     window.location.href = "../startUser/startUser.html"
                     //redirect pe pagina serviciului corespunzator
                     //  window.location.href="https://stackoverflow.com/questions/1827063/mysql-error-key-specification-without-a-key-length";
                 }
             })
-        }
+        }        else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html"
+
 
         //else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
     </script>
@@ -49,20 +52,31 @@
     <!--    </div>-->
     <a class="link" href="../login/login.html" onclick="logout()">Deconectare</a>
 </div>
-<div class="header_small" itemscope itemtype="https://schema.org/Organization">
-    <a class="active" itemprop="legalName"><p>SerP</p></a>
-    <!--    <div class="dropdown">-->
-    <!--        <button class="dropbtn" onclick="myFunctionSmall()">&#9776;-->
-    <!--            <i class="fa fa-caret-down"></i>-->
-    <!--        </button>-->
-    <!--        <div class="dropdown-content" id="myDropdownsmall">-->
-    <!--            <a href="../ride-sharing/ride-sharing.html">Ride-sharing</a>-->
-    <!--            <a href="#">Food delivery</a>-->
-    <!--            <a href="#">Curier</a>-->
-    <!--            <a href="#">Inchirieri</a>-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <a class="link" href="../login/login.html" onclick="logout()">Deconectare</a>
+<div itemscope class="headerMobile" itemtype="https://schema.org/Organization">
+    <div class="header_small">
+        <a class="active" itemprop="legalName"><p>SerP</p></a>
+        <a class="link" onclick="logout()">Deconectare</a>
+    </div>
+    <div class="menu-small">
+        <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="overlay-content">
+                <a class="istoric" onclick="showCommandsMobile()">
+                    <img class="img" src="../resources/istoric.png" alt="user" style="width:20px; height:20px;">
+                    Comenzile tale
+                </a>
+                <!--            <a href="#clients" class="promo">-->
+                <!--                <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">-->
+                <!--                Promotii-->
+                <!--            </a>-->
+                <!--            <a href="#contact" class="status">-->
+                <!--                <img class="img" src="../resources/truck.png" alt="user" style="width:20px; height:20px;">-->
+                <!--                Status comanda-->
+                <!--            </a>-->
+            </div>
+        </div>
+        <span id="profile" onclick="openNav()">&#9776;</span>
+    </div>
 </div>
 <div id="details" itemscope itemtype="https://schema.org/Organization">
     <div class="user-div">

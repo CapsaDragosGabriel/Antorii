@@ -32,12 +32,12 @@ function refreshRides() {
 
 }
 
-async function updateRide(id,i) {
+async function updateRide(id, i) {
     const data = {
         id: id,
-        status:globalRides[i].status,
-        feedback:globalRides[i].feedback,
-        rating:globalRides[i].rating,
+        status: globalRides[i].status,
+        feedback: globalRides[i].feedback,
+        rating: globalRides[i].rating,
         token: localStorage.getItem('token')
     }
     let sent = true;
@@ -53,30 +53,27 @@ async function updateRide(id,i) {
         });
 }
 
-function deleteFeedback() {
-    document.getElementById('myForm').style.display = 'none';
-    // var x = document.getElementById("commandsList");
-    // var y = document.getElementById("boxCommandId");
-    // y.innerHTML = `<p>Multumim!</p>`;
-    // x.appendChild(y);
-}
-
 function showRides() {
     var x = document.getElementById("commandsList");
-    console.log(JSON.stringify(globalRides[0]));
-    for (let i = 0; i < globalRides.length; i++) {
-        if (globalRides[i]) {
-            var newObj = (globalRides[i]);
-            var newCommand = document.createElement('div');
-            newCommand.className = "boxCommand";
-            newCommand.id = "boxCommandId";
-            newCommand.innerHTML =
-                `<div class="command">
-                <h1>${newObj.start} - ${newObj.finish}</h1>
-                <label>
-                    <p id="status">Status comanda: ${newObj.status}</p>
-                </label>
-                <button class="butonStatus" onclick="
+    if (globalRides !== null) {
+        for (let i = 0; i < globalRides.length; i++) {
+            if (globalRides[i]) {
+                var newObj = (globalRides[i]);
+                var newCommand = document.createElement('div');
+                newCommand.className = "boxCommand";
+                newCommand.id = "boxCommandId";
+                newCommand.innerHTML =
+                    `<div class="command">
+                    <h1>${newObj.start} - ${newObj.finish}</h1>
+                    <label>
+                        <p id="status">Status comanda: ${newObj.status}</p>
+                    </label>
+                        <p id="pretCursa">Pret: ${newObj.price} RON</p>
+                </div>
+                    <div style="display: flex;
+                                justify-content: right;
+                                flex-direction: row;
+                                margin-bottom: 2%;"><button class="btn" onclick="
                     if (globalRides[${i}].status!='claimed'&&globalRides[${i}].status!='done'&&globalRides[${i}].status!='anulat'){  
                         console.log(${i})
                         globalRides[${i}].status='anulat'
@@ -85,33 +82,32 @@ function showRides() {
                             refreshRides()
                             showRides()
                         })
-                    }">Anuleaza</button>
-                    </div>`;
-            if (newObj.status === 'done')
-                if( newObj.feedback==null || newObj.rating==null ) {
-                    newCommand.innerHTML = newCommand.innerHTML + `
+                    }">Anuleaza</button></div>`;
+                if (newObj.status === 'done')
+                    if (newObj.feedback == null || newObj.rating == null) {
+                        newCommand.innerHTML = newCommand.innerHTML + `
           <div class="form-popup" id="myForm">
             <form method="post" class="form-container" onsubmit=" {
-               getVal(${i});
+               getValue(${i});
                 updateRide(globalRides[${i}].id,${i}).then(()=>{
                                     refreshRides()
                                     showRides()        })}
             
             ">
                 `
-                    if (globalRides[i].feedback == null) {
-                        newCommand.innerHTML = newCommand.innerHTML + ` 
+                        if (globalRides[i].feedback == null) {
+                            newCommand.innerHTML = newCommand.innerHTML + ` 
  <label><b>Feedback</b></label>
  <input type="text" placeholder="Spune-ne parerea ta!" onblur="getValue(${i})" name="feedback" id="feedback${i}" required><br>`
 
-                    } else
-                        newCommand.innerHTML = newCommand.innerHTML + ` 
+                        } else
+                            newCommand.innerHTML = newCommand.innerHTML + ` 
  <div class="feedbackBox"
     <label>Feedback</label>
     <p style="margin: 0;">${newObj.feedback} </p>
 </div>`
-                    if (newObj.rating == null) {
-                        newCommand.innerHTML = newCommand.innerHTML + `
+                        if (newObj.rating == null) {
+                            newCommand.innerHTML = newCommand.innerHTML + `
                 
                     <div class="rate">
                         <input type="radio" id="star5" name="rate" value="5" onclick="globalRides[${i}].rating=5; console.log(5)"/>
@@ -128,15 +124,15 @@ function showRides() {
                     `
 
 
-                    } else {
-                        let valueRating = globalRides[i].rating
-                        newCommand.innerHTML = newCommand.innerHTML + `
+                        } else {
+                            let valueRating = globalRides[i].rating
+                            newCommand.innerHTML = newCommand.innerHTML + `
 <div class="feedbackBox">
     <p style="margin: 0;">Ai acordat:</p>
     <p style="margin: 0;">${valueRating} stele</p>
 </div>`;
-                    }
-                    newCommand.innerHTML=newCommand.innerHTML+`
+                        }
+                        newCommand.innerHTML = newCommand.innerHTML + `
                     <div id="butonSend">
                         <button class="btn" type="submit" onclick="
                         updateRide(globalRides[${i}].id,${i}).then(()=>{
@@ -145,14 +141,11 @@ function showRides() {
                         }) ">Trimite</button>
                     </div>`
 
-            newCommand.innerHTML=newCommand.innerHTML+`
+                        newCommand.innerHTML = newCommand.innerHTML + `
     </from>
   </div>`
-  }
-
-            else
-            {
-                newCommand.innerHTML = newCommand.innerHTML + `
+                    } else {
+                        newCommand.innerHTML = newCommand.innerHTML + `
             <div class="feedbackBoxSend">
               <div style="display: flex;
                           flex-direction: row;
@@ -168,18 +161,28 @@ function showRides() {
               </div>
             </div>
 `
+                    }
+                x.appendChild(newCommand);
             }
-            x.appendChild(newCommand);
         }
+    } else {
+        var x = document.getElementById("commandsList");
+        x.innerHTML = `
+    <div class="title-back">
+        <button id="back" onclick="backRideS()">Inapoi</button>
+        <h2 id="titleC">Cursele tale</h2>
+    </div>
+    <p id="noCommands">Nu ai nicio cursa!</p>`;
     }
+
 }
 
-function getValue(i)
-{
-    var feedbackValue=document.getElementById(`feedback${i}`).value;
-    globalRides[i].feedback=feedbackValue;
-    console.log(i+" "+ JSON.stringify(feedbackValue));
+function getValue(i) {
+    var feedbackValue = document.getElementById(`feedback${i}`).value;
+    globalRides[i].feedback = feedbackValue;
+    console.log(i + " " + JSON.stringify(feedbackValue));
 }
+
 async function getUsername() {
     const data = {
         token: localStorage.getItem('token')
@@ -220,19 +223,20 @@ async function comanda() {
         service: "ride",
         token: localStorage.getItem('token')
     }
-    let primit = true;
+    if (data.from !== "" && data.to !== "") {
+        let primit = true;
 
-    const response = await fetch('http://localhost:8000/api/ride-sharing', {
-        method: 'POST',
-        body: JSON.stringify(data)
-    }).then(r => r.json())
-        .catch(e => {
-            console.log('error');
-            console.log(e);
-            primit = false;
-        });
-    if (primit) {
-        window.location.href = 'http://127.0.0.1:8000/startUser/startUser.html';
+        const response = await fetch('http://localhost:8000/api/ride-sharing', {
+            method: 'POST',
+            body: JSON.stringify(data)
+        }).then(r => r.json())
+            .catch(e => {
+                console.log('error');
+                console.log(e);
+                primit = false;
+            });
+        if (primit) {
+            window.location.href = 'http://127.0.0.1:8000/ride-sharing/ride-sharing.html';
+        }
     }
-    console.log(response);
 }

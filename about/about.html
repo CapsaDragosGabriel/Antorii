@@ -12,9 +12,14 @@
     <script>
         if (localStorage.getItem('token'))
         {
+            getServiceReturned().then(r=>{
+                if(r!="consumer")    window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
+                if (r==undefined) {localStorage.removeItem('token'); window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";}
+
+            })
+
             //check with db
             //after ok
-            window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
         }
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">

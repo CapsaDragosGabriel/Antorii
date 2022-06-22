@@ -464,7 +464,7 @@ form {
     transition: top 0.3ms;
 }
 
-.boxCommand {
+.boxStat {
     font-family: "Zilla Slab";
     color: black;
     font-weight: bold;
@@ -476,7 +476,7 @@ form {
     padding-bottom: 20px;
 }
 
-#commandsList {
+#statsList {
     display: none;
     width: 45%;
     height: 100%;
@@ -488,7 +488,7 @@ form {
     padding-bottom: 3%;
 }
 
-.command {
+.stat {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -503,11 +503,11 @@ form {
     margin-top: 5%;
 }
 
-.commandDetails {
+.statDetails {
     display: flex;
     flex-direction: column;
     justify-content: left;
-
+    font-size:15px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
     padding: 1%;
     background-color: #F5F5F5;
@@ -521,7 +521,7 @@ form {
     justify-content: space-between;
 }
 
-.commandDetails p {
+.statDetails p {
     margin: 1% 5%;
 }
 
@@ -653,7 +653,7 @@ form {
         float: right;
     }
 
-    #commandsList {
+    #statsList {
         width: 80%;
         margin: 20% 5% 60% 10%;
 

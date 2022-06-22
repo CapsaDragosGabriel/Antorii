@@ -102,6 +102,12 @@ body {
     position: fixed;
 }
 
+.headerMobile {
+    background-color: #B64141;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 .header_small a {
     float: left;
@@ -136,6 +142,71 @@ body {
     overflow: hidden;
     background-color: #B64141;
     padding: 0;
+}
+
+.overlay {
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #F5F5F5;
+    overflow-y: hidden;
+    transition: 0.5s;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    font-weight: bold;
+    font-family: "Zilla Slab";
+}
+
+.overlay a:hover, .overlay a:focus {
+    background-color: #B64141;
+    color: white;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+.header_small {
+    overflow: hidden;
+    background-color: #B64141;
+    padding: 0;
+}
+
+.menu-small {
+    background-color: #B64141;
+    display: flex;
+    justify-content: center;
+}
+
+.menu-small #profile {
+    cursor: pointer;
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: "Zilla Slab";
+    font-weight: bold;
 }
 
 #details {
@@ -206,43 +277,74 @@ body {
     border-radius: 10px;
     flex-direction: column;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-}
-.boxCommand {
-    font-family: "Zilla Slab";
-    color: black;
-    font-weight: bold;
-    font-size: 10px;
-    margin: 2%;
-    padding: 4% 3% 0 3%;
-    border-radius: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-    padding-bottom: 20px;
+    padding-bottom: 2%;
 }
 .command {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.commandBox ul {
+    padding: 0;
+}
+
+.command label {
+    padding-top: 5%;
+}
+
+.command label p {
+    margin: 0;
+}
+
+#noCommands {
+    font-family: "Text Me One";
+    font-size: 30px;
+    text-align: center;
+    font-weight: lighter;
+}
+
+.commandBox {
     font-family: "Zilla Slab";
     color: black;
     font-weight: bold;
     font-size: 10px;
     margin: 2% 2% 0 2%;
-    opacity: 73%;
     padding: 10px 50px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
 }
 
-.selectStatus {
-    margin-top: 19px;
-    width: 100%;
-    display: block;
-    align-self: center;
-    border: 1px solid gray;
-    border-radius: 8px;
-    height: 35px;
-    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.45);
+.butoaneDiv{
+    display: flex;
+    justify-content: right;
+}
+
+.buttonaut {
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
+    background-color: #B64141;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    border-radius: 30px;
     font-family: "Zilla Slab";
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    padding: 2%;
+    margin-left: 2%;
+}
+
+#feedback {
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    padding: 10px 50px;
+    background-color: #ddd;
+    color: gray;
 }
 
 #title {
@@ -251,10 +353,6 @@ body {
     text-align: center;
     font-weight: lighter;
     padding-top: 20px;
-}
-
-.selectStatus {
-    float: right;
 }
 
 @media screen and (max-width: 600px) {

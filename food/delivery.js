@@ -38,37 +38,32 @@ console.log(globalOrders[i].status);
 function showOrders() {
     var x = document.getElementById("commandsList");
     console.log(JSON.stringify(globalOrders[0]));
-    // console.log(newObj.start);
     for (let i = 0; i < globalOrders.length; i++) {
         if (globalOrders[i]) {
             var newObj = (globalOrders[i]);
 
             var newCommand = document.createElement('div');
-            // console.log("PLECAM DE LA "+currorder);
-            newCommand.innerHTML = `<h1>La ${newObj.address}
-            </h1>`;
-            newCommand.className = "command";
-            newCommand.innerHTML = newCommand.innerHTML+`<ul>`
+            newCommand.className = "commandBox";
+
+            var detaliiComanda = document.createElement("div");
+            detaliiComanda.className = "command";
+            detaliiComanda.innerHTML = `<h1 style="margin-bottom: 0;">La ${newObj.address}</h1>`;
+
+            var lista = document.createElement("ul");
 
             for (var item of newObj.food.items){
                 if(item.quantity)
-            newCommand.innerHTML = newCommand.innerHTML+
-                `
-            <li>${item.name} x ${item.quantity}</li>
-            `}
-            newCommand.innerHTML = newCommand.innerHTML+`</ul>`
-
-            newCommand.innerHTML = newCommand.innerHTML +
+                    lista.innerHTML = lista.innerHTML+ `<li>${item.name} x ${item.quantity}</li>`
+            }
+            detaliiComanda.innerHTML = detaliiComanda.innerHTML +
                 `<label>
-                        <p>Status comanda: ${newObj.status}</p>
-                       <!-- <select class="selectStatus" name="status">
-                            <option value="none" selected disabled hidden>Status</option>
-                            <option value="yes">Confirma</option>
-                            <option value="no">Refuza</option>
-                            <option value="done">Terminat</option>
-                        </select>-->
-                    </label>
-                    <button class="buttonaut" onclick="{
+                    <p>Status comanda: ${newObj.status}</p>
+                 </label>     
+            `;
+
+            var butoane = document.createElement("div");
+            butoane.className = "butoaneDiv"
+            butoane.innerHTML = `<button class="buttonaut" onclick="{
                     console.log(${i})
                     if (globalOrders[${i}].status=='unclaimed')
                     {globalOrders[${i}].status='claimed'
@@ -91,22 +86,22 @@ function showOrders() {
                     })
                     
                     }"
-                    >Terminat</button>     
-            `;
+                    >Terminat</button>`;
+
+            newCommand.appendChild(detaliiComanda);
+            newCommand.appendChild(lista);
+            newCommand.appendChild(butoane);
+
             if (globalOrders[i].feedback_provider)
                 newCommand.innerHTML = newCommand.innerHTML +
-                    `<br><p>Feedback de la client: ${globalOrders[i].feedback_provider}</p>`
-
+                    `<p id="feedback">Feedback de la client: ${globalOrders[i].feedback_provider}</p>`
             x.appendChild(newCommand);
-            // var neworder = document.createElement('div')
         }
-        // console.log("una bucata order"+currorder);
     }
 }
 function refreshOrders() {
     var x = document.getElementById("commandsList");
     x.innerHTML = "<h2 id=\"title\">Comenzi care te asteapta</h2>";
-
 }
 async function getClaimedOrders() {
     const data = {
@@ -115,19 +110,12 @@ async function getClaimedOrders() {
     let sent = true;
 
     const response = await fetch('http://localhost:8000/api/claim/orders', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r => r.json())
         .catch(e => {
             console.log('error');
             console.log(e);
-            //wrongPassword()
-
             sent = false
         });
 
@@ -141,21 +129,12 @@ async function getClaimedOrders() {
                 globalOrders[length + i] = response[i];
         console.log("RASPUNSUL A FOST" + response)
         console.log("GLOBAL ORDERS DUPA  GET CLAIMED ORDERS" + globalOrders);
-
-        // console.log(globalOrders);
     }
-    //   console.log("Raspunsul de la server esteeee : "+ response);
-        //globalOrders = response;
-        
     console.log("GLOBAL orderS DUPA  GET NEW orderS" + globalOrders);
-    //showorders()
-
-    // const resultData = awa1it response.json();
     if (sent) {
 
         //  window.location.href='http://127.0.0.1:8000/startUser/startUser.html';
     }
-    // username= JSON.stringify(response.body);
 }
 
 async function getNewOrders() {
@@ -165,19 +144,12 @@ async function getNewOrders() {
     let sent = true;
 
     const response = await fetch('http://localhost:8000/api/orders', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r => r.json())
         .catch(e => {
             console.log('error');
             console.log(e);
-            //wrongPassword()
-
             sent = false
         });
     //   console.log("Raspunsul de la server esteeee : "+ response);
@@ -202,13 +174,8 @@ async function getUsername() {
     let sent = true;
 
     const response = await fetch('http://localhost:8000/api/username', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r => r.json())
         .catch(e => {
             console.log('error');

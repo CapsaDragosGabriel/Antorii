@@ -20,7 +20,9 @@
   "dependencies": {
     "crypto": "^1.0.1",
     "fast-csv": "^4.3.6",
+    "fetch": "^1.1.0",
     "mysql": "^2.18.1",
+    "node-fetch": "^3.2.6",
     "nodemailer": "^6.7.5",
     "uuid": "^8.3.2"
   }

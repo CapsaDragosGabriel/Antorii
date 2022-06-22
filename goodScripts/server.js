@@ -21,6 +21,7 @@ const url = require('url');
 const qs = require('querystring');
 const {con} = require("../database/demo_db_connection");
 
+
 //
 function makeid(length) {
     var result = '';
@@ -976,7 +977,7 @@ const server = http.createServer((req, res) => {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json'
             });
-            loadJudete().then(r=> console.log(r))
+            getJudete().then(r=> console.log(r))
         })
     }
 
@@ -989,12 +990,6 @@ const server = http.createServer((req, res) => {
 
 
 })
-async function loadJudete()
-{
-const response= await fetch("E:\\AN2\\tw consultatii\\Antorii\\database\\judete.json")
-const names = await response.json();
-    return names;
-}
 
 const PORT = process.env.PORT || 8000
 

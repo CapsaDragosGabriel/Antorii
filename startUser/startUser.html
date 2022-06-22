@@ -25,19 +25,14 @@ if (localStorage.getItem('token')) {
         {
             window.location.href="http://127.0.0.1:8000/food/foodDelivery.html";
         }
+        else if (globalService=="admin")
+        {
+
+            showStats();
+        }
     })
 }
 else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
-
-/*.then(()=>{
-            if (service=="consumer"){
-
-        }
-        else {
-            window.location.href("youtube.com");
-        }
-        })*/
-        //console.log(service.value);
 
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -74,6 +69,7 @@ else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";
         </div>
     </div>
     <a class="link" href="../mainHome/mainHome.html" onclick="logout()">Deconectare</a>
+
 </div>
 <div class="promo">
     <div class="promo-container">

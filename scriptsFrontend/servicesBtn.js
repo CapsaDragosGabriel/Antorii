@@ -100,3 +100,11 @@ function backFood() {
     document.getElementById('commandsList').style.display = "none";
     document.getElementById('box').style.display = "flex";
 }
+function showStats(){
+    console.log("DAU SHOW STATAS");
+    var x=document.getElementsByClassName('header');
+    for (var item of x){
+        item.innerHTML=item.innerHTML+`<a class="statistici" id="statistici" style="display: block;" class="link" href="../admin/statistics">Statistici</a>
+`
+    }
+}

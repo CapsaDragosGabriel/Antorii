@@ -257,13 +257,6 @@ async function getOrderItemNames(orderID) {
 }
 
 
-
-getCompleteOrdersByID(3).then(f => {
-    for (var item of f)
-        console.log(item);
-})
-
-
 async function getOrderItems(orderID) {
     return new Promise((resolve, reject) => {
         var sql = "select * from ordered_items where orderID = " + con.escape(orderID) + ";"

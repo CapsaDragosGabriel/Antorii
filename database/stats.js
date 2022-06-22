@@ -44,7 +44,7 @@ getNumberOfProvidersPerCounty().then(r=>console.log(r[2]))
 aggregateUserData().then(r=> {
     r=JSON.parse(r)
    // console.log(r.consumer_provider)
-    console.log(r.consumer_provider.consumer_procent);
+    console.log(r.users_by_ride_spending);
 })
 
 

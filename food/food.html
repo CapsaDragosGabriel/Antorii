@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ro">
-<head >
+<head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="food.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
@@ -10,41 +10,42 @@
     <script src="changeDisplay.js"></script>
     <script type="module" src="insertRestaurants.js"></script>
     <script src="../scriptsFrontend/servicesBtn.js"></script>
-    <script  src="../startUser/startUser.js"></script>
+    <script src="../startUser/startUser.js"></script>
     <script src="goodScripts/utils.js"></script>
-<!--    <script >
-        if (localStorage.getItem('token'))
-        {
-            getServiceReturned().then(r=>{
-                if (r==undefined) {localStorage.removeItem('token'); window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";}
-                else if(r!="consumer")
-                    window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
-                if(r=="food")
-                    window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
+    <!--    <script >
+            if (localStorage.getItem('token'))
+            {
+                getServiceReturned().then(r=>{
+                    if (r==undefined) {localStorage.removeItem('token'); window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";}
+                    else if(r!="consumer")
+                        window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
+                    if(r=="food")
+                        window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
+
+                })
+
+                //check with db
+                //after ok
+            }        else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html"
+
+
+        </script>-->
+    <script>
+        if (localStorage.getItem('token')) {
+            getService().then(() => {
+                if (globalService == undefined) {
+                    localStorage.removeItem('token');
+                    window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html";
+                } else if (globalService != "consumer")
+                    window.location.href = "http://127.0.0.1:8000/startUser/startUser.html"
+                if (r == "food")
+                    window.location.href = "http://127.0.0.1:8000/startUser/startUser.html"
 
             })
 
             //check with db
             //after ok
-        }        else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html"
-
-
-    </script>-->
-<script>
-    if (localStorage.getItem('token'))
-    {
-    getService().then(()=>{
-    if (globalService==undefined) {localStorage.removeItem('token'); window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";}
-    else if(globalService!="consumer")
-    window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
-    if(r=="food")
-    window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
-
-    })
-
-    //check with db
-    //after ok
-    }        else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html"
+        } else window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html"
     </script>
     <script>
         getUsername();
@@ -55,21 +56,21 @@
 <body>
 
 <div class="header" itemscope itemtype="https://schema.org/Organization">
-    <a class="active" href="../mainHome/mainHome.html" ><p itemprop="legalName">SerP</p></a>
+    <a class="active" href="../mainHome/mainHome.html"><p itemprop="legalName">SerP</p></a>
     <div class="dropdown">
         <button class="dropbtn" onclick="myFunction()">Servicii<i class="fa fa-caret-down"></i></button>
         <div class="dropdown-content" id="myDropdown">
-            <a href="../ride-sharing/ride-sharing.html" ><p itemprop="makesOffer">Ride-sharing</p></a>
+            <a href="../ride-sharing/ride-sharing.html"><p itemprop="makesOffer">Ride-sharing</p></a>
             <a href="../food/food.html"><p itemprop="makesOffer">Food delivery</p></a>
             <a href="../login/login.html"><p itemprop="makesOffer">Curier</p></a>
-            <a href="../login/login.html" ><p itemprop="makesOffer">Inchirieri</p></a>
+            <a href="../login/login.html"><p itemprop="makesOffer">Inchirieri</p></a>
         </div>
     </div>
     <a class="link" onclick="logout()">Deconectare</a>
 </div>
 <div itemscope class="headerMobile" itemtype="https://schema.org/Organization">
     <div class="header_small">
-        <a class="active" href="../mainHome/mainHome.html" itemprop="legalName"><p>SerP</p></a>
+        <a class="active" href="../startUser/startUser.html" itemprop="legalName"><p>SerP</p></a>
         <div class="dropdown">
             <button class="dropbtn" onclick="myFunctionSmall()">Servicii
                 <i class="fa fa-caret-down"></i>
@@ -87,8 +88,17 @@
         <div id="myNav" class="overlay">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <div class="overlay-content">
-                <a href="#services" class="istoric" onclick="if(ok==''||ok=='deja')showFoodMobile()">
-                    <img class="img" src="../resources/istoric.png" alt="user" onclick="if (ok==''){getOrders();ok='incarcat'}"  style="width:20px; height:20px;">
+                <a href="#services" class="istoric" onclick="
+                if (ok===''){
+                    getOrders();
+                    ok='incarcat';
+                    showFoodMobile()
+                }
+                else if(ok==='deja') {
+                    showFoodMobile();
+                }">
+                    <img class="img" src="../resources/istoric.png" alt="user" onclick=""
+                         style="width:20px; height:20px;">
                     Comenzile tale
                 </a>
                 <!--            <a href="#clients" class="promo">-->
@@ -107,35 +117,35 @@
 <div id="details" itemscope itemtype="https://schema.org/Organization">
     <div class="user-div" style="flex-flow:row">
         <img class="img" src="../resources/user.png" alt="user" style="width:50px; height:50px;">
-        <p id="username" >
+        <p id="username">
             Username
-          <!--<a href="#user" style="padding: 0;"> Detalii profil</a>-->
+            <!--<a href="#user" style="padding: 0;"> Detalii profil</a>-->
         </p>
     </div>
     <div class="options">
         <a href="#services" class="istoric" onclick="if (ok==''){getOrders();ok='incarcat'; showFoods()}
 else if(ok=='deja') showFoods()">
-            <img class="img" src="../resources/istoric.png" alt="user" onclick=""  style="width:20px; height:20px;">
+            <img class="img" src="../resources/istoric.png" alt="user" onclick="" style="width:20px; height:20px;">
             Comenzile tale
         </a>
-<!--        <a href="#clients" class="promo">-->
-<!--            <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">-->
-<!--            Promotii-->
-<!--        </a>-->
-<!--        <a href="#contact" class="status">-->
-<!--            <img class="img" src="../resources/truck.png" alt="user" style="width:20px; height:20px;">-->
-<!--            Status comanda-->
-<!--        </a>-->
+        <!--        <a href="#clients" class="promo">-->
+        <!--            <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">-->
+        <!--            Promotii-->
+        <!--        </a>-->
+        <!--        <a href="#contact" class="status">-->
+        <!--            <img class="img" src="../resources/truck.png" alt="user" style="width:20px; height:20px;">-->
+        <!--            Status comanda-->
+        <!--        </a>-->
     </div>
 </div>
-<div id="box" >
+<div id="box">
     <h1>Alege restaurantul</h1>
 </div>
 
 <div id="commandsList">
     <div class="title-back">
         <button id="back" onclick="backFood(); ok='deja'; ">Inapoi</button>
-        <h2 id="title" >Comenzile tale</h2>
+        <h2 id="title">Comenzile tale</h2>
     </div>
 </div>
 

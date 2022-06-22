@@ -102,6 +102,12 @@ body {
     position: fixed;
 }
 
+.headerMobile {
+    background-color: #B64141;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 .header_small a {
     float: left;
@@ -136,6 +142,71 @@ body {
     overflow: hidden;
     background-color: #B64141;
     padding: 0;
+}
+
+.overlay {
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #F5F5F5;
+    overflow-y: hidden;
+    transition: 0.5s;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    font-weight: bold;
+    font-family: "Zilla Slab";
+}
+
+.overlay a:hover, .overlay a:focus {
+    background-color: #B64141;
+    color: white;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+.header_small {
+    overflow: hidden;
+    background-color: #B64141;
+    padding: 0;
+}
+
+.menu-small {
+    background-color: #B64141;
+    display: flex;
+    justify-content: center;
+}
+
+.menu-small #profile {
+    cursor: pointer;
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: "Zilla Slab";
+    font-weight: bold;
 }
 
 #details {

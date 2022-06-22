@@ -54,6 +54,13 @@ function showCommands() {
         document.getElementById('defaultTitle').remove();
 }
 
+function showCommandsMobile() {
+    document.getElementById("myNav").style.height = "0%"
+    document.getElementById('commandsList').style.display = "block";
+    if (document.getElementById('defaultTitle'))
+        document.getElementById('defaultTitle').remove();
+}
+
 //for history ride
 function showCourses() {
     document.getElementById('main-div').style.display = "none";
@@ -77,7 +84,7 @@ function showFoods() {
 }
 
 function showFoodMobile() {
-    document.getElementById("myNav").style.height = "0%"
+    document.getElementById("myNav").style.height = "0%";
     document.getElementById('box').style.display = "none";
     document.getElementById('commandsList').style.display = "block";
 }

@@ -86,20 +86,22 @@ function showRides() {
                         console.log(${i})
                         globalRides[${i}].status='anulat'
                         console.log(globalRides[${i}]);
+                        getService().then(()=>if (globalService)
                         updateRide(globalRides[${i}].id,${i}).then(()=>{
                             refreshRides()
                             showRides()
-                        })
+                        }))
                     }">Anuleaza</button></div>`;
             if (newObj.status === 'done')
                 if( newObj.feedback==null || newObj.rating==null ) {
                     newCommand.innerHTML = newCommand.innerHTML + `
           <div class="form-popup" id="myForm">
             <form method="post" class="form-container" onsubmit=" {
-               getVal(${i});
+               getValue(${i});
+               getService().then(()=>if (globalService)
                 updateRide(globalRides[${i}].id,${i}).then(()=>{
                                     refreshRides()
-                                    showRides()        })}
+                                    showRides()        }))}
             
             ">
                 `
@@ -143,10 +145,11 @@ function showRides() {
                     newCommand.innerHTML=newCommand.innerHTML+`
                     <div id="butonSend">
                         <button class="btn" type="submit" onclick="
+                        getService().then(()=>if (globalService)
                         updateRide(globalRides[${i}].id,${i}).then(()=>{
                             refreshRides()
                             showRides()
-                        }) ">Trimite</button>
+                        })) ">Trimite</button>
                     </div>`
 
             newCommand.innerHTML=newCommand.innerHTML+`

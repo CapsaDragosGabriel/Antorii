@@ -2,7 +2,6 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="statistics.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Imbue">
@@ -23,7 +22,12 @@
                     window.location.href = "http://127.0.0.1:8000/startUser/startUser.html"
                 else
                     getUserStats().then(r=>
-                    showUsersStats())
+                    showUsersStats()).then(()=>{
+                        getRestaurantStats().then(
+                            showRestaurantStats
+                        )
+                    })
+
                     showStats();
 
             })
@@ -32,6 +36,8 @@
             //after ok
         } else window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html"
     </script>
+    <link rel="stylesheet" href="statistics.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Food delivery</title>
 </head>
@@ -69,9 +75,8 @@
 </div>
 <div class="boxStat" id="boxStat">
     <div class="stat">
-        <h1 >These are some stats about users:</h1>
+        <h1 >User stats:</h1>
     </div>
-
 
 </div>
 

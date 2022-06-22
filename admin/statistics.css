@@ -81,6 +81,31 @@ body {
     margin: 0;
 }
 
+.infoStat{
+    display: flex;
+
+    flex-direction: row;
+    justify-content: space-between;
+    font-size:15px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    padding: 1%;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 3%;
+}
+#boxStat .infoStat:nth-child(odd){
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size:15px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    padding: 1%;
+    background-color: #eddcd1;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 3%;
+}
 .dropdown-content {
     display: none;
     position: absolute;
@@ -169,7 +194,7 @@ form {
     margin-top: 5%;
 }
 
-.inputComanda {
+.inputStat {
     background: white;
     border-radius: 10px;
     height: 50px;
@@ -198,7 +223,7 @@ form {
     font-weight: bold;
 }
 
-#details {
+#statDetails {
     height: 100%;
     width: 250px;
     z-index: 1;
@@ -209,7 +234,7 @@ form {
     position: fixed;
 }
 
-#details a {
+#statDetails a {
     padding: 20px 8px 20px 16px;
     text-decoration: none;
     font-size: 20px;
@@ -219,25 +244,25 @@ form {
     font-family: "Zilla Slab";
 }
 
-#details .user-div {
+#statDetails .user-div {
     display: flex;
     flex-direction: row;
     justify-content: center;
     margin: 20px 0;
 }
 
-#details .user-div p {
+#statDetails .user-div p {
     margin: 5px 0 0 20px;
     color: #818181;
     font-weight: bold;
     font-family: "Zilla Slab";
 }
 
-#details .user-div a:hover {
+#statDetails .user-div a:hover {
     color: #B64141;
 }
 
-#details .options a:hover {
+#statDetails .options a:hover {
     background-color: #B64141;
     color: white;
 }
@@ -430,7 +455,7 @@ form {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
 }
 
-.infoComanda input::placeholder {
+.infoStat input::placeholder {
     font-family: "Zilla Slab";
     color: black;
     opacity: 35%;
@@ -474,6 +499,22 @@ form {
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
     padding-bottom: 20px;
+}
+#boxStat {
+    padding-top: 2%;
+    padding-bottom: 5%;
+    background-blend-mode: soft-light;
+    align-content: center;
+    text-align: center;
+    width: 45%;
+    margin: 10% 35% 2% 35%;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    font-family: "Zilla Slab";
+    font-weight: bold;
 }
 
 #statsList {
@@ -524,8 +565,12 @@ form {
 .statDetails p {
     margin: 1% 5%;
 }
-
-
+h1{
+    text-align: center;
+}
+.statDetails h1{
+    text-align: center;
+}
 .selectStatus {
     margin-top: 19px;
     width: 100%;
@@ -622,7 +667,7 @@ form {
         flex-direction: row;
     }
 
-    #details {
+    #statDetails {
         display: none;
     }
 

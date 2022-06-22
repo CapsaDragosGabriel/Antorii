@@ -959,7 +959,7 @@ const server = http.createServer((req, res) => {
 
         })
     }
-    else if (req.url.startsWith('/api/judete')){
+    else if (req.url.startsWith('/api/admin/restaurantStats')){
         let data = '';
         req.on('data', chunk => {
             data += chunk;
@@ -975,11 +975,45 @@ const server = http.createServer((req, res) => {
             };
             res.writeHead(201, {
                 'Access-Control-Allow-Origin': '*',
+                'mode': 'no-cors',
                 'Content-Type': 'application/json'
             });
-            getJudete().then(r=> console.log(r))
+            if (result.token)
+                userDB.getServiceByToken(result.token).then(p => {
+                    if(p=="admin")
+                    {
+                        statsDB.aggregateRestaurantData().then(p=>{
+                            res.end(JSON.stringify(p))});
+
+                    }
+
+
+                })
+
+
         })
     }
+    // else if (req.url.startsWith('/api/judete')){
+    //     let data = '';
+    //     req.on('data', chunk => {
+    //         data += chunk;
+    //         //console.log('data chunk added ' + data)
+    //     })
+    //     req.on('end', () => {
+    //
+    //         data = JSON.parse(data);
+    //         // //console.log('data chunk finished ' + data.email)
+    //
+    //         const result = {
+    //             token: data.token,
+    //         };
+    //         res.writeHead(201, {
+    //             'Access-Control-Allow-Origin': '*',
+    //             'Content-Type': 'application/json'
+    //         });
+    //         getJudete().then(r=> console.log(r))
+    //     })
+    // }
 
     else {
 

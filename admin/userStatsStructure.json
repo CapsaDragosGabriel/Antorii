@@ -1,4 +1,4 @@
-{
+[{
   "consumer_provider": {
     "consumer_procent": "33.3333%",
     "provider_procent": "66.6667%"
@@ -16,3 +16,8 @@
   "users_by_total_spending": [{}]
 
 }
+,
+{
+  "restaurants_by_profit":"0",
+"delivery_by_orders": 0
+}]

@@ -41,10 +41,11 @@ async function aggregateUserData()
     })
 }
 getNumberOfProvidersPerCounty().then(r=>console.log(r[2]))
+
 aggregateUserData().then(r=> {
     r=JSON.parse(r)
    // console.log(r.consumer_provider)
-    console.log(r.users_by_ride_spending);
+    console.log(r.providers_per_county);
 })
 
 
@@ -152,6 +153,24 @@ async function getUsersOrderedByTotalSpending(){
     })
 }
 
+
+async function aggregateRestaurantData()
+{
+    return new Promise(resolve=>{
+        getRestaurantsOrderByProfit().then(r=>
+        {
+            r=("{\"restaurants_by_profit\":"+JSON.stringify(r))
+            getDeliveryByNrOfOrders().then(p=>{
+                r+=(",\"delivery_by_orders\":"+JSON.stringify(p)+"\n}")
+                resolve(r);
+            })
+        })
+    })
+}
+// aggregateRestaurantData().then(r=>{
+//     r=JSON.parse(r);
+//     console.log(r.delivery_by_orders)
+// })
 async function getRestaurantsOrderByProfit(){
     return new Promise((resolve, reject) => {
 
@@ -160,8 +179,11 @@ async function getRestaurantsOrderByProfit(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                if(result[i])
+                temp[i]=result[i];
+            resolve(temp)
         });
 
     })
@@ -174,8 +196,11 @@ async function getDeliveryByNrOfOrders(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                if(result[i])
+                    temp[i]=result[i];
+            resolve(temp)
         });
 
     })
@@ -188,8 +213,11 @@ async function getDriversByNrOfTrips(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                if(result[i])
+                    temp[i]=result[i];
+            resolve(temp)
         });
 
     })
@@ -202,8 +230,11 @@ async function getDriversByRating(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                if(result[i])
+                    temp[i]=result[i];
+            resolve(temp)
         });
 
     })
@@ -216,8 +247,11 @@ async function getDriversByProfit(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                if(result[i])
+                    temp[i]=result[i];
+            resolve(temp)
         });
 
     })
@@ -230,8 +264,11 @@ async function getCountiesByNrOfRideShares(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                if(result[i])
+                    temp[i]=result[i];
+            resolve(temp)
         });
 
     })
@@ -244,8 +281,11 @@ async function getCountiesByNrOfOrders(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                if(result[i])
+                    temp[i]=result[i];
+            resolve(temp)
         });
 
     })
@@ -266,5 +306,7 @@ module.exports = {
     getDriversByProfit,
     getCountiesByNrOfRideShares,
     getCountiesByNrOfOrders,
-    aggregateUserData
+    aggregateUserData,
+    aggregateRestaurantData,
+
 }

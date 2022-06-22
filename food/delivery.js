@@ -73,10 +73,11 @@ function showOrders() {
                     if (globalOrders[${i}].status=='unclaimed')
                     {globalOrders[${i}].status='claimed'
                     console.log(globalOrders[${i}]);
+                        getService().then(()=>if (globalService)
                     updateOrder(globalOrders[${i}].id,${i}).then(()=>{
                     refreshOrders()
                     showOrders()}
-                    )
+                    ))
                     }
                     }"}
                     >Preluata</button>     
@@ -85,11 +86,11 @@ function showOrders() {
                      {  console.log(${i})
                     globalOrders[${i}].status='done'
                     console.log(globalOrders[${i}]);
-
+getService().then(()=>if (globalService)
                     updateOrder(globalOrders[${i}].id,${i}).then(()=>{
                       refreshOrders()
                     showOrders()
-                    })
+                    }))
                     
                     }"
                     >Terminat</button>     

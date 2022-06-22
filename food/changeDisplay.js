@@ -160,9 +160,10 @@ function showOrders() {
                         feedbackBox.innerHTML = feedbackBox.innerHTML +
                             `<div id="butonSend"> <button class="btn" onclick="
                             {getValueLiv(${i});
+                                getService().then(()=>if (globalService)
                             updateOrder(globalOrders[${i}].orderID,${i}).then(()=>{
                             refreshOrders()
-                            showOrders()})
+                            showOrders()}))
                             
                             }">Trimite</button></div>`;
                         currOrderDiv.appendChild(feedbackBox);
@@ -178,9 +179,10 @@ function showOrders() {
                         feedbackRestaurant.innerHTML = feedbackRestaurant.innerHTML +
                             `<div id="butonSend"><button id="butonSend" class="btn" onclick="
                             {getValueRes(${i});
+                                getService().then(()=>if (globalService)
                             updateOrder(globalOrders[${i}].orderID,${i}).then(()=>{
                             refreshOrders()
-                            showOrders()})}">Trimite</button></div>`;
+                            showOrders()}))}">Trimite</button></div>`;
                         currOrderDiv.appendChild(feedbackRestaurant);
                     }
                 }
@@ -192,10 +194,11 @@ function showOrders() {
                             margin-top: 2%;"><button class="btn" onclick="
                     if (globalOrders[${i}].status!='claimed'&&globalOrders[${i}].status!='done'&&globalOrders[${i}].status!='anulat'){  
                         globalOrders[${i}].status='anulat'
+                        getService().then(()=>if (globalService)
                         updateOrder(globalOrders[${i}].orderID,${i}).then(()=>{
                             refreshOrders()
                             showOrders()        
-                        })
+                        }))
                     }">Anuleaza</button></div>`;
                 }
             }

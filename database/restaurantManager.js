@@ -50,6 +50,21 @@ function insertRestaurant(name,photo) {
     return 1;
 
 }
+function restaurantAvailability(name, status) { //status can be checked with an allowlist
+
+    getRestaurantByName(name).then(f=>{
+
+        var sql = "UPDATE `web`.`restaurants`\n" +
+            "SET\n" +
+            "`availability` = ? WHERE `id` = ?;"
+
+        con.query(sql,[status,f] ,function (err, result) {
+            if (err) throw err;
+            console.log("availability changed");
+        });
+    })
+
+}
 async function getAllRestaurants(){
     return new Promise((resolve, reject) => {
 
@@ -166,4 +181,5 @@ module.exports={
     getItemIDFromRestaurantID,
     // newInsertRestaurant,
     insertRestaurant,
+    restaurantAvailability,
 }

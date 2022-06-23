@@ -1113,6 +1113,43 @@ const server = http.createServer((req, res) => {
                 })
         })
     }
+    else if (req.url.startsWith('/api/manager/restaurantAvailability')) {
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        });
+
+        req.on('end', () => {
+            try {
+                console.log(data);
+                data = JSON.parse(data);
+            } catch (e) {
+                console.log("not doable");
+            }
+            // console.log('data chunk finished ' + data.email)
+
+            const result = {
+                token: data.token,
+                availability:data.availability,
+                numeRestaurant: data.numeRestaurant,
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'mode': 'no-cors',
+                'Content-Type': 'application/json'
+            });
+            let notGood = {
+                raspuns: "not good"
+            }
+            if (result.token)
+                userDB.getServiceByToken(result.token).then(p => {
+                    if (p == "manager") {
+                        restaurantDB.restaurantAvailability(result.numeRestaurant,result.availability)
+                    }
+                })
+        })
+    }
 
         // else if (req.url.startsWith('/api/judete')){
         //     let data = '';

@@ -260,12 +260,7 @@ async function changeUsername() {
 
 var changeDisplay = function () {
 
-    if (display === 'McDonalds') {
-        numeRestaurant = display;
-        var x = document.getElementById("box");
-        x.innerHTML = `
-        <a href="food.html" id="back">Inapoi</a>`;
-    } else if (display === 'KFC') {
+    if (display!="comanda") {
         numeRestaurant = display;
         var x = document.getElementById("box");
         x.innerHTML = `

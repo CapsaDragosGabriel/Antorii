@@ -40,9 +40,10 @@ async function trimiteRestaurant()
     }).then(r=>r.json());
 
 
-    if(response.raspuns=="not good")
+    if(response.raspuns=="not good") {
         console.log("you fucked up");
-
+        notGood("raspunsRestaurant")
+    }
 }
 
 async function trimiteProdus()
@@ -74,12 +75,18 @@ async function trimiteProdus()
     }).then(r => r.json()).then(f=>
     {
         if (f.raspuns=="not good")
-            console.log("you fucked up again");
+        {console.log("you fucked up again");
+            notGood("raspunsProdus")
+        }
 
     })
 
 }
+function notGood(where){
+    var x=document.getElementById(where);
+    x.innerHTML+=`<p>Format incorect ptr json sau exista deja</p>`;
 
+}
 async function getUsername() {
     const data = {
         token: localStorage.getItem('token')

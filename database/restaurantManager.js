@@ -53,7 +53,7 @@ function insertRestaurant(name,photo) {
 async function getAllRestaurants(){
     return new Promise((resolve, reject) => {
 
-        sql = "select * from restaurants ";
+        sql = "select * from restaurants where available='y' ";
         con.query(sql, function (err, result) {
             if (err) throw err;
             // console.log(result);
@@ -84,7 +84,7 @@ async function getItemsFromRestaurantByName(restaurantName){
         getRestaurantByName(restaurantName).then( r => {
             let restaurantID = r.id;
 
-            sql = "select * from items where restaurantID = " + con.escape(restaurantID) + ";"
+            sql = "select * from items where available='y' and restaurantID = " + con.escape(restaurantID) + ";"
             con.query(sql, function (err, result) {
                 if (err) throw err;
                 // console.log(result);
@@ -115,7 +115,7 @@ async function getItemIDFromRestaurantByName(restaurantName,itemName){
 }
 async function getItemIDFromRestaurantID(restaurantID,itemName){
     return new Promise((resolve, reject) => {
-        sql = "select id from items where restaurantID = ? and name= ?;"
+        sql = "select id from items where restaurantID = ? and name= ? and available='y';"
         con.query(sql,[restaurantID,itemName], function (err, result) {
             if (err) throw err;
             // console.log(result);

@@ -30,6 +30,8 @@ if (localStorage.getItem('token')) {
 
             showStats();
         }
+        else if (globalService=="manager")
+            window.location.href="http://127.0.0.1:8000/manager/manager.html";
     })
 }
 else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";

@@ -77,7 +77,7 @@ async function trimiteProdus()
             console.log("you fucked up again");
 
     })
-    
+
 }
 
 async function getUsername() {

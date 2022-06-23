@@ -5,7 +5,21 @@ var con = mysql.createConnection({
     password: "student",
     database: "web"
 });
+function itemAvailability(name, status) { //status can be checked with an allowlist
 
+
+    var sql = "UPDATE `web`.`items`\n" +
+        "SET\n" +
+        "`available` = ? WHERE `name` = ?;"
+
+    con.query(sql,[status,name] ,function (err, result) {
+        if (err)  return 0;
+        else {console.log("availability changed")
+        return 1;}
+    });
+    return 1;
+
+}
 /*
 async function newInsertRestaurant(name,photo){
     var sql = "INSERT INTO `web`.`restaurants`\n" +
@@ -56,9 +70,9 @@ function restaurantAvailability(name, status) { //status can be checked with an 
 
         var sql = "UPDATE `web`.`restaurants`\n" +
             "SET\n" +
-            "`availability` = ? WHERE `id` = ?;"
-
-        con.query(sql,[status,f] ,function (err, result) {
+            "`available` = ? WHERE `id` = ?;"
+        if (f!=undefined)
+        con.query(sql,[status,f.id] ,function (err, result) {
             if (err) throw err;
             console.log("availability changed");
         });
@@ -182,4 +196,5 @@ module.exports={
     // newInsertRestaurant,
     insertRestaurant,
     restaurantAvailability,
+    itemAvailability
 }

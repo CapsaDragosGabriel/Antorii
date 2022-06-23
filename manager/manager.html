@@ -112,6 +112,31 @@
 
     </form>
     <div id="raspunsProdus"></div>
+
+    <form class="dispRest" onsubmit="valabilitateRestaurant()
+        return false;
+" action="http://127.0.0.1:8000/manager/manager.html">
+        <input type="text" id="numeRestaurant3"  placeholder="Denumire restaurant"required >
+        <select class="select" name="dispRest" id="dispRest" >
+            <option value="y">Disponibil</option>
+            <option value="n">Indisponibil</option>
+        </select>
+        <button class="buttonaut" type="submit">Schimba disponibilitate</button>
+
+    </form>
+
+    <form class="dispRest" onsubmit="valabilitateProdus()
+        return false;
+" action="http://127.0.0.1:8000/manager/manager.html">
+        <input type="text" id="numeProdus2"  placeholder="Denumire produs"required >
+        <select class="select" name="dispRest" id="dispProdus" >
+            <option value="y">Disponibil</option>
+            <option value="n">Indisponibil</option>
+        </select>
+        <button class="buttonaut" type="submit">Schimba disponibilitate</button>
+
+    </form>
+
 </div>
 </div>
 <div id="commandsList">

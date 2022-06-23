@@ -45,7 +45,65 @@ async function trimiteRestaurant()
         notGood("raspunsRestaurant")
     }
 }
+async function valabilitateRestaurant()
+{
+    var numeRestaurant= document.getElementById('numeRestaurant3');
+    var disponibilitate=document.getElementById('dispRest');
 
+
+    // var availability=disponibilitate. ?'y':'n';
+    var data={
+        token:localStorage.getItem('token'),
+        numeRestaurant:numeRestaurant.value,
+        availability: disponibilitate.value
+    }
+    console.log(data);
+
+    const response = await fetch('http://localhost:8000/api/manager/restaurantAvailability', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        // mode: 'no-cors', // no-cors, *cors, same-origin
+        // headers: {
+        //     'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        // },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    }).then(r=>r.json());
+
+
+    if(response.raspuns=="not good") {
+        console.log("you fucked up");
+        notGood("raspunsRestaurant")
+    }
+}
+async function valabilitateProdus()
+{
+    var numeProdus= document.getElementById('numeProdus2');
+    var disponibilitate=document.getElementById('dispProdus');
+
+    // var availability=disponibilitate. ?'y':'n';
+    var data={
+        token:localStorage.getItem('token'),
+        numeProdus:numeProdus.value,
+        availability: disponibilitate.value
+    }
+    console.log(data);
+
+    const response = await fetch('http://localhost:8000/api/manager/itemAvailability', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        // mode: 'no-cors', // no-cors, *cors, same-origin
+        // headers: {
+        //     'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        // },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    }).then(r=>r.json());
+
+
+    if(response.raspuns=="not good") {
+        console.log("you fucked up");
+        notGood("raspunsRestaurant")
+    }
+}
 async function trimiteProdus()
 {
     var numeRestaurant= document.getElementById('numeRestaurant2');

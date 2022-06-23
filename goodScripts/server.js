@@ -1150,6 +1150,46 @@ const server = http.createServer((req, res) => {
                 })
         })
     }
+    else if (req.url.startsWith('/api/manager/itemAvailability')) {
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        });
+
+        req.on('end', () => {
+            try {
+                console.log(data);
+                data = JSON.parse(data);
+            } catch (e) {
+                console.log("not doable");
+            }
+            // console.log('data chunk finished ' + data.email)
+
+            const result = {
+                token: data.token,
+                availability:data.availability,
+                numeProdus: data.numeProdus,
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'mode': 'no-cors',
+                'Content-Type': 'application/json'
+            });
+            let notGood = {
+                raspuns: "not good"
+            }
+            let allGood = {
+                raspuns: "all good"
+            }
+            if (result.token)
+                userDB.getServiceByToken(result.token).then(p => {
+                    if (p == "manager") {
+                        restaurantDB.itemAvailability(result.numeProdus,result.availability)
+                    }
+                })
+        })
+    }
 
         // else if (req.url.startsWith('/api/judete')){
         //     let data = '';

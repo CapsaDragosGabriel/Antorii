@@ -1,4 +1,5 @@
-let globalRestaurants;
+const globalRestaurants = ["Veggie", "Mamma Mia", "Spartan", "Chinese", "Friday"];
+const globalRestaurantsFirsts = ["McDonalds", "KFC", "Mesopotamia", "Burger King", "Subway", "SaladBox"];
 
 async function getTop() { //i guess ca asta trebuie?
     const data = {
@@ -16,40 +17,47 @@ async function getTop() { //i guess ca asta trebuie?
             sent = false
         });
     if (sent === true) {
-        globalRestaurants = response;
+        //globalRestaurants = response;
         console.log("RASPUNSUL A FOST" + response)
     }
 }
 
-async function setTopRestaurants() {
-    const top1 = document.getElementById("top1");
-    const top2 = document.getElementById("top2");
-    const top3 = document.getElementById("top3");
-    const top4 = document.getElementById("top4");
-    const top5 = document.getElementById("top5");
+var counter = 0;
 
-    top1.innerText = globalRestaurants[0];
-    top2.innerText = globalRestaurants[1];
-    top3.innerText = globalRestaurants[2];
-    top4.innerText = globalRestaurants[3];
-    top5.innerText = globalRestaurants[4];
-}
-
-let indexRestaurant = 4;
-
-function showSlidesPrev(index) {
-    if (indexRestaurant + index <= 8) {
-        indexRestaurant += index;
+function showSlidesPrev() {
+    if (counter <= 4) {
         const top1 = document.getElementById("top1");
         const top2 = document.getElementById("top2");
         const top3 = document.getElementById("top3");
         const top4 = document.getElementById("top4");
         const top5 = document.getElementById("top5");
+        const top6 = document.getElementById("top6");
 
         top1.innerText = top2.textContent;
         top2.innerText = top3.textContent;
         top3.innerText = top4.textContent;
         top4.innerText = top5.textContent;
-        top5.innerText = globalRestaurants[indexRestaurant];
+        top5.innerText = top6.textContent;
+        top6.innerText = globalRestaurants[counter];
+        counter++;
+    }
+}
+
+function showSlidesNext() {
+    if (counter > 0) {
+        const top1 = document.getElementById("top1");
+        const top2 = document.getElementById("top2");
+        const top3 = document.getElementById("top3");
+        const top4 = document.getElementById("top4");
+        const top5 = document.getElementById("top5");
+        const top6 = document.getElementById("top6");
+
+        top6.innerText = top5.innerText
+        top5.innerText = top4.textContent;
+        top4.innerText = top3.textContent;
+        top3.innerText = top2.textContent;
+        top2.innerText = top1.textContent;
+        top1.innerText = globalRestaurantsFirsts[counter-1];
+        counter--;
     }
 }

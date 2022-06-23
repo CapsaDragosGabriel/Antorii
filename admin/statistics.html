@@ -6,8 +6,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Imbue">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Text+Me+One">
-    <script src="changeDisplay.js"></script>
-    <script type="module" src="insertRestaurants.js"></script>
     <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="../startUser/startUser.js"></script>
     <script src="goodScripts/utils.js"></script>
@@ -21,25 +19,21 @@
                 } else if (globalService != "admin")
                     window.location.href = "http://127.0.0.1:8000/startUser/startUser.html"
                 else
-                    getUserStats().then(r=>
-                    showUsersStats()).then(()=>{
+                    getUserStats().then(r =>
+                        showUsersStats()).then(() => {
                         getRestaurantStats().then(
                             showRestaurantStats
                         )
                     })
-
-                    showStats();
-
+                showStats();
             })
-
             //check with db
             //after ok
         } else window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html"
     </script>
     <link rel="stylesheet" href="statistics.css">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Food delivery</title>
+    <title>Admin guy</title>
 </head>
 <body>
 
@@ -73,7 +67,7 @@
 </div>
 <div class="boxStat" id="boxStat">
     <div class="stat">
-        <h1 >User stats:</h1>
+        <h1>User stats:</h1>
     </div>
 
 </div>

@@ -9,7 +9,7 @@ async function changeUsername() {
         ${username}!`
         ;
     if (user)
-        user.innerHTML = `${username} <a href="#user" style="padding: 0;"> detalii profil</a>`;
+        user.innerHTML = `${username}`;
 
 }
 

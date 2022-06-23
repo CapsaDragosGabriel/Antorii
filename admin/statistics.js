@@ -243,3 +243,13 @@ function showRestaurantStats() {
     bigBox.innerHTML += restaurantBox.innerHTML;
 
 }
+
+function showDeliveryStats(){
+    let bigBox = document.getElementById('boxStat');
+    bigBox.innerHTML += `
+    <div class="stat" >
+        <h1>Ride-sharing stats:</h1>
+    </div>`
+    let restaurantBox = document.createElement('div');
+    restaurantBox.setAttribute("class", "stat");
+}

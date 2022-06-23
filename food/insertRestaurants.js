@@ -53,21 +53,4 @@ let display="";
         });
 }*/
 getRestaurants();
-/* var anchor=document.createElement("a");
- var text=document.createTextNode(obj.name);
- var img=document.createElement("img");
- img.setAttribute("src",obj.photo);
- //img.setAttribute("href",obj.link);
-// anchor.setAttribute("href",obj.link);
- anchor.setAttribute("onclick","{display =1;console.log(`${display}`);}");
-// anchor.addEventListener("click",changeDisplay,true);
-// console.log(`${display}`);
- anchor.appendChild(text);
- x.appendChild(document.createElement("br"));
- var anchor2=document.createElement("a");
- anchor2.setAttribute("href",obj.link);
- x.appendChild(anchor);
- x.appendChild(document.createElement("br"));
- anchor2.appendChild(img);
- x.appendChild(anchor2);
- console.log(obj.name);*/
+

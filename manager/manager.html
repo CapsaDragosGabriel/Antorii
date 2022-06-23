@@ -5,9 +5,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Text+Me+One">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
-    <link rel="stylesheet" href="foodDelivery.css">
+    <link rel="stylesheet" href="manager.css">
     <script src="../startUser/startUser.js"></script>
-    <script src="delivery.js"></script>
+    <script src="manager.js"></script>
     <script>
         if (localStorage.getItem('token')) {
             getUsername();
@@ -16,13 +16,13 @@
                 if (globalService === undefined) {
                     localStorage.removeItem('token');
                     window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html";
-                } else if (globalService === "food") {
-                    getNewOrders().then(() => {
-                        getClaimedOrders().then(() => {
-                            refreshOrders();
-                            showOrders()
-                        })
-                    })
+                } else if (globalService == "manager") {
+                    // getNewOrders().then(() => {
+                    //     getClaimedOrders().then(() => {
+                    //         refreshOrders();
+                    //         showOrders()
+                    //     })
+                    // })
 
                 } else {
                     window.location.href = "../startUser/startUser.html"

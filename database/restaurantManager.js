@@ -6,21 +6,49 @@ var con = mysql.createConnection({
     database: "web"
 });
 
+/*
+async function newInsertRestaurant(name,photo){
+    var sql = "INSERT INTO `web`.`restaurants`\n" +
+        "(`name`,`photo`)\n" +
+        "VALUES(?, ?);"
+   let val= new Promise((resolve, reject) => {
+    con.query(sql,[name,photo], function (err, result) {
+        if (err) throw err;
+        resolve(1);
+    })});
+val.then(r=>
+{
+    if(r==1) {
+        return new Promise((resolve) =>  con.query("select * from restaurants where name=\'" + name+"\';", function (err, result) {
+            if (err) throw err;
 
+            console.log(result);
+            resolve(result);
+        }
+    ))
+
+    }
+}).then(f=>{return f});
+}
+*/
 
 function insertRestaurant(name,photo) {
     var sql = "INSERT INTO `web`.`restaurants`\n" +
         "(`name`,`photo`)\n" +
         "VALUES(?, ?);"
+    try{
     con.query(sql,[name,photo], function (err, result) {
-        if (err) throw err;
-        console.log("restaurant inserted");
+        if (err) return 0;
+       else {console.log("restaurant inserted")
+       return 1;
+       };
     });
+    }
+    catch(err){console.log("couldn't do it");
+    }
     //show result
-    con.query("select * from restaurants", function (err, result) {
-        if (err) throw err;
-        console.log(result);
-    });
+    return 1;
+
 }
 async function getAllRestaurants(){
     return new Promise((resolve, reject) => {
@@ -135,6 +163,7 @@ module.exports={
     getRestaurantByName,
     getItemIDFromRestaurantByName,
     getItemsFromRestaurantByName,
-    getItemIDFromRestaurantID
-
+    getItemIDFromRestaurantID,
+    // newInsertRestaurant,
+    insertRestaurant,
 }

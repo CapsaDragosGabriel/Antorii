@@ -4,7 +4,7 @@ var rideDB = require("../database/rideManager");
 var restaurantDB = require("../database/restaurantManager");
 var orderDB = require("../database/orderManager");
 var itemDB = require("../database/itemManager")
-var statsDB=require("../database/stats");
+var statsDB = require("../database/stats");
 const http = require('http');
 
 const nodemailer = require('nodemailer');
@@ -106,8 +106,7 @@ const server = http.createServer((req, res) => {
 
         })
 
-    }
-    else if (req.url.startsWith('/api/username')) {
+    } else if (req.url.startsWith('/api/username')) {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
@@ -146,8 +145,7 @@ const server = http.createServer((req, res) => {
             //res.write()
         })
         // res.end();
-    }
-    else if (req.url.startsWith('/api/service')) {
+    } else if (req.url.startsWith('/api/service')) {
         console.log("API SERVICE")
         let data = '';
         req.on('data', chunk => {
@@ -453,8 +451,7 @@ const server = http.createServer((req, res) => {
 
         })
 
-    }
-    else if (req.url.startsWith('/api/update/rides')){
+    } else if (req.url.startsWith('/api/update/rides')) {
         console.log('API UPDATE RIDES');
         let data = '';
         req.on('data', chunk => {
@@ -512,8 +509,7 @@ const server = http.createServer((req, res) => {
 
             res.end('{}');
         })
-    }
-    else if (req.url.startsWith('/api/update/order')) {
+    } else if (req.url.startsWith('/api/update/order')) {
         console.log('API ORDERS');
         let data = '';
         req.on('data', chunk => {
@@ -573,8 +569,7 @@ const server = http.createServer((req, res) => {
 
             res.end('{}');
         })
-    }
-    else if (req.url.startsWith('/api/claim/rides')) {
+    } else if (req.url.startsWith('/api/claim/rides')) {
         console.log('API RIDEs');
         let data = '';
         req.on('data', chunk => {
@@ -715,33 +710,32 @@ const server = http.createServer((req, res) => {
             //aici se adauga verificarea datelor
             console.log(result.token);
 
-            if(result.token)
-            userDB.getServiceByToken(result.token).then(p => {
-                console.log(p)
-                if (p == "food") {
-                    console.log(data);
-                    if(result.token)
-                    userDB.getIDByToken(result.token).then(r => {
-                            // console.log(r);
-                            if (r)
-                                orderDB.getCompleteOrdersUnclaimed().then(fn => {
-                                    console.log("unclaimed ORDERS ARE " + JSON.stringify(fn[0]));
-                                    res.end(JSON.stringify(fn));
-                                });
-                        }
-                    )
-                }
+            if (result.token)
+                userDB.getServiceByToken(result.token).then(p => {
+                    console.log(p)
+                    if (p == "food") {
+                        console.log(data);
+                        if (result.token)
+                            userDB.getIDByToken(result.token).then(r => {
+                                    // console.log(r);
+                                    if (r)
+                                        orderDB.getCompleteOrdersUnclaimed().then(fn => {
+                                            console.log("unclaimed ORDERS ARE " + JSON.stringify(fn[0]));
+                                            res.end(JSON.stringify(fn));
+                                        });
+                                }
+                            )
+                    }
 
 
-            })
+                })
             //aici se adauga introducerea datelor in baza de date
             //console.log(result);
             //getPage(req, res).then();
 
         })
 
-    }
-    else if (req.url.startsWith('/api/restaurants')) {
+    } else if (req.url.startsWith('/api/restaurants')) {
         console.log('API restaurants');
 
         let data = '';
@@ -778,7 +772,7 @@ const server = http.createServer((req, res) => {
             })
         })
     }//get restaurants from db
-    else if (req.url.startsWith('/api/menu')){
+    else if (req.url.startsWith('/api/menu')) {
         console.log('API restaurants');
 
         let data = '';
@@ -806,7 +800,7 @@ const server = http.createServer((req, res) => {
 
         })
     }//get menu from db
-    else if (req.url.startsWith('/api/food')){
+    else if (req.url.startsWith('/api/food')) {
         console.log('API FOOD');
         let data = '';
         req.on('data', chunk => {
@@ -899,16 +893,16 @@ const server = http.createServer((req, res) => {
                     console.log(p)
                     if (p == "food") {
                         console.log(data);
-                        if(result.token)
-                        userDB.getIDByToken(result.token).then(r => {
-                                //  console.log(r);
-                                // console.log(r);
-                                orderDB.getCompleteOrdersByProviderID(r).then(fn => {
-                                    console.log("CLAIMED orders ARE " + fn);
-                                    res.end(JSON.stringify(fn));
-                                });
-                            }
-                        )
+                        if (result.token)
+                            userDB.getIDByToken(result.token).then(r => {
+                                    //  console.log(r);
+                                    // console.log(r);
+                                    orderDB.getCompleteOrdersByProviderID(r).then(fn => {
+                                        console.log("CLAIMED orders ARE " + fn);
+                                        res.end(JSON.stringify(fn));
+                                    });
+                                }
+                            )
                     } else {
                         console.log(data)
                         if (p && result.token)
@@ -926,7 +920,7 @@ const server = http.createServer((req, res) => {
 
         })
     }//get own rides (driver/consumer)
-    else if (req.url.startsWith('/api/admin/usersStats')){
+    else if (req.url.startsWith('/api/admin/usersStats')) {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
@@ -946,10 +940,10 @@ const server = http.createServer((req, res) => {
             });
             if (result.token)
                 userDB.getServiceByToken(result.token).then(p => {
-                    if(p=="admin")
-                    {
-                        statsDB.aggregateUserData().then(p=>{
-                        res.end(JSON.stringify(p))});
+                    if (p == "admin") {
+                        statsDB.aggregateUserData().then(p => {
+                            res.end(JSON.stringify(p))
+                        });
 
                     }
 
@@ -959,7 +953,7 @@ const server = http.createServer((req, res) => {
 
         })
     }
-    else if (req.url.startsWith('/api/admin/restaurantStats')){
+    else if (req.url.startsWith('/api/admin/restaurantStats')) {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
@@ -980,10 +974,10 @@ const server = http.createServer((req, res) => {
             });
             if (result.token)
                 userDB.getServiceByToken(result.token).then(p => {
-                    if(p=="admin")
-                    {
-                        statsDB.aggregateRestaurantData().then(p=>{
-                            res.end(JSON.stringify(p))});
+                    if (p == "admin") {
+                        statsDB.aggregateRestaurantData().then(p => {
+                            res.end(JSON.stringify(p))
+                        });
 
                     }
 
@@ -993,26 +987,153 @@ const server = http.createServer((req, res) => {
 
         })
     }
-    // else if (req.url.startsWith('/api/judete')){
-    //     let data = '';
-    //     req.on('data', chunk => {
-    //         data += chunk;
-    //         //console.log('data chunk added ' + data)
-    //     })
-    //     req.on('end', () => {
-    //
-    //         data = JSON.parse(data);
-    //         // //console.log('data chunk finished ' + data.email)
-    //
-    //         const result = {
-    //             token: data.token,
-    //         };
-    //         res.writeHead(201, {
-    //             'Access-Control-Allow-Origin': '*',
-    //             'Content-Type': 'application/json'
-    //         });
-    //         getJudete().then(r=> console.log(r))
-    //     })
+    else if (req.url.startsWith('/api/manager/insertRestaurant')) {
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        });
+
+        req.on('end', () => {
+            try {
+                console.log(data);
+                data = JSON.parse(data);
+            } catch (e) {
+                console.log("not doable");
+            }
+            // console.log('data chunk finished ' + data.email)
+
+            const result = {
+                token: data.token,
+                numeRestaurant: data.numeRestaurant,
+                linkPoza: data.linkPoza,
+                jsonMenu: data.jsonMenu
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'mode': 'no-cors',
+                'Content-Type': 'application/json'
+            });
+            let notGood = {
+                raspuns: "not good"
+            }
+            if (result.token)
+                userDB.getServiceByToken(result.token).then(p => {
+                    if (p == "manager") {
+                        try {/*
+                            let getMenu="";
+                            let k=0;
+                            for(let i=1;i<result.jsonMenu.length-1;i++);
+                                getMenu[k++]=result.jsonMenu[i];
+                                */
+                            console.log(result.jsonMenu);
+                            let menu = result.jsonMenu;
+
+                            console.log(menu);
+                            if (menu[0].name == undefined || menu[0].description == undefined || menu[0].price == undefined)
+                                throw new Error("not good");
+                            restaurantDB.insertRestaurant(result.numeRestaurant, result.linkPoza).then(r => {
+                                if (r == 1) {
+                                    for (var item of menu) {
+                                        itemDB.insertItem(result.numeRestaurant, item)
+                                    }
+                                } else res.end(JSON.stringify(notGood));
+                            })
+                        } catch (err) {
+                            console.log("not good")
+                            res.end(JSON.stringify(notGood));
+                        }
+                    }
+                })
+        })
+    }
+    else if (req.url.startsWith('/api/manager/insertProdus')) {
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        });
+
+        req.on('end', () => {
+            try {
+                console.log(data);
+                data = JSON.parse(data);
+            } catch (e) {
+                console.log("not doable");
+            }
+            // console.log('data chunk finished ' + data.email)
+
+            const result = {
+                token: data.token,
+                numeRestaurant: data.numeRestaurant,
+                jsonItem: data.jsonItem
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'mode': 'no-cors',
+                'Content-Type': 'application/json'
+            });
+
+            let notGood = {
+                raspuns: "not good"
+            }
+            let allGood = {
+                raspuns: "all good"
+            }
+
+            console.log(result);
+            if (result.token)
+                userDB.getServiceByToken(result.token).then(p => {
+                    if (p == "manager") {
+                        try {
+                            let menu = result.jsonItem;
+
+                            console.log(menu);
+                            if (menu.name == undefined || menu.description == undefined || menu.price == undefined) {
+                                console.log("s-a stricat jsonu patroane")
+                                throw new Error("not good");
+                            }
+                                        itemDB.insertItem(result.numeRestaurant, menu).then(r=>{
+                                            if (r==1){console.log(r);
+                                                res.end(JSON.stringify(allGood));}
+                                            else {
+                                                console.log("S-A AJUNS AICI BAROSANE")
+                                                console.log(r);
+                                                res.end(JSON.stringify(notGood));
+                                            }
+                                        })
+                        } catch (err) {
+                            console.log("S-A AJUNS AICI sefanule")
+
+                            console.log("not good")
+                            console.log(notGood);
+                            res.end(JSON.stringify(notGood));
+                        }
+                    }
+                })
+        })
+    }
+
+        // else if (req.url.startsWith('/api/judete')){
+        //     let data = '';
+        //     req.on('data', chunk => {
+        //         data += chunk;
+        //         //console.log('data chunk added ' + data)
+        //     })
+        //     req.on('end', () => {
+        //
+        //         data = JSON.parse(data);
+        //         // //console.log('data chunk finished ' + data.email)
+        //
+        //         const result = {
+        //             token: data.token,
+        //         };
+        //         res.writeHead(201, {
+        //             'Access-Control-Allow-Origin': '*',
+        //             'Content-Type': 'application/json'
+        //         });
+        //         getJudete().then(r=> console.log(r))
+        //     })
     // }
 
     else {

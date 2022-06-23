@@ -40,13 +40,13 @@ async function aggregateUserData()
 
     })
 }
-getNumberOfProvidersPerCounty().then(r=>console.log(r[2]))
+// getNumberOfProvidersPerCounty().then(r=>console.log(r[2]))
 
-aggregateUserData().then(r=> {
-    r=JSON.parse(r)
-   // console.log(r.consumer_provider)
-    console.log(r.providers_per_county);
-})
+// aggregateUserData().then(r=> {
+//     r=JSON.parse(r)
+//    // console.log(r.consumer_provider)
+//     console.log(r.providers_per_county);
+// })
 
 
 async function getConsumerProviderUserProcent(){
@@ -156,7 +156,8 @@ async function getUsersOrderedByTotalSpending(){
 
 async function aggregateRestaurantData()
 {
-    return new Promise(resolve=>{
+    return new Promise(resolve=>
+    {
         getRestaurantsOrderByProfit().then(r=>
         {
             r=("{\"restaurants_by_profit\":"+JSON.stringify(r))
@@ -206,6 +207,23 @@ async function getDeliveryByNrOfOrders(){
     })
 }
 
+async function aggregateRideshareData()
+{
+    return new Promise((resolve,reject)=>
+    {
+        getDriversByNrOfTrips().then(r=>{
+            r="{\n\"drivers_by_trips\":"+JSON.stringify(r);
+            getDriversByRating().then(p=>{
+                r=r+",\"drivers_by_rating\":"+JSON.stringify(p)+"\n}"
+                resolve(r);
+            })
+        })
+    })
+}
+aggregateRideshareData().then(r=>{
+    r=JSON.parse(r);
+    console.log(r);
+})
 async function getDriversByNrOfTrips(){
     return new Promise((resolve, reject) => {
 
@@ -223,6 +241,9 @@ async function getDriversByNrOfTrips(){
     })
 }
 
+getDriversByNrOfTrips().then(f=>{
+    console.log(f);
+})
 async function getDriversByRating(){
     return new Promise((resolve, reject) => {
 

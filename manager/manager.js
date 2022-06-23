@@ -8,7 +8,76 @@ async function changeUsername() {
         ;
     if (user)
         user.innerHTML = `${username}`;
+}
+async function trimiteRestaurant()
+{
+    var numeRestaurant= document.getElementById('numeRestaurant');
+    var linkPoza=document.getElementById('linkPoza');
+    var jsonMenu=document.getElementById('jsonMenu');
+    let meniu;
+    try {
+        meniu=JSON.parse(jsonMenu.value);
 
+    }catch (e){
+        console.log("json incorect");
+    }
+    var data={
+        token:localStorage.getItem('token'),
+        numeRestaurant:numeRestaurant.value,
+        linkPoza:linkPoza.value,
+        jsonMenu:meniu
+    }
+    console.log(data);
+
+    const response = await fetch('http://localhost:8000/api/manager/insertRestaurant', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        // mode: 'no-cors', // no-cors, *cors, same-origin
+        // headers: {
+        //     'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        // },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    }).then(r=>r.json());
+
+
+    if(response.raspuns=="not good")
+        console.log("you fucked up");
+
+}
+
+async function trimiteProdus()
+{
+    var numeRestaurant= document.getElementById('numeRestaurant2');
+    var jsonItem=document.getElementById('jsonItem');
+    let meniu=jsonItem.value;
+    try {
+        meniu=JSON.parse(jsonItem.value);
+
+    }catch (e){
+        console.log("json incorect");
+    }
+    var data={
+        token:localStorage.getItem('token'),
+        numeRestaurant:numeRestaurant.value,
+        jsonItem:meniu
+    }
+    console.log(data);
+
+    const response = await fetch('http://localhost:8000/api/manager/insertProdus', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        // mode: 'no-cors', // no-cors, *cors, same-origin
+        // headers: {
+        //     'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        // },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    }).then(r => r.json()).then(f=>
+    {
+        if (f.raspuns=="not good")
+            console.log("you fucked up again");
+
+    })
+    
 }
 
 async function getUsername() {

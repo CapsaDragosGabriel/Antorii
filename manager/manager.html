@@ -85,9 +85,37 @@
         </a>
     </div>
 </div>
+
 <div id="defaultTitle">Bine ai revenit, username!</div>
+<div class="formBox" style="padding-left: 300px">
+<div class="formulare">
+    <form class="restaurant" onsubmit="trimiteRestaurant()
+        return false;
+" action="http://127.0.0.1:8000/manager/manager.html">
+        <input type="text" id="numeRestaurant"  placeholder="Denumire restaurant"required >
+        <input type="text" id="linkPoza" placeholder="Link pentru logo" required >
+        <input type="text" id="jsonMenu"  placeholder="<Meniul in format JSON:>"required >
+
+        <button class="buttonaut" type="submit">Inregistreaza restaurant</button>
+
+
+
+    </form>
+    <br>
+    <form class="produs" onsubmit="trimiteProdus()
+        return false;
+" action="http://127.0.0.1:8000/manager/manager.html">
+        <input type="text" id="numeRestaurant2"  placeholder="Denumire restaurant"required >
+        <input type="text" id="jsonItem"  placeholder="<Produsul in format JSON:>"required >
+        <button class="buttonaut" type="submit">Inregistreaza restaurant</button>
+
+
+
+    </form>
+</div>
+</div>
 <div id="commandsList">
-    <h2 id="title">Comenzi care te asteapta</h2>
+    <h2 id="title">Restaurantele tale</h2>
     <div class="command">
         <div>
             <h1>USER</h1>

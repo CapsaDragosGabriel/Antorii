@@ -10,19 +10,11 @@
     <script src="manager.js"></script>
     <script>
         if (localStorage.getItem('token')) {
-            getUsername();
-            changeUsername();
             getService().then(p => {
                 if (globalService === undefined) {
                     localStorage.removeItem('token');
                     window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html";
                 } else if (globalService == "manager") {
-                    // getNewOrders().then(() => {
-                    //     getClaimedOrders().then(() => {
-                    //         refreshOrders();
-                    //         showOrders()
-                    //     })
-                    // })
 
                 } else {
                     window.location.href = "../startUser/startUser.html"
@@ -31,8 +23,6 @@
                 }
             })
         } else window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html"
-
-
     </script>
     <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="../goodScripts/utils.js"></script>
@@ -42,7 +32,6 @@
 <body>
 <div class="header" itemscope itemtype="https://schema.org/Organization">
     <a class="active"><p itemprop="legalName">SerP</p></a>
-
     <a class="link" href="../login/login.html" onclick="logout()">Deconectare</a>
 </div>
 <div itemscope class="headerMobile" itemtype="https://schema.org/Organization">
@@ -50,126 +39,60 @@
         <a class="active" itemprop="legalName"><p>SerP</p></a>
         <a class="link" onclick="logout()">Deconectare</a>
     </div>
-    <div class="menu-small">
-        <div id="myNav" class="overlay">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <div class="overlay-content">
-                <a onclick="showCommandsMobile()">
-                    <img class="img" src="../resources/istoric.png" alt="user" style="width:20px; height:20px;">
-                    Comenzile tale
-                </a>
-                <!--            <a href="#clients" class="promo">-->
-                <!--                <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">-->
-                <!--                Promotii-->
-                <!--            </a>-->
-                <!--            <a href="#contact" class="status">-->
-                <!--                <img class="img" src="../resources/truck.png" alt="user" style="width:20px; height:20px;">-->
-                <!--                Status comanda-->
-                <!--            </a>-->
-            </div>
-        </div>
-        <span id="profile" onclick="openNav()">&#9776;</span>
-    </div>
 </div>
-<div id="details" itemscope itemtype="https://schema.org/Organization">
-    <div class="user-div">
-        <img class="img" src="../resources/user.png" alt="user" style="width:50px; height:50px;">
-        <p id="username">
-            Username
-        </p>
-    </div>
-    <div class="options">
-        <a class="istoric" onclick="showCommands()">
-            <img class="img" src="../resources/istoric.png" alt="user" style="width:20px; height:20px;">
-            Comenzi in asteptare
-        </a>
-    </div>
-</div>
-
-<div id="defaultTitle">Bine ai revenit, username!</div>
-<div class="formBox" style="padding-left: 300px">
-<div class="formulare">
-    <form class="restaurant" onsubmit="trimiteRestaurant()
-        return false;
-" action="http://127.0.0.1:8000/manager/manager.html">
-        <input type="text" id="numeRestaurant"  placeholder="Denumire restaurant"required >
-        <input type="text" id="linkPoza" placeholder="Link pentru logo" required >
-        <input type="text" id="jsonMenu"  placeholder="<Meniul in format JSON:>"required >
-
-        <button class="buttonaut" type="submit">Inregistreaza restaurant</button>
-
-
-
-    </form>
-    <div id="raspunsRestaurant"></div>
-    <br>
-    <form class="produs" onsubmit="trimiteProdus()
-        return false;
-" action="http://127.0.0.1:8000/manager/manager.html">
-        <input type="text" id="numeRestaurant2"  placeholder="Denumire restaurant"required >
-        <input type="text" id="jsonItem"  placeholder="<Produsul in format JSON:>"required >
-        <button class="buttonaut" type="submit">Adauga produs</button>
-
-    </form>
-    <div id="raspunsProdus"></div>
-
-    <form class="dispRest" onsubmit="valabilitateRestaurant()
-        return false;
-" action="http://127.0.0.1:8000/manager/manager.html">
-        <input type="text" id="numeRestaurant3"  placeholder="Denumire restaurant"required >
-        <select class="select" name="dispRest" id="dispRest" >
-            <option value="y">Disponibil</option>
-            <option value="n">Indisponibil</option>
-        </select>
-        <button class="buttonaut" type="submit">Schimba disponibilitate</button>
-
-    </form>
-
-    <form class="dispRest" onsubmit="valabilitateProdus()
-        return false;
-" action="http://127.0.0.1:8000/manager/manager.html">
-        <input type="text" id="numeProdus2"  placeholder="Denumire produs"required >
-        <select class="select" name="dispRest" id="dispProdus" >
-            <option value="y">Disponibil</option>
-            <option value="n">Indisponibil</option>
-        </select>
-        <button class="buttonaut" type="submit">Schimba disponibilitate</button>
-
-    </form>
-
-</div>
-</div>
-<div id="commandsList">
-    <h2 id="title">Restaurantele tale</h2>
-    <div class="command">
-        <div>
-            <h1>USER</h1>
-            <p>lista mancare?</p>
-        </div>
-        <label>
-            <select class="selectStatus" name="status">
-                <option value="none" selected disabled hidden>Status</option>
-                <option value="yes">Confirma</option>
-                <option value="no">Refuza</option>
-                <option value="done">Terminat</option>
+<div class="formBox">
+    <div class="columnDiv">
+        <form class="dispRest"
+              onsubmit="valabilitateRestaurant()
+                        return false;"
+              action="http://127.0.0.1:8000/manager/manager.html">
+            <input type="text" id="numeRestaurant3" placeholder="Denumire restaurant" required>
+            <select class="select" name="dispRest" id="dispRest">
+                <option value="y">Disponibil</option>
+                <option value="n">Indisponibil</option>
             </select>
-        </label>
-    </div>
-    <div class="command">
-        <div>
-            <h1>USER</h1>
-            <p>de la...pana la</p>
-        </div>
-        <label>
-            <select class="selectStatus" name="status">
-                <option value="none" selected disabled hidden>Status</option>
-                <option value="yes">Confirma</option>
-                <option value="no">Refuza</option>
-                <option value="done">Terminat</option>
+            <button class="buttonaut" type="submit">Schimba disponibilitate</button>
+        </form>
+
+        <form class="dispRest"
+              onsubmit="valabilitateProdus()
+                        return false;"
+              action="http://127.0.0.1:8000/manager/manager.html">
+            <input type="text" id="numeProdus2" placeholder="Denumire produs" required>
+            <select class="select" name="dispRest" id="dispProdus">
+                <option value="y">Disponibil</option>
+                <option value="n">Indisponibil</option>
             </select>
-        </label>
+            <button class="buttonaut" type="submit">Schimba disponibilitate</button>
+        </form>
+    </div>
+
+    <div class="rowDiv">
+        <form class="restaurant"
+              onsubmit="trimiteRestaurant()
+                        return false;"
+              action="http://127.0.0.1:8000/manager/manager.html">
+            <input type="text" id="numeRestaurant" placeholder="Denumire restaurant" required>
+            <input type="text" id="linkPoza" placeholder="Link pentru logo" required>
+            <textarea id="jsonMenu" rows="5" cols="10" name="meniu" required
+                      placeholder="Introduce-ti meniul!"></textarea>
+            <button class="buttonaut" type="submit">Inregistreaza restaurant</button>
+        </form>
+        <div id="raspunsRestaurant"></div>
+
+        <form class="produs"
+              onsubmit="trimiteProdus()
+                        return false;"
+              action="http://127.0.0.1:8000/manager/manager.html">
+            <input type="text" id="numeRestaurant2" placeholder="Denumire restaurant" required>
+            <textarea id="jsonItem" rows="5" cols="10" name="produs" required
+                      placeholder="Introduce-ti produsul!"></textarea>
+            <button class="buttonaut" type="submit">Adauga produs</button>
+        </form>
+        <div id="raspunsProdus"></div>
     </div>
 </div>
+<br>
 <footer class="footer">
     <p>&copy; 2022 Antorii</p>
     <p>
@@ -177,6 +100,5 @@
         Romania
     </p>
 </footer>
-
 </body>
 </html>

@@ -115,7 +115,7 @@ async function getItemIDFromRestaurantByName(restaurantName,itemName){
 }
 async function getItemIDFromRestaurantID(restaurantID,itemName){
     return new Promise((resolve, reject) => {
-        sql = "select id from items where restaurantID = ? and name= ? and available='y';"
+        sql = "select id from items where restaurantID = ? and name= ?;"
         con.query(sql,[restaurantID,itemName], function (err, result) {
             if (err) throw err;
             // console.log(result);

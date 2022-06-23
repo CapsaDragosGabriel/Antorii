@@ -108,8 +108,8 @@ function showOrders() {
                 comandaActuala.className = "command";
                 for (var item of foodObj.items) {
                     //item e fiecare chestie din food items
-                    if (item.quantity !== 0)
-                        comandaActuala.innerHTML = `<p>${item.name} x ${item.quantity}</p>`
+                    if (item.quantity )
+                        comandaActuala.innerHTML +=`<p>${item.name} x ${item.quantity}</p>`
                 }
                 //foodObj.cost e costul
                 //newObj.feedback... sunt feedbacks

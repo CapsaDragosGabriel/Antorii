@@ -1,5 +1,4 @@
 var mysql = require('mysql');
-const Console = require("console");
 const crypto = require("crypto")
 
 var con = mysql.createConnection({

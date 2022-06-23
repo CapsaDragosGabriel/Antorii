@@ -12,6 +12,8 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0;
+    min-height: 100%;
+    position: relative;
 }
 
 .header {
@@ -184,6 +186,7 @@ form {
     flex-direction: column;
     align-items: center;
     border-radius: 10px;
+    margin-bottom: 10%;
 }
 
 input {
@@ -213,11 +216,13 @@ input::placeholder {
 
 .footer {
     display: flex;
+    width: 100%;
     justify-content: space-between;
     font-family: "Imbue";
-    margin: 3% 2% 0 2%;
     font-weight: normal;
     font-size: 20px;
+    position: absolute;
+    bottom: 0;
 }
 @media screen and (max-width: 600px) {
     div.header {

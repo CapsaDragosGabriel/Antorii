@@ -12,6 +12,8 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0;
+    min-height: 100%;
+    position: relative;
 }
 
 
@@ -135,7 +137,7 @@ body {
 
 #main-div {
     width: 50%;
-    margin: 3% 25% 3% 25%;
+    margin: 3% 25% 10% 25%;
     background-color: #F5F5F5;
     border-radius: 10px;
     display: flex;
@@ -224,9 +226,11 @@ body {
     display: flex;
     justify-content: space-between;
     font-family: "Imbue";
-    margin: 3% 2% 0 2%;
     font-weight: normal;
     font-size: 20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 @media screen and (max-width: 600px) {
     div.header {

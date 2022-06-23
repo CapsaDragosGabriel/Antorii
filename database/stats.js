@@ -5,6 +5,49 @@ var con = mysql.createConnection({
     password: "student",
     database: "web"
 });
+async function aggregateUserData()
+{
+    return new Promise(resolve => {
+    getConsumerProviderUserProcent().then(r=>{
+        r="{\n\"consumer_provider\":"+ JSON.stringify(r);
+        // resolve(r);
+        getNumberOfUsersPerCounty().then(p=>{
+          r=r+",\n\"users_per_county\":"+JSON.stringify(p)+",";
+          getNumberOfConsumersPerCounty().then(pp=>{
+              r+="\n\"consumers_per_county\":"+JSON.stringify(pp);
+              getNumberOfProvidersPerCounty().then(ppp=>{
+                r+=",\n\"providers_per_county\":"+JSON.stringify(ppp);
+
+                getUsersOrderedByRideSpending().then(p=>{
+                    r+=",\n\"users_by_ride_spending\":"+JSON.stringify(p);
+                    getUsersOrderedByRestaurantSpending().then(p=>{
+                        r+=",\n\"users_by_restaurant_spending\":"+JSON.stringify(p)
+                        getUsersOrderedByTotalSpending().then(p=>{
+                            r+=",\n\"users_by_total_spending\":"+JSON.stringify(p)+"\n}"
+                            resolve(r);
+
+                        })
+
+
+                    })
+                })
+
+              })
+
+          })
+        })
+    } )
+
+    })
+}
+// getNumberOfProvidersPerCounty().then(r=>console.log(r[2]))
+
+// aggregateUserData().then(r=> {
+//     r=JSON.parse(r)
+//    // console.log(r.consumer_provider)
+//     console.log(r.providers_per_county);
+// })
+
 
 async function getConsumerProviderUserProcent(){
     return new Promise((resolve, reject) => {
@@ -20,7 +63,6 @@ async function getConsumerProviderUserProcent(){
 
     })
 }
-
 async function getNumberOfUsersPerCounty(){
     return new Promise((resolve, reject) => {
 
@@ -34,7 +76,6 @@ async function getNumberOfUsersPerCounty(){
 
     })
 }
-
 async function getNumberOfConsumersPerCounty(){
     return new Promise((resolve, reject) => {
 
@@ -48,7 +89,6 @@ async function getNumberOfConsumersPerCounty(){
 
     })
 }
-
 async function getNumberOfProvidersPerCounty(){
     return new Promise((resolve, reject) => {
 
@@ -62,8 +102,6 @@ async function getNumberOfProvidersPerCounty(){
 
     })
 }
-
-
 async function getUsersOrderedByRideSpending(){
     return new Promise((resolve, reject) => {
 
@@ -71,13 +109,14 @@ async function getUsersOrderedByRideSpending(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                temp[i]=result[i];
+            resolve(temp)
         });
 
     })
 }
-
 async function getUsersOrderedByRestaurantSpending(){
     return new Promise((resolve, reject) => {
 
@@ -86,13 +125,15 @@ async function getUsersOrderedByRestaurantSpending(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                temp[i]=result[i];
 
-            resolve(result)
+            resolve(temp)
         });
 
     })
 }
-
 async function getUsersOrderedByTotalSpending(){
     return new Promise((resolve, reject) => {
 
@@ -103,13 +144,34 @@ async function getUsersOrderedByTotalSpending(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                temp[i]=result[i];
+            resolve(temp)
         });
 
     })
 }
 
+
+async function aggregateRestaurantData()
+{
+    return new Promise(resolve=>
+    {
+        getRestaurantsOrderByProfit().then(r=>
+        {
+            r=("{\"restaurants_by_profit\":"+JSON.stringify(r))
+            getDeliveryByNrOfOrders().then(p=>{
+                r+=(",\"delivery_by_orders\":"+JSON.stringify(p)+"\n}")
+                resolve(r);
+            })
+        })
+    })
+}
+// aggregateRestaurantData().then(r=>{
+//     r=JSON.parse(r);
+//     console.log(r.delivery_by_orders)
+// })
 async function getRestaurantsOrderByProfit(){
     return new Promise((resolve, reject) => {
 
@@ -118,8 +180,11 @@ async function getRestaurantsOrderByProfit(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                if(result[i])
+                temp[i]=result[i];
+            resolve(temp)
         });
 
     })
@@ -132,13 +197,33 @@ async function getDeliveryByNrOfOrders(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                if(result[i])
+                    temp[i]=result[i];
+            resolve(temp)
         });
 
     })
 }
 
+async function aggregateRideshareData()
+{
+    return new Promise((resolve,reject)=>
+    {
+        getDriversByNrOfTrips().then(r=>{
+            r="{\n\"drivers_by_trips\":"+JSON.stringify(r);
+            getDriversByRating().then(p=>{
+                r=r+",\"drivers_by_rating\":"+JSON.stringify(p)+"\n}"
+                resolve(r);
+            })
+        })
+    })
+}
+aggregateRideshareData().then(r=>{
+    r=JSON.parse(r);
+    console.log(r);
+})
 async function getDriversByNrOfTrips(){
     return new Promise((resolve, reject) => {
 
@@ -146,13 +231,19 @@ async function getDriversByNrOfTrips(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                if(result[i])
+                    temp[i]=result[i];
+            resolve(temp)
         });
 
     })
 }
 
+getDriversByNrOfTrips().then(f=>{
+    console.log(f);
+})
 async function getDriversByRating(){
     return new Promise((resolve, reject) => {
 
@@ -160,8 +251,11 @@ async function getDriversByRating(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                if(result[i])
+                    temp[i]=result[i];
+            resolve(temp)
         });
 
     })
@@ -174,8 +268,11 @@ async function getDriversByProfit(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                if(result[i])
+                    temp[i]=result[i];
+            resolve(temp)
         });
 
     })
@@ -188,8 +285,11 @@ async function getCountiesByNrOfRideShares(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                if(result[i])
+                    temp[i]=result[i];
+            resolve(temp)
         });
 
     })
@@ -202,8 +302,11 @@ async function getCountiesByNrOfOrders(){
 
         con.query(sql, function (err, result) {
             if (err) throw err;
-
-            resolve(result)
+            var temp=[];
+            for (let i=0;i<=4;i++)
+                if(result[i])
+                    temp[i]=result[i];
+            resolve(temp)
         });
 
     })
@@ -223,5 +326,8 @@ module.exports = {
     getDriversByRating,
     getDriversByProfit,
     getCountiesByNrOfRideShares,
-    getCountiesByNrOfOrders
+    getCountiesByNrOfOrders,
+    aggregateUserData,
+    aggregateRestaurantData,
+
 }

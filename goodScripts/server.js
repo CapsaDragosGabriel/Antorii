@@ -4,6 +4,7 @@ var rideDB = require("../database/rideManager");
 var restaurantDB = require("../database/restaurantManager");
 var orderDB = require("../database/orderManager");
 var itemDB = require("../database/itemManager")
+var statsDB = require("../database/stats");
 const http = require('http');
 
 const nodemailer = require('nodemailer');
@@ -19,6 +20,8 @@ const fs = require('fs');
 const url = require('url');
 const qs = require('querystring');
 const {con} = require("../database/demo_db_connection");
+const {getServiceReturned} = require("./utils");
+
 
 //
 function makeid(length) {
@@ -43,30 +46,7 @@ const parseCookies = (cookie = '') =>
         }, {});
 
 const server = http.createServer((req, res) => {
-    const cookies = parseCookies(req.headers.cookie);
-    /*
-    if(req.url.startsWith('/login')) {
-       /* const { query } = url.parse(req.url);
-        const { name } = qs.parse(query);
-        const expires = new Date();
-        expires.setMinutes(expires.getMinutes() + 1);
-        res.writeHead(302, {
-            Location: '/',
-            'Set-Cookie': `name=${encodeURIComponent(name)};Expires=${expires.toGMTString()};HttpOnly; Path=/`,
-        });
-        res.end();
-    } else
-        */
-    //console.log('TEST server called')
-    if (cookies.name) {
-        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-        fs.readFile('../mainHome/mainHome.html', (error, data) => {
-
-            res.end(data);
-        });
-        //res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8'});
-        res.end(`Welcome ${cookies.name}`)
-    } else if (req.url.startsWith('/api/login')) {
+    if (req.url.startsWith('/api/login')) {
         console.log('API LOGIN');
 
         let data = '';
@@ -731,25 +711,25 @@ const server = http.createServer((req, res) => {
             //aici se adauga verificarea datelor
             console.log(result.token);
 
-            if(result.token)
-            userDB.getServiceByToken(result.token).then(p => {
-                console.log(p)
-                if (p == "food") {
-                    console.log(data);
-                    if(result.token)
-                    userDB.getIDByToken(result.token).then(r => {
-                            // console.log(r);
-                            if (r)
-                                orderDB.getCompleteOrdersUnclaimed().then(fn => {
-                                    console.log("unclaimed ORDERS ARE " + JSON.stringify(fn[0]));
-                                    res.end(JSON.stringify(fn));
-                                });
-                        }
-                    )
-                }
+            if (result.token)
+                userDB.getServiceByToken(result.token).then(p => {
+                    console.log(p)
+                    if (p == "food") {
+                        console.log(data);
+                        if (result.token)
+                            userDB.getIDByToken(result.token).then(r => {
+                                    // console.log(r);
+                                    if (r)
+                                        orderDB.getCompleteOrdersUnclaimed().then(fn => {
+                                            console.log("unclaimed ORDERS ARE " + JSON.stringify(fn[0]));
+                                            res.end(JSON.stringify(fn));
+                                        });
+                                }
+                            )
+                    }
 
 
-            })
+                })
             //aici se adauga introducerea datelor in baza de date
             //console.log(result);
             //getPage(req, res).then();
@@ -793,8 +773,49 @@ const server = http.createServer((req, res) => {
             })
         })
     }//get restaurants from db
-    else if (req.url.startsWith('/api/menu'))//get menu from db
-    {
+    else if (req.url.startsWith('/api/reviews')) {
+        console.log('API restaurants');
+
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            //console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+            //console.log('data chunk finished ' + data.restaurantName)
+            console.log(data);
+            let result = {
+                token:data.token,
+                restaurantName: data.restaurantName
+            }
+            console.log(JSON.stringify(result));
+            if(result.token) {
+                userDB.getServiceByToken(result.token).then(r=>{
+                    if(r=="consumer")
+                    {
+                        // console.log("NUME rest"+restaurantDB)
+                        restaurantDB.getRestaurantByName(result.restaurantName).then(f=>
+                        {
+                            restaurantDB.getReviewsRestaurant(f.id).then(r => {
+                                    res.writeHead(201, {
+                                        'Access-Control-Allow-Origin': '*',
+                                        'Content-Type': 'application/json'
+                                    });
+                                    res.end(JSON.stringify(r), 'utf-8');
+                                }
+                            )
+                        })
+
+                    }
+                })
+
+            }
+        })
+    }//get menu from db
+
+    else if (req.url.startsWith('/api/menu')) {
         console.log('API restaurants');
 
         let data = '';
@@ -821,8 +842,8 @@ const server = http.createServer((req, res) => {
             )
 
         })
-    } else if (req.url.startsWith('/api/food'))//
-    {
+    }//get menu from db
+    else if (req.url.startsWith('/api/food')) {
         console.log('API FOOD');
         let data = '';
         req.on('data', chunk => {
@@ -887,7 +908,8 @@ const server = http.createServer((req, res) => {
             // res.end("ok");
         })
 
-    } else if (req.url.startsWith('/api/claim/orders')) {
+    }//
+    else if (req.url.startsWith('/api/claim/orders')) {
         console.log('API ORDERS');
         let data = '';
         req.on('data', chunk => {
@@ -914,16 +936,16 @@ const server = http.createServer((req, res) => {
                     console.log(p)
                     if (p == "food") {
                         console.log(data);
-                        if(result.token)
-                        userDB.getIDByToken(result.token).then(r => {
-                                //  console.log(r);
-                                // console.log(r);
-                                orderDB.getCompleteOrdersByProviderID(r).then(fn => {
-                                    console.log("CLAIMED orders ARE " + fn);
-                                    res.end(JSON.stringify(fn));
-                                });
-                            }
-                        )
+                        if (result.token)
+                            userDB.getIDByToken(result.token).then(r => {
+                                    //  console.log(r);
+                                    // console.log(r);
+                                    orderDB.getCompleteOrdersByProviderID(r).then(fn => {
+                                        console.log("CLAIMED orders ARE " + fn);
+                                        res.end(JSON.stringify(fn));
+                                    });
+                                }
+                            )
                     } else {
                         console.log(data)
                         if (p && result.token)
@@ -941,10 +963,300 @@ const server = http.createServer((req, res) => {
 
         })
     }//get own rides (driver/consumer)
+    else if (req.url.startsWith('/api/admin/usersStats')) {
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            //console.log('data chunk added ' + data)
+        })
+        req.on('end', () => {
 
-    else if (cookies.name) {
+            data = JSON.parse(data);
+            // //console.log('data chunk finished ' + data.email)
 
-    } else {
+            const result = {
+                token: data.token,
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+            if (result.token)
+                userDB.getServiceByToken(result.token).then(p => {
+                    if (p == "admin") {
+                        statsDB.aggregateUserData().then(p => {
+                            res.end(JSON.stringify(p))
+                        });
+
+                    }
+
+
+                })
+
+
+        })
+    }
+    else if (req.url.startsWith('/api/admin/restaurantStats')) {
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            //console.log('data chunk added ' + data)
+        })
+        req.on('end', () => {
+
+            data = JSON.parse(data);
+            // //console.log('data chunk finished ' + data.email)
+
+            const result = {
+                token: data.token,
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'mode': 'no-cors',
+                'Content-Type': 'application/json'
+            });
+            if (result.token)
+                userDB.getServiceByToken(result.token).then(p => {
+                    if (p == "admin") {
+                        statsDB.aggregateRestaurantData().then(p => {
+                            res.end(JSON.stringify(p))
+                        });
+
+                    }
+
+
+                })
+
+
+        })
+    }
+    else if (req.url.startsWith('/api/manager/insertRestaurant')) {
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        });
+
+        req.on('end', () => {
+            try {
+                console.log(data);
+                data = JSON.parse(data);
+            } catch (e) {
+                console.log("not doable");
+            }
+            // console.log('data chunk finished ' + data.email)
+
+            const result = {
+                token: data.token,
+                numeRestaurant: data.numeRestaurant,
+                linkPoza: data.linkPoza,
+                jsonMenu: data.jsonMenu
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'mode': 'no-cors',
+                'Content-Type': 'application/json'
+            });
+            let notGood = {
+                raspuns: "not good"
+            }
+            if (result.token)
+                userDB.getServiceByToken(result.token).then(p => {
+                    if (p == "manager") {
+                        try {/*
+                            let getMenu="";
+                            let k=0;
+                            for(let i=1;i<result.jsonMenu.length-1;i++);
+                                getMenu[k++]=result.jsonMenu[i];
+                                */
+                            console.log(result.jsonMenu);
+                            let menu = result.jsonMenu;
+
+                            console.log(menu);
+                            if (menu[0].name == undefined || menu[0].description == undefined || menu[0].price == undefined)
+                                throw new Error("not good");
+                            restaurantDB.insertRestaurant(result.numeRestaurant, result.linkPoza).then(r => {
+                                if (r == 1) {
+                                    for (var item of menu) {
+                                        itemDB.insertItem(result.numeRestaurant, item)
+                                    }
+                                } else res.end(JSON.stringify(notGood));
+                            })
+                        } catch (err) {
+                            console.log("not good")
+                            res.end(JSON.stringify(notGood));
+                        }
+                    }
+                })
+        })
+    }
+    else if (req.url.startsWith('/api/manager/insertProdus')) {
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        });
+
+        req.on('end', () => {
+            try {
+                console.log(data);
+                data = JSON.parse(data);
+            } catch (e) {
+                console.log("not doable");
+            }
+            // console.log('data chunk finished ' + data.email)
+
+            const result = {
+                token: data.token,
+                numeRestaurant: data.numeRestaurant,
+                jsonItem: data.jsonItem
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'mode': 'no-cors',
+                'Content-Type': 'application/json'
+            });
+
+            let notGood = {
+                raspuns: "not good"
+            }
+            let allGood = {
+                raspuns: "all good"
+            }
+
+            console.log(result);
+            if (result.token)
+                userDB.getServiceByToken(result.token).then(p => {
+                    if (p == "manager") {
+                        try {
+                            let menu = result.jsonItem;
+
+                            console.log(menu);
+                            if (menu.name == undefined || menu.description == undefined || menu.price == undefined) {
+                                console.log("s-a stricat jsonu patroane")
+                                throw new Error("not good");
+                            }
+                                        itemDB.insertItem(result.numeRestaurant, menu).then(r=>{
+                                            if (r==1){console.log(r);
+                                                res.end(JSON.stringify(allGood));}
+                                            else {
+                                                console.log("S-A AJUNS AICI BAROSANE")
+                                                console.log(r);
+                                                res.end(JSON.stringify(notGood));
+                                            }
+                                        })
+                        } catch (err) {
+                            console.log("S-A AJUNS AICI sefanule")
+
+                            console.log("not good")
+                            console.log(notGood);
+                            res.end(JSON.stringify(notGood));
+                        }
+                    }
+                })
+        })
+    }
+    else if (req.url.startsWith('/api/manager/restaurantAvailability')) {
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        });
+
+        req.on('end', () => {
+            try {
+                console.log(data);
+                data = JSON.parse(data);
+            } catch (e) {
+                console.log("not doable");
+            }
+            // console.log('data chunk finished ' + data.email)
+
+            const result = {
+                token: data.token,
+                availability:data.availability,
+                numeRestaurant: data.numeRestaurant,
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'mode': 'no-cors',
+                'Content-Type': 'application/json'
+            });
+            let notGood = {
+                raspuns: "not good"
+            }
+            if (result.token)
+                userDB.getServiceByToken(result.token).then(p => {
+                    if (p == "manager") {
+                        restaurantDB.restaurantAvailability(result.numeRestaurant,result.availability)
+                    }
+                })
+        })
+    }
+    else if (req.url.startsWith('/api/manager/itemAvailability')) {
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        });
+
+        req.on('end', () => {
+            try {
+                console.log(data);
+                data = JSON.parse(data);
+            } catch (e) {
+                console.log("not doable");
+            }
+            // console.log('data chunk finished ' + data.email)
+
+            const result = {
+                token: data.token,
+                availability:data.availability,
+                numeProdus: data.numeProdus,
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'mode': 'no-cors',
+                'Content-Type': 'application/json'
+            });
+            let notGood = {
+                raspuns: "not good"
+            }
+            let allGood = {
+                raspuns: "all good"
+            }
+            if (result.token)
+                userDB.getServiceByToken(result.token).then(p => {
+                    if (p == "manager") {
+                        restaurantDB.itemAvailability(result.numeProdus,result.availability)
+                    }
+                })
+        })
+    }
+
+        // else if (req.url.startsWith('/api/judete')){
+        //     let data = '';
+        //     req.on('data', chunk => {
+        //         data += chunk;
+        //         //console.log('data chunk added ' + data)
+        //     })
+        //     req.on('end', () => {
+        //
+        //         data = JSON.parse(data);
+        //         // //console.log('data chunk finished ' + data.email)
+        //
+        //         const result = {
+        //             token: data.token,
+        //         };
+        //         res.writeHead(201, {
+        //             'Access-Control-Allow-Origin': '*',
+        //             'Content-Type': 'application/json'
+        //         });
+        //         getJudete().then(r=> console.log(r))
+        //     })
+    // }
+
+    else {
 
         getPage(req, res).then();
     }

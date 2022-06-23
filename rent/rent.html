@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Text+Me+One">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Dots">
+    <link rel="stylesheet" href="rent.css">
+    <script src="../scriptsFrontend/servicesBtn.js"></script>
+    <script src="rent.js"></script>
+    <script src="../startUser/startUser.js"></script>
+<!--    <script src="../goodScripts/utils.js"></script>-->
+    <script>
+        if (localStorage.getItem('token')) {
+            getUsername();
+            changeUsername();
+            getService().then(p => {
+                if (globalService === undefined) {
+                    localStorage.removeItem('token');
+                    window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html";
+                } else if (globalService == "consumer") {
+                    // getNewOrders().then(() => {
+                    //     getClaimedOrders().then(() => {
+                    //         refreshOrders();
+                    //         showOrders()
+                    //     })
+                    // })
+                } else {
+                    window.location.href = "../startUser/startUser.html"
+                    //redirect pe pagina serviciului corespunzator
+                    //  window.location.href="https://stackoverflow.com/questions/1827063/mysql-error-key-specification-without-a-key-length";
+                }
+            })
+        } else window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html"
+
+
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inchirieri</title>
+</head>
+<body>
+<div class="header" itemscope itemtype="https://schema.org/Organization">
+    <a class="active" href="../startUser/startUser.html"><p itemprop="legalName">SerP</p></a>
+    <div class="dropdown">
+        <button class="dropbtn" onclick="myFunction()">Servicii</button>
+        <div class="dropdown-content" id="myDropdown">
+            <a href="../ride-sharing/ride-sharing.html"><p itemprop="makesOffer">Ride-sharing</p></a>
+            <a href="../food/food.html"><p itemprop="makesOffer">Food delivery</p></a>
+            <a href="../rent/rent.html"><p itemprop="makesOffer">Inchirieri</p></a>
+        </div>
+    </div>
+    <a class="link" onclick="logout()">Deconectare</a>
+</div>
+<div itemscope class="headerMobile" itemtype="https://schema.org/Organization">
+    <div class="header_small">
+        <a class="active" href="../startUser/startUser.html" itemprop="legalName"><p>SerP</p></a>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="myFunctionSmall()">Servicii</button>
+            <div class="dropdown-content" id="myDropdownsmall">
+                <a href="../ride-sharing/ride-sharing.html">Ride-sharing</a>
+                <a href="../food/food.html">Food delivery</a>
+                <a href="../rent/rent.html">Inchirieri</a>
+            </div>
+        </div>
+        <a class="link" onclick="logout()">Deconectare</a>
+    </div>
+    <div class="menu-small">
+        <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="overlay-content">
+                <a class="anunt">
+                    <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">
+                    Pune anunt
+                </a>
+                <!--            <a href="#clients" class="promo">-->
+                <!--                <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">-->
+                <!--                Promotii-->
+                <!--            </a>-->
+                <!--            <a href="#contact" class="status">-->
+                <!--                <img class="img" src="../resources/truck.png" alt="user" style="width:20px; height:20px;">-->
+                <!--                Status comanda-->
+                <!--            </a>-->
+            </div>
+        </div>
+        <span id="profile" onclick="openNav()">&#9776;</span>
+    </div>
+</div>
+<div id="details" itemscope itemtype="https://schema.org/Organization">
+    <div class="user-div">
+        <img class="img" src="../resources/user.png" alt="user" style="width:50px; height:50px;">
+        <p id="username">
+            Username
+        </p>
+    </div>
+    <div class="options">
+        <a class="showAnunt" onclick="showAds()">
+            <img class="img" src="../resources/istoric.png" alt="user" style="width:20px; height:20px;">
+            Vezi anunturi
+        </a>
+        <a class="anunt" onclick="adForm()">
+            <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">
+            Pune anunt
+        </a>
+    </div>
+</div>
+<div id="main-div">
+    <form id="rent-form" onsubmit="sendDates(); return false;" action="http://127.0.0.1:8000/rent/rent.html">
+        <h1 id="title">Selecteaza perioada in care vrei sa inchiriezi</h1>
+        <label class="labelForm" for="from"><br>De la:
+            <input type="date" id="from" name="from" required>
+        </label>
+        <label class="labelForm" for="to"><br>Pana la:
+            <input type="date" id="to" name="to" required>
+        </label>
+        <label id="buton">
+            <button class="submitbtn" type="submit" value="search">Cauta</button>
+        </label>
+    </form>
+</div>
+<div id="adDiv">
+    <form id="ad-form">
+        <h1 id="titleAd">Publica anuntul tau!</h1>
+
+        <label class="labelAd" for="type">De inchiriat:
+            <label class="labelInput">
+                <select name="cars" id="type">
+                    <option id="first" value="bicycle">Bicicleta</option>
+                    <option value="car">Masina</option>
+                    <option value="motor">Motocicleta</option>
+                    <option value="trotineta">Trotineta</option>
+                </select>
+            </label>
+        </label>
+
+        <label class="labelAd" for="description">Descriere:
+            <label class="labelInput">
+                <input type="text" id="description" name="description" placeholder="Descrie produsul!" required>
+            </label>
+        </label>
+
+        <label class="labelAd" for="location">Locatie:
+            <label class="labelInput">
+                <input type="text" id="location" name="location" placeholder="Unde se afla?" required>
+            </label>
+        </label>
+
+        <label class="labelAd" for="price">Pret/zi:
+            <label class="labelInput">
+                <input type="text" id="price" name="price" placeholder="Cat ceri?" required>
+            </label>
+        </label>
+
+        <label id="butonAd">
+            <button class="submitbtn" type="submit" value="search">Publica</button>
+        </label>
+    </form>
+</div>
+<footer class="footer">
+    <p>&copy; 2022 Antorii</p>
+    <p>
+        <img src="../resources/earth.png" alt="earth">
+        Romania
+    </p>
+</footer>
+</body>
+</html>

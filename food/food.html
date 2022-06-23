@@ -12,24 +12,6 @@
     <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="../startUser/startUser.js"></script>
     <script src="goodScripts/utils.js"></script>
-    <!--    <script >
-            if (localStorage.getItem('token'))
-            {
-                getServiceReturned().then(r=>{
-                    if (r==undefined) {localStorage.removeItem('token'); window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html";}
-                    else if(r!="consumer")
-                        window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
-                    if(r=="food")
-                        window.location.href="http://127.0.0.1:8000/startUser/startUser.html"
-
-                })
-
-                //check with db
-                //after ok
-            }        else window.location.href="http://127.0.0.1:8000/mainHome/mainHome.html"
-
-
-        </script>-->
     <script>
         if (localStorage.getItem('token')) {
             getService().then(() => {
@@ -37,8 +19,6 @@
                     localStorage.removeItem('token');
                     window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html";
                 } else if (globalService != "consumer")
-                    window.location.href = "http://127.0.0.1:8000/startUser/startUser.html"
-                if (r == "food")
                     window.location.href = "http://127.0.0.1:8000/startUser/startUser.html"
 
             })
@@ -128,14 +108,7 @@ else if(ok=='deja') showFoods()">
             <img class="img" src="../resources/istoric.png" alt="user" onclick="" style="width:20px; height:20px;">
             Comenzile tale
         </a>
-        <!--        <a href="#clients" class="promo">-->
-        <!--            <img class="img" src="../resources/coupon.png" alt="user" style="width:20px; height:20px;">-->
-        <!--            Promotii-->
-        <!--        </a>-->
-        <!--        <a href="#contact" class="status">-->
-        <!--            <img class="img" src="../resources/truck.png" alt="user" style="width:20px; height:20px;">-->
-        <!--            Status comanda-->
-        <!--        </a>-->
+
     </div>
 </div>
 <div id="box">
@@ -148,6 +121,7 @@ else if(ok=='deja') showFoods()">
         <h2 id="title">Comenzile tale</h2>
     </div>
 </div>
+<br>
 
 <footer class="footer">
     <p>&copy; 2022 Antorii</p>

@@ -2,7 +2,7 @@ var mysql = require('mysql');
 
 var con = mysql.createConnection({
     host: "localhost",
-    user: "student",
+        user: "student",
     password: "student",
     database: "web"
 });
@@ -43,5 +43,5 @@ function stopTokenValidator(){
 }
 
 
-createTokenValidator(5)
+createTokenValidator(999)
 //stopTokenValidator()

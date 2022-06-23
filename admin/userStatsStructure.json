@@ -1,0 +1,23 @@
+[{
+  "consumer_provider": {
+    "consumer_procent": "33.3333%",
+    "provider_procent": "66.6667%"
+  },
+  "users_per_county": [{
+      "county":0,
+      "number_of_users": 0
+  }],
+  "consumers_per_county": [{
+
+  }],
+  "providers_per_county": [{}],
+  "users_by_ride_spending": [{}],
+  "users_by_restaurant_spending": [{}],
+  "users_by_total_spending": [{}]
+
+}
+,
+{
+  "restaurants_by_profit":"0",
+"delivery_by_orders": 0
+}]

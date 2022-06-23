@@ -23,11 +23,15 @@ function insertItem(restaurantName,item) {
 
         console.log("sql: " + sql)
         con.query(sql,[restaurantID,item.name,item.description,item.price], function (err, result) {
-            if (err) throw err;
-            console.log("item inserted");
-        });
-
+            if (err) {
+                console.log("can t do that");
+                return 0;}
+            else {
+                console.log("item inserted");
+                return 1;
+            }});
     })
+    return 1;
 }
 function getItemName(itemID){
     return new Promise((resolve, reject) => {
@@ -50,5 +54,6 @@ var item =
     }
 module.exports={
     getItemName,
+    insertItem
 }
 // insertItem('McDonalds',item)

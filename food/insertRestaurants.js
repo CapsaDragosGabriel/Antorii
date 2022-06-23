@@ -29,7 +29,8 @@ let display="";
                 // let nume=obj.name;
                 x.innerHTML = x.innerHTML + `` +
                     `<a onclick="display='${obj.name}'; console.log(${display}); changeDisplay()">${obj.name}<br>
-<img src=${obj.photo}> </a><br>`
+<img src=${obj.photo}> </a>
+<a onclick="display='review${obj.name}'; console.log(display); changeDisplay()">Vezi reviews ${obj.name}</a> <br>`
             }
             // console.log(jsondata)
 

@@ -9,9 +9,31 @@
     <script src="../scriptsFrontend/servicesBtn.js"></script>
     <script src="rent.js"></script>
     <script src="../startUser/startUser.js"></script>
-    <script src="../goodScripts/utils.js"></script>
+<!--    <script src="../goodScripts/utils.js"></script>-->
     <script>
-        getUsername();
+        if (localStorage.getItem('token')) {
+            getUsername();
+            changeUsername();
+            getService().then(p => {
+                if (globalService === undefined) {
+                    localStorage.removeItem('token');
+                    window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html";
+                } else if (globalService == "consumer") {
+                    // getNewOrders().then(() => {
+                    //     getClaimedOrders().then(() => {
+                    //         refreshOrders();
+                    //         showOrders()
+                    //     })
+                    // })
+                } else {
+                    window.location.href = "../startUser/startUser.html"
+                    //redirect pe pagina serviciului corespunzator
+                    //  window.location.href="https://stackoverflow.com/questions/1827063/mysql-error-key-specification-without-a-key-length";
+                }
+            })
+        } else window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html"
+
+
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Inchirieri</title>
@@ -82,7 +104,7 @@
     </div>
 </div>
 <div id="main-div">
-    <form id="rent-form">
+    <form id="rent-form" onsubmit="sendDates(); return false;" action="http://127.0.0.1:8000/rent/rent.html">
         <h1 id="title">Selecteaza perioada in care vrei sa inchiriezi</h1>
         <label class="labelForm" for="from"><br>De la:
             <input type="date" id="from" name="from" required>

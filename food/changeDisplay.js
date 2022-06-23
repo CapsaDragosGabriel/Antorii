@@ -260,7 +260,7 @@ async function changeUsername() {
 
 var changeDisplay = function () {
 
-    if (display!="comanda") {
+    if (!display.startsWith(`review`)&&display!=='comanda') {
         numeRestaurant = display;
         var x = document.getElementById("box");
         x.innerHTML = `
@@ -281,9 +281,9 @@ var changeDisplay = function () {
         </div>`;
         totalCost();
     }
-    if (display !== 'comanda')
+    if (!display.startsWith(`review`)&& display !== 'comanda')
         getMenu();
-    else {
+    else if (!display.startsWith(`review`)){
         var x = document.getElementById("adresaLivrare");
         x.innerHTML = `
         <form method="post" action="food.html" onsubmit="{comanda();return false;}">
@@ -292,8 +292,54 @@ var changeDisplay = function () {
         </form>   `
         rezumatComanda();
     }
+    else{
+    var x = document.getElementById("box");
+        x.innerHTML = `
+        <a href="food.html" id="back">Inapoi</a>`;
+        console.log("DISPALY IS: "+display.length);
+        let k=0;
+        let sir="";
+      sir=display;
+
+      getReviews()
+    }
 }
 
+async function getReviews() {
+    let data = {
+        token:localStorage.getItem('token'),
+        restaurantName:display.substring(6,display.length)
+    }
+
+    // console.log("TRIMIT NUMELE: " + data.restaurantName);
+    response = await fetch('http://localhost:8000/api/reviews', {
+        method: 'POST',
+        body: JSON.stringify(data)
+    }).then(r => r.json()).catch(e => {
+        console.log(e);
+    })
+    let jsondata = response
+    console.log("AM PRIMIT " + response);
+    globalReviews=response;
+    showReviews()
+    console.log(globalReviews[0].feedback_restaurant);
+}
+function showReviews(){
+    var x = document.getElementById("box");
+    x.setAttribute("class", "commandsList");
+
+    x.innerHTML+=`<h1>Reviews pentru ${display.substring(6,display.length)}</h1>`
+    for (let i=0;i<globalReviews.length;i++)
+    {
+        let newReview=document.createElement('div')
+        newReview.setAttribute("class","infoComanda");
+        newReview.innerHTML+=`
+        <h2>Anonim</h2>
+           <p>${globalReviews[i].feedback_restaurant}</p>`
+        x.innerHTML+=newReview.innerHTML;
+    }
+}
+let globalReviews=[];
 async function comanda() {
     var adresa = document.getElementById('inputAddress');
     const data = {

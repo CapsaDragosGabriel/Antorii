@@ -156,7 +156,21 @@ async function getItemIDFromRestaurantID(restaurantID,itemName){
 
     })
 }
+async function getReviewsRestaurant(restaurantID){
+    return new Promise((resolve, reject) => {
+        sql = "select feedback_restaurant from orders where restaurantID = ? and feedback_restaurant is not null;"
+        con.query(sql,[restaurantID], function (err, result) {
+            if (err) throw err;
+            // console.log(result);
+            //console.log("\n\nAM GASITA:" + JSON.parse(JSON.stringify(result)));
+            resolve(result)
+        });
 
+
+
+    })
+}
+// getReviewsRestaurant(3).then(r=>console.log(r));
 async function getRestaurantsSortedByNrOfOrders(){
     return new Promise((resolve, reject) => {
         sql = "select * from restaurants r order by (select count(*) from orders where restaurantID = r.id) desc;"
@@ -196,5 +210,6 @@ module.exports={
     // newInsertRestaurant,
     insertRestaurant,
     restaurantAvailability,
-    itemAvailability
+    itemAvailability,
+    getReviewsRestaurant
 }

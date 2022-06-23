@@ -20,6 +20,7 @@ const fs = require('fs');
 const url = require('url');
 const qs = require('querystring');
 const {con} = require("../database/demo_db_connection");
+const {getServiceReturned} = require("./utils");
 
 
 //
@@ -772,6 +773,48 @@ const server = http.createServer((req, res) => {
             })
         })
     }//get restaurants from db
+    else if (req.url.startsWith('/api/reviews')) {
+        console.log('API restaurants');
+
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            //console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+            //console.log('data chunk finished ' + data.restaurantName)
+            console.log(data);
+            let result = {
+                token:data.token,
+                restaurantName: data.restaurantName
+            }
+            console.log(JSON.stringify(result));
+            if(result.token) {
+                userDB.getServiceByToken(result.token).then(r=>{
+                    if(r=="consumer")
+                    {
+                        // console.log("NUME rest"+restaurantDB)
+                        restaurantDB.getRestaurantByName(result.restaurantName).then(f=>
+                        {
+                            restaurantDB.getReviewsRestaurant(f.id).then(r => {
+                                    res.writeHead(201, {
+                                        'Access-Control-Allow-Origin': '*',
+                                        'Content-Type': 'application/json'
+                                    });
+                                    res.end(JSON.stringify(r), 'utf-8');
+                                }
+                            )
+                        })
+
+                    }
+                })
+
+            }
+        })
+    }//get menu from db
+
     else if (req.url.startsWith('/api/menu')) {
         console.log('API restaurants');
 

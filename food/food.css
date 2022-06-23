@@ -279,7 +279,9 @@ form {
     background-color: #B64141;
     color: white;
 }
+.review{
 
+}
 .overlay .closebtn {
     position: absolute;
     top: 20px;
@@ -397,7 +399,7 @@ form {
 #box img {
     opacity: initial;
     width: 70%;
-    height: 180px;
+    height: 240px;
     border-radius: 10px;
     background-blend-mode: soft-light;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);

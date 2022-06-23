@@ -118,7 +118,7 @@
     </form>
 </div>
 <div id="adDiv">
-    <form id="ad-form">
+    <form id="ad-form" onsubmit="postNews(); return false" action="http://127.0.0.1:8000/rent/rent.html">
         <h1 id="titleAd">Publica anuntul tau!</h1>
 
         <label class="labelAd" for="type">De inchiriat:
@@ -146,7 +146,7 @@
 
         <label class="labelAd" for="price">Pret/zi:
             <label class="labelInput">
-                <input type="text" id="price" name="price" placeholder="Cat ceri?" required>
+                <input type="number" id="price" name="price" placeholder="Cat ceri?" required>
             </label>
         </label>
 

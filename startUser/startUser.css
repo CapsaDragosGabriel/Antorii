@@ -350,6 +350,22 @@ body {
     #text2{
         font-size:15px;
     }
+
+    .row {
+        width: fit-content;
+    }
+
+    #top4 {
+        display: none;
+    }
+
+    #top5 {
+        display: none;
+    }
+
+    #top6 {
+        display: none;
+    }
 }
 @media screen and (min-width: 601px) {
     div.header {

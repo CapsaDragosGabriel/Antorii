@@ -228,7 +228,7 @@ input::placeholder, select {
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAJUlEQVR4AcXJRwEAIBAAIPuXxgiOW3xZYzi1Q3Nqh+bUDk1yD9sQaUG/4ehuEAAAAABJRU5ErkJggg==");
     cursor: ew-resize;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
     div.header {
         display: none;
     }
@@ -271,9 +271,32 @@ input::placeholder, select {
         padding-top: 10%;
     }
 
+    .columnDiv {
+        width: 100%;
+        margin: 0;
+    }
+
+    .buttonaut {
+        margin-right: 40%;
+        margin-left: 40%;
+    }
+
+    .restaurant, .produs {
+        width: auto;
+        margin-bottom: 5%;
+    }
+
+    .dispRest {
+        flex-direction: column;
+    }
+
+    .rowDiv {
+        flex-direction: column;
+    }
+
 }
 
-@media screen and (min-width: 601px) {
+@media screen and (min-width: 701px) {
     div.header {
         display: block;
     }

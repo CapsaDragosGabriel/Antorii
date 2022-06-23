@@ -279,9 +279,37 @@ form {
     background-color: #B64141;
     color: white;
 }
-.review{
 
+.reviewDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-top: 1%;
 }
+
+#review {
+    margin-left: 15%;
+    color: #B64141;
+    font-family: "Imbue";
+}
+
+.reviewBox {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    padding: 1%;
+    background-color: #B64141;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 5%;
+    text-align: center;
+    width: 60%;
+}
+
+.divDiv {
+    display: flex;
+    justify-content: center;
+}
+
 .overlay .closebtn {
     position: absolute;
     top: 20px;

@@ -294,13 +294,11 @@ var changeDisplay = function () {
     }
     else{
     var x = document.getElementById("box");
-        x.innerHTML = `
-        <a href="food.html" id="back">Inapoi</a>`;
+        x.innerHTML = ``;
         console.log("DISPALY IS: "+display.length);
         let k=0;
         let sir="";
       sir=display;
-
       getReviews()
     }
 }
@@ -328,14 +326,18 @@ function showReviews(){
     var x = document.getElementById("box");
     x.setAttribute("class", "commandsList");
 
-    x.innerHTML+=`<h1>Reviews pentru ${display.substring(6,display.length)}</h1>`
+    x.innerHTML+=`
+    <div class="title-back">
+        <a href="food.html" id="back">Inapoi</a>
+        <h2 id="title" >Reviews pentru ${display.substring(6,display.length)}</h2>
+    </div>`
     for (let i=0;i<globalReviews.length;i++)
     {
         let newReview=document.createElement('div')
         newReview.setAttribute("class","infoComanda");
         newReview.innerHTML+=`
-        <h2>Anonim</h2>
-           <p>${globalReviews[i].feedback_restaurant}</p>`
+        <div class="divDiv"><div class="reviewBox" <h2>Anonim</h2>
+           <p style="border-top: 1px solid white; padding-top: 5px;">${globalReviews[i].feedback_restaurant}</p></div></div>`
         x.innerHTML+=newReview.innerHTML;
     }
 }

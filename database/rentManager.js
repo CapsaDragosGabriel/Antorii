@@ -24,7 +24,16 @@ function insertRent(rent) {
         console.log("rent inserted")
     });
 }
+function selectRent(rent)
+{
+    return new Promise((resolve,reject)=>{
+    var sql="SELECT * FROM `web`.`rent` where location=? and agentID=? and price_per_day=? and description=? and type=?"
+    con.query(sql, [rent.location, rent.agentID, rent.price_per_day, rent.description, rent.type], function (err, result) {
+        if (err) throw err;
+        resolve(result);
 
+    });})
+}
 function makeReservation(reservation) {
 
     var sql = "INSERT INTO `web`.`rent_periods`\n" +
@@ -109,6 +118,15 @@ reservation = {
     consumerID: 11
 }
 
+module.exports={
+    getRentsAvailableInPeriod,
+    getRentPeriodID,
+    getRentID,
+    getRentCost,
+    makeReservation,
+    insertRent,
+    selectRent
+}
 // getRentsAvailableInPeriod('2022-06-26', '2022-06-27').then(r => {
 //     console.log(r)
 // })

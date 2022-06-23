@@ -5,6 +5,7 @@ var restaurantDB = require("../database/restaurantManager");
 var orderDB = require("../database/orderManager");
 var itemDB = require("../database/itemManager")
 var statsDB = require("../database/stats");
+var rentDB=require("../database/rentManager");
 const http = require('http');
 
 const nodemailer = require('nodemailer');
@@ -759,7 +760,7 @@ const server = http.createServer((req, res) => {
                 // console.log("DIN BAZA DE DATE AM LUAT SMECHERIA ASTA:" + JSON.stringify(restaurants))
                 res.writeHead(200, {
                     'Access-Control-Allow-Origin': '*',
-                    // 'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 });
                 // console.log(JSON.stringify(r));
                 //verific daca tokenul este in baza de date
@@ -814,6 +815,92 @@ const server = http.createServer((req, res) => {
             }
         })
     }//get menu from db
+    else if (req.url.startsWith('/api/rent')) {
+        console.log('API rent');
+
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            //console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+            //console.log('data chunk finished ' + data.restaurantName)
+            console.log(data);
+            let result = {
+                type:data.type,
+                description:data.description,
+                location:data.location,
+                price:data.price,
+                token:data.token,
+            }
+            res.writeHead(200, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+            console.log(JSON.stringify(result));
+            userDB.getServiceByToken(result.token).then(r=> {
+                if (r == "consumer")
+                {
+                    userDB.getIDByToken(result.token).then(f=>
+                    {
+                        var rent={
+                            type:result.type,
+                            location:result.location,
+                            agentID:f,
+                            price_per_day: result.price,
+                            description: result.description
+                        }
+                        var raspuns={
+                            raspuns:"already"
+                        }
+                        console.log("ABOUT TO DO RENT ADD"+rent);
+                        rentDB.selectRent(rent).then(p=>{
+                            if(p) res.end(JSON.stringify(raspuns));
+                            else {
+                                rentDB.insertRent(rent);
+                                raspuns.raspuns="done";
+                                res.end(JSON.stringify(raspuns));
+                            }
+                        })
+                            res.end(JSON.stringify(raspuns));
+                        })
+
+                }
+            })
+
+        })
+    }//get rents from db
+    else if (req.url.startsWith('/api/getRent')) {
+        console.log('API getrent');
+
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            //console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            data = JSON.parse(data);
+            //console.log('data chunk finished ' + data.restaurantName)
+            console.log(data);
+            let result = {
+              from:data.from,
+                to:data.to,
+                token:data.token,
+            }
+            console.log(JSON.stringify(result));
+            userDB.getServiceByToken(result.token).then(r=> {
+                if (r == "consumer")
+                {
+                  
+
+                }
+            })
+
+        })
+    }//get rents from db
 
     else if (req.url.startsWith('/api/menu')) {
         console.log('API restaurants');

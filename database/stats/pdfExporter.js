@@ -1,125 +1,181 @@
 const fs = require('fs');
 const stats = require('../stats.js')
+const PDFDocument = require("pdfkit-table");
 
-// console.log(stats)
-
-const GoogleChartsNode = require('google-charts-node');
+let doc = new PDFDocument({margin: 10, size: 'A4'});
 
 
-var drawChart;
+async function createTable(table, type) {
 
-async function render(width, height, name, drawChart) {
-
-    const image = await GoogleChartsNode.render(drawChart, {
-        width: width, //400
-        height: height,//250
+    var cs = [];
+    if (type === 'user') {
+        cs = [60, 60, 130, 60, 60, 100, 60]
+    } else if (type === 'restaurant') {
+        cs = [60, 60]
+    }
+    await doc.table(table, {
+        columnsSize: cs, prepareHeader: () => doc.font("Helvetica-Bold").fontSize(12),
+        prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => {
+            doc.font("Helvetica").fontSize(10);
+            indexColumn === 0 && doc.addBackground(rectRow, 'blue', 0.15);
+        }
     });
 
-    fs.writeFileSync(name, image);
 }
 
-//
-// stats.getConsumerProviderUserProcent().then(r => {
-//
-//     drawChart = `
-//     // Create the data table.
-//     var data = new google.visualization.DataTable();
-//     data.addColumn('string', 'type');
-//     data.addColumn('number', 'procent');
-//     data.addRows([
-//       ['Consumers', ${r.consumer_procent.slice(0,-1)}],
-//       ['Providers', ${r.provider_procent.slice(0,-1)}],
-//     ]);
-//     // Set chart options
-//     var options = { title: 'Procent of consumers and providers' };
-//     // Instantiate and draw our chart, passing in some options.
-//     var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-//     chart.draw(data, options);
-//   `;
-//
-//
-//     render(400,250,'producer-consumer-piechart.png',drawChart)
-// })
 
-async function selectConsumersForCounty(county, pairArray) {
-    return new Promise((resolve, reject) => {
+function generatePDF() {
 
-        for (var i = 0; i < pairArray.length; i++) {
-            if (pairArray[i].county.localeCompare(county) == 0) {
-                resolve(pairArray[i].number_of_consumers)
-            }
-        }
-        resolve(0)
+
+    doc.pipe(fs.createWriteStream("./document.pdf"));
+
+    doc.moveDown(0.5)
+    doc
+        .font('Times-Roman')
+        .fontSize(35)
+        .text("Statistici", {
+            align: 'center',
+        })
+
+
+    doc.moveDown(1)
+
+
+    doc.image('users_per_county.jpg', {
+        align: 'center',
+        valign: 'center'
     })
-}
 
-var array = [];
-stats.getNumberOfUsersPerCounty().then(r => {
+    doc.addPage()
 
-    var numberOfUsersPerCounty = r;
-    // console.log(numberOfUsersPerCounty[0].county)
-
-
-    stats.getNumberOfConsumersPerCounty().then(r => {
-        return new Promise((resolve)=>{
+    doc.moveDown(0.5)
+    doc.image('producer-consumer-piechart.jpg', {
+        align: 'center',
+        valign: 'center'
+    })
 
 
-        var numberOfConsumersPerCounty = r;
-        array.push(['County', 'Nr of consumers', 'Nr of providers'])
+    stats.getUsersOrderedByRideSpending().then(r => {
 
-        async function todo() {
-            return new Promise((resolve) => {
-                for (var i = 0; i < numberOfUsersPerCounty.length; i++) {
-                    // console.log(i)
-                    let x = i;
-                    selectConsumersForCounty(numberOfUsersPerCounty[x].county, numberOfConsumersPerCounty).then(r => {
-                        // console.log(x)
-                        //console.log(numberOfUsersPerCounty[x].county)
-                        // console.log("County: " + numberOfUsersPerCounty[x].county+ " Number of users: " + numberOfUsersPerCounty[x].number_of_users+" Number of consumers: " + r
-                        // +" Number of providers: " + (numberOfUsersPerCounty[x].number_of_users-r)+"\n");
-                        array.push([numberOfUsersPerCounty[x].county, r, numberOfUsersPerCounty[x].number_of_users - r])
-                        // console.log(array);
-                        if (x == numberOfUsersPerCounty.length - 1) {
-                            resolve(array)
-                        }
-                        ;
-                    })
-                }
-                console.log("reeee" + array);
-            })
-
+        var arr = [];
+        var i = 0;
+        for (i = 0; i < r.length; i++) {
+            arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].total])
         }
 
-        todo().then((f) => {
-            // console.log(f);
-            resolve(f);
-        })
-        })
-    }).then(p=>{
-        console.log(p)
-        drawChart = `
-        var data = google.visualization.arrayToDataTable(${JSON.stringify(p)});
 
-        var options = {
-          title: 'Distributia userilor pe judete',
-          chartArea: {width: '50%'},
-          hAxis: {
-            title: 'Toti utilizatorii',
-            minValue: 0
-          },
-          vAxis: {
-            title: 'Judet'
-          }
+        const table = {
+            title: 'Top utilizatori consumatori de serviciul de ride-sharing',
+            headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Suma cheltuita'],
+            rows: arr,
         };
 
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-    `;
-        console.log(drawChart)
+        createTable(table, 'user')
+        doc.moveDown(5)
 
-        render(400, 250, 'test.png', drawChart)
+        stats.getUsersOrderedByRestaurantSpending().then(r => {
+            var arr = [];
+            var i = 0;
+            for (i = 0; i < r.length; i++) {
+                arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].total])
+            }
+
+            const table = {
+                title: 'Top utilizatori consumatori de serviciul de food-delivery',
+                headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Suma cheltuita'],
+                rows: arr,
+            };
+
+            createTable(table, 'user')
+            doc.moveDown(5)
+
+            stats.getRestaurantsOrderByProfit().then(r => {
+                var arr = [];
+                var i = 0;
+                for (i = 0; i < r.length; i++) {
+                    arr.push([r[i].name, r[i].total])
+                }
+
+                const table = {
+                    title: 'Top restaurante profitabile',
+                    headers: ['Nume', 'Profit'],
+                    rows: arr,
+                };
+
+                createTable(table, 'restaurant')
+                doc.moveDown(5)
+
+
+                stats.getDeliveryByNrOfOrders().then(r => {
+                    var arr = [];
+                    var i = 0;
+                    for (i = 0; i < r.length; i++) {
+                        arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].nr_of_orders])
+                    }
+
+                    const table = {
+                        title: 'Top livratori harnici (dupa numarul de comenzi livrate)',
+                        headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Comenzi livrate'],
+                        rows: arr,
+                    };
+
+                    createTable(table, 'user')
+                    doc.moveDown(5)
+
+                    stats.getDriversByNrOfTrips().then(r => {
+                        var arr = [];
+                        var i = 0;
+                        for (i = 0; i < r.length; i++) {
+                            arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].trips])
+                        }
+
+                        const table = {
+                            title: 'Top soferi harnici (dupa numarul de trasee finalizate)',
+                            headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Trasee finalizate'],
+                            rows: arr,
+                        };
+
+                        createTable(table, 'user')
+                        doc.moveDown(5)
+
+                        stats.getDriversByRating().then(r => {
+                            var arr = [];
+                            var i = 0;
+                            for (i = 0; i < r.length; i++) {
+                                arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].rating])
+                            }
+
+                            const table = {
+                                title: 'Top soferi apreciati (dupa ratingul primit)',
+                                headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Rating'],
+                                rows: arr,
+                            };
+
+                            createTable(table, 'user')
+                            doc.moveDown(5)
+                            doc.addPage()
+
+                            doc.image('services.jpg', {
+                                align: 'center',
+                                valign: 'center'
+                            })
+
+                            doc.end();
+                        })
+                    })
+
+
+                })
+
+
+
+            })
+
+        })
+
+
     })
 
+}
 
-
-})
+generatePDF()

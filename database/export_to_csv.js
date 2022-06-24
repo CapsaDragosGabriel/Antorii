@@ -6,6 +6,7 @@ const statDB=require("../database/stats");
 const {json} = require("express");
 const JSZip = require("jszip");
 const saveFile=require("file-saver");
+const {getRestaurantsOrderByProfitFULL} = require("./stats");
 var con = mysql.createConnection({
     host: "localhost",
     user: "student",
@@ -224,6 +225,7 @@ function aggregateExports() {
     exportTotalUsers()
     exportRestaurantDelivery()
     exportRestaurantsProfit()
+    getRestaurantsOrderByProfitFULL()
 }
 module.exports={
     aggregateExports

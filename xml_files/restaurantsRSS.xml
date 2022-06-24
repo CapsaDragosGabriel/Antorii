@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0"><channel><restaurants>
-<title>Restaurants</title> <link>http://127.0.0.1:8000/mainHome/mainHome.html</link><description>Restaurante Antorii</description><language>en-us</language><stat>
+<title>Restaurants</title>
+ <link>http://127.0.0.1:8000/mainHome/mainHome.html</link>
+<description>Restaurante Antorii</description>
+<language>en-us</language>
+<stat>
 <id>2</id>
     <name>KFC</name>
     <photo>"data:image/png;base64</photo>
@@ -30,4 +34,6 @@
     <photo>fara produse</photo>
     <available>n</available>
     </stat>
-</restaurants></channel></rss>
+</restaurants>
+</channel>
+</rss>

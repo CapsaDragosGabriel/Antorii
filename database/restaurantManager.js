@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+const {getRestaurantsOrderByProfit} = require("./stats");
 var con = mysql.createConnection({
     host: "localhost",
     user: "student",
@@ -45,7 +46,9 @@ val.then(r=>
 }).then(f=>{return f});
 }
 */
-
+getRestaurantsOrderByProfit().then(r=>{
+    console.log(r);
+})
 function insertRestaurant(name,photo) {
     var sql = "INSERT INTO `web`.`restaurants`\n" +
         "(`name`,`photo`)\n" +

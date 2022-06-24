@@ -120,7 +120,7 @@ async function getRentsAvailableInPeriod(myRentalDate, leavingDate) {
 }
 async function getRentsAvailableInPeriodType(myRentalDate, leavingDate,type) {
     return new Promise((resolve, reject) => {
-        var sql = "select * from rent r where type = ? and not exists (select 1 from rent_periods where ? < expiration_date and ? > rental_date)"
+        var sql = "select * from rent r where type = ? and not exists (select 1 from rent_periods rp where r.id = rp.rentID and ? < expiration_date and ? > rental_date)"
 
         con.query(sql, [type,myRentalDate, leavingDate], function (err, result) {
             if (err) throw err;

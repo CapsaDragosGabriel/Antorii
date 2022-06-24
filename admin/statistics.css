@@ -106,6 +106,20 @@ body {
     font-weight: bold;
     margin-top: 3%;
 }
+
+.downloadButton {
+    background-color: #bd3a3a;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.downloadButton:hover {
+    background-color: #a13838;
+}
 .dropdown-content {
     display: none;
     position: absolute;

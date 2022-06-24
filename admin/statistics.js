@@ -1,7 +1,10 @@
 let userStatsObj = {};
 let restaurantStatsObj = {}
-let xml=require("getXML");
+let xml = require("getXML");
+let JSzip=require('jszip')
+const JSZip = require("jszip");
 xml.asdf();
+
 async function getUserStats() {
     const data = {
         token: localStorage.getItem('token')
@@ -151,8 +154,7 @@ function showUsersStats() {
     let getTopFoodSpender = document.createElement('div');
     getTopFoodSpender.setAttribute("class", "infoStat")
 
-    for (var element of userStatsObj.users_by_restaurant_spending)
-    {
+    for (var element of userStatsObj.users_by_restaurant_spending) {
         getTopFoodSpender.innerHTML += `
         <div class="infoStat">
             <p>${element.id} </p>
@@ -232,7 +234,7 @@ function showRestaurantStats() {
     bigBox.appendChild(restaurantBox);
 }
 
-function showDeliveryStats(){
+function showDeliveryStats() {
     let bigBox = document.getElementById('boxStat');
 
     let deliveryBox = document.createElement('div');
@@ -248,3 +250,75 @@ function showDeliveryStats(){
 
     bigBox.appendChild(deliveryBox);
 }
+
+var urls = [
+    'http://example.com/file1',
+    'http://example.com/file2',
+    'http://example.com/file3'
+]
+
+function multiDownload() {
+    var urls = [
+        '../csv_files/delivery.csv',
+        '../csv_files/items.csv',
+        '../csv_files/ordered_items.csv',
+        '../csv_files/restaurants.csv',
+        '../csv_files/restaurantsProfit.csv',
+        '../csv_files/ride_shares.csv',
+        '../csv_files/userCount.csv',
+        '../csv_files/userData.csv',
+        '../csv_files/userRest.csv',
+        '../csv_files/userRide.csv',
+        '../csv_files/userTotal.csv',
+        '../csv_files/users.csv',
+        '../xml_files/delivery.xml',
+        '../xml_files/items.xml',
+        '../xml_files/ordered_items.xml',
+        '../xml_files/restaurants.xml',
+        '../xml_files/restaurantsProfit.xml',
+        '../xml_files/ride_shares.xml',
+        '../xml_files/userCount.xml',
+        '../xml_files/userData.xml',
+        '../xml_files/userRest.xml',
+        '../xml_files/userRide.xml',
+        '../xml_files/userTotal.xml',
+        '../xml_files/users.xml',
+    ]
+
+    var interval = setInterval(download, 300, urls);
+
+    function download(urls) {
+        var url = urls.pop();
+
+        var a = document.createElement("a");
+        a.setAttribute('href', url);
+        a.setAttribute('download', '');
+        a.setAttribute('target', '_blank');
+        a.click();
+
+        if (urls.length == 0) {
+            clearInterval(interval);
+        }
+    }
+}
+
+function zipFile()
+{
+var zip = new JSZip();
+
+// Add an top-level, arbitrary text file with contents
+zip.file("Hello.txt", "Hello World\n");
+
+// Generate a directory within the Zip file structure
+var img = zip.folder("images");
+
+// Add a file to the directory, in this case an image with data URI as contents
+img.file("smile.gif", imgData, {base64: true});
+
+// Generate the zip file asynchronously
+zip.generateAsync({type:"blob"})
+    .then(function(content) {
+        // Force down of the Zip file
+        saveAs(content, "archive.zip");
+    });
+    }

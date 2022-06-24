@@ -30,6 +30,7 @@
                 showStats();
             })
         } else window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html"
+        let csvs="delivery.csv"
     </script>
     <link rel="stylesheet" href="statistics.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -66,7 +67,8 @@
     </div>
 </div>
 <div class="buton">
-    <a href="admin" download="statistics.js">
+
+  <a onclick="multiDownload()">
         <button class="downloadButton" href="../admin"><i class="fa fa-download"></i> Download</button>
     </a>
 </div>

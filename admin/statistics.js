@@ -51,6 +51,8 @@ async function getRestaurantStats() {
 
 function showUsersStats() {
     let bigBox = document.getElementById('boxStat');
+    let box = document.createElement("div");
+    box.className = "boxScroll";
 
     let userBox = document.createElement('div');
     userBox.setAttribute("class", "stat");
@@ -183,11 +185,14 @@ function showUsersStats() {
     topSpender.innerHTML += getTopSpender.innerHTML;
     userBox.appendChild(topSpender);
 
-    bigBox.appendChild(userBox);
+    box.appendChild(userBox);
+    bigBox.appendChild(box);
 }
 
 function showRestaurantStats() {
     let bigBox = document.getElementById('boxStat');
+    let box = document.createElement("div");
+    box.className = "boxScroll";
 
     let restaurantBox = document.createElement('div');
     restaurantBox.setAttribute("class", "stat");
@@ -231,7 +236,8 @@ function showRestaurantStats() {
     delivery.innerHTML += getDelivery.innerHTML;
     restaurantBox.appendChild(delivery);
 
-    bigBox.appendChild(restaurantBox);
+    box.appendChild(restaurantBox);
+    bigBox.appendChild(box);
 }
 
 function showDeliveryStats() {

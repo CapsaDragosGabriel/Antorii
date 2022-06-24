@@ -24,24 +24,23 @@
                         showUsersStats()).then(() => {
                         getRestaurantStats().then(
                             showRestaurantStats
-
                         )
                     })
                 showStats();
             })
         } else window.location.href = "http://127.0.0.1:8000/mainHome/mainHome.html"
-        let csvs="delivery.csv"
+        let csvs = "delivery.csv"
     </script>
     <link rel="stylesheet" href="statistics.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin gay</title>
+    <title>Admin</title>
 </head>
 <body>
 
 <div class="header" itemscope itemtype="https://schema.org/Organization">
     <a class="active" href="../mainHome/mainHome.html"><p itemprop="legalName">SerP</p></a>
     <div class="dropdown">
-        <button class="dropbtn" onclick="myFunction()">Servicii<i class="fa fa-caret-down"></i></button>
+        <button class="dropbtn" onclick="myFunction()">Servicii</button>
         <div class="dropdown-content" id="myDropdown">
             <a href="../ride-sharing/ride-sharing.html"><p itemprop="makesOffer">Ride-sharing</p></a>
             <a href="../food/food.html"><p itemprop="makesOffer">Food delivery</p></a>
@@ -67,8 +66,7 @@
     </div>
 </div>
 <div class="buton">
-
-  <a onclick="multiDownload()">
+    <a onclick="multiDownload()">
         <button class="downloadButton" href="../admin"><i class="fa fa-download"></i> Download</button>
     </a>
 </div>

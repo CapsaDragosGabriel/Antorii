@@ -1,6 +1,42 @@
-const globalRestaurants = ["Veggie", "Mamma Mia", "Spartan", "Chinese", "Friday"];
+let globalRestaurants = ["Veggie", "Mamma Mia", "Spartan", "Chinese", "Friday"];
 const globalRestaurantsFirsts = ["McDonalds", "KFC", "Mesopotamia", "Burger King", "Subway", "SaladBox"];
+getTop().then(r=>{
+    globalRestaurants=r;
+}).then()
+/*function showTop()
+{var x=document.getElementById('caption-container');
+   x.innerHTML= `<a className="prev" onClick="showSlidesNext()">❮</a>`
+x.innerHTML+=`<div className="row">`
+    for(var x of globalRestaurants)
+    {
+        var restaurant=document.createElement('div')
+        restaurant.setAttribute('className','column')
+        restaurant.innerHTML+=
+    }
 
+        <div className="columnStart">
+            <p id="top1" style="width:100%">McDonalds</p>
+        </div>
+        <div className="column">
+            <p id="top2" style="width:100%">KFC</p>
+        </div>
+        <div className="column">
+            <p id="top3" style="width:100%">Mesopotamia</p>
+        </div>
+        <div className="column">
+            <p id="top4" style="width:100%">Burger King</p>
+        </div>
+        <div className="column">
+            <p id="top5" style="width:100%">Subway</p>
+        </div>
+        <div className="columnEnd">
+            <p id="top6" style="width:100%">SaladBox</p>
+        </div>
+    x.innerHTML+=</div>
+
+    x.innerHTML+=`<a className="next" onClick="showSlidesPrev()">❯</a>`
+
+}*/
 async function getTop() { //i guess ca asta trebuie?
     const data = {
         token: localStorage.getItem('token')
@@ -18,7 +54,7 @@ async function getTop() { //i guess ca asta trebuie?
         });
     if (sent === true) {
         //globalRestaurants = response;
-        console.log("RASPUNSUL A FOST" + response)
+       return response
     }
 }
 

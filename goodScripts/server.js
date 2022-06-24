@@ -1217,7 +1217,49 @@ const server = http.createServer((req, res) => {
                     }
                 })
         })
-    } else if (req.url.startsWith('/api/manager/insertProdus')) {
+    }
+    else if(req.url.startsWith("/api/getTopRestaurant"))
+    {
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            console.log('data chunk added ' + data)
+        });
+
+        req.on('end', () => {
+            try {
+                console.log(data);
+                data = JSON.parse(data);
+            } catch (e) {
+                console.log("not doable");
+            }
+            // console.log('data chunk finished ' + data.email)
+
+            const result = {
+                token: data.token,
+            };
+            res.writeHead(201, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+            let notGood = {
+                raspuns: "not good"
+            }
+
+            if (result.token) {
+                userDB.getServiceByToken(result.token).then(p => {
+                    if (p == "consumer") {
+                        statsDB.getRestaurantsOrderByProfit().then(f => {
+                            console.log("YO");
+                           res.end(JSON.stringify(JSON.stringify(f)));
+
+                        })
+                    }
+                })
+            }
+        })
+    }
+    else if (req.url.startsWith('/api/manager/insertProdus')) {
         let data = '';
         req.on('data', chunk => {
             data += chunk;

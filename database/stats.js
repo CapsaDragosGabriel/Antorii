@@ -234,10 +234,10 @@ async function aggregateRideshareData()
         })
     })
 }
-aggregateRideshareData().then(r=>{
-    r=JSON.parse(r);
-    console.log(r);
-})
+// aggregateRideshareData().then(r=>{
+//     r=JSON.parse(r);
+//     console.log(r);
+// })
 async function getDriversByNrOfTrips(){
     return new Promise((resolve, reject) => {
 
@@ -255,9 +255,9 @@ async function getDriversByNrOfTrips(){
     })
 }
 
-getDriversByNrOfTrips().then(f=>{
-    console.log(f);
-})
+// getDriversByNrOfTrips().then(f=>{
+//     console.log(f);
+// })
 async function getDriversByRating(){
     return new Promise((resolve, reject) => {
 

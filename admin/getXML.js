@@ -78,10 +78,10 @@ function createRSS(csv,folder){
     xml+=`<rss version="2.0">`
     xml+=`<channel>`
     xml+=`<${folder}>\n`
-    xml+=`<title>Restaurants</title>`
-    xml+=` <link>http://127.0.0.1:8000/mainHome/mainHome.html</link>`
-    xml+=`<description>Restaurante Antorii</description>`
-    xml+=`<language>en-us</language>`
+    xml+=`<title>Restaurants</title>\n`
+    xml+=` <link>http://127.0.0.1:8000/mainHome/mainHome.html</link>\n`
+    xml+=`<description>Restaurante Antorii</description>\n`
+    xml+=`<language>en-us</language>\n`
     for (let i = 1; i < csvData.length; i++) {
         let details = csvData[i].split(',')
         xml += "<stat>\n"
@@ -91,9 +91,9 @@ function createRSS(csv,folder){
         }
         xml += "</stat>\n"
     }
-    xml+=`</${folder}>`
-    xml+=`</channel>`
-    xml+=`</rss>`
+    xml+=`</${folder}>\n`
+    xml+=`</channel>\n`
+    xml+=`</rss>\n`
 
     // parseXml(xml).then(r => {
     // console.log(xml)

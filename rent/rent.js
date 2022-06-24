@@ -91,12 +91,12 @@ async function sendDates() {
     var from = document.getElementById("from");
     var to = document.getElementById("to")
     var type = document.getElementById("typeWanted");
-    globalFrom = from.value;
-    globalTO = to.value;
+    globalFrom = from.value.replace(/(<([^>]+)>)/ig,"");
+    globalTO = to.value.replace(/(<([^>]+)>)/ig,"");
     let data = {
-        from: from.value,
-        to: to.value,
-        type: type.value,
+        from: from.value.replace(/(<([^>]+)>)/ig,""),
+        to: to.value.replace(/(<([^>]+)>)/ig,""),
+        type: type.value.replace(/(<([^>]+)>)/ig,""),
         token: localStorage.getItem('token')
     }
     let sent = true;
@@ -181,10 +181,10 @@ async function postNews() {
 
 
     let data = {
-        type: type.value,
-        description: description.value,
-        location: location.value,
-        price: price.value,
+        type: type.value.replace(/(<([^>]+)>)/ig,""),
+        description: description.value.replace(/(<([^>]+)>)/ig,""),
+        location: location.value.replace(/(<([^>]+)>)/ig,""),
+        price: price.value.replace(/(<([^>]+)>)/ig,""),
         token: localStorage.getItem('token')
     }
     console.log(data);

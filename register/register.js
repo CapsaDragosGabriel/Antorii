@@ -1,3 +1,4 @@
+const striptags = require("striptags");
 document.addEventListener('DOMContentLoaded', (event) => {
 
 
@@ -18,17 +19,17 @@ async function register()
     var judet=document.getElementById('judet');
     var oras=document.getElementById('oras');
     var adresa=document.getElementById('adresa');
-    console.log(email.value + " "+ pw.value);
+    console.log(striptags(email.value) + " "+ striptags(pw.value));
     let returnat=true;
     const data = {
-        email: email.value,
-        prenume: prenume.value,
-        nume: nume.value,
-        telefon:  telefon.value,
-        judet: judet.value,
-        oras: oras.value,
-        adresa: adresa.value,
-        password: pw.value
+        email: striptags(email.value.replace(/(<([^>]+)>)/ig,"")),
+        prenume:striptags(prenume.value.replace(/(<([^>]+)>)/ig,"")),
+        nume: striptags(nume.value.replace(/(<([^>]+)>)/ig,"")),
+        telefon:  striptags(telefon.value.replace(/(<([^>]+)>)/ig,"")),
+        judet: striptags(judet.value.replace(/(<([^>]+)>)/ig,"")),
+        oras: striptags(oras.value.replace(/(<([^>]+)>)/ig,"")),
+        adresa: striptags(adresa.value.replace(/(<([^>]+)>)/ig,"")),
+        password: striptags(pw.value.replace(/(<([^>]+)>)/ig,""))
     }
 
     const response = await fetch('http://localhost:8000/api/register', {

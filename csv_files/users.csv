@@ -1,0 +1,11 @@
+id,first_name,last_name,phone_number,email,pass,city,county,localization,token,created_token_time,service
+3,NUme,prenume,98451312,capsadragos@gmail.com,OnMGp3UaEHlJdgm3GCUcSk12o3Xz2JMoDx5Q22y69ag=,Bacau,Buhusi,banca boss,,,consumer
+4,Fechita,Antonio,0792165123,antoniofechita15@gmail.com,iVNzh7z7dk6ZCteBX0Ur18Jzbkd3IOmM2KdahYEVsXU=,Doxat,Team,Fraiere,,,consumer
+5,Aa,Aa,0752211050,capsadragos@gmail.comasda,5Z19cpl8lOaGcY0b9vdeOh2ktAOfufDtWZAC6C5idFU=,Aa,Aa,Aaasdas,,,consumer
+8,Serviciu,Primu,0752211050,dragos.capsa@12info.uaic.ro,ClIJEV9r3HXmHlJAo2Zfb+NTtYMLN+/hjmUhcW/098E=,Doxat,undefined,undefined,,,ride-sharing
+9,Serviciu,Aldoilea,0752211050,capsadragos@yahoo.coms,FIMmX7GIVBZYowYrVLlVvf7zajbydwc/p/nY5FBGi0w=,koaspdoka,undefined,undefined,,,ride-sharing
+11,Delivery,Food,06939846654,fooddelivery@gmail.com,/XKIC/28+uPV647/VBCTBZv23lm1/jjOYWFYL8p90vQ=,Mancarica,undefined,undefined,,,food
+12,Sofer,Avem,0752211050,avemsofer@gmail.com,NuhorQWOdVsrM8HadnZ1YONNZ7sY17iPsS8YjG13S2I=,Doxat,undefined,undefined,,,ride-sharing
+13,Deliveryy,Food,0752211050,fooddelivery2@gmail.com,LPlhWRwhuATIbSnrW0Ugss+D/hNy91A/0PHxtylFgq8=,ADSDa,Buhusi,locatie,,,food
+14,None,None,none,adminsite@gmail.com,LK6ssIL3j01MUel3JA4rhfh8UnzUUxymGwQA1HsNyLA=,none,none,none,TiHA093bO7SPT7gm,2022-06-24T10:00:51.000Z,admin
+16,Restaurante,Manager,056589461,managerrestaurante@gmail.com,Z+BjIsEE9FGozj0uGkDbDAuR3bTNjF/azmQl7W5iSpc=,oricare,pestetot,,,,manager

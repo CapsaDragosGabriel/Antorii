@@ -72,6 +72,9 @@ async function getPage(request,response){
     var extname = path.extname(filePath);
     var contentType = 'text/html';
     switch (extname) {
+        case '.csv':
+            contentType='text/csv';
+            break;
         case '.js':
             contentType = 'text/javascript';
             break;

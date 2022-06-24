@@ -6,6 +6,10 @@ var orderDB = require("../database/orderManager");
 var itemDB = require("../database/itemManager")
 var statsDB = require("../database/stats");
 var rentDB = require("../database/rentManager");
+var XMLs=require("../admin/getXML");
+const path = require("path");
+const fstream = require("fs");
+
 const http = require('http');
 
 const nodemailer = require('nodemailer');
@@ -1121,6 +1125,8 @@ const server = http.createServer((req, res) => {
                 userDB.getServiceByToken(result.token).then(p => {
                     if (p == "admin") {
                         statsDB.aggregateUserData().then(p => {
+                            XMLs.asdf();
+                            // XMLs.downloadCsv();
                             res.end(JSON.stringify(p))
                         });
 

@@ -1,6 +1,8 @@
 const mysql = require('mysql');
 const fastcsv = require('fast-csv')
 const fs = require('fs')
+const statDB=require("../database/stats");
+const {json} = require("express");
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -14,7 +16,7 @@ function exportUsers(){
         if (error) throw error;
         const jsonData = JSON.parse(JSON.stringify(data));
         console.log("jsonData", jsonData);
-        const ws = fs.createWriteStream("../csv files/users.csv");
+        const ws = fs.createWriteStream("../csv_files/userData.csv");
         fastcsv
             .write(jsonData, { headers: true })
             .on("finish", function() {
@@ -29,7 +31,7 @@ function exportItems(){
         if (error) throw error;
         const jsonData = JSON.parse(JSON.stringify(data));
         console.log("jsonData", jsonData);
-        const ws = fs.createWriteStream("../csv files/items.csv");
+        const ws = fs.createWriteStream("../csv_files/items.csv");
         fastcsv
             .write(jsonData, { headers: true })
             .on("finish", function() {
@@ -44,7 +46,7 @@ function exportOrderedItems(){
         if (error) throw error;
         const jsonData = JSON.parse(JSON.stringify(data));
         console.log("jsonData", jsonData);
-        const ws = fs.createWriteStream("../csv files/ordered_items.csv");
+        const ws = fs.createWriteStream("../csv_files/ordered_items.csv");
         fastcsv
             .write(jsonData, { headers: true })
             .on("finish", function() {
@@ -60,7 +62,7 @@ function exportOrders(){
         if (error) throw error;
         const jsonData = JSON.parse(JSON.stringify(data));
         console.log("jsonData", jsonData);
-        const ws = fs.createWriteStream("../csv files/orders.csv");
+        const ws = fs.createWriteStream("../csv_files/orders.csv");
         fastcsv
             .write(jsonData, { headers: true })
             .on("finish", function() {
@@ -75,7 +77,7 @@ function exportRestaurants(){
         if (error) throw error;
         const jsonData = JSON.parse(JSON.stringify(data));
         console.log("jsonData", jsonData);
-        const ws = fs.createWriteStream("../csv files/restaurants.csv");
+        const ws = fs.createWriteStream("../csv_files/restaurants.csv");
         fastcsv
             .write(jsonData, { headers: true })
             .on("finish", function() {
@@ -90,7 +92,7 @@ function exportRideShares(){
         if (error) throw error;
         const jsonData = JSON.parse(JSON.stringify(data));
         console.log("jsonData", jsonData);
-        const ws = fs.createWriteStream("../csv files/ride_shares.csv");
+        const ws = fs.createWriteStream("../csv_files/ride_shares.csv");
         fastcsv
             .write(jsonData, { headers: true })
             .on("finish", function() {
@@ -100,10 +102,35 @@ function exportRideShares(){
     });
 }
 
+function exportUserData(){
+    statDB.aggregateUserData().then(r=>{
+        console.log("\n\n\n\n\n\n\n\n")
+        console.log(r);
+        const jsonData =JSON.parse(r);
+        console.log("\n\n\n\n\n\n\n\n")
 
-exportUsers()
-exportItems()
-exportOrderedItems()
-exportOrders()
-exportRestaurants()
-exportRideShares()
+        console.log(jsonData)
+        console.log("jsonData", jsonData);
+        const ws = fs.createWriteStream("../csv_files/userData.csv");
+        fastcsv
+            .write(, { headers: true })
+            .on("finish", function() {
+                console.log("Write to ride_shares.csv successfully!");
+            })
+            .pipe(ws);
+    })
+
+}
+
+function aggregateExports() {
+    exportUsers()
+    exportItems()
+    exportOrderedItems()
+    exportOrders()
+    exportRestaurants()
+    exportRideShares()
+    exportUserData()
+}
+module.exports={
+    aggregateExports
+}

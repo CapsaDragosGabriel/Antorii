@@ -1,0 +1,140 @@
+<productData>
+<id>3</id>
+    <first_name>NUme</first_name>
+    <last_name>prenume</last_name>
+    <phone_number>98451312</phone_number>
+    <email>capsadragos@gmail.com</email>
+    <pass>OnMGp3UaEHlJdgm3GCUcSk12o3Xz2JMoDx5Q22y69ag=</pass>
+    <city>Bacau</city>
+    <county>Buhusi</county>
+    <localization>banca boss</localization>
+    <token></token>
+    <created_token_time></created_token_time>
+    <service>consumer</service>
+    </productData>
+<productData>
+<id>4</id>
+    <first_name>Fechita</first_name>
+    <last_name>Antonio</last_name>
+    <phone_number>0792165123</phone_number>
+    <email>antoniofechita15@gmail.com</email>
+    <pass>iVNzh7z7dk6ZCteBX0Ur18Jzbkd3IOmM2KdahYEVsXU=</pass>
+    <city>Doxat</city>
+    <county>Team</county>
+    <localization>Fraiere</localization>
+    <token></token>
+    <created_token_time></created_token_time>
+    <service>consumer</service>
+    </productData>
+<productData>
+<id>5</id>
+    <first_name>Aa</first_name>
+    <last_name>Aa</last_name>
+    <phone_number>0752211050</phone_number>
+    <email>capsadragos@gmail.comasda</email>
+    <pass>5Z19cpl8lOaGcY0b9vdeOh2ktAOfufDtWZAC6C5idFU=</pass>
+    <city>Aa</city>
+    <county>Aa</county>
+    <localization>Aaasdas</localization>
+    <token></token>
+    <created_token_time></created_token_time>
+    <service>consumer</service>
+    </productData>
+<productData>
+<id>8</id>
+    <first_name>Serviciu</first_name>
+    <last_name>Primu</last_name>
+    <phone_number>0752211050</phone_number>
+    <email>dragos.capsa@12info.uaic.ro</email>
+    <pass>ClIJEV9r3HXmHlJAo2Zfb+NTtYMLN+/hjmUhcW/098E=</pass>
+    <city>Doxat</city>
+    <county>undefined</county>
+    <localization>undefined</localization>
+    <token></token>
+    <created_token_time></created_token_time>
+    <service>ride-sharing</service>
+    </productData>
+<productData>
+<id>9</id>
+    <first_name>Serviciu</first_name>
+    <last_name>Aldoilea</last_name>
+    <phone_number>0752211050</phone_number>
+    <email>capsadragos@yahoo.coms</email>
+    <pass>FIMmX7GIVBZYowYrVLlVvf7zajbydwc/p/nY5FBGi0w=</pass>
+    <city>koaspdoka</city>
+    <county>undefined</county>
+    <localization>undefined</localization>
+    <token></token>
+    <created_token_time></created_token_time>
+    <service>ride-sharing</service>
+    </productData>
+<productData>
+<id>11</id>
+    <first_name>Delivery</first_name>
+    <last_name>Food</last_name>
+    <phone_number>06939846654</phone_number>
+    <email>fooddelivery@gmail.com</email>
+    <pass>/XKIC/28+uPV647/VBCTBZv23lm1/jjOYWFYL8p90vQ=</pass>
+    <city>Mancarica</city>
+    <county>undefined</county>
+    <localization>undefined</localization>
+    <token></token>
+    <created_token_time></created_token_time>
+    <service>food</service>
+    </productData>
+<productData>
+<id>12</id>
+    <first_name>Sofer</first_name>
+    <last_name>Avem</last_name>
+    <phone_number>0752211050</phone_number>
+    <email>avemsofer@gmail.com</email>
+    <pass>NuhorQWOdVsrM8HadnZ1YONNZ7sY17iPsS8YjG13S2I=</pass>
+    <city>Doxat</city>
+    <county>undefined</county>
+    <localization>undefined</localization>
+    <token></token>
+    <created_token_time></created_token_time>
+    <service>ride-sharing</service>
+    </productData>
+<productData>
+<id>13</id>
+    <first_name>Deliveryy</first_name>
+    <last_name>Food</last_name>
+    <phone_number>0752211050</phone_number>
+    <email>fooddelivery2@gmail.com</email>
+    <pass>LPlhWRwhuATIbSnrW0Ugss+D/hNy91A/0PHxtylFgq8=</pass>
+    <city>ADSDa</city>
+    <county>Buhusi</county>
+    <localization>locatie</localization>
+    <token></token>
+    <created_token_time></created_token_time>
+    <service>food</service>
+    </productData>
+<productData>
+<id>14</id>
+    <first_name>None</first_name>
+    <last_name>None</last_name>
+    <phone_number>none</phone_number>
+    <email>adminsite@gmail.com</email>
+    <pass>LK6ssIL3j01MUel3JA4rhfh8UnzUUxymGwQA1HsNyLA=</pass>
+    <city>none</city>
+    <county>none</county>
+    <localization>none</localization>
+    <token>TiHA093bO7SPT7gm</token>
+    <created_token_time>2022-06-24T10:00:51.000Z</created_token_time>
+    <service>admin</service>
+    </productData>
+<productData>
+<id>16</id>
+    <first_name>Restaurante</first_name>
+    <last_name>Manager</last_name>
+    <phone_number>056589461</phone_number>
+    <email>managerrestaurante@gmail.com</email>
+    <pass>Z+BjIsEE9FGozj0uGkDbDAuR3bTNjF/azmQl7W5iSpc=</pass>
+    <city>oricare</city>
+    <county>pestetot</county>
+    <localization></localization>
+    <token></token>
+    <created_token_time></created_token_time>
+    <service>manager</service>
+    </productData>

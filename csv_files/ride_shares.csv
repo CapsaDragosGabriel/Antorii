@@ -1,0 +1,11 @@
+id,consumerID,providerID,start,finish,status,estimated,price,feedback,rating
+3,4,8,ala,bala,done,20,0,,
+4,3,,plecam ,ajungem,done,20,0,,
+5,4,,boom,chow,anulat,20,0,,
+6,3,9,incaOplecare,incaODestinatie,claimed,20,0,,
+7,4,8,testarePlecare,testinatieDestinatie,done,20,0,,
+8,3,12,de aici se pleaca,si aici se ajunge,done,20,0,ASOKASFPASK,4
+9,3,12,plecam iar,da n-ajungem,done,20,0,Buna cursa,5
+10,3,12,help,me,claimed,20,0,,
+11,3,,merge driver andra,sau nu merge,anulat,20,25,,
+12,3,,plecam iar,testinatieDestinatie,anulat,16:33,139.79,,

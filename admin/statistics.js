@@ -1,6 +1,7 @@
 let userStatsObj = {};
 let restaurantStatsObj = {}
-
+let xml=require("getXML");
+xml.asdf();
 async function getUserStats() {
     const data = {
         token: localStorage.getItem('token')

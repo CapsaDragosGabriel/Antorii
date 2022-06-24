@@ -30,4 +30,46 @@
     <photo>fara produse</photo>
     <available>n</available>
     </stat>
+<stat>
+<id>64</id>
+    <name>The Grill</name>
+    <photo>https://mir-s3-cdn-cf.behance.net/project_modules/fs/4293d8110142211.5fe4b63868448.jpg</photo>
+    <available>y</available>
+    </stat>
+<stat>
+<id>65</id>
+    <name>La Gabé</name>
+    <photo>https://i.ibb.co/QfHRLzH/laGabe.jpg</photo>
+    <available>y</available>
+    </stat>
+<stat>
+<id>66</id>
+    <name>please work brother</name>
+    <photo>link</photo>
+    <available>y</available>
+    </stat>
+<stat>
+<id>67</id>
+    <name>do work brother</name>
+    <photo>n-am</photo>
+    <available>y</available>
+    </stat>
+<stat>
+<id>68</id>
+    <name>do work brothers</name>
+    <photo>n-am</photo>
+    <available>y</available>
+    </stat>
+<stat>
+<id>69</id>
+    <name>do work brothersasd</name>
+    <photo>n-am</photo>
+    <available>y</available>
+    </stat>
+<stat>
+<id>76</id>
+    <name>do work brothersasd6</name>
+    <photo>n-am</photo>
+    <available>y</available>
+    </stat>
 </restaurants>

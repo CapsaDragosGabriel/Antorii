@@ -1,54 +1,33 @@
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
-var userDB = require("../database/userManager.js");
-var rideDB = require("../database/rideManager");
-var restaurantDB = require("../database/restaurantManager");
-var orderDB = require("../database/orderManager");
-var itemDB = require("../database/itemManager")
-var statsDB = require("../database/stats");
-var rentDB = require("../database/rentManager");
-var XMLs=require("../admin/getXML");
-const path = require("path");
-const fstream = require("fs");
+let userDB = require("../database/userManager.js");
+let rideDB = require("../database/rideManager");
+let restaurantDB = require("../database/restaurantManager");
+let orderDB = require("../database/orderManager");
+let itemDB = require("../database/itemManager")
+let statsDB = require("../database/stats");
+let rentDB = require("../database/rentManager");
+let XMLs=require("../admin/getXML");
+let pdfExporter=require("../database/stats/pdfExporter")
 
 const http = require('http');
 
 const nodemailer = require('nodemailer');
 const {
-    getProducts,
-    getProduct,
-    createProduct,
-    updateProduct,
-    deleteProduct,
-    getPage, getLoggedPage
+    getPage
 } = require('./controllers/productController')
-const fs = require('fs');
-const url = require('url');
-const qs = require('querystring');
-const {con} = require("../database/demo_db_connection");
-const {getServiceReturned} = require("./utils");
 
 
 //
 function makeid(length) {
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
+    let result = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
         result += characters.charAt(Math.floor(Math.random() *
             charactersLength));
     }
     return result;
 }
-
-const parseCookies = (cookie = '') =>
-    cookie
-        .split(';')
-        .map(v => v.split('='))
-        .map(([k, ...vs]) => [k, vs.join('=')])
-        .reduce((acc, [k, v]) => {
-            acc[k.trim()] = decodeURIComponent(v);
-            return acc;
-        }, {});
 
 const server = http.createServer((req, res) => {
     if (req.url.startsWith('/api/login')) {
@@ -251,14 +230,14 @@ const server = http.createServer((req, res) => {
                     userDB.insertUser(result.prenume, result.nume, result.telefon, result.email, result.password, result.oras, result.judet, result.adresa, "consumer");
 
 
-                    var transporter = nodemailer.createTransport({
+                    let transporter = nodemailer.createTransport({
                         service: 'yahoo',
                         auth: {
                             user: 'capsadragos@yahoo.com',
                             pass: 'uexfqagcautdpqxn'
                         }
                     })
-                    var mailOptions = {
+                    let mailOptions = {
                         from: 'capsadragos@yahoo.com',
                         to: result.email,
                         subject: 'Welcome mate!',
@@ -327,14 +306,14 @@ const server = http.createServer((req, res) => {
                     userDB.insertUser(result.prenume, result.nume, result.telefon, result.email, result.password, result.oras, result.judet, result.adresa, result.service);
 
 
-                    var transporter = nodemailer.createTransport({
+                    let transporter = nodemailer.createTransport({
                         service: 'yahoo',
                         auth: {
                             user: 'capsadragos@yahoo.com',
                             pass: 'uexfqagcautdpqxn'
                         }
                     })
-                    var mailOptions = {
+                    let mailOptions = {
                         from: 'capsadragos@yahoo.com',
                         to: result.email,
                         subject: 'Welcome mate!',
@@ -845,14 +824,14 @@ const server = http.createServer((req, res) => {
             userDB.getServiceByToken(result.token).then(r => {
                 if (r == "consumer") {
                     userDB.getIDByToken(result.token).then(f => {
-                        var rent = {
+                        let rent = {
                             type: result.type,
                             location: result.location,
                             agentID: JSON.stringify(f),
                             price_per_day: result.price,
                             description: result.description
                         }
-                        var raspuns = {
+                        let raspuns = {
                             raspuns: "already"
                         }
                         console.log("ABOUT TO DO RENT ADD" + JSON.stringify(rent));
@@ -1022,7 +1001,7 @@ const server = http.createServer((req, res) => {
                 if (r && result.token)
                     userDB.getIDByToken(result.token).then(f => {
                         if (f) {
-                            var order = {
+                            let order = {
                                 restaurantID: r.id,
                                 consumerID: f,
                                 adress: result.adresa,
@@ -1126,6 +1105,7 @@ const server = http.createServer((req, res) => {
                     if (p == "admin") {
                         statsDB.aggregateUserData().then(p => {
                             XMLs.asdf();
+                            pdfExporter.exportPDF();
                             // XMLs.downloadCsv();
                             res.end(JSON.stringify(p))
                         });
@@ -1202,15 +1182,43 @@ const server = http.createServer((req, res) => {
             if (result.token)
                 userDB.getServiceByToken(result.token).then(p => {
                     if (p == "manager") {
-                            restaurantDB.insertRestaurantPromise(result.numeRestaurant, result.linkPoza).then(r => {
-                                console.log(r);
-                                if(r==1) console.log("poti sa arunci mailuri sefanule");
-                                   else{
-                                    console.log("poti sa arunci mailuri sefanule");
-                                       notGood.raspuns="all good"
-                                    res.end(JSON.stringify(notGood));}
+                        restaurantDB.getRestaurantByName(result.numeRestaurant).then(r=>
+                        {
+                            if(r==undefined) {
+                                restaurantDB.insertRestaurant(result.numeRestaurant, result.linkPoza);
+                                userDB.getAllUsers().then(r => {
+                                    for (let user of r) {
 
-                            })
+                                    let transporter = nodemailer.createTransport({
+                                        service: 'yahoo',
+                                        auth: {
+                                            user: 'capsadragos@yahoo.com',
+                                            pass: 'uexfqagcautdpqxn'
+                                        }
+                                    })
+                                    let mailOptions = {
+                                        from: 'capsadragos@yahoo.com',
+                                        to: user.email,
+                                        subject: 'Welcome mate!',
+                                        text: `S-a bagat mare restaurant, hai si vezi: ${result.numeRestaurant}`
+                                    }
+
+                                    transporter.sendMail(mailOptions, function (error, info) {
+                                        if (error) {
+                                            console.log(error);
+                                            console.log('N-AM PUTUT TRIMITE MAIL-UL')
+                                        } else {
+                                            console.log('Email sent ' + info.response);
+                                        }
+                                    })
+                                }
+                                })
+                            }
+                        else{
+                                console.log(r);
+                            }
+                        })
+
 
                     }
                 })

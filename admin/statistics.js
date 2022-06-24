@@ -278,6 +278,7 @@ function multiDownload() {
         '../xml_files/restaurants.xml',
         '../xml_files/restaurantsRSS.xml',
         '../xml_files/restaurantsProfit.xml',
+        '../database/stats/document.pdf',
         '../xml_files/ride_shares.xml',
         '../xml_files/userCount.xml',
         '../xml_files/userData.xml',

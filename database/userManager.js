@@ -58,6 +58,7 @@ async function getUserByEmail(email) {
 
 }
 
+
 function insertUser(firstName, lastName, phone, email, pass, city, county, localization, service) {
     var hashedPass = crypto.createHash("sha256").update(pass).digest("base64")
 
@@ -155,6 +156,22 @@ async function getEmailByToken(token) {
 
 }
 
+
+
+async function getAllUsers(){
+    return new Promise((resolve, reject) => {
+
+        sql = "select * from users ";
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            // console.log(result);
+
+            resolve(result)
+        });
+
+
+    })
+}
 async function getServiceByToken(token) {
     return new Promise((resolve, reject) => {
         var sql = "select service from users where token = " + con.escape(token) + ";";
@@ -204,5 +221,6 @@ module.exports = {
     getEmailByToken,
     insertUser,
     getIDByEmail,
-    getIDByToken
+    getIDByToken,
+    getAllUsers
 }

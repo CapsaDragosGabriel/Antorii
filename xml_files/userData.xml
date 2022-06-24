@@ -64,7 +64,7 @@
     <email>capsadragos@yahoo.coms</email>
     <pass>FIMmX7GIVBZYowYrVLlVvf7zajbydwc/p/nY5FBGi0w=</pass>
     <city>koaspdoka</city>
-    <county>undefined</county>
+    <county>judet2</county>
     <localization>undefined</localization>
     <token></token>
     <created_token_time></created_token_time>
@@ -78,7 +78,7 @@
     <email>fooddelivery@gmail.com</email>
     <pass>/XKIC/28+uPV647/VBCTBZv23lm1/jjOYWFYL8p90vQ=</pass>
     <city>Mancarica</city>
-    <county>undefined</county>
+    <county>bunicica</county>
     <localization>undefined</localization>
     <token></token>
     <created_token_time></created_token_time>
@@ -92,7 +92,7 @@
     <email>avemsofer@gmail.com</email>
     <pass>NuhorQWOdVsrM8HadnZ1YONNZ7sY17iPsS8YjG13S2I=</pass>
     <city>Doxat</city>
-    <county>undefined</county>
+    <county>Team</county>
     <localization>undefined</localization>
     <token></token>
     <created_token_time></created_token_time>
@@ -122,8 +122,8 @@
     <city>none</city>
     <county>none</county>
     <localization>none</localization>
-    <token>BltsbToOpNwOcfag</token>
-    <created_token_time>2022-06-24T15:27:42.000Z</created_token_time>
+    <token>fWov5IRc4xHeLT6u</token>
+    <created_token_time>2022-06-24T21:10:55.000Z</created_token_time>
     <service>admin</service>
     </stat>
 <stat>
@@ -136,8 +136,8 @@
     <city>oricare</city>
     <county>pestetot</county>
     <localization></localization>
-    <token></token>
-    <created_token_time></created_token_time>
+    <token>rig6KCUN0LDWCIwT</token>
+    <created_token_time>2022-06-24T19:43:01.000Z</created_token_time>
     <service>manager</service>
     </stat>
 </userData>

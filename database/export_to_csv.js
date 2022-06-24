@@ -155,7 +155,7 @@ function exportTotalUsers(){
 
 }
 function exportRestaurantsProfit(){
-    statDB.getRestaurantsOrderByProfitFULL().then(r=>{
+    statDB.getRestaurantsOrderByProfit().then(r=>{
         const jsonData =r;
         const ws = fs.createWriteStream("../csv_files/restaurantsProfit.csv");
         fastcsv
@@ -195,7 +195,6 @@ function aggregateExports() {
     exportTotalUsers()
     exportRestaurantDelivery()
     exportRestaurantsProfit()
-    getRestaurantsOrderByProfitFULL()
 }
 module.exports={
     aggregateExports

@@ -399,6 +399,7 @@ module.exports = {
     aggregateRestaurantData,
     maxNumberOfUsersInCounty,
     getServicesCount,
+    // getRestaurantsOrderByProfitFULL
     // getCountiesByNrOfActions,
 
 }

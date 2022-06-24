@@ -153,12 +153,12 @@ function generatePDF() {
                                             headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Rating'],
                                             rows: arr,
                                         };
-                                        console.log("CARTOFIORI")
+                                        // console.log("CARTOFIORI")
                                         console.log(table);
                                         createTable(table, 'user')
                                         doc.moveDown(5)
                                         doc.addPage()
-                                        console.log("CARTOF\n")
+                                        // console.log("CARTOF\n")
 
                                         doc.image('services.jpg', {
                                             align: 'center',
@@ -166,7 +166,7 @@ function generatePDF() {
                                         })
 
                                         doc.end();
-                                        console.log("CARTOF\n")
+                                        // console.log("CARTOF\n")
 
                                     })
                                 })
@@ -188,17 +188,18 @@ function generatePDF() {
 
 }
 
-generatePDF()
-//
-// chartGenerator.getUsersPerCountyChart().then(()=>
-// {
-//     chartGenerator.getServicesPieChart().then(()=>
-//     {
-//         chartGenerator.getConsumerProviderPieChart().then(()=>{
-//             setTimeout(generatePDF,2000)
-//
-//         })
-//     })
-// })
+function exportPDF() {
+    chartGenerator.getUsersPerCountyChart().then(() => {
+        chartGenerator.getServicesPieChart().then(() => {
+            chartGenerator.getConsumerProviderPieChart().then(() => {
+                setTimeout(generatePDF, 2000)
 
+            })
+        })
+    })
+}
+module.exports={
+    exportPDF,
+        generatePDF
+}
 // generatePDF()

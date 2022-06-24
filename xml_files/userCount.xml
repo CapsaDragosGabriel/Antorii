@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <userCount>
 <stat>
-<county>undefined</county>
-    <number_of_users>4</number_of_users>
-    </stat>
-<stat>
 <county>Buhusi</county>
     <number_of_users>2</number_of_users>
     </stat>
 <stat>
 <county>Team</county>
-    <number_of_users>1</number_of_users>
+    <number_of_users>2</number_of_users>
     </stat>
 <stat>
 <county>Aa</county>
+    <number_of_users>1</number_of_users>
+    </stat>
+<stat>
+<county>undefined</county>
+    <number_of_users>1</number_of_users>
+    </stat>
+<stat>
+<county>judet2</county>
+    <number_of_users>1</number_of_users>
+    </stat>
+<stat>
+<county>bunicica</county>
     <number_of_users>1</number_of_users>
     </stat>
 <stat>

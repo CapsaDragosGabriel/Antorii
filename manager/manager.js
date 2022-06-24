@@ -19,19 +19,18 @@ async function trimiteRestaurant()
     console.log(data);
 
     const response = await fetch('http://localhost:8000/api/manager/insertRestaurant', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r=>r.json());
 
 
-    if(response.raspuns=="not good") {
-        console.log("you fucked up");
+    if(response.raspuns==="not good") {
         notGood("raspunsRestaurant")
+        setTimeout(() => {
+            const error = document.getElementById("raspunsRestaurant");
+            const errorP = document.getElementById("error");
+            error.removeChild(errorP);
+        }, 1000);
     }
 }
 async function valabilitateRestaurant()
@@ -49,19 +48,18 @@ async function valabilitateRestaurant()
     console.log(data);
 
     const response = await fetch('http://localhost:8000/api/manager/restaurantAvailability', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r=>r.json());
 
 
-    if(response.raspuns=="not good") {
-        console.log("you fucked up");
+    if(response.raspuns==="not good") {
         notGood("raspunsRestaurant")
+        setTimeout(() => {
+            const error = document.getElementById("raspunsRestaurant");
+            const errorP = document.getElementById("error");
+            error.removeChild(errorP);
+        }, 1000);
     }
 }
 async function valabilitateProdus()
@@ -78,19 +76,18 @@ async function valabilitateProdus()
     console.log(data);
 
     const response = await fetch('http://localhost:8000/api/manager/itemAvailability', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r=>r.json());
 
 
-    if(response.raspuns=="not good") {
-        console.log("you fucked up");
+    if(response.raspuns==="not good") {
         notGood("raspunsRestaurant")
+        setTimeout(() => {
+            const error = document.getElementById("raspunsRestaurant");
+            const errorP = document.getElementById("error");
+            error.removeChild(errorP);
+        }, 1000);
     }
 }
 async function trimiteProdus()
@@ -112,25 +109,22 @@ async function trimiteProdus()
     console.log(data);
 
     const response = await fetch('http://localhost:8000/api/manager/insertProdus', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'no-cors', // no-cors, *cors, same-origin
-        // headers: {
-        //     'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-        // },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        method: 'POST',
+        body: JSON.stringify(data)
     }).then(r => r.json()).then(f=>
     {
-        if (f.raspuns=="not good")
-        {console.log("you fucked up again");
+        if (f.raspuns==="not good")
+        {
             notGood("raspunsProdus")
+            setTimeout(() => {
+                const error = document.getElementById("raspunsProdus");
+                const errorP = document.getElementById("error");
+                error.removeChild(errorP);
+            }, 1000);
         }
-
     })
-
 }
 function notGood(where){
     var x=document.getElementById(where);
-    x.innerHTML+=`<p>Format incorect ptr json sau exista deja</p>`;
-
+    x.innerHTML+=`<p id="error">Format incorect pentru Json sau exista deja!</p>`;
 }

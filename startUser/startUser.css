@@ -228,9 +228,6 @@ body {
 }
 
 
-
-
-
 /* Next & previous buttons */
 .prev, .next {
     cursor: pointer;
@@ -252,13 +249,14 @@ body {
 
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
-    background-color: red;
+    background-color: #B64141;
 }
 
 /* Container for image text */
 .caption-container {
     text-align: center;
     background-color: black;
+    opacity: 80%;
     color: white;
     display: flex;
     flex-direction: row;
@@ -274,10 +272,30 @@ body {
 .row {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    justify-content: space-between;
+    width: 80%;
 }
 
-.column1, .column2, .column3, .column4, .column5 {
+/*.row .column, .columnEnd, .columnStart {*/
+/*    padding-right: 4%;*/
+/*    border-right: 3px solid #f1f1f1;*/
+/*}*/
+
+/*.columnEnd {*/
+/*    border: 0;*/
+/*    padding: 0;*/
+/*}*/
+
+/*.columnStart {*/
+/*    padding-left: 5%;*/
+/*}*/
+
+.row p {
+    font-family: "Zilla Slab";
+    font-weight: bold;
+}
+
+.column {
     margin: 0 5%;
     align-content: center;
     text-align: center;
@@ -331,6 +349,22 @@ body {
     }
     #text2{
         font-size:15px;
+    }
+
+    .row {
+        width: fit-content;
+    }
+
+    #top4 {
+        display: none;
+    }
+
+    #top5 {
+        display: none;
+    }
+
+    #top6 {
+        display: none;
     }
 }
 @media screen and (min-width: 601px) {

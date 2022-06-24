@@ -51,7 +51,7 @@
                 <option value="y">Disponibil</option>
                 <option value="n">Indisponibil</option>
             </select>
-            <button class="buttonaut" type="submit">Schimba disponibilitate</button>
+            <button class="buttonaut" type="submit">Schimba</button>
         </form>
 
         <form class="dispRest"
@@ -63,7 +63,7 @@
                 <option value="y">Disponibil</option>
                 <option value="n">Indisponibil</option>
             </select>
-            <button class="buttonaut" type="submit">Schimba disponibilitate</button>
+            <button class="buttonaut" type="submit">Schimba</button>
         </form>
     </div>
 
@@ -73,23 +73,27 @@
                         return false;"
               action="http://127.0.0.1:8000/manager/manager.html">
             <input type="text" id="numeRestaurant" placeholder="Denumire restaurant" required>
-            <input type="text" id="linkPoza" placeholder="Link pentru logo" required>
-            <textarea id="jsonMenu" rows="5" cols="10" name="meniu" required
+            <input type="text" id="linkPoza" onpaste="" placeholder="Link pentru logo" required>
+            <textarea id="jsonMenu" onpaste="" rows="5" cols="10" name="meniu" required
                       placeholder="Introduce-ti meniul!"></textarea>
-            <button class="buttonaut" type="submit">Inregistreaza restaurant</button>
+            <div id="raspunsRestaurant"></div>
+            <div class="butoane">
+                <button class="buttonaut" type="submit">Inregistreaza restaurant</button>
+            </div>
         </form>
-        <div id="raspunsRestaurant"></div>
 
         <form class="produs"
               onsubmit="trimiteProdus()
                         return false;"
               action="http://127.0.0.1:8000/manager/manager.html">
             <input type="text" id="numeRestaurant2" placeholder="Denumire restaurant" required>
-            <textarea id="jsonItem" rows="5" cols="10" name="produs" required
+            <textarea id="jsonItem" onpaste="" rows="5" cols="10" name="produs" required
                       placeholder="Introduce-ti produsul!"></textarea>
-            <button class="buttonaut" type="submit">Adauga produs</button>
+            <div id="raspunsProdus"></div>
+            <div class="butoane">
+                <button class="buttonaut" type="submit">Adauga produs</button>
+            </div>
         </form>
-        <div id="raspunsProdus"></div>
     </div>
 </div>
 <br>

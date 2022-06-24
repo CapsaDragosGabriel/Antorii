@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<ride_shares><stat>
+<ride_shares>
+<stat>
 <id>3</id>
     <consumerID>4</consumerID>
     <providerID>8</providerID>

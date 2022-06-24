@@ -163,7 +163,7 @@ function exportRestaurantsProfit(){
         fastcsv
             .write(jsonData, { headers: true })
             .on("finish", function() {
-                console.log("Write to ride_shares.csv successfully!");
+                console.log("Write to restaurantsProfit.csv successfully!");
             })
             .pipe(ws);
     })
@@ -176,7 +176,7 @@ function exportRestaurantDelivery(){
         fastcsv
             .write(jsonData, { headers: true })
             .on("finish", function() {
-                console.log("Write to ride_shares.csv successfully!");
+                console.log("Write to delivery.csv successfully!");
             })
             .pipe(ws);
     })

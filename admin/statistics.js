@@ -257,11 +257,6 @@ function showDeliveryStats() {
     bigBox.appendChild(deliveryBox);
 }
 
-var urls = [
-    'http://example.com/file1',
-    'http://example.com/file2',
-    'http://example.com/file3'
-]
 
 function multiDownload() {
     var urls = [
@@ -281,6 +276,7 @@ function multiDownload() {
         '../xml_files/items.xml',
         '../xml_files/ordered_items.xml',
         '../xml_files/restaurants.xml',
+        '../xml_files/restaurantsRSS.xml',
         '../xml_files/restaurantsProfit.xml',
         '../xml_files/ride_shares.xml',
         '../xml_files/userCount.xml',
@@ -289,6 +285,7 @@ function multiDownload() {
         '../xml_files/userRide.xml',
         '../xml_files/userTotal.xml',
         '../xml_files/users.xml',
+
     ]
 // var urls=[`../csv_files/archive.zip`]
     var interval = setInterval(download, 300, urls);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<orders><stat>
+<orders>
+<stat>
 <id>86</id>
     <restaurantID>3</restaurantID>
     <consumerID>3</consumerID>

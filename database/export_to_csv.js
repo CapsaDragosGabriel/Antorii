@@ -1,9 +1,11 @@
 const mysql = require('mysql');
 const fastcsv = require('fast-csv')
 const fs = require('fs')
+// globalThis.Blob = require('fetch-blob');
 const statDB=require("../database/stats");
 const {json} = require("express");
-
+const JSZip = require("jszip");
+const saveFile=require("file-saver");
 var con = mysql.createConnection({
     host: "localhost",
     user: "student",
@@ -181,8 +183,33 @@ function exportRestaurantDelivery(){
 
 }
 
+/*zipFile()
+function zipFile()
+{
 
 
+
+        console.log("s-a intrat");
+        var zip = new JSZip();
+
+// Add an top-level, arbitrary text file with contents
+        zip.file("Hello.txt", "Hello World\n");
+
+// Generate a directory within the Zip file structure
+        var folder = zip.folder("csvs");
+
+// Add a file to the directory, in this case an image with data URI as contents
+
+        folder.file("../csv_files/delivery.csv", null, {base64: true});
+
+// Generate the zip file asynchronously
+        zip.generateAsync({type: "base64"})
+            .then(function (content) {
+                // Force down of the Zip file
+                saveFile.saveAs(content, "archive.zip");
+            })
+
+}*/
 function aggregateExports() {
     exportUsers()
     exportItems()

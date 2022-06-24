@@ -3,6 +3,7 @@ const Papa = require("nodemailer/lib/fetch/cookies");
 var xml2js = require('xml2js');
 
 function asdf() {
+
     csvs.aggregateExports();
     getFileXML('items');
     getFileXML('orders');

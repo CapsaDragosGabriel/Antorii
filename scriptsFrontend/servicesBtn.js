@@ -101,13 +101,11 @@ function backFood() {
     document.getElementById('box').style.display = "flex";
 }
 function showStats(){
-    // console.log("DAU SHOW STATAS");
     var x=document.getElementsByClassName('header');
     for (var item of x){
-        item.innerHTML=item.innerHTML+`<a class="statistici" id="statistici" style="display: block;" class="link" href="../admin/statistics.html">Statistici</a>
-`
+        item.innerHTML=item.innerHTML+`<a class="statistici" id="statistici" style="display: block;" class="link" href="../admin/statistics.html">Statistici</a>`
     }
-     x=document.getElementsByClassName('header-small');
+     x=document.getElementsByClassName('header_small');
     for (var item of x){
         item.innerHTML=item.innerHTML+`<a class="statistici" id="statistici" style="display: block;" class="link" href="../admin/statistics.html">Statistici</a>
 `

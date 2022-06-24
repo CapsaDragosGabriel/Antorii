@@ -51,94 +51,97 @@ function showUsersStats() {
     let userBox = document.createElement('div');
     userBox.setAttribute("class", "stat");
 
+    let title = document.createElement('div');
+    title.className = "statTitle";
+    title.innerHTML = `<h1>User stats:</h1>`;
+    userBox.appendChild(title);
+
     let percentage = document.createElement('div');
     percentage.setAttribute("class", "statDetails");
 
     percentage.innerHTML += `
-    <h1>Distributia procentuala a utilizatorilor</h1>
-    <div class="infoStat">
-<p>${userStatsObj.consumer_provider.consumer_procent} consumers </p>
-<p> ${userStatsObj.consumer_provider.provider_procent} providers</p>
-</div>`;
+        <h1>Distributia procentuala a utilizatorilor</h1>
+        <div class="infoStat">
+        <p>${userStatsObj.consumer_provider.consumer_procent} consumers </p>
+        <p> ${userStatsObj.consumer_provider.provider_procent} providers</p>
+        </div>`;
+    userBox.appendChild(percentage);
 
     /**
      * piechart
      */
+
     let countyDistribution = document.createElement('div');
     countyDistribution.setAttribute("class", "statDetails")
-    /**
-     * asta sa fie  scroll
-     */
     countyDistribution.innerHTML += `<h1>Distributia pe judete a tuturor utilizatorilor:</h1>`
-
     let getCountyDistribution = document.createElement('div');
     getCountyDistribution.setAttribute("class", "infoStat")
     for (var element of userStatsObj.users_per_county)//de facut scroll down daca se poate
     {
         if (element.county !== undefined) {
-            getCountyDistribution.innerHTML += `
-<div class="infoStat">
-<p>${element.county} </p>
-            <p>${element.number_of_users}</p>
+            countyDistribution.innerHTML += `
+            <div class="infoStat">
+                <p>${element.county} </p>
+                <p>${element.number_of_users}</p>
             </div>`
         }
     }
     countyDistribution.innerHTML += getCountyDistribution.innerHTML
+    userBox.appendChild(countyDistribution);
+
 
     let consumerDistribution = document.createElement('div');
     consumerDistribution.setAttribute("class", "statDetails")
-    /**
-     * asta sa fie  scroll
-     */
     consumerDistribution.innerHTML += `<h1>Distributia pe judete a consumatorilor:</h1>`
     let getConsumerDistribution = document.createElement('div')
     getConsumerDistribution.setAttribute("class", "infoStat");
     for (var element of userStatsObj.consumers_per_county)//de facut scroll down daca se poate
     {
         getConsumerDistribution.innerHTML += `
-<div class="infoStat">
-<p>${element.county} </p>
-            <p>${element.number_of_consumers}</p>
+            <div class="infoStat">
+                <p>${element.county} </p>
+                <p>${element.number_of_consumers}</p>
             </div>`
     }
     consumerDistribution.innerHTML += getConsumerDistribution.innerHTML;
+    userBox.appendChild(consumerDistribution);
+
+
     let providerDistribution = document.createElement('div');
     providerDistribution.setAttribute("class", "statDetails")
-    /**
-     * asta sa fie  scroll
-     */
     providerDistribution.innerHTML += `<h1>Distributia pe judete a providerilor:</h1>`
     let getProviderDistribution = document.createElement('div');
     getProviderDistribution.setAttribute("class", "infoStat")
     for (var element of userStatsObj.providers_per_county)//de facut scroll down daca se poate
     {
         getProviderDistribution.innerHTML += `
-<div class="infoStat">
-<p>${element.county} </p>
-            <p>${element.number_of_providers}</p>
+            <div class="infoStat">
+                <p>${element.county} </p>
+                <p>${element.number_of_providers}</p>
             </div>`
 
     }
-
     providerDistribution.innerHTML += getProviderDistribution.innerHTML;
+    userBox.appendChild(providerDistribution);
+
 
     let topRideSpender = document.createElement('div');
     topRideSpender.setAttribute("class", "statDetails");
     topRideSpender.innerHTML += `<h1>Cei care au platit rideshare cel mai mult</h1>`
     let getTopRideSpender = document.createElement('div');
     getTopRideSpender.setAttribute("class", "infoStat")
-
     for (var element of userStatsObj.users_by_ride_spending)//de facut scroll down daca se poate
     {
         getTopRideSpender.innerHTML += `
-<div class="infoStat">
-<p>${element.id} </p>
+        <div class="infoStat">
+            <p>${element.id} </p>
             <p>${element.email}</p>
             <p>${element.total}</p>
-            </div>`
+        </div>`
 
     }
     topRideSpender.innerHTML += getTopRideSpender.innerHTML;
+    userBox.appendChild(topRideSpender);
 
 
     let topFoodSpender = document.createElement('div');
@@ -147,17 +150,17 @@ function showUsersStats() {
     let getTopFoodSpender = document.createElement('div');
     getTopFoodSpender.setAttribute("class", "infoStat")
 
-    for (var element of userStatsObj.users_by_restaurant_spending)//de facut scroll down daca se poate
+    for (var element of userStatsObj.users_by_restaurant_spending)
     {
         getTopFoodSpender.innerHTML += `
-<div class="infoStat">
-<p>${element.id} </p>
+        <div class="infoStat">
+            <p>${element.id} </p>
             <p>${element.email}</p>
             <p>${element.total}</p>
-            </div>`
-
+        </div>`
     }
     topFoodSpender.innerHTML += getTopFoodSpender.innerHTML;
+    userBox.appendChild(topFoodSpender);
 
 
     let topSpender = document.createElement('div');
@@ -165,91 +168,82 @@ function showUsersStats() {
     topSpender.innerHTML += `<h1>Cei care au platit cel mai mult(toate serviciile la un loc)</h1>`
     let getTopSpender = document.createElement('div');
     getTopSpender.setAttribute("class", "infoStat")
-
     for (var element of userStatsObj.users_by_total_spending)//de facut scroll down daca se poate
     {
         getTopSpender.innerHTML += `
-<div class="infoStat">
-<p>${element.id} </p>
+        <div class="infoStat">
+            <p>${element.id} </p>
             <p>${element.email}</p>
             <p>${element.total}</p>
-            </div>`
-
+        </div>`
     }
     topSpender.innerHTML += getTopSpender.innerHTML;
+    userBox.appendChild(topSpender);
 
-
-    userBox.innerHTML += percentage.innerHTML;
-    userBox.innerHTML += countyDistribution.innerHTML;
-    userBox.innerHTML += consumerDistribution.innerHTML;
-    userBox.innerHTML += providerDistribution.innerHTML;
-    userBox.innerHTML += topRideSpender.innerHTML;
-    userBox.innerHTML += topFoodSpender.innerHTML
-    userBox.innerHTML += topSpender.innerHTML;
-
-    bigBox.innerHTML += userBox.innerHTML
-
-
+    bigBox.appendChild(userBox);
 }
 
 function showRestaurantStats() {
     let bigBox = document.getElementById('boxStat');
-    bigBox.innerHTML += `
-    <div class="stat" >
-        <h1>Restaurant stats:</h1>
-    </div>`
+
     let restaurantBox = document.createElement('div');
     restaurantBox.setAttribute("class", "stat");
 
+    let title = document.createElement('div');
+    title.className = "statTitle";
+    title.innerHTML = `<h1>Restaurant stats:</h1>`;
+    restaurantBox.appendChild(title);
 
     let restaurantsProfit = document.createElement('div');
     restaurantsProfit.setAttribute("class", "statDetails");
+
     restaurantsProfit.innerHTML += `<h1>Cele mai profitabile restaurante</h1>`
     let getRestaurantsProfit = document.createElement('div');
     getRestaurantsProfit.setAttribute("class", "infoStat")
-
     for (var element of restaurantStatsObj.restaurants_by_profit)//de facut scroll down daca se poate
     {
-        getRestaurantsProfit.innerHTML += `
-<div class="infoStat">
-<p>${element.name} </p>
+        restaurantsProfit.innerHTML += `
+        <div class="infoStat">
+            <p>${element.name} </p>
             <p>${element.total}</p>
-            </div>`
-
+        </div>`
     }
     restaurantsProfit.innerHTML += getRestaurantsProfit.innerHTML;
+    restaurantBox.appendChild(restaurantsProfit);
+
 
     let delivery = document.createElement('div');
     delivery.setAttribute("class", "statDetails");
     delivery.innerHTML += `<h1>Cei mai buni livratori</h1>`
     let getDelivery = document.createElement('div');
     getDelivery.setAttribute("class", "infoStat")
-
     for (var element of restaurantStatsObj.delivery_by_orders)//de facut scroll down daca se poate
     {
         getDelivery.innerHTML += `
-<div class="infoStat">
-<p>${element.email} </p>
+        <div class="infoStat">
+            <p>${element.email} </p>
             <p>${element.nr_of_orders}</p>
-            </div>`
-
+        </div>`
     }
     delivery.innerHTML += getDelivery.innerHTML;
+    restaurantBox.appendChild(delivery);
 
-
-    restaurantBox.innerHTML += restaurantsProfit.innerHTML;
-    restaurantBox.innerHTML += delivery.innerHTML;
-
-    bigBox.innerHTML += restaurantBox.innerHTML;
-
+    bigBox.appendChild(restaurantBox);
 }
 
 function showDeliveryStats(){
     let bigBox = document.getElementById('boxStat');
-    bigBox.innerHTML += `
-    <div class="stat" >
-        <h1>Ride-sharing stats:</h1>
-    </div>`
+
+    let deliveryBox = document.createElement('div');
+    deliveryBox.setAttribute("class", "stat");
+
+    let title = document.createElement('div');
+    title.className = "statTitle";
+    title.innerHTML = `<h1>Ride-sharing stats:</h1>`;
+    deliveryBox.appendChild(title);
+
     let restaurantBox = document.createElement('div');
     restaurantBox.setAttribute("class", "stat");
+
+    bigBox.appendChild(deliveryBox);
 }

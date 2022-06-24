@@ -7,7 +7,7 @@ html {
 }
 
 body {
-    background-image: url("../resources/bkFood.png");
+    background-image: url("../resources/bkRegisterO.png");
     background-position: center;
     background-size: cover;
     margin: 0;
@@ -508,39 +508,9 @@ form {
     color: black;
     font-weight: bold;
     font-size: 10px;
-    margin: 2%;
-    padding: 4% 3% 0 3%;
-    border-radius: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-    padding-bottom: 20px;
-}
-#boxStat {
-    padding-top: 2%;
-    padding-bottom: 5%;
-    background-blend-mode: soft-light;
-    align-content: center;
-    text-align: center;
-    width: 45%;
-    margin: 10% 35% 2% 35%;
-    background-color: #F5F5F5;
-    border-radius: 10px;
     display: flex;
-    flex-direction: column;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-    font-family: "Zilla Slab";
-    font-weight: bold;
-}
-
-#statsList {
-    display: none;
-    width: 45%;
-    height: 100%;
-    margin: 10% 25% 2% 37%;
-    background-color: #F5F5F5;
-    border-radius: 10px;
-    flex-direction: column;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-    padding-bottom: 3%;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .stat {
@@ -549,23 +519,30 @@ form {
     justify-content: center;
     text-align: center;
     align-content: center;
-
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-    padding: 1%;
+    padding: 3%;
     background-color: #F5F5F5;
     border-radius: 10px;
     font-weight: bold;
     margin-top: 5%;
+    width: 30%;
+    height: 500px;
+    overflow: auto;
+}
+
+.statDetails h1 {
+    font-size: 20px;
+    color: white;
 }
 
 .statDetails {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     justify-content: left;
     font-size:15px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-    padding: 1%;
-    background-color: #F5F5F5;
+    padding: 3%;
+    background-color: #B64141;
     border-radius: 10px;
     font-weight: bold;
     margin-top: 3%;
@@ -579,12 +556,13 @@ form {
 .statDetails p {
     margin: 1% 5%;
 }
-h1{
-    text-align: center;
+
+.buton {
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
 }
-.statDetails h1{
-    text-align: center;
-}
+
 .selectStatus {
     margin-top: 19px;
     width: 100%;
@@ -679,6 +657,10 @@ h1{
     div.header_small {
         display: flex;
         flex-direction: row;
+    }
+
+    .dropdown .dropbtn {
+        font-size: 15px;
     }
 
     #statDetails {

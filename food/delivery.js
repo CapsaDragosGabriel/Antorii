@@ -50,7 +50,7 @@ function showOrders() {
                 var detaliiComanda = document.createElement("div");
                 detaliiComanda.className = "command";
                 detaliiComanda.innerHTML = `<h1 style="margin-bottom: 0;">La ${newObj.address}</h1>`;
-
+                detaliiComanda.innerHTML +=`<p>Pretul:${newObj.food.cost} RON`
                 var lista = document.createElement("ul");
 
                 for (var item of newObj.food.items) {

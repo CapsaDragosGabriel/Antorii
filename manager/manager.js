@@ -1,3 +1,5 @@
+const striptags = require("striptags");
+
 async function trimiteRestaurant()
 {
     var numeRestaurant= document.getElementById('numeRestaurant');
@@ -5,8 +7,8 @@ async function trimiteRestaurant()
 
     var data={
         token:localStorage.getItem('token'),
-        numeRestaurant:numeRestaurant.value,
-        linkPoza:linkPoza.value,
+        numeRestaurant:numeRestaurant.value.replace(/(<([^>]+)>)/ig,""),
+        linkPoza:linkPoza.value.replace(/(<([^>]+)>)/ig,""),
     }
     console.log(data);
 
@@ -34,8 +36,8 @@ async function valabilitateRestaurant()
     // var availability=disponibilitate. ?'y':'n';
     var data={
         token:localStorage.getItem('token'),
-        numeRestaurant:numeRestaurant.value,
-        availability: disponibilitate.value
+        numeRestaurant:striptags(numeRestaurant.value.replace(/(<([^>]+)>)/ig,"")),
+        availability: striptags(disponibilitate.value.replace(/(<([^>]+)>)/ig,""))
     }
     console.log(data);
 
@@ -62,8 +64,8 @@ async function valabilitateProdus()
     // var availability=disponibilitate. ?'y':'n';
     var data={
         token:localStorage.getItem('token'),
-        numeProdus:numeProdus.value,
-        availability: disponibilitate.value
+        numeProdus:striptags(numeProdus.value.replace(/(<([^>]+)>)/ig,"")),
+        availability: striptags(disponibilitate.value.replace(/(<([^>]+)>)/ig,""))
     }
     console.log(data);
 
@@ -90,15 +92,15 @@ async function trimiteProdus()
     var descriere=document.getElementById('descriereProdus')
     var pret=document.getElementById('pretProdus')
     jsonItem={
-        name:nume.value,
-        description:descriere.value,
-        price:pret.value,
+        name:striptags(nume.value.replace(/(<([^>]+)>)/ig,"")),
+        description:striptags(descriere.value.replace(/(<([^>]+)>)/ig,"")),
+        price:striptags(pret.value.replace(/(<([^>]+)>)/ig,"")),
     }
     let meniu=jsonItem;
 
     var data={
         token:localStorage.getItem('token'),
-        numeRestaurant:numeRestaurant.value,
+        numeRestaurant:striptags(numeRestaurant.value.replace(/(<([^>]+)>)/ig,"")),
         jsonItem:meniu
     }
     console.log(data);

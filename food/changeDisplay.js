@@ -1,3 +1,4 @@
+var striptags = require('striptags');
 function createPriceDiv() {
     var x = document.getElementById("box");
     x.innerHTML = x.innerHTML + `<div id="totalPrice"></div>`;
@@ -75,13 +76,14 @@ async function updateOrder(id, i) {
 }
 
 function getValueLiv(i) {
-    var feedbackValue = document.getElementById(`feedbackliv${i}`).value;
+
+    var feedbackValue =  document.getElementById(`feedbackliv${i}`).value.replace(/(<([^>]+)>)/ig,"");
     globalOrders[i].feedback_provider = feedbackValue;
     console.log(i + " " + JSON.stringify(feedbackValue));
 }
 
 function getValueRes(i) {
-    var feedbackValue = document.getElementById(`feedbackres${i}`).value;
+    var feedbackValue =  document.getElementById(`feedbackres${i}`).value.replace(/(<([^>]+)>)/ig,"");
     globalOrders[i].feedback_restaurant = feedbackValue;
     console.log(i + " " + JSON.stringify(feedbackValue));
 }
@@ -352,7 +354,7 @@ let globalReviews = [];
 async function comanda() {
     var adresa = document.getElementById('inputAddress');
     const data = {
-        adresa: adresa.value,
+        adresa:adresa.value.replace(/(<([^>]+)>)/ig,""),
         quantities: quantities,
         items: items,
         numeRestaurant: numeRestaurant,

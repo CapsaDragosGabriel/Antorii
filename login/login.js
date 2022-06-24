@@ -1,3 +1,5 @@
+
+// const striptags = require(["striptags"], function (striptags){});
 document.addEventListener('DOMContentLoaded', (event) => {
 
 
@@ -11,10 +13,10 @@ async function login()
 {
     var email= document.getElementById('email');
     var pw=document.getElementById('password');
-    console.log(email.value + " "+ pw.value);
+    // console.log(stremail.value + " "+ pw.value);
     const data = {
-        email: email.value,
-        password: pw.value
+        email: email.value.replace(/(<([^>]+)>)/ig,""),
+        password: pw.value.replace(/(<([^>]+)>)/ig,"")
     }
     let loggedIn = true;
 

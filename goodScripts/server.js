@@ -896,6 +896,7 @@ const server = http.createServer((req, res) => {
             userDB.getServiceByToken(result.token).then(r => {
                 if (r == "consumer") {
                     rentDB.getRentsAvailableInPeriodType(result.from, result.to, result.type).then(f => {
+                            console.log(f);
                             res.end(JSON.stringify(f));
                         }
                     )

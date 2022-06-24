@@ -1,7 +1,7 @@
 var csvs = require("../database/export_to_csv")
 const Papa = require("nodemailer/lib/fetch/cookies");
 var xml2js = require('xml2js');
-
+// const RSS=require('RSS')
 function asdf() {
 
     csvs.aggregateExports();
@@ -109,6 +109,11 @@ function createRSS(csv,folder){
     console.log(xml);
 
 }
+
+
+
+
+
 const fs = require('fs');
 async function readCSV(file) {
     return new Promise((resolve) =>

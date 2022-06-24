@@ -208,15 +208,69 @@ body {
     margin: 5% 25% 0 40%;
 }
 #rentADS {
-    background-color: #F5F5F5;
-    height: 500px;
-    width: 500px;
-    border-radius: 50%;
-    padding-top: 50px;
-    display: flex;
+    display: none;
     flex-direction:column;
-    justify-content: center;
-    margin: 5% 25% 0 40%;
+    margin-top: 5%;
+    margin-left: 20%;
+}
+
+.rentAdRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 5%;
+}
+
+.rentBox h1, .price, .rentBox button {
+    font-weight: bold;
+}
+
+.rentBox {
+    background-color: #F5F5F5;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    min-width: 300px;
+    text-align: center;
+    font-family: "Zilla Slab";
+    font-weight: normal;
+    padding: 1%;
+}
+
+.submitbtn {
+    background-color: #B64141;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 25px;
+    cursor: pointer;
+    border-radius: 30px;
+    font-family: "Zilla Slab";
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+    padding: 2% 10% 2% 10%;
+}
+
+.price {
+    color: grey;
+    font-size: 22px;
+}
+
+.rentBox button {
+    font-family: "Zilla Slab";
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #B64141;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
+}
+
+.rentBox button:hover {
+    opacity: 0.7;
 }
 
 #main-div #rent-form {
@@ -236,27 +290,21 @@ body {
     font-size: 15px;
 }
 
-#rent-form input {
+#rent-form input, #rent-form select {
     border-radius: 8px;
     border: 3px solid #f1f1f1;
     width: 50%;
     padding: 3%;
 }
 
-.submitbtn {
-    background-color: #B64141;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    font-size: 25px;
-    cursor: pointer;
-    border-radius: 30px;
+select {
     font-family: "Zilla Slab";
     font-weight: bold;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65);
-    padding: 2% 10% 2% 10%;
+    border-radius: 8px;
+    border: 3px solid #f1f1f1;
+    padding: 6%;
 }
+
 
 #buton, #butonAd {
     width: 100%;
@@ -292,7 +340,7 @@ body {
     width: 70%;
 }
 
-#ad-form input, #type {
+#ad-form input {
     border-radius: 8px;
     border: 3px solid #f1f1f1;
     padding: 6%;
@@ -300,6 +348,7 @@ body {
     justify-content: center;
     height: auto;
 }
+
 #typeWanted
 {
     border-radius: 8px;

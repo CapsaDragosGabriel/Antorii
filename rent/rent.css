@@ -225,10 +225,17 @@ body {
     font-weight: bold;
 }
 
+.adPost {
+    font-family: "Zilla Slab";
+    font-weight: bold;
+    color: #B64141;
+}
+
 .rentBox {
     background-color: #F5F5F5;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    min-width: 300px;
+    min-width: auto;
+    min-height: auto;
     text-align: center;
     font-family: "Zilla Slab";
     font-weight: normal;
@@ -252,7 +259,7 @@ body {
 
 .price {
     color: grey;
-    font-size: 22px;
+    font-size: inherit;
 }
 
 .rentBox button {
@@ -306,7 +313,7 @@ select {
 }
 
 
-#buton, #butonAd {
+#buton, #butonAd, #butonAdPost {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -317,7 +324,7 @@ select {
     display: none;
     background-color: #F5F5F5;
     justify-content: center;
-    width: 35%;
+    //width: 35%;
     height: 100%;
     margin: 10% 25% 2% 42%;
     padding-bottom: 3%;
@@ -337,7 +344,7 @@ select {
 #adDiv #ad-form {
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: auto;
 }
 
 #ad-form input {
@@ -347,6 +354,8 @@ select {
     display: flex;
     justify-content: center;
     height: auto;
+    width: fit-content;
+    margin-left: 20%;
 }
 
 #typeWanted
@@ -380,6 +389,7 @@ select {
     display: flex;
     flex-direction: row;
     justify-content: right;
+    margin-left: 5%;
 }
 
 #ad-form::placeholder {
@@ -396,7 +406,7 @@ select {
     margin: 2% 0;
     font-family: "Zilla Slab";
     font-weight: bold;
-    font-size: 20px;
+    font-size: 13px;
 }
 
 #main-div #title {
@@ -511,9 +521,27 @@ select {
         right: 35px;
     }
 
-    #main-div {
+    #main-div, #adDiv {
         width: auto;
         margin: 30% 0 0 0;
+    }
+
+    #adDiv {
+        margin-left: 2%;
+        margin-right: 2%;
+        margin-top: 5%;
+    }
+
+    #ad-form input, #ad-form select {
+        width: 75%;
+    }
+
+    #ad-form select {
+        width: 100%;
+    }
+
+    #type {
+        padding: 0;
     }
 
     #main-div #rent-form {
@@ -522,6 +550,23 @@ select {
 
     #rent-form input::placeholder {
         font-size: 30px;
+    }
+
+    .rentBox {
+        margin-top: 5%;
+    }
+
+    .rentAdRow {
+        flex-direction: column;
+        margin-bottom: 0;
+    }
+
+    #rentADS {
+        margin: 4%;
+    }
+
+    .footer {
+        margin-top: 10%;
     }
 
 }

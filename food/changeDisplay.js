@@ -1,13 +1,6 @@
 function createPriceDiv() {
     var x = document.getElementById("box");
-    x.innerHTML = x.innerHTML + `<div id="totalPrice"></div>
-    <div id="buton">
-        <button id="sendCommand" onclick="let ok=0;
-        for (let i=0;i<quantities.length;i++)
-            if (quantities[i]!==0)display='comanda';
-        changeDisplay(); console.log(display) " >Plaseaza comanda
-        </button>
-    </div>`;
+    x.innerHTML = x.innerHTML + `<div id="totalPrice"></div>`;
 }
 
 let globalOrders = [];
@@ -108,8 +101,8 @@ function showOrders() {
                 comandaActuala.className = "command";
                 for (var item of foodObj.items) {
                     //item e fiecare chestie din food items
-                    if (item.quantity )
-                        comandaActuala.innerHTML +=`<p>${item.name} x ${item.quantity}</p>`
+                    if (item.quantity)
+                        comandaActuala.innerHTML += `<p>${item.name} x ${item.quantity}</p>`
                 }
                 //foodObj.cost e costul
                 //newObj.feedback... sunt feedbacks
@@ -203,8 +196,7 @@ function showOrders() {
                 x.appendChild(currOrderDiv);
             }
         }
-    }
-    else {
+    } else {
         var x = document.getElementById("commandsList");
         x.innerHTML = `
     <div class="title-back">
@@ -260,7 +252,7 @@ async function changeUsername() {
 
 var changeDisplay = function () {
 
-    if (!display.startsWith(`review`)&&display!=='comanda') {
+    if (!display.startsWith(`review`) && display !== 'comanda') {
         numeRestaurant = display;
         var x = document.getElementById("box");
         x.innerHTML = `
@@ -281,9 +273,9 @@ var changeDisplay = function () {
         </div>`;
         totalCost();
     }
-    if (!display.startsWith(`review`)&& display !== 'comanda')
+    if (!display.startsWith(`review`) && display !== 'comanda')
         getMenu();
-    else if (!display.startsWith(`review`)){
+    else if (!display.startsWith(`review`)) {
         var x = document.getElementById("adresaLivrare");
         x.innerHTML = `
         <form method="post" action="food.html" onsubmit="{comanda();return false;}">
@@ -291,22 +283,21 @@ var changeDisplay = function () {
             <button class="trimite" type="submit">Trimite comanda</button>
         </form>   `
         rezumatComanda();
-    }
-    else{
-    var x = document.getElementById("box");
+    } else {
+        var x = document.getElementById("box");
         x.innerHTML = ``;
-        console.log("DISPALY IS: "+display.length);
-        let k=0;
-        let sir="";
-      sir=display;
-      getReviews()
+        console.log("DISPALY IS: " + display.length);
+        let k = 0;
+        let sir = "";
+        sir = display;
+        getReviews()
     }
 }
 
 async function getReviews() {
     let data = {
-        token:localStorage.getItem('token'),
-        restaurantName:display.substring(6,display.length)
+        token: localStorage.getItem('token'),
+        restaurantName: display.substring(6, display.length)
     }
 
     // console.log("TRIMIT NUMELE: " + data.restaurantName);
@@ -318,30 +309,32 @@ async function getReviews() {
     })
     let jsondata = response
     console.log("AM PRIMIT " + response);
-    globalReviews=response;
+    globalReviews = response;
     showReviews()
     console.log(globalReviews[0].feedback_restaurant);
 }
-function showReviews(){
+
+function showReviews() {
     var x = document.getElementById("box");
     x.setAttribute("class", "commandsList");
 
-    x.innerHTML+=`
+    x.innerHTML += `
     <div class="title-back">
         <a href="food.html" id="back">Inapoi</a>
-        <h2 id="title" >Reviews pentru ${display.substring(6,display.length)}</h2>
+        <h2 id="title" >Reviews pentru ${display.substring(6, display.length)}</h2>
     </div>`
-    for (let i=0;i<globalReviews.length;i++)
-    {
-        let newReview=document.createElement('div')
-        newReview.setAttribute("class","infoComanda");
-        newReview.innerHTML+=`
+    for (let i = 0; i < globalReviews.length; i++) {
+        let newReview = document.createElement('div')
+        newReview.setAttribute("class", "infoComanda");
+        newReview.innerHTML += `
         <div class="divDiv"><div class="reviewBox" <h2>Anonim</h2>
            <p style="border-top: 1px solid white; padding-top: 5px;">${globalReviews[i].feedback_restaurant}</p></div></div>`
-        x.innerHTML+=newReview.innerHTML;
+        x.innerHTML += newReview.innerHTML;
     }
 }
-let globalReviews=[];
+
+let globalReviews = [];
+
 async function comanda() {
     var adresa = document.getElementById('inputAddress');
     const data = {
@@ -446,6 +439,14 @@ async function getMenu() {
                 <button style="text-align:right;"  onclick='adjustQTplus(${i}) ; totalCost(); 
                     console.log(quantities[${i}]); ' >+</button>
             </div>`;
-        createPriceDiv();
     }
+    createPriceDiv();
+    var buton = document.createElement("div");
+    buton.id="buton";
+    buton.innerHTML = `<button id="sendCommand" onclick="let ok=0;
+        for (let i=0;i<quantities.length;i++)
+            if (quantities[i]!==0)display='comanda';
+        changeDisplay(); console.log(display) " >Plaseaza comanda
+        </button>`;
+    x.appendChild(buton);
 }

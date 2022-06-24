@@ -1,24 +1,26 @@
-<productData>
+<?xml version="1.0" encoding="UTF-8" ?>
+<userCount><stat>
 <county>undefined</county>
     <number_of_users>4</number_of_users>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <county>Buhusi</county>
     <number_of_users>2</number_of_users>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <county>Team</county>
     <number_of_users>1</number_of_users>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <county>Aa</county>
     <number_of_users>1</number_of_users>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <county>none</county>
     <number_of_users>1</number_of_users>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <county>pestetot</county>
     <number_of_users>1</number_of_users>
-    </productData>
+    </stat>
+</userCount>

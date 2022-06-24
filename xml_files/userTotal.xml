@@ -1,4 +1,5 @@
-<productData>
+<?xml version="1.0" encoding="UTF-8" ?>
+<userTotal><stat>
 <total>699.79</total>
     <id>3</id>
     <first_name>NUme</first_name>
@@ -12,8 +13,8 @@
     <token></token>
     <created_token_time></created_token_time>
     <service>consumer</service>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <total>0</total>
     <id>4</id>
     <first_name>Fechita</first_name>
@@ -27,8 +28,8 @@
     <token></token>
     <created_token_time></created_token_time>
     <service>consumer</service>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <total>0</total>
     <id>5</id>
     <first_name>Aa</first_name>
@@ -42,8 +43,8 @@
     <token></token>
     <created_token_time></created_token_time>
     <service>consumer</service>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <total>0</total>
     <id>8</id>
     <first_name>Serviciu</first_name>
@@ -57,8 +58,8 @@
     <token></token>
     <created_token_time></created_token_time>
     <service>ride-sharing</service>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <total>0</total>
     <id>9</id>
     <first_name>Serviciu</first_name>
@@ -72,4 +73,5 @@
     <token></token>
     <created_token_time></created_token_time>
     <service>ride-sharing</service>
-    </productData>
+    </stat>
+</userTotal>

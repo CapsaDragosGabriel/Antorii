@@ -1,4 +1,5 @@
-<productData>
+<?xml version="1.0" encoding="UTF-8" ?>
+<users><stat>
 <id>3</id>
     <first_name>NUme</first_name>
     <last_name>prenume</last_name>
@@ -11,8 +12,8 @@
     <token></token>
     <created_token_time></created_token_time>
     <service>consumer</service>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>4</id>
     <first_name>Fechita</first_name>
     <last_name>Antonio</last_name>
@@ -25,8 +26,8 @@
     <token></token>
     <created_token_time></created_token_time>
     <service>consumer</service>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>5</id>
     <first_name>Aa</first_name>
     <last_name>Aa</last_name>
@@ -39,8 +40,8 @@
     <token></token>
     <created_token_time></created_token_time>
     <service>consumer</service>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>8</id>
     <first_name>Serviciu</first_name>
     <last_name>Primu</last_name>
@@ -53,8 +54,8 @@
     <token></token>
     <created_token_time></created_token_time>
     <service>ride-sharing</service>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>9</id>
     <first_name>Serviciu</first_name>
     <last_name>Aldoilea</last_name>
@@ -67,8 +68,8 @@
     <token></token>
     <created_token_time></created_token_time>
     <service>ride-sharing</service>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>11</id>
     <first_name>Delivery</first_name>
     <last_name>Food</last_name>
@@ -81,8 +82,8 @@
     <token></token>
     <created_token_time></created_token_time>
     <service>food</service>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>12</id>
     <first_name>Sofer</first_name>
     <last_name>Avem</last_name>
@@ -95,8 +96,8 @@
     <token></token>
     <created_token_time></created_token_time>
     <service>ride-sharing</service>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>13</id>
     <first_name>Deliveryy</first_name>
     <last_name>Food</last_name>
@@ -109,8 +110,8 @@
     <token></token>
     <created_token_time></created_token_time>
     <service>food</service>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>14</id>
     <first_name>None</first_name>
     <last_name>None</last_name>
@@ -123,8 +124,8 @@
     <token>TiHA093bO7SPT7gm</token>
     <created_token_time>2022-06-24T10:00:51.000Z</created_token_time>
     <service>admin</service>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>16</id>
     <first_name>Restaurante</first_name>
     <last_name>Manager</last_name>
@@ -137,4 +138,5 @@
     <token></token>
     <created_token_time></created_token_time>
     <service>manager</service>
-    </productData>
+    </stat>
+</users>

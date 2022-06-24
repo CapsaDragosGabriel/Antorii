@@ -13,6 +13,7 @@ function asdf() {
     getFileXML('users');
     getFileXML('userRide');
     getFileXML('userRest');
+    getFileXML('userData');
     getFileXML('userTotal');
     getFileXML('userCount');
     getFileXML('restaurantsProfit');
@@ -34,16 +35,18 @@ function translate(csv,folder){
         let headings = csvData[0].split(',')
 
         let xml = ``
-
+        xml+=`<?xml version="1.0" encoding="UTF-8" ?>\n`
+        xml+=`<${folder}>\n`
         for (let i = 1; i < csvData.length; i++) {
             let details = csvData[i].split(',')
-            xml += "<productData>\n"
+            xml += "<stat>\n"
             for (let j = 0; j < headings.length; j++) {
                 xml += `<${headings[j]}>${details[j]}</${headings[j]}>
     `;
             }
-            xml += "</productData>\n"
+            xml += "</stat>\n"
         }
+        xml+=`</${folder}>`
 
         // parseXml(xml).then(r => {
         // console.log(xml)
@@ -58,6 +61,10 @@ function translate(csv,folder){
 
         console.log(xml);
     }
+}
+
+function createRSS(csv,folder){
+
 }
 const fs = require('fs');
 async function readCSV(file) {

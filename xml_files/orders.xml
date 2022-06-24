@@ -1,4 +1,5 @@
-<productData>
+<?xml version="1.0" encoding="UTF-8" ?>
+<orders><stat>
 <id>86</id>
     <restaurantID>3</restaurantID>
     <consumerID>3</consumerID>
@@ -8,8 +9,8 @@
     <estimated>16:50</estimated>
     <feedback_restaurant></feedback_restaurant>
     <feedback_provider></feedback_provider>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>87</id>
     <restaurantID>3</restaurantID>
     <consumerID>3</consumerID>
@@ -19,8 +20,8 @@
     <estimated>16:59</estimated>
     <feedback_restaurant></feedback_restaurant>
     <feedback_provider></feedback_provider>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>88</id>
     <restaurantID>3</restaurantID>
     <consumerID>3</consumerID>
@@ -30,8 +31,8 @@
     <estimated>12:46</estimated>
     <feedback_restaurant></feedback_restaurant>
     <feedback_provider></feedback_provider>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>89</id>
     <restaurantID>2</restaurantID>
     <consumerID>3</consumerID>
@@ -41,8 +42,8 @@
     <estimated>15:06</estimated>
     <feedback_restaurant>i like it</feedback_restaurant>
     <feedback_provider>hes cool</feedback_provider>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>90</id>
     <restaurantID>3</restaurantID>
     <consumerID>3</consumerID>
@@ -52,8 +53,8 @@
     <estimated>16:42</estimated>
     <feedback_restaurant>nu-i ok</feedback_restaurant>
     <feedback_provider>e ok</feedback_provider>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>92</id>
     <restaurantID>2</restaurantID>
     <consumerID>3</consumerID>
@@ -63,8 +64,8 @@
     <estimated>22:03</estimated>
     <feedback_restaurant></feedback_restaurant>
     <feedback_provider></feedback_provider>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>93</id>
     <restaurantID>3</restaurantID>
     <consumerID>3</consumerID>
@@ -74,8 +75,8 @@
     <estimated>23:45</estimated>
     <feedback_restaurant>am mancat ca spartul</feedback_restaurant>
     <feedback_provider>dar e ok</feedback_provider>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>94</id>
     <restaurantID>3</restaurantID>
     <consumerID>3</consumerID>
@@ -85,8 +86,8 @@
     <estimated>17:02</estimated>
     <feedback_restaurant></feedback_restaurant>
     <feedback_provider></feedback_provider>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>95</id>
     <restaurantID>16</restaurantID>
     <consumerID>3</consumerID>
@@ -96,8 +97,8 @@
     <estimated>16:37</estimated>
     <feedback_restaurant></feedback_restaurant>
     <feedback_provider></feedback_provider>
-    </productData>
-<productData>
+    </stat>
+<stat>
 <id>96</id>
     <restaurantID>3</restaurantID>
     <consumerID>3</consumerID>
@@ -107,4 +108,5 @@
     <estimated>17:18</estimated>
     <feedback_restaurant></feedback_restaurant>
     <feedback_provider></feedback_provider>
-    </productData>
+    </stat>
+</orders>

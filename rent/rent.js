@@ -11,7 +11,33 @@ function adForm() {
     }
 }
 
+function adFormMobil() {
+    document.getElementById("myNav").style.height = "0%"
+    if (document.getElementById("main-div")) {
+        console.log("hello")
+    }
+    document.getElementById("main-div").style.display = 'none';
+
+    document.getElementById("adDiv").style.display = 'flex';
+    if(document.getElementById("rentADS")) {
+        document.getElementById("rentADS").style.display = 'none';
+        document.getElementById("rentAdRowId").remove();
+    }
+}
+
 function showAds() {
+    if (document.getElementById("adDiv")) {
+        document.getElementById("adDiv").style.display = 'none';
+        document.getElementById("main-div").style.display = 'flex';
+    }
+    if(document.getElementById("rentADS")) {
+        document.getElementById("rentADS").style.display = 'none';
+        document.getElementById("rentAdRowId").remove();
+    }
+}
+
+function showAdsMobil() {
+    document.getElementById("myNav").style.height = "0%"
     if (document.getElementById("adDiv")) {
         document.getElementById("adDiv").style.display = 'none';
         document.getElementById("main-div").style.display = 'flex';
@@ -187,6 +213,12 @@ let showing = false;
 
 function showAlready() {
     var x = document.getElementById('ad-form');
-    if (!showing) x.innerHTML += `<label style="position: center; color:darkred">Acest anunt a fost deja plasat</label>`;
+    if (!showing) x.innerHTML += `<label id="butonAdPost" class="adPost">Anuntul a fost publicat!</label>`;
     showing = true;
+
+    setTimeout(() => {
+        const postBox = document.getElementById("ad-form");
+        const post = document.getElementById("butonAdPost");
+        postBox.removeChild(post);
+    }, 1000);
 }

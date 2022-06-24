@@ -106,7 +106,7 @@ function showRides() {
     <label>Feedback</label>
     <p style="margin: 0;">${newObj.feedback} </p>
 </div>`
-                        if (newObj.rating == null) {
+                        if (newObj.rating == 0) {
                             newCommand.innerHTML = newCommand.innerHTML + `
                 
                     <div class="rate">

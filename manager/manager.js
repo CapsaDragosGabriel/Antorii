@@ -2,19 +2,11 @@ async function trimiteRestaurant()
 {
     var numeRestaurant= document.getElementById('numeRestaurant');
     var linkPoza=document.getElementById('linkPoza');
-    var jsonMenu=document.getElementById('jsonMenu');
-    let meniu;
-    try {
-        meniu=JSON.parse(jsonMenu.value);
 
-    }catch (e){
-        console.log("json incorect");
-    }
     var data={
         token:localStorage.getItem('token'),
         numeRestaurant:numeRestaurant.value,
         linkPoza:linkPoza.value,
-        jsonMenu:meniu
     }
     console.log(data);
 

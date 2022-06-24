@@ -1190,7 +1190,6 @@ const server = http.createServer((req, res) => {
                 token: data.token,
                 numeRestaurant: data.numeRestaurant,
                 linkPoza: data.linkPoza,
-                jsonMenu: data.jsonMenu
             };
             res.writeHead(201, {
                 'Access-Control-Allow-Origin': '*',
@@ -1203,23 +1202,12 @@ const server = http.createServer((req, res) => {
             if (result.token)
                 userDB.getServiceByToken(result.token).then(p => {
                     if (p == "manager") {
-                        try {/*
-                            let getMenu="";
-                            let k=0;
-                            for(let i=1;i<result.jsonMenu.length-1;i++);
-                                getMenu[k++]=result.jsonMenu[i];
-                                */
-                            console.log(result.jsonMenu);
-                            let menu = result.jsonMenu;
-
-                            console.log(menu);
-                            if (menu[0].name == undefined || menu[0].description == undefined || menu[0].price == undefined)
-                                throw new Error("not good");
+                        try {
                             restaurantDB.insertRestaurant(result.numeRestaurant, result.linkPoza).then(r => {
-                                if (r == 1) {
-                                    for (var item of menu) {
-                                        itemDB.insertItem(result.numeRestaurant, item)
-                                    }
+                                if (r == 1)
+                                {
+                                    notGood.raspuns="all good"
+                                    res.end(notGood);
                                 } else res.end(JSON.stringify(notGood));
                             })
                         } catch (err) {

@@ -5,7 +5,7 @@ var restaurantDB = require("../database/restaurantManager");
 var orderDB = require("../database/orderManager");
 var itemDB = require("../database/itemManager")
 var statsDB = require("../database/stats");
-var rentDB=require("../database/rentManager");
+var rentDB = require("../database/rentManager");
 const http = require('http');
 
 const nodemailer = require('nodemailer');
@@ -788,17 +788,15 @@ const server = http.createServer((req, res) => {
             //console.log('data chunk finished ' + data.restaurantName)
             console.log(data);
             let result = {
-                token:data.token,
+                token: data.token,
                 restaurantName: data.restaurantName
             }
             console.log(JSON.stringify(result));
-            if(result.token) {
-                userDB.getServiceByToken(result.token).then(r=>{
-                    if(r=="consumer")
-                    {
+            if (result.token) {
+                userDB.getServiceByToken(result.token).then(r => {
+                    if (r == "consumer") {
                         // console.log("NUME rest"+restaurantDB)
-                        restaurantDB.getRestaurantByName(result.restaurantName).then(f=>
-                        {
+                        restaurantDB.getRestaurantByName(result.restaurantName).then(f => {
                             restaurantDB.getReviewsRestaurant(f.id).then(r => {
                                     res.writeHead(201, {
                                         'Access-Control-Allow-Origin': '*',
@@ -829,43 +827,42 @@ const server = http.createServer((req, res) => {
             //console.log('data chunk finished ' + data.restaurantName)
             console.log(data);
             let result = {
-                type:data.type,
-                description:data.description,
-                location:data.location,
-                price:data.price,
-                token:data.token,
+                type: data.type,
+                description: data.description,
+                location: data.location,
+                price: data.price,
+                token: data.token,
             }
             res.writeHead(200, {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json'
             });
             console.log(JSON.stringify(result));
-            userDB.getServiceByToken(result.token).then(r=> {
-                if (r == "consumer")
-                {
-                    userDB.getIDByToken(result.token).then(f=>
-                    {
-                        var rent={
-                            type:result.type,
-                            location:result.location,
-                            agentID:f,
+            userDB.getServiceByToken(result.token).then(r => {
+                if (r == "consumer") {
+                    userDB.getIDByToken(result.token).then(f => {
+                        var rent = {
+                            type: result.type,
+                            location: result.location,
+                            agentID: JSON.stringify(f),
                             price_per_day: result.price,
                             description: result.description
                         }
-                        var raspuns={
-                            raspuns:"already"
+                        var raspuns = {
+                            raspuns: "already"
                         }
-                        console.log("ABOUT TO DO RENT ADD"+rent);
-                        rentDB.selectRent(rent).then(p=>{
-                            if(p) res.end(JSON.stringify(raspuns));
-                            else {
+                        console.log("ABOUT TO DO RENT ADD" + JSON.stringify(rent));
+                        rentDB.selectRent(JSON.parse(JSON.stringify(rent))).then(p => {
+                            console.log(p);
+                            if (p == false) {
                                 rentDB.insertRent(rent);
-                                raspuns.raspuns="done";
+                                raspuns.raspuns = "done";
                                 res.end(JSON.stringify(raspuns));
-                            }
+                            } else res.end(JSON.stringify(raspuns));
+
                         })
-                            res.end(JSON.stringify(raspuns));
-                        })
+                        res.end(JSON.stringify(raspuns));
+                    })
 
                 }
             })
@@ -882,19 +879,70 @@ const server = http.createServer((req, res) => {
         })
         //aici lucrez cu email-ul si parola primite
         req.on('end', () => {
+            res.writeHead(200, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
             data = JSON.parse(data);
             //console.log('data chunk finished ' + data.restaurantName)
             console.log(data);
             let result = {
-              from:data.from,
-                to:data.to,
-                token:data.token,
+                type: data.type,
+                from: data.from,
+                to: data.to,
+                token: data.token,
             }
             console.log(JSON.stringify(result));
-            userDB.getServiceByToken(result.token).then(r=> {
-                if (r == "consumer")
-                {
-                  
+            userDB.getServiceByToken(result.token).then(r => {
+                if (r == "consumer") {
+                    rentDB.getRentsAvailableInPeriodType(result.from, result.to, result.type).then(f => {
+                            res.end(JSON.stringify(f));
+                        }
+                    )
+
+                }
+            })
+
+        })
+    }//get rents from db
+    else if (req.url.startsWith('/api/doRent')) {
+        console.log('API dorent');
+
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+            //console.log('data chunk added ' + data)
+        })
+        //aici lucrez cu email-ul si parola primite
+        req.on('end', () => {
+            res.writeHead(200, {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            });
+            data = JSON.parse(data);
+            //console.log('data chunk finished ' + data.restaurantName)
+            console.log(data);
+            let result = {
+                id: data.id,
+                token: data.token,
+                from:data.from,
+                to:data.to
+            }
+            console.log(JSON.stringify(result));
+            userDB.getServiceByToken(result.token).then(r => {
+
+                if (r == "consumer") {
+                    userDB.getIDByToken(result.token).then(f => {
+                        let reservation = {
+                            rentID: result.id,
+                            consumerID: f,
+                            rental_date:result.from,
+                            expiration_date:result.to,
+                        }
+                        rentDB.makeReservation(reservation)
+                        let raspuns={raspuns:"done"};
+                        res.end(JSON.stringify(raspuns));
+                    })
 
                 }
             })
@@ -1082,8 +1130,7 @@ const server = http.createServer((req, res) => {
 
 
         })
-    }
-    else if (req.url.startsWith('/api/admin/restaurantStats')) {
+    } else if (req.url.startsWith('/api/admin/restaurantStats')) {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
@@ -1116,8 +1163,7 @@ const server = http.createServer((req, res) => {
 
 
         })
-    }
-    else if (req.url.startsWith('/api/manager/insertRestaurant')) {
+    } else if (req.url.startsWith('/api/manager/insertRestaurant')) {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
@@ -1176,8 +1222,7 @@ const server = http.createServer((req, res) => {
                     }
                 })
         })
-    }
-    else if (req.url.startsWith('/api/manager/insertProdus')) {
+    } else if (req.url.startsWith('/api/manager/insertProdus')) {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
@@ -1223,15 +1268,16 @@ const server = http.createServer((req, res) => {
                                 console.log("s-a stricat jsonu patroane")
                                 throw new Error("not good");
                             }
-                                        itemDB.insertItem(result.numeRestaurant, menu).then(r=>{
-                                            if (r==1){console.log(r);
-                                                res.end(JSON.stringify(allGood));}
-                                            else {
-                                                console.log("S-A AJUNS AICI BAROSANE")
-                                                console.log(r);
-                                                res.end(JSON.stringify(notGood));
-                                            }
-                                        })
+                            itemDB.insertItem(result.numeRestaurant, menu).then(r => {
+                                if (r == 1) {
+                                    console.log(r);
+                                    res.end(JSON.stringify(allGood));
+                                } else {
+                                    console.log("S-A AJUNS AICI BAROSANE")
+                                    console.log(r);
+                                    res.end(JSON.stringify(notGood));
+                                }
+                            })
                         } catch (err) {
                             console.log("S-A AJUNS AICI sefanule")
 
@@ -1242,8 +1288,7 @@ const server = http.createServer((req, res) => {
                     }
                 })
         })
-    }
-    else if (req.url.startsWith('/api/manager/restaurantAvailability')) {
+    } else if (req.url.startsWith('/api/manager/restaurantAvailability')) {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
@@ -1261,7 +1306,7 @@ const server = http.createServer((req, res) => {
 
             const result = {
                 token: data.token,
-                availability:data.availability,
+                availability: data.availability,
                 numeRestaurant: data.numeRestaurant,
             };
             res.writeHead(201, {
@@ -1275,12 +1320,11 @@ const server = http.createServer((req, res) => {
             if (result.token)
                 userDB.getServiceByToken(result.token).then(p => {
                     if (p == "manager") {
-                        restaurantDB.restaurantAvailability(result.numeRestaurant,result.availability)
+                        restaurantDB.restaurantAvailability(result.numeRestaurant, result.availability)
                     }
                 })
         })
-    }
-    else if (req.url.startsWith('/api/manager/itemAvailability')) {
+    } else if (req.url.startsWith('/api/manager/itemAvailability')) {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
@@ -1298,7 +1342,7 @@ const server = http.createServer((req, res) => {
 
             const result = {
                 token: data.token,
-                availability:data.availability,
+                availability: data.availability,
                 numeProdus: data.numeProdus,
             };
             res.writeHead(201, {
@@ -1315,7 +1359,7 @@ const server = http.createServer((req, res) => {
             if (result.token)
                 userDB.getServiceByToken(result.token).then(p => {
                     if (p == "manager") {
-                        restaurantDB.itemAvailability(result.numeProdus,result.availability)
+                        restaurantDB.itemAvailability(result.numeProdus, result.availability)
                     }
                 })
         })

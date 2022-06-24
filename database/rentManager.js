@@ -17,7 +17,7 @@ function insertRent(rent) {
         "`description`,\n" +
         "`type`)\n" +
         "VALUES(?, ?, ?, ?, ?)";
-
+    console.log(sql)
     con.query(sql, [rent.location, rent.agentID, rent.price_per_day, rent.description, rent.type], function (err, result) {
         if (err) throw err;
 
@@ -28,12 +28,27 @@ function selectRent(rent)
 {
     return new Promise((resolve,reject)=>{
     var sql="SELECT * FROM `web`.`rent` where location=? and agentID=? and price_per_day=? and description=? and type=?"
-    con.query(sql, [rent.location, rent.agentID, rent.price_per_day, rent.description, rent.type], function (err, result) {
+    console.log("SELECTING: "+sql,[rent.location, rent.agentID, rent.price_per_day, rent.description, rent.type]);
+        con.query(sql, [rent.location, rent.agentID, rent.price_per_day, rent.description, rent.type], function (err, result) {
         if (err) throw err;
+        console.log(result);
+        if(!result) return false;
         resolve(result);
 
     });})
 }
+rent = {
+    location: 'la mare',
+    agentID: 3,
+    price_per_day: 30,
+    description: 'pitoresc tare',
+    type: 'apartament'
+}
+    //
+    // selectRent(rent).then(p => {
+    //     console.log(p);
+    // })
+
 function makeReservation(reservation) {
 
     var sql = "INSERT INTO `web`.`rent_periods`\n" +
@@ -94,6 +109,7 @@ async function getRentsAvailableInPeriod(myRentalDate, leavingDate) {
 
         con.query(sql, [myRentalDate, leavingDate], function (err, result) {
             if (err) throw err;
+            console.log(result)
 
             if(result.length > 0)
             resolve(result)
@@ -102,7 +118,20 @@ async function getRentsAvailableInPeriod(myRentalDate, leavingDate) {
     })
 
 }
+async function getRentsAvailableInPeriodType(myRentalDate, leavingDate,type) {
+    return new Promise((resolve, reject) => {
+        var sql = "select * from rent r where type = ? and not exists (select 1 from rent_periods where ? < expiration_date and ? > rental_date)"
 
+        con.query(sql, [type,myRentalDate, leavingDate], function (err, result) {
+            if (err) throw err;
+
+            if(result.length > 0)
+                resolve(result)
+            else resolve(null);
+        })
+    })
+
+}
 rent = {
     location: 'la mare',
     agentID: 10,
@@ -120,6 +149,7 @@ reservation = {
 
 module.exports={
     getRentsAvailableInPeriod,
+    getRentsAvailableInPeriodType,
     getRentPeriodID,
     getRentID,
     getRentCost,

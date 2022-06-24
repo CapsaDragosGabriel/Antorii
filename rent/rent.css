@@ -207,6 +207,17 @@ body {
     justify-content: center;
     margin: 5% 25% 0 40%;
 }
+#rentADS {
+    background-color: #F5F5F5;
+    height: 500px;
+    width: 500px;
+    border-radius: 50%;
+    padding-top: 50px;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    margin: 5% 25% 0 40%;
+}
 
 #main-div #rent-form {
     display: flex;
@@ -289,7 +300,16 @@ body {
     justify-content: center;
     height: auto;
 }
+#typeWanted
+{
+    border-radius: 8px;
+    border: 3px solid #f1f1f1;
+    padding: 6%;
+    display: flex;
+    justify-content: center;
+    height: auto;
 
+}
 #type {
     padding-right: 48%;
     padding-left: 48%;
@@ -301,7 +321,12 @@ body {
     opacity: 35%;
     font-size: 15px;
 }
-
+#type option, #first1 {
+    font-family: "Zilla Slab";
+    color: black;
+    opacity: 35%;
+    font-size: 15px;
+}
 .labelInput {
     display: flex;
     flex-direction: row;

@@ -317,20 +317,34 @@ async function getReviews() {
 function showReviews() {
     var x = document.getElementById("box");
     x.setAttribute("class", "commandsList");
-
-    x.innerHTML += `
+    if (globalReviews.length !== 0) {
+        x.innerHTML += `
     <div class="title-back">
         <a href="food.html" id="back">Inapoi</a>
         <h2 id="title" >Reviews pentru ${display.substring(6, display.length)}</h2>
     </div>`
+    }
+    else {
+        x.innerHTML += `
+    <div class="title-back">
+        <a href="food.html" id="back">Inapoi</a>
+        <h2 id="title" >Nu exista recenzii!</h2>
+    </div>`
+    }
+
     for (let i = 0; i < globalReviews.length; i++) {
         let newReview = document.createElement('div')
         newReview.setAttribute("class", "infoComanda");
         newReview.innerHTML += `
-        <div class="divDiv"><div class="reviewBox" <h2>Anonim</h2>
-           <p style="border-top: 1px solid white; padding-top: 5px;">${globalReviews[i].feedback_restaurant}</p></div></div>`
+        <div class="divDiv">
+            <div class="reviewBox" 
+                <h2>Anonim</h2>
+                <p style="border-top: 1px solid white; padding-top: 5px;">${globalReviews[i].feedback_restaurant}</p>
+            </div>
+        </div>`
         x.innerHTML += newReview.innerHTML;
     }
+
 }
 
 let globalReviews = [];
@@ -442,7 +456,7 @@ async function getMenu() {
     }
     createPriceDiv();
     var buton = document.createElement("div");
-    buton.id="buton";
+    buton.id = "buton";
     buton.innerHTML = `<button id="sendCommand" onclick="let ok=0;
         for (let i=0;i<quantities.length;i++)
             if (quantities[i]!==0)display='comanda';

@@ -110,6 +110,7 @@ async function trimiteProdus()
     {
         if (f.raspuns==="not good")
         {
+            console.log(f.raspuns);
             notGood("raspunsProdus")
             setTimeout(() => {
                 const error = document.getElementById("raspunsProdus");
@@ -121,5 +122,5 @@ async function trimiteProdus()
 }
 function notGood(where){
     var x=document.getElementById(where);
-    x.innerHTML+=`<p id="error">Format incorect pentru Json sau exista deja!</p>`;
+    x.innerHTML+=`<p id="error">Inregistrat!</p>`;
 }

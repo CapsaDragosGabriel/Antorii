@@ -234,7 +234,7 @@ async function getDeliveryByNrOfOrders() {
 async function getDriversByNrOfTrips() {
     return new Promise((resolve, reject) => {
 
-        var sql = "select count(*) as trips,u.* from users u join ride_shares r on u.id = r.providerID and u.service = 'ride-share' group by u.id order by count(*) desc"
+        var sql = "select count(*) as trips,u.* from users u join ride_shares r on u.id = r.providerID and u.service = 'ride-sharing' group by u.id order by count(*) desc"
 
         con.query(sql, function (err, result) {
             if (err) throw err;
@@ -252,7 +252,7 @@ async function getDriversByNrOfTrips() {
 async function getDriversByRating() {
     return new Promise((resolve, reject) => {
 
-        var sql = "select avg(rating) as rating,u.* from users u join ride_shares r on u.id = r.providerID and u.service = 'ride-share' group by u.id order by avg(rating) desc"
+        var sql = "select avg(rating) as rating,u.* from users u join ride_shares r on u.id = r.providerID and u.service = 'ride-sharing' group by u.id order by avg(rating) desc"
 
         con.query(sql, function (err, result) {
             if (err) throw err;
@@ -269,7 +269,7 @@ async function getDriversByRating() {
 async function getDriversByProfit() {
     return new Promise((resolve, reject) => {
 
-        var sql = "select sum(price) as profit,u.* from users u join ride_shares r on u.id = r.providerID and u.service = 'ride-share' group by u.id order by sum(price) desc"
+        var sql = "select sum(price) as profit,u.* from users u join ride_shares r on u.id = r.providerID and u.service = 'ride-sharing' group by u.id order by sum(price) desc"
 
         con.query(sql, function (err, result) {
             if (err) throw err;
@@ -320,7 +320,7 @@ async function getCountiesByNrOfOrders() {
 
 async function getServicesCount() {
     return new Promise((resolve, reject) => {
-        var sql = "select r.ride_share,d.delivery,re.rents from (select count(*) as 'ride_share' from users where service = 'ride-share') r,\n" +
+        var sql = "select r.ride_share,d.delivery,re.rents from (select count(*) as 'ride_share' from users where service = 'ride-sharing') r,\n" +
             "            (select count(*) as 'delivery' from users where service = 'food') d,\n" +
             "            (select count(*) as rents from (select count(*) from users u join rent on u.id = rent.agentID group by u.id) f) re"
 

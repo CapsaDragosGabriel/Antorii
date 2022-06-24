@@ -1,6 +1,7 @@
 const fs = require('fs');
 const stats = require('../stats.js')
 const PDFDocument = require("pdfkit-table");
+const chartGenerator = require('./chartGenerator.js')
 
 let doc = new PDFDocument({margin: 10, size: 'A4'});
 
@@ -26,156 +27,178 @@ async function createTable(table, type) {
 
 function generatePDF() {
 
+    chartGenerator.getUsersPerCountyChart().then(() => {
+        chartGenerator.getConsumerProviderPieChart().then(() => {
+            chartGenerator.getServicesPieChart().then(() => {
 
-    doc.pipe(fs.createWriteStream("./document.pdf"));
+                doc.pipe(fs.createWriteStream("./document.pdf"));
 
-    doc.moveDown(0.5)
-    doc
-        .font('Times-Roman')
-        .fontSize(35)
-        .text("Statistici", {
-            align: 'center',
-        })
-
-
-    doc.moveDown(1)
-
-
-    doc.image('users_per_county.jpg', {
-        align: 'center',
-        valign: 'center'
-    })
-
-    doc.addPage()
-
-    doc.moveDown(0.5)
-    doc.image('producer-consumer-piechart.jpg', {
-        align: 'center',
-        valign: 'center'
-    })
+                doc.moveDown(0.5)
+                doc
+                    .font('Times-Roman')
+                    .fontSize(35)
+                    .text("Statistici", {
+                        align: 'center',
+                    })
 
 
-    stats.getUsersOrderedByRideSpending().then(r => {
-
-        var arr = [];
-        var i = 0;
-        for (i = 0; i < r.length; i++) {
-            arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].total])
-        }
+                doc.moveDown(1)
 
 
-        const table = {
-            title: 'Top utilizatori consumatori de serviciul de ride-sharing',
-            headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Suma cheltuita'],
-            rows: arr,
-        };
+                doc.image('users_per_county.jpg', {
+                    align: 'center',
+                    valign: 'center'
+                })
 
-        createTable(table, 'user')
-        doc.moveDown(5)
+                doc.addPage()
 
-        stats.getUsersOrderedByRestaurantSpending().then(r => {
-            var arr = [];
-            var i = 0;
-            for (i = 0; i < r.length; i++) {
-                arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].total])
-            }
-
-            const table = {
-                title: 'Top utilizatori consumatori de serviciul de food-delivery',
-                headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Suma cheltuita'],
-                rows: arr,
-            };
-
-            createTable(table, 'user')
-            doc.moveDown(5)
-
-            stats.getRestaurantsOrderByProfit().then(r => {
-                var arr = [];
-                var i = 0;
-                for (i = 0; i < r.length; i++) {
-                    arr.push([r[i].name, r[i].total])
-                }
-
-                const table = {
-                    title: 'Top restaurante profitabile',
-                    headers: ['Nume', 'Profit'],
-                    rows: arr,
-                };
-
-                createTable(table, 'restaurant')
-                doc.moveDown(5)
+                doc.moveDown(2)
+                doc.image('producer-consumer-piechart.jpg', {
+                    align: 'center',
+                    valign: 'center'
+                })
 
 
-                stats.getDeliveryByNrOfOrders().then(r => {
+                stats.getUsersOrderedByRideSpending().then(r => {
+
                     var arr = [];
                     var i = 0;
                     for (i = 0; i < r.length; i++) {
-                        arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].nr_of_orders])
+                        arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].total])
                     }
 
                     const table = {
-                        title: 'Top livratori harnici (dupa numarul de comenzi livrate)',
-                        headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Comenzi livrate'],
+                        title: 'Top utilizatori consumatori de serviciul de ride-sharing',
+                        headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Suma cheltuita'],
                         rows: arr,
                     };
 
                     createTable(table, 'user')
-                    doc.moveDown(5)
+                    doc.moveDown(15)
 
-                    stats.getDriversByNrOfTrips().then(r => {
+                    stats.getUsersOrderedByRestaurantSpending().then(r => {
                         var arr = [];
                         var i = 0;
                         for (i = 0; i < r.length; i++) {
-                            arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].trips])
+                            arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].total])
                         }
 
                         const table = {
-                            title: 'Top soferi harnici (dupa numarul de trasee finalizate)',
-                            headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Trasee finalizate'],
+                            title: 'Top utilizatori consumatori de serviciul de food-delivery',
+                            headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Suma cheltuita'],
                             rows: arr,
                         };
 
                         createTable(table, 'user')
                         doc.moveDown(5)
 
-                        stats.getDriversByRating().then(r => {
+                        stats.getRestaurantsOrderByProfit().then(r => {
                             var arr = [];
                             var i = 0;
                             for (i = 0; i < r.length; i++) {
-                                arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].rating])
+                                arr.push([r[i].name, r[i].total])
                             }
 
                             const table = {
-                                title: 'Top soferi apreciati (dupa ratingul primit)',
-                                headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Rating'],
+                                title: 'Top restaurante profitabile',
+                                headers: ['Nume', 'Profit'],
                                 rows: arr,
                             };
 
-                            createTable(table, 'user')
+                            createTable(table, 'restaurant')
                             doc.moveDown(5)
-                            doc.addPage()
 
-                            doc.image('services.jpg', {
-                                align: 'center',
-                                valign: 'center'
+
+                            stats.getDeliveryByNrOfOrders().then(r => {
+                                var arr = [];
+                                var i = 0;
+                                for (i = 0; i < r.length; i++) {
+                                    arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].nr_of_orders])
+                                }
+
+                                const table = {
+                                    title: 'Top livratori harnici (dupa numarul de comenzi livrate)',
+                                    headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Comenzi livrate'],
+                                    rows: arr,
+                                };
+
+                                createTable(table, 'user')
+                                doc.moveDown(5)
+
+                                stats.getDriversByNrOfTrips().then(r => {
+                                    var arr = [];
+                                    var i = 0;
+                                    for (i = 0; i < r.length; i++) {
+                                        arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].trips])
+                                    }
+
+                                    const table = {
+                                        title: 'Top soferi harnici (dupa numarul de trasee finalizate)',
+                                        headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Trasee finalizate'],
+                                        rows: arr,
+                                    };
+
+                                    createTable(table, 'user')
+                                    doc.moveDown(5)
+
+                                    stats.getDriversByRating().then(r => {
+                                        var arr = [];
+                                        var i = 0;
+                                        for (i = 0; i < r.length; i++) {
+                                            arr.push([r[i].last_name, r[i].first_name, r[i].email, r[i].city, r[i].county, r[i].localization, r[i].rating])
+                                        }
+
+                                        const table = {
+                                            title: 'Top soferi apreciati (dupa ratingul primit)',
+                                            headers: ['Nume', 'Prenume', 'Email', 'Oras', 'Judet', 'Locatie', 'Rating'],
+                                            rows: arr,
+                                        };
+                                        console.log("CARTOFIORI")
+                                        console.log(table);
+                                        createTable(table, 'user')
+                                        doc.moveDown(5)
+                                        doc.addPage()
+                                        console.log("CARTOF\n")
+
+                                        doc.image('services.jpg', {
+                                            align: 'center',
+                                            valign: 'center'
+                                        })
+
+                                        doc.end();
+                                        console.log("CARTOF\n")
+
+                                    })
+                                })
+
+
                             })
 
-                            doc.end();
+
                         })
+
                     })
 
 
                 })
-
-
-
             })
-
         })
-
-
     })
+
 
 }
 
 generatePDF()
+//
+// chartGenerator.getUsersPerCountyChart().then(()=>
+// {
+//     chartGenerator.getServicesPieChart().then(()=>
+//     {
+//         chartGenerator.getConsumerProviderPieChart().then(()=>{
+//             setTimeout(generatePDF,2000)
+//
+//         })
+//     })
+// })
+
+// generatePDF()

@@ -1202,18 +1202,16 @@ const server = http.createServer((req, res) => {
             if (result.token)
                 userDB.getServiceByToken(result.token).then(p => {
                     if (p == "manager") {
-                        try {
-                            restaurantDB.insertRestaurant(result.numeRestaurant, result.linkPoza).then(r => {
-                                if (r == 1)
-                                {
-                                    notGood.raspuns="all good"
-                                    res.end(notGood);
-                                } else res.end(JSON.stringify(notGood));
+                            restaurantDB.insertRestaurantPromise(result.numeRestaurant, result.linkPoza).then(r => {
+                                console.log(r);
+                                if(r==1) console.log("poti sa arunci mailuri sefanule");
+                                   else{
+                                    console.log("poti sa arunci mailuri sefanule");
+                                       notGood.raspuns="all good"
+                                    res.end(JSON.stringify(notGood));}
+
                             })
-                        } catch (err) {
-                            console.log("not good")
-                            res.end(JSON.stringify(notGood));
-                        }
+
                     }
                 })
         })

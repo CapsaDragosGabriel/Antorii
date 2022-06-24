@@ -67,6 +67,26 @@ function insertRestaurant(name,photo) {
     return 1;
 
 }
+
+async function insertRestaurantPromise(name,photo) {
+    return new Promise((resolve)=>{
+        var sql = "INSERT INTO `web`.`restaurants`\n" +
+        "(`name`,`photo`)\n" +
+        "VALUES(?, ?);"
+
+        try{
+            con.query(sql,[name,photo], function (err, result) {
+                if (err) resolve= 0;
+                else {console.log("restaurant inserted")
+                    resolve(1);
+                }
+            });
+        }
+        catch(err){resolve=0;
+            console.log("couldn't do it");
+        }
+    }).then(r=>console.log(r));
+}
 function restaurantAvailability(name, status) { //status can be checked with an allowlist
 
     getRestaurantByName(name).then(f=>{
@@ -214,5 +234,6 @@ module.exports={
     insertRestaurant,
     restaurantAvailability,
     itemAvailability,
-    getReviewsRestaurant
+    getReviewsRestaurant,
+    insertRestaurantPromise
 }

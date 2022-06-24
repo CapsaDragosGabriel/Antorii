@@ -163,7 +163,7 @@ async function getUsersPerCountyChart() {
                     var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
                     chart.draw(data, options);
                 `;
-                    console.log(drawChart)
+                    // console.log(drawChart)
 
                     render(600, 700, 'users_per_county.jpg', drawChart)
                 })
@@ -180,3 +180,9 @@ getUsersPerCountyChart()
 getConsumerProviderPieChart()
 getServicesPieChart()
 
+module.exports={
+    getUsersPerCountyChart,
+    getConsumerProviderPieChart,
+    getServicesPieChart,
+
+}

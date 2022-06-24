@@ -103,9 +103,9 @@
 <id>96</id>
     <restaurantID>3</restaurantID>
     <consumerID>3</consumerID>
-    <providerID></providerID>
+    <providerID>11</providerID>
     <address>am nevoie</address>
-    <status>unclaimed</status>
+    <status>claimed</status>
     <estimated>17:18</estimated>
     <feedback_restaurant></feedback_restaurant>
     <feedback_provider></feedback_provider>

@@ -120,4 +120,16 @@
     <feedback></feedback>
     <rating>1</rating>
     </stat>
+<stat>
+<id>13</id>
+    <consumerID>3</consumerID>
+    <providerID></providerID>
+    <start>se pleaca iote daci</start>
+    <finish>se ajunge iote romani</finish>
+    <status>unclaimed</status>
+    <estimated>03:48</estimated>
+    <price>83.33</price>
+    <feedback></feedback>
+    <rating></rating>
+    </stat>
 </ride_shares>

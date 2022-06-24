@@ -1,3 +1,78 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <userRest>
+<stat>
+<total>535</total>
+    <id>3</id>
+    <first_name>NUme</first_name>
+    <last_name>prenume</last_name>
+    <phone_number>98451312</phone_number>
+    <email>capsadragos@gmail.com</email>
+    <pass>OnMGp3UaEHlJdgm3GCUcSk12o3Xz2JMoDx5Q22y69ag=</pass>
+    <city>Bacau</city>
+    <county>Buhusi</county>
+    <localization>banca boss</localization>
+    <token></token>
+    <created_token_time></created_token_time>
+    <service>consumer</service>
+    </stat>
+<stat>
+<total>0</total>
+    <id>4</id>
+    <first_name>Fechita</first_name>
+    <last_name>Antonio</last_name>
+    <phone_number>0792165123</phone_number>
+    <email>antoniofechita15@gmail.com</email>
+    <pass>iVNzh7z7dk6ZCteBX0Ur18Jzbkd3IOmM2KdahYEVsXU=</pass>
+    <city>Doxat</city>
+    <county>Team</county>
+    <localization>Fraiere</localization>
+    <token></token>
+    <created_token_time></created_token_time>
+    <service>consumer</service>
+    </stat>
+<stat>
+<total>0</total>
+    <id>5</id>
+    <first_name>Aa</first_name>
+    <last_name>Aa</last_name>
+    <phone_number>0752211050</phone_number>
+    <email>capsadragos@gmail.comasda</email>
+    <pass>5Z19cpl8lOaGcY0b9vdeOh2ktAOfufDtWZAC6C5idFU=</pass>
+    <city>Aa</city>
+    <county>Aa</county>
+    <localization>Aaasdas</localization>
+    <token></token>
+    <created_token_time></created_token_time>
+    <service>consumer</service>
+    </stat>
+<stat>
+<total>0</total>
+    <id>8</id>
+    <first_name>Serviciu</first_name>
+    <last_name>Primu</last_name>
+    <phone_number>0752211050</phone_number>
+    <email>dragos.capsa@12info.uaic.ro</email>
+    <pass>ClIJEV9r3HXmHlJAo2Zfb+NTtYMLN+/hjmUhcW/098E=</pass>
+    <city>Doxat</city>
+    <county>undefined</county>
+    <localization>undefined</localization>
+    <token></token>
+    <created_token_time></created_token_time>
+    <service>ride-sharing</service>
+    </stat>
+<stat>
+<total>0</total>
+    <id>9</id>
+    <first_name>Serviciu</first_name>
+    <last_name>Aldoilea</last_name>
+    <phone_number>0752211050</phone_number>
+    <email>capsadragos@yahoo.coms</email>
+    <pass>FIMmX7GIVBZYowYrVLlVvf7zajbydwc/p/nY5FBGi0w=</pass>
+    <city>koaspdoka</city>
+    <county>judet2</county>
+    <localization>undefined</localization>
+    <token></token>
+    <created_token_time></created_token_time>
+    <service>ride-sharing</service>
+    </stat>
 </userRest>

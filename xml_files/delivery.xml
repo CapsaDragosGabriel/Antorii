@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <delivery>
 <stat>
-<nr_of_orders>4</nr_of_orders>
+<nr_of_orders>5</nr_of_orders>
     <id>11</id>
     <first_name>Delivery</first_name>
     <last_name>Food</last_name>

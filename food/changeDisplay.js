@@ -1,4 +1,4 @@
-var striptags = require('striptags');
+// var striptags = require('striptags');
 function createPriceDiv() {
     var x = document.getElementById("box");
     x.innerHTML = x.innerHTML + `<div id="totalPrice"></div>`;

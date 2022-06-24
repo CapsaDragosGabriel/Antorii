@@ -189,6 +189,20 @@ async function getRestaurantsOrderByProfit(){
 
     })
 }
+async function getRestaurantsOrderByProfitFULL(){
+    return new Promise((resolve, reject) => {
+
+        var sql = "select coalesce(sum(price * quantity),0) as total, r.* from restaurants r left join orders o on r.id = o.restaurantID left join ordered_items oi on o.id = oi.orderID left join \n" +
+            "items i on oi.itemID = i.id group by r.id order by coalesce(sum(price * quantity),0) desc"
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            var temp=[];
+            resolve(temp)
+        });
+
+    })
+}
 
 async function getDeliveryByNrOfOrders(){
     return new Promise((resolve, reject) => {
@@ -329,5 +343,5 @@ module.exports = {
     getCountiesByNrOfOrders,
     aggregateUserData,
     aggregateRestaurantData,
-
+    getRestaurantsOrderByProfitFULL
 }

@@ -10,7 +10,14 @@ function asdf() {
     getFileXML('restaurants');
     getFileXML('ride_shares');
     getFileXML('users');
-    getFileXML('userData');
+    getFileXML('userRide');
+    getFileXML('userRest');
+    getFileXML('userTotal');
+    getFileXML('userCount');
+    getFileXML('restaurantsProfit');
+    getFileXML('delivery');
+
+
 
 }
 

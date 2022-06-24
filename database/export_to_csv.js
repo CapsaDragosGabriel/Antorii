@@ -102,18 +102,77 @@ function exportRideShares(){
     });
 }
 
-function exportUserData(){
-    statDB.aggregateUserData().then(r=>{
-        console.log("\n\n\n\n\n\n\n\n")
-        console.log(r);
-        const jsonData =JSON.parse(r);
-        console.log("\n\n\n\n\n\n\n\n")
-
-        console.log(jsonData)
-        console.log("jsonData", jsonData);
-        const ws = fs.createWriteStream("../csv_files/userData.csv");
+function exportUserRideData(){
+    statDB.getUsersOrderedByRideSpending().then(r=>{
+        const jsonData =r;
+        const ws = fs.createWriteStream("../csv_files/userRide.csv");
         fastcsv
-            .write(, { headers: true })
+            .write(jsonData, { headers: true })
+            .on("finish", function() {
+                console.log("Write to ride_shares.csv successfully!");
+            })
+            .pipe(ws);
+    })
+
+}
+function exportUserRestaurantData(){
+    statDB.getUsersOrderedByRestaurantSpending().then(r=>{
+        const jsonData =r;
+        const ws = fs.createWriteStream("../csv_files/userRest.csv");
+        fastcsv
+            .write(jsonData, { headers: true })
+            .on("finish", function() {
+                console.log("Write to ride_shares.csv successfully!");
+            })
+            .pipe(ws);
+    })
+
+}
+function exportUserTotalData(){
+    statDB.getUsersOrderedByTotalSpending().then(r=>{
+        const jsonData =r;
+        const ws = fs.createWriteStream("../csv_files/userTotal.csv");
+        fastcsv
+            .write(jsonData, { headers: true })
+            .on("finish", function() {
+                console.log("Write to ride_shares.csv successfully!");
+            })
+            .pipe(ws);
+    })
+
+}
+function exportTotalUsers(){
+    statDB.getNumberOfUsersPerCounty().then(r=>{
+        const jsonData =r;
+        const ws = fs.createWriteStream("../csv_files/userCount.csv");
+        fastcsv
+            .write(jsonData, { headers: true })
+            .on("finish", function() {
+                console.log("Write to ride_shares.csv successfully!");
+            })
+            .pipe(ws);
+    })
+
+}
+function exportRestaurantsProfit(){
+    statDB.getRestaurantsOrderByProfitFULL().then(r=>{
+        const jsonData =r;
+        const ws = fs.createWriteStream("../csv_files/restaurantsProfit.csv");
+        fastcsv
+            .write(jsonData, { headers: true })
+            .on("finish", function() {
+                console.log("Write to ride_shares.csv successfully!");
+            })
+            .pipe(ws);
+    })
+
+}
+function exportRestaurantDelivery(){
+    statDB.getDeliveryByNrOfOrders().then(r=>{
+        const jsonData =r;
+        const ws = fs.createWriteStream("../csv_files/delivery.csv");
+        fastcsv
+            .write(jsonData, { headers: true })
             .on("finish", function() {
                 console.log("Write to ride_shares.csv successfully!");
             })
@@ -122,6 +181,8 @@ function exportUserData(){
 
 }
 
+
+
 function aggregateExports() {
     exportUsers()
     exportItems()
@@ -129,7 +190,13 @@ function aggregateExports() {
     exportOrders()
     exportRestaurants()
     exportRideShares()
-    exportUserData()
+    exportUserRideData()
+    exportUserRestaurantData()
+    exportUserRideData()
+    exportUserTotalData()
+    exportTotalUsers()
+    exportRestaurantDelivery()
+    exportRestaurantsProfit()
 }
 module.exports={
     aggregateExports

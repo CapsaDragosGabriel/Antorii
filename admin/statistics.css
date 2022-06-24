@@ -11,6 +11,8 @@ body {
     background-position: center;
     background-size: cover;
     margin: 0;
+    min-height: 100%;
+    position: relative;
 }
 
 .headerMobile {
@@ -511,6 +513,7 @@ form {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    margin-bottom: 10%;
 }
 
 .stat {
@@ -642,10 +645,12 @@ form {
     display: flex;
     flex-direction: column;
     font-family: "Imbue";
-    margin: 0 2% 0 2%;
     font-weight: normal;
     font-size: 20px;
-    float: right;
+    margin: 1%;
+    float: left;
+    bottom: 0;
+    position: absolute;
 }
 
 .footer p {
@@ -700,7 +705,21 @@ form {
     #statsList {
         width: 80%;
         margin: 20% 5% 60% 10%;
+    }
 
+    .boxStat {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        align-content: center;
+    }
+
+    .boxScroll {
+        text-align: center;
+        margin-top: 3%;
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
     }
 
 }

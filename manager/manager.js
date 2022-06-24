@@ -93,14 +93,17 @@ async function valabilitateProdus()
 async function trimiteProdus()
 {
     var numeRestaurant= document.getElementById('numeRestaurant2');
-    var jsonItem=document.getElementById('jsonItem');
-    let meniu=jsonItem.value;
-    try {
-        meniu=JSON.parse(jsonItem.value);
-
-    }catch (e){
-        console.log("json incorect");
+    var jsonItem;
+    var nume=document.getElementById('numeProdus')
+    var descriere=document.getElementById('descriereProdus')
+    var pret=document.getElementById('pretProdus')
+    jsonItem={
+        name:nume.value,
+        description:descriere.value,
+        price:pret.value,
     }
+    let meniu=jsonItem;
+
     var data={
         token:localStorage.getItem('token'),
         numeRestaurant:numeRestaurant.value,

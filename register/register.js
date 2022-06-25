@@ -1,4 +1,3 @@
-const striptags = require("striptags");
 document.addEventListener('DOMContentLoaded', (event) => {
 
 
@@ -22,14 +21,14 @@ async function register()
     console.log(striptags(email.value) + " "+ striptags(pw.value));
     let returnat=true;
     const data = {
-        email: striptags(email.value.replace(/(<([^>]+)>)/ig,"")),
-        prenume:striptags(prenume.value.replace(/(<([^>]+)>)/ig,"")),
-        nume: striptags(nume.value.replace(/(<([^>]+)>)/ig,"")),
-        telefon:  striptags(telefon.value.replace(/(<([^>]+)>)/ig,"")),
-        judet: striptags(judet.value.replace(/(<([^>]+)>)/ig,"")),
-        oras: striptags(oras.value.replace(/(<([^>]+)>)/ig,"")),
-        adresa: striptags(adresa.value.replace(/(<([^>]+)>)/ig,"")),
-        password: striptags(pw.value.replace(/(<([^>]+)>)/ig,""))
+        email: (email.value.replace(/(<([^>]+)>)/ig,"")),
+        prenume:(prenume.value.replace(/(<([^>]+)>)/ig,"")),
+        nume: (nume.value.replace(/(<([^>]+)>)/ig,"")),
+        telefon:  (telefon.value.replace(/(<([^>]+)>)/ig,"")),
+        judet: (judet.value.replace(/(<([^>]+)>)/ig,"")),
+        oras: (oras.value.replace(/(<([^>]+)>)/ig,"")),
+        adresa: (adresa.value.replace(/(<([^>]+)>)/ig,"")),
+        password: (pw.value.replace(/(<([^>]+)>)/ig,""))
     }
 
     const response = await fetch('http://localhost:8000/api/register', {

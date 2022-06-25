@@ -2,7 +2,7 @@ function adForm() {
     if (document.getElementById("main-div")) {
         console.log("hello")
     }
-        document.getElementById("main-div").style.display = 'flex';
+        document.getElementById("main-div").style.display = 'none';
 
     document.getElementById("adDiv").style.display = 'flex';
     if(document.getElementById("rentADS")) {

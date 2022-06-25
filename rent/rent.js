@@ -21,6 +21,7 @@ function adFormMobil() {
     document.getElementById("adDiv").style.display = 'flex';
     if(document.getElementById("rentADS")) {
         document.getElementById("rentADS").style.display = 'none';
+        if(document.getElementById("rentAdRowId"))
         document.getElementById("rentAdRowId").remove();
     }
 }
@@ -32,6 +33,7 @@ function showAds() {
     }
     if(document.getElementById("rentADS")) {
         document.getElementById("rentADS").style.display = 'none';
+        if(document.getElementById("rentAdRowId"))
         document.getElementById("rentAdRowId").remove();
     }
 }

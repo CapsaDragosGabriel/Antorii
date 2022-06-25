@@ -914,7 +914,9 @@ const server = http.createServer((req, res) => {
             }
             console.log(JSON.stringify(result));
             userDB.getServiceByToken(result.token).then(r => {
-
+            let notGood={
+                raspuns:"not good"
+            }
                 if (r == "consumer") {
                     userDB.getIDByToken(result.token).then(f => {
                         let reservation = {
@@ -923,9 +925,17 @@ const server = http.createServer((req, res) => {
                             rental_date:result.from,
                             expiration_date:result.to,
                         }
-                        rentDB.makeReservation(reservation)
-                        let raspuns={raspuns:"done"};
-                        res.end(JSON.stringify(raspuns));
+                        rentDB.checkReservation(reservation.rentID,reservation.rental_date,reservation.expiration_date).then(r=>{
+
+                            if(r=="nu")
+                            {
+                                rentDB.makeReservation(reservation)
+                                let raspuns={raspuns:"done"};
+                                res.end(JSON.stringify(raspuns));
+                            }
+                            else res.end(JSON.stringify(notGood));
+                        })
+
                     })
 
                 }

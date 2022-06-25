@@ -78,6 +78,19 @@ async function getRentCost(rentPeriodID) {
     })
 
 }
+async function checkReservation(rentID,rental_date,expiration_date) {
+    return new Promise((resolve, reject) => {
+        var sql = "select * from rent_periods where rentID=? and rental_date=? and expiration_date=?"
+        con.query(sql,[rentID,rental_date,expiration_date], function (err, result) {
+            if (err) throw err;
+            if(result[0]!=undefined)
+                resolve("da")
+            else
+            resolve("nu")
+        })
+    })
+
+}
 
 async function getRentPeriodID(rentID, rental_date) {
     return new Promise((resolve, reject) => {
@@ -146,10 +159,13 @@ reservation = {
     expiration_date: '2022-07-01',
     consumerID: 11
 }
-
+checkReservation(1,"2022-06-17","2022-06-25").then(r=>{
+    console.log(r);
+})
 module.exports={
     getRentsAvailableInPeriod,
     getRentsAvailableInPeriodType,
+    checkReservation,
     getRentPeriodID,
     getRentID,
     getRentCost,

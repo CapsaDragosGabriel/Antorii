@@ -2,11 +2,13 @@ function adForm() {
     if (document.getElementById("main-div")) {
         console.log("hello")
     }
-    document.getElementById("main-div").style.display = 'none';
+        document.getElementById("main-div").style.display = 'flex';
 
     document.getElementById("adDiv").style.display = 'flex';
     if(document.getElementById("rentADS")) {
         document.getElementById("rentADS").style.display = 'none';
+
+        if(document.getElementById("rentAdRowId"))
         document.getElementById("rentAdRowId").remove();
     }
 }
@@ -46,6 +48,7 @@ function showAdsMobil() {
     }
     if(document.getElementById("rentADS")) {
         document.getElementById("rentADS").style.display = 'none';
+        if(document.getElementById("rentAdRowId"))
         document.getElementById("rentAdRowId").remove();
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <userTotal>
 <stat>
-<total>783.12</total>
+<total>854.51</total>
     <id>3</id>
     <first_name>NUme</first_name>
     <last_name>prenume</last_name>
@@ -16,7 +16,7 @@
     <service>consumer</service>
     </stat>
 <stat>
-<total>0</total>
+<total>62.62</total>
     <id>4</id>
     <first_name>Fechita</first_name>
     <last_name>Antonio</last_name>
@@ -26,8 +26,8 @@
     <city>Doxat</city>
     <county>Team</county>
     <localization>Fraiere</localization>
-    <token></token>
-    <created_token_time></created_token_time>
+    <token>gtl6TuoPnWkvCDdD</token>
+    <created_token_time>Sat Jun 25 2022 09:37:12 GMT+0300 (Eastern European Summer Time)</created_token_time>
     <service>consumer</service>
     </stat>
 <stat>

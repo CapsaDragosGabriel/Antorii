@@ -1,4 +1,4 @@
-const stats = require('../stats.js')
+const stats = require('../database/stats.js')
 
 // console.log(stats)
 

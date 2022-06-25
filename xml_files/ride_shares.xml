@@ -10,7 +10,7 @@
     <estimated>20</estimated>
     <price>0</price>
     <feedback></feedback>
-    <rating>1</rating>
+    <rating>0</rating>
     </stat>
 <stat>
 <id>4</id>
@@ -22,7 +22,7 @@
     <estimated>20</estimated>
     <price>0</price>
     <feedback></feedback>
-    <rating>1</rating>
+    <rating>3</rating>
     </stat>
 <stat>
 <id>5</id>
@@ -34,7 +34,7 @@
     <estimated>20</estimated>
     <price>0</price>
     <feedback></feedback>
-    <rating>1</rating>
+    <rating>0</rating>
     </stat>
 <stat>
 <id>6</id>
@@ -46,7 +46,7 @@
     <estimated>20</estimated>
     <price>0</price>
     <feedback></feedback>
-    <rating>1</rating>
+    <rating>0</rating>
     </stat>
 <stat>
 <id>7</id>
@@ -58,7 +58,7 @@
     <estimated>20</estimated>
     <price>0</price>
     <feedback></feedback>
-    <rating>1</rating>
+    <rating>0</rating>
     </stat>
 <stat>
 <id>8</id>
@@ -70,7 +70,7 @@
     <estimated>20</estimated>
     <price>0</price>
     <feedback>ASOKASFPASK</feedback>
-    <rating>4</rating>
+    <rating>0</rating>
     </stat>
 <stat>
 <id>9</id>
@@ -82,7 +82,7 @@
     <estimated>20</estimated>
     <price>0</price>
     <feedback>Buna cursa</feedback>
-    <rating>5</rating>
+    <rating>4</rating>
     </stat>
 <stat>
 <id>10</id>
@@ -94,7 +94,7 @@
     <estimated>20</estimated>
     <price>0</price>
     <feedback></feedback>
-    <rating>1</rating>
+    <rating>0</rating>
     </stat>
 <stat>
 <id>11</id>
@@ -106,7 +106,7 @@
     <estimated>20</estimated>
     <price>25</price>
     <feedback></feedback>
-    <rating>1</rating>
+    <rating>0</rating>
     </stat>
 <stat>
 <id>12</id>
@@ -118,7 +118,7 @@
     <estimated>16:33</estimated>
     <price>139.79</price>
     <feedback></feedback>
-    <rating>1</rating>
+    <rating>0</rating>
     </stat>
 <stat>
 <id>13</id>
@@ -130,6 +130,30 @@
     <estimated>03:48</estimated>
     <price>83.33</price>
     <feedback></feedback>
-    <rating></rating>
+    <rating>0</rating>
+    </stat>
+<stat>
+<id>14</id>
+    <consumerID>4</consumerID>
+    <providerID>12</providerID>
+    <start>Platim si noi</start>
+    <finish>Ceva banuti</finish>
+    <status>done</status>
+    <estimated>10:34</estimated>
+    <price>62.62</price>
+    <feedback></feedback>
+    <rating>0</rating>
+    </stat>
+<stat>
+<id>15</id>
+    <consumerID>3</consumerID>
+    <providerID>12</providerID>
+    <start>testleave</start>
+    <finish>testgo</finish>
+    <status>done</status>
+    <estimated>12:24</estimated>
+    <price>71.39</price>
+    <feedback></feedback>
+    <rating>0</rating>
     </stat>
 </ride_shares>

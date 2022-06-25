@@ -259,7 +259,9 @@ function showDeliveryStats() {
 
 
 function multiDownload() {
+    setTimeout(function(){},8000);
     var urls = [
+        '../goodScripts/document.pdf',
         '../csv_files/delivery.csv',
         '../csv_files/items.csv',
         '../csv_files/ordered_items.csv',
@@ -278,7 +280,6 @@ function multiDownload() {
         '../xml_files/restaurants.xml',
         '../xml_files/restaurantsRSS.xml',
         '../xml_files/restaurantsProfit.xml',
-        '../database/stats/document.pdf',
         '../xml_files/ride_shares.xml',
         '../xml_files/userCount.xml',
         '../xml_files/userData.xml',
@@ -288,8 +289,9 @@ function multiDownload() {
         '../xml_files/users.xml',
 
     ]
+
 // var urls=[`../csv_files/archive.zip`]
-    var interval = setInterval(download, 300, urls);
+    var interval = setInterval(download, 500, urls);
 
     function download(urls) {
         var url = urls.pop();

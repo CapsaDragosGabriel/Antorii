@@ -7,8 +7,7 @@ let itemDB = require("../database/itemManager")
 let statsDB = require("../database/stats");
 let rentDB = require("../database/rentManager");
 let XMLs=require("../admin/getXML");
-let pdfExporter=require("../database/stats/pdfExporter")
-
+let pdfExporter=require("./pdfExporter")
 const http = require('http');
 
 const nodemailer = require('nodemailer');
@@ -1115,9 +1114,13 @@ const server = http.createServer((req, res) => {
                     if (p == "admin") {
                         statsDB.aggregateUserData().then(p => {
                             XMLs.asdf();
-                            pdfExporter.exportPDF();
-                            // XMLs.downloadCsv();
-                            res.end(JSON.stringify(p))
+                           pdfExporter.exportPDF().then(
+                               ()=>{
+                                   // setTimeout(function(){},2000)
+                                   res.end(JSON.stringify(p))
+                               }
+                           )
+
                         });
 
                     }

@@ -1,5 +1,5 @@
 const fs = require('fs');
-const stats = require('../stats.js')
+const stats = require('../database/stats.js')
 const PDFDocument = require("pdfkit-table");
 const chartGenerator = require('./chartGenerator.js')
 
@@ -188,18 +188,23 @@ function generatePDF() {
 
 }
 
-function exportPDF() {
-    chartGenerator.getUsersPerCountyChart().then(() => {
-        chartGenerator.getServicesPieChart().then(() => {
-            chartGenerator.getConsumerProviderPieChart().then(() => {
-                setTimeout(generatePDF, 2000)
-
+async function exportPDF() {
+    return new Promise((resolve)=>{
+        chartGenerator.getUsersPerCountyChart().then(() => {
+            chartGenerator.getServicesPieChart().then(() => {
+                chartGenerator.getConsumerProviderPieChart().then(() => {
+                    setTimeout(generatePDF, 5000)
+                    console.log("GENERAT");
+                    resolve(1);
+                })
             })
         })
     })
+
 }
+// exportPDF();
 module.exports={
     exportPDF,
-        generatePDF
+        generatePDF,
 }
 // generatePDF()

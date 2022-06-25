@@ -18,7 +18,7 @@ async function register()
     var judet=document.getElementById('judet');
     var oras=document.getElementById('oras');
     var adresa=document.getElementById('adresa');
-    console.log(striptags(email.value) + " "+ striptags(pw.value));
+    // console.log(striptags(email.value) + " "+ striptags(pw.value));
     let returnat=true;
     const data = {
         email: (email.value.replace(/(<([^>]+)>)/ig,"")),
